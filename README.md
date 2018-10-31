@@ -1,0 +1,2 @@
+# Ampelsteuerung
+Semesterprojekt Objektorientierte Programmierung
