@@ -1,7 +1,7 @@
 package com.company;
 
 /**
- * Class Pedstrain: xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * Class PublicTransport: xxxxxxxxxxxxxxx
  *
  * LONG DESCRIOTION
  *
@@ -10,10 +10,10 @@ package com.company;
  * @date    04.11.2018
  */
 
-public class Pedstrain
+public class PublicTransport extends Car
 {
 
-    public Pedstrain()
+    public PublicTransport()
     {
 
 

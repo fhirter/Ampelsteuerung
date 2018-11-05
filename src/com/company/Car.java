@@ -10,7 +10,7 @@ package com.company;
  * @date    04.11.2018
  */
 
-public class Car extends Pedstrain
+public class Car extends Pedestrain
 {
 
     public Car()
