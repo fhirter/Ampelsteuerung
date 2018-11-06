@@ -7,11 +7,11 @@ public class Controller{
 
     public Button start;
 
-    public void handleButtonClick(){
-        start.setText("ok");
 
-    }
 
-    public void newProjekt(MouseEvent mouseEvent) {
+
+    public void newProject(MouseEvent mouseEvent) {
+        // Erstellen eines neuen Projektes
+
     }
 }
