@@ -16,18 +16,18 @@
          <children>
             <MenuBar fx:id="newProjekt" onMouseClicked="#newProjekt">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="Datei">
                   <items>
                         <MenuItem mnemonicParsing="false" text="Neues Projekt" />
                     <MenuItem mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="Bearbeiten">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Delete" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="Hilfe">
                   <items>
                     <MenuItem mnemonicParsing="false" text="About" />
                   </items>
