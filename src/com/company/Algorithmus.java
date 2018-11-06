@@ -18,16 +18,12 @@ import java.util.List;
 public class Algorithmus
 {
 
-/*
-    List<String> nodes = new LinkedList<>();
-        nodes.add("A");
-        nodes.add("B");
-        nodes.add("C");
-        nodes.add("D");
 
 
 
-*/
+
+
+
 
     public Algorithmus()
     {

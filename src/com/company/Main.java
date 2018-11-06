@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.util.LinkedList;
 import java.util.List;
 
+
 /**
  * Class Main: Mainmethode for the TEKO project "Ampelsteuerung".
  *
@@ -22,10 +23,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("primaryStage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
+        Parent root = loader.load();
+
         primaryStage.setTitle("Ampelsteuerung");
-        primaryStage.setScene(new Scene(root, 1920, 1200));
+
+        Controller controller = loader.getController();
+
+        List<String> nodes = new LinkedList<>();
+        nodes.add("Algorithm A");
+        nodes.add("Algorithm B");
+        nodes.add("Algorithm C");
+        nodes.add("Algorithm D");
+        controller.setSetchoiceOfAlgorithm(nodes);
+
+        primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
+
 
     }
 
