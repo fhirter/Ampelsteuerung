@@ -1,6 +1,7 @@
 package com.company;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,11 +20,7 @@ public class Algorithmus
 {
 
 
-    List<String> nodes = new LinkedList<>();
-        nodes.add("A");
-        nodes.add("B");
-        nodes.add("C");
-        nodes.add("D");
+
 
 
 
