@@ -20,10 +20,15 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("primaryStage.fxml"));
         primaryStage.setTitle("Ampelsteuerung");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setScene(new Scene(root, 1200, 1200));
         primaryStage.show();
+
     }
 
+    @Override
+    public void stop(){
+
+    }
 
     public static void main(String[] args)
     {
