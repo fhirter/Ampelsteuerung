@@ -31,10 +31,10 @@ public class Main extends Application {
         Controller controller = loader.getController();
 
         List<String> nodes = new LinkedList<>();
-        nodes.add("A");
-        nodes.add("B");
-        nodes.add("C");
-        nodes.add("D");
+        nodes.add("Algorithm A");
+        nodes.add("Algorithm B");
+        nodes.add("Algorithm C");
+        nodes.add("Algorithm D");
         controller.setSetchoiceOfAlgorithm(nodes);
 
         primaryStage.setScene(new Scene(root, 800, 500));
