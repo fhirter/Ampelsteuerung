@@ -18,7 +18,7 @@ import java.util.List;
 public class Algorithmus
 {
 
-
+/*
     List<String> nodes = new LinkedList<>();
         nodes.add("A");
         nodes.add("B");
@@ -27,7 +27,7 @@ public class Algorithmus
 
 
 
-
+*/
 
     public Algorithmus()
     {
