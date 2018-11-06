@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="428.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.Controller">
@@ -41,16 +42,18 @@
       <Canvas height="357.0" width="655.0" BorderPane.alignment="CENTER" />
    </center>
    <right>
-      <HBox prefHeight="403.0" prefWidth="103.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox>
-               <children>
-                  <CheckBox mnemonicParsing="true" text="CheckBox" />
-                  <CheckBox mnemonicParsing="false" text="CheckBox" />
-                  <CheckBox mnemonicParsing="false" text="CheckBox" />
-                  <ChoiceBox prefWidth="150.0" />
-               </children>
-            </VBox>
-         </children></HBox>
+      <HBox prefHeight="403.0" prefWidth="103.0" BorderPane.alignment="CENTER" />
    </right>
+   <left>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <ChoiceBox prefWidth="150.0" />
+            <Pane prefHeight="20.0" prefWidth="150.0" />
+            <CheckBox mnemonicParsing="true" text="CheckBox" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" />
+            <Pane layoutX="10.0" layoutY="10.0" prefHeight="11.0" prefWidth="150.0" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>
