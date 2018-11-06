@@ -4,6 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Class Main: Mainmethode for the TEKO project "Ampelsteuerung".
  *
@@ -25,9 +29,6 @@ public class Main extends Application {
 
     }
 
-
-
-    
     @Override
     public void stop(){
 
