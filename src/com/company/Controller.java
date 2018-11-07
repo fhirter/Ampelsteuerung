@@ -1,35 +1,30 @@
 package com.company;
 
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCombination;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+
+import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class Controller{
 
-    public Button start;
-
-
+    public MenuItem exitSoftware;
 
 
     @FXML
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
-    @FXML
-    private EventHandler exitSoftware;
 
 
     public void handleSubmitButtonAction() {
-        String message = "Your Choice:\n";
+/*        String message = "Your Choice:\n";
 
     System.out.println(message);
+    */
     }
 
 
@@ -44,17 +39,15 @@ public class Controller{
         setnumberOfCrossing.getItems().addAll(crossing);
     }
 
-
     public void handleButtonClick(){
-        start.setText("ok");
 
-    }
+}
+
 
     public void newProject(MouseEvent mouseEvent) {
         // Erstellen eines neuen Projektes
 
     }
-
 
 
 

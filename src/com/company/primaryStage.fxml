@@ -26,7 +26,7 @@
                 <Menu mnemonicParsing="false" text="Datei">
                      <items>
                         <MenuItem fx:id="newProject" mnemonicParsing="false" onAction="#newProject" text="Neues Projekt" />
-                        <MenuItem fx:id="exitSoftware" mnemonicParsing="false" text="Exit" />
+                        <MenuItem fx:id="exitSoftware" mnemonicParsing="false" onAction="#handleButtonClick" text="Exit" />
                      </items></Menu>
                 <Menu mnemonicParsing="false" text="Bearbeiten">
                   <items>
