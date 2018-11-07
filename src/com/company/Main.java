@@ -30,12 +30,19 @@ public class Main extends Application {
 
         Controller controller = loader.getController();
 
-        List<String> nodes = new LinkedList<>();
-        nodes.add("Algorithm A");
-        nodes.add("Algorithm B");
-        nodes.add("Algorithm C");
-        nodes.add("Algorithm D");
-        controller.setSetchoiceOfAlgorithm(nodes);
+        List<String> algorithm = new LinkedList<>();
+        algorithm.add("Algorithm A");
+        algorithm.add("Algorithm B");
+        algorithm.add("Algorithm C");
+        algorithm.add("Algorithm D");
+        controller.setSetchoiceOfAlgorithm(algorithm);
+
+        List<String> crossing = new LinkedList<>();
+        crossing.add("3 Streets");
+        crossing.add("4 Streets");
+        crossing.add("5 Streets");
+        controller.setSetnumberOfCrossing(crossing);
+
 
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
