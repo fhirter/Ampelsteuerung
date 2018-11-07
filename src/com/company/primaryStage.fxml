@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane prefHeight="428.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.Controller">
+<BorderPane prefHeight="428.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.Controller">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -26,6 +26,7 @@
                 <Menu mnemonicParsing="false" text="Datei">
                      <items>
                         <MenuItem fx:id="newProject" mnemonicParsing="false" onAction="#newProject" text="Neues Projekt" />
+                        <MenuItem fx:id="exitSoftware" mnemonicParsing="false" text="Exit" />
                      </items></Menu>
                 <Menu mnemonicParsing="false" text="Bearbeiten">
                   <items>
