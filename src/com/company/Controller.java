@@ -3,9 +3,12 @@ package com.company;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
-
+import javafx.scene.shape.Rectangle;
+import org.w3c.dom.css.Rect;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +24,8 @@ public class Controller {
     CheckBox checkboxbusway;
     @FXML
     CheckBox checkboxtramway;
-
+    @FXML
+    Rectangle street;
 
     @FXML
     private ChoiceBox<String> setchoiceOfAlgorithm;
@@ -49,7 +53,11 @@ public class Controller {
                 System.out.println(setnumberOfCrossing.getValue());
                 System.out.println(setchoiceOfAlgorithm.getValue());
 
+
+                street.setVisible(true);
+
             }
+
 
 
             @FXML

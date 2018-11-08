@@ -45,7 +45,7 @@ public class Main extends Application {
         controller.setSetnumberOfCrossing(crossing);
 
 
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 1920, 1080));
         primaryStage.show();
 
 
