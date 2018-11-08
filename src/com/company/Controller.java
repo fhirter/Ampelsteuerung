@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.logging.Handler;
 
 public class Controller {
 
-    public MenuItem exitSoftware;
+    @FXML
+    MenuItem exitSoftware;
     @FXML
     CheckBox checkboxvelostripes;
     @FXML
@@ -30,6 +32,7 @@ public class Controller {
     @FXML
     private void handleSubmitButtonAction() {
         String message = "Your Choice:\n";
+
 
         if (checkboxvelostripes.isSelected())
             message += "Velo Stripes TRUE\n";
@@ -60,7 +63,8 @@ public class Controller {
                 setnumberOfCrossing.getItems().addAll(crossing);
             }
 
-            public void handleButtonClick () {
+            public void handleExitSoftware () {
+            System.exit(0);
 
             }
 
