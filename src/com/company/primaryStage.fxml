@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.TextFlow?>
 
 <BorderPane prefHeight="428.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.Controller">
    <top>
@@ -63,15 +62,12 @@
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
                </VBox.margin></CheckBox>
-            <Pane layoutX="10.0" layoutY="81.0" prefHeight="46.0" prefWidth="150.0">
-               <children>
-                  <TextFlow layoutY="-80.0" prefHeight="200.0" prefWidth="200.0" />
-               </children></Pane>
+            <Pane layoutX="10.0" layoutY="81.0" prefHeight="46.0" prefWidth="150.0" />
             <TextField editable="false" promptText="Choice of " text="Choice the Crossing">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin></TextField>
-            <ChoiceBox fx:id="setnumberOfCrossing" accessibleText="h" onDragDetected="#handlesetnumberOfCrossing" prefWidth="150.0">
+            <ChoiceBox fx:id="setnumberOfCrossing" accessibleText="h" prefWidth="150.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></ChoiceBox>

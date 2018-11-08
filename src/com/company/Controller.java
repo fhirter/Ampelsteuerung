@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Handler;
 
@@ -27,31 +28,27 @@ public class Controller {
 
 
     @FXML
-    private void handlesetnumberOfCrossing() {
-/*        String message = "Your Choice:\n";
-
-    System.out.println(message);
-    */
-    }
-
-    @FXML
     private void handleSubmitButtonAction() {
         String message = "Your Choice:\n";
 
         if (checkboxvelostripes.isSelected())
-            message += "Velo Stripes TRUE";
+            message += "Velo Stripes TRUE\n";
 
             if (checkboxbusway.isSelected())
-                message += "Bus Way TRUE";
+                message += "Bus Way TRUE\n";
 
                 if (checkboxtramway.isSelected())
-                    message += "Tramway TRUE";
+                    message += "Tramway TRUE\n";
 
 
 
                 System.out.println(message);
+                System.out.println(setnumberOfCrossing.getValue());
+                System.out.println(setchoiceOfAlgorithm.getValue());
 
             }
+
+
             @FXML
             public void setSetchoiceOfAlgorithm (List < String > algorithm) {
 
