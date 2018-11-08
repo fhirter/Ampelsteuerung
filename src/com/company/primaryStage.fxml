@@ -2,14 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -67,19 +67,20 @@
                   <Insets left="20.0" top="20.0" />
                </VBox.margin></CheckBox>
             <Pane layoutX="10.0" layoutY="81.0" prefHeight="46.0" prefWidth="150.0" />
-            <TextField editable="false" promptText="Choice of " text="Choice the Crossing">
+            <Label lineSpacing="1.0" prefHeight="26.0" prefWidth="136.0" text="Crossings">
                <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin></TextField>
+                  <Insets top="10.0" />
+               </VBox.margin></Label>
             <ChoiceBox fx:id="setnumberOfCrossing" accessibleText="h" prefWidth="150.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></ChoiceBox>
-            <TextField editable="false" text="Choice the Algorithm typ">
+            <Label layoutX="10.0" layoutY="188.0" lineSpacing="1.0" prefHeight="26.0" prefWidth="136.0" text="Algorithm type">
                <VBox.margin>
                   <Insets top="20.0" />
-               </VBox.margin></TextField>
-            <ChoiceBox fx:id="setchoiceOfAlgorithm" layoutX="10.0" layoutY="92.0" prefHeight="34.0" prefWidth="150.0">
+               </VBox.margin>
+            </Label>
+            <ChoiceBox fx:id="setchoiceOfAlgorithm" layoutX="10.0" layoutY="92.0" prefWidth="150.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></ChoiceBox>
@@ -137,18 +138,21 @@
                </cursor>
             </Line>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="49.0" layoutX="10.0" layoutY="450.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" width="715.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="49.0" layoutX="10.0" layoutY="489.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" width="715.0" GridPane.rowIndex="5" GridPane.valignment="TOP" />
             <Line endX="610.0" fill="#eaf214" layoutX="589.0" layoutY="539.0" startX="-100.0" stroke="#d0c721" strokeWidth="3.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </Line>
-            <Line endX="610.0" fill="#eaf214" layoutX="112.0" layoutY="596.0" startX="-100.0" stroke="#d0c721" strokeWidth="3.0" GridPane.rowIndex="5" GridPane.valignment="TOP">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </Line>
-            <Canvas height="371.0" width="534.0" GridPane.rowIndex="2" />
+            <Group GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+               <children>
+                  <Line endX="610.0" fill="#eaf214" nodeOrientation="RIGHT_TO_LEFT" startX="-100.0" stroke="#d0c721" strokeWidth="3.0">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Line>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="49.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" width="346.0" />
+               </children>
+            </Group>
          </children>
       </GridPane>
    </center>
