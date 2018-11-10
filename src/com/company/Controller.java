@@ -26,6 +26,8 @@ public class Controller {
     CheckBox checkboxtramway;
     @FXML
     Rectangle street;
+    @FXML
+    Checkbox CheckCheck;
 
     @FXML
     private ChoiceBox<String> setchoiceOfAlgorithm;
