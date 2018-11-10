@@ -29,7 +29,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Ampelsteuerung");
 
-        Controller controller = loader.getController();
+        ControllerPrimaryStage controller = loader.getController();
 
         List<String> algorithm = new LinkedList<>();
         algorithm.add("Algorithm A");
