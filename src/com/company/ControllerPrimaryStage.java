@@ -32,6 +32,8 @@ public class ControllerPrimaryStage {
     CheckBox checkboxtramway;
     @FXML
     Rectangle street;
+    @FXML
+    Checkbox CheckCheck;
 
     @FXML
     private ChoiceBox<String> setchoiceOfAlgorithm;
