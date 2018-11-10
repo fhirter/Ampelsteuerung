@@ -87,7 +87,7 @@
                </VBox.margin></ChoiceBox>
             <Pane layoutX="10.0" layoutY="117.0" prefHeight="234.0" prefWidth="150.0">
                <children>
-                  <Button fx:id="startButtonConfiguration" layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction" prefHeight="45.0" prefWidth="153.0" text="Start Configuration" />
+                  <Button fx:id="startButtonConfiguration" layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" onAction="#startButtonConfig" prefHeight="45.0" prefWidth="153.0" text="Start Configuration" />
                </children></Pane>
             <Button mnemonicParsing="false" text="Statistik">
                <VBox.margin>
@@ -97,7 +97,7 @@
       </VBox>
    </left>
    <center>
-      <GridPane>
+      <GridPane prefHeight="824.0" prefWidth="1585.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -144,12 +144,15 @@
                </cursor>
             </Line>
             <Group GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="49.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" width="712.0" GridPane.rowIndex="5" />
-            <Line endX="610.0" fill="#eaf214" nodeOrientation="RIGHT_TO_LEFT" startX="-100.0" stroke="#d0c721" strokeWidth="3.0" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="49.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" width="715.0" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+            <Line endX="610.0" fill="#eaf214" nodeOrientation="RIGHT_TO_LEFT" startX="-100.0" stroke="#d0c721" strokeWidth="3.0" GridPane.rowIndex="5" GridPane.valignment="TOP">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </Line>
+         <BorderPane.margin>
+            <Insets left="50.0" top="20.0" />
+         </BorderPane.margin>
       </GridPane>
    </center>
    <bottom>

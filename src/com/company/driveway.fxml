@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.ControllerDriveway">
+<AnchorPane prefHeight="1200.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.ControllerDriveway">
    <children>
-      <Label layoutX="226.0" layoutY="145.0" prefHeight="66.0" prefWidth="141.0" text="Das ist ein Test" />
+      <Canvas height="1088.0" layoutX="87.0" layoutY="52.0" width="1828.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="132.0" layoutX="87.0" layoutY="534.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="391.0" />
    </children>
 </AnchorPane>
