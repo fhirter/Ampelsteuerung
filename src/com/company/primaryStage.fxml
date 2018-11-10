@@ -38,7 +38,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Hilfe">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem fx:id="aboutMenu" mnemonicParsing="false" onAction="#openAboutWindow" text="About" />
                   </items>
                 </Menu>
               </menus>
@@ -117,7 +117,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <children>
             <Rectangle fx:id="street" arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="132.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="715.0" GridPane.rowIndex="4" />
             <Line fill="#bababa" startX="-100.0" strokeWidth="3.0" GridPane.rowIndex="4">
                <GridPane.margin>
@@ -143,17 +142,13 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </Line>
-            <Group GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-               <children>
-                  <Line endX="610.0" fill="#eaf214" nodeOrientation="RIGHT_TO_LEFT" startX="-100.0" stroke="#d0c721" strokeWidth="3.0">
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor>
-                  </Line>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="49.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" width="346.0" />
-               </children>
-            </Group>
-         </children>
+            <Group GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="49.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" width="712.0" GridPane.rowIndex="5" />
+            <Line endX="610.0" fill="#eaf214" nodeOrientation="RIGHT_TO_LEFT" startX="-100.0" stroke="#d0c721" strokeWidth="3.0" GridPane.rowIndex="5">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </Line>
       </GridPane>
    </center>
 </BorderPane>

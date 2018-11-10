@@ -2,20 +2,26 @@ package com.company;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Handler;
 
-public class Controller {
+public class ControllerPrimaryStage {
 
+
+    @FXML
+    Pane driveway;
     @FXML
     MenuItem exitSoftware;
     @FXML
@@ -77,11 +83,17 @@ public class Controller {
             }
 
 
-            public void newProject (MouseEvent mouseEvent){
+            public void newProject (MouseEvent mouseEvent) throws IOException {
                 // Erstellen eines neuen Projektes
+
 
             }
 
 
-        }
+    public void openAboutWindow(javafx.event.ActionEvent actionEvent) throws IOException  {
 
+        Pane newLoadedPane = FXMLLoader.load(getClass().getResource("driveway.fxml"));
+        driveway.getChildren().add(newLoadedPane);
+
+    }
+}
