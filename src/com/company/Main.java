@@ -63,9 +63,6 @@ public class Main extends Application {
 //       trafficLight.launchGui();
 
 
-
-
-
         launch(args);
         Algorithmus crossroadSimulate = new Algorithmus();
 

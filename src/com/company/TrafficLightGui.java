@@ -41,9 +41,8 @@ public class TrafficLightGui
     private trafficLightState actTrafficLightState;
 
     private Timeline trafficLightStateChangeTimer = new Timeline(new KeyFrame(
-            Duration.millis(1000),
+            Duration.millis(500),
             ae -> trafficLightStateChangeTimerTick()));
-    private int timerTick = 0;
     private String trafficLightOrder = "";
 
 
@@ -108,7 +107,6 @@ public class TrafficLightGui
     }
 
 
-    // TODO: 11.11.2018 TimerTick muss noch entfernt werden!!!!!!
     /**
      * trafficLightyellowFlash(): Let the trafficLight flash with the yellow signal.
      *
@@ -122,12 +120,10 @@ public class TrafficLightGui
     {
         if(stateToRed.isSelected())
         {
-            timerTick = 0;
             trafficLightStateChangeTimer("switchToRed");
         }
         else if(stateToGreen.isSelected())
         {
-            timerTick = 3;
             trafficLightStateChangeTimer("switchToGreen");
         }
         else if(flashYellow.isSelected())
@@ -180,11 +176,11 @@ public class TrafficLightGui
         {
             case car: {
                 symbolPedestrain.setVisible(false);
-                return;
+                break;
             }
             case pedestrain: {
                 symbolPedestrain.setVisible(true);
-                return;
+                break;
             }
         }
     }
@@ -294,9 +290,9 @@ public class TrafficLightGui
 
 
     /**
-     * trafficLightStateChangeTimerTick(): Initialize a continous timer.
+     * trafficLightStateChangeTimerTick(): Change in combination with the timer the lights from the trafficLight
      *
-     * Every xxSeconds the methode trafficLightChangeStateTimerTick() is called from the timer.
+     * Every xxSeconds the methode trafficLightStateChangeTimerTick() is called from the timer.
      *
      * @version 1.0
      * @autor   Schweizer Patrick
@@ -304,15 +300,20 @@ public class TrafficLightGui
      */
     public void trafficLightStateChangeTimerTick()
     {
+        int actStateTrafficLight = 0;
+
         try {
+
+            // Returns the from the actual trafficLight state the integer number from the enum
+            actStateTrafficLight = trafficLightState.valueOf(getActTrafficLightState().toString()).ordinal();
+            System.out.println("Act TrafficLight: " + actStateTrafficLight + " " + trafficLightState.values()[actStateTrafficLight]);
+
             switch (trafficLightOrder) {
                 case "simulation": {
-                    changeTrafficLightColor(trafficLightState.values()[timerTick]);
-                    System.out.println("Simulation is running. TrafficLightState: " + timerTick);
-                    timerTick++;
-                    if (timerTick >= trafficLightState.values().length) {
-                        timerTick = 0;
-                    }
+                    actStateTrafficLight++;
+                    if(actStateTrafficLight >= trafficLightState.values().length)
+                    {actStateTrafficLight = 0;}
+                    changeTrafficLightColor(trafficLightState.values()[actStateTrafficLight]);
                     break;
                 }
                 case "flashYellow": {
@@ -325,8 +326,7 @@ public class TrafficLightGui
                 }
                 case "switchToRed": {
                     if (!getActTrafficLightState().equals(trafficLightState.red)) {
-                        changeTrafficLightColor(trafficLightState.values()[timerTick]);
-                        timerTick++;
+                        changeTrafficLightColor(trafficLightState.values()[actStateTrafficLight+1]);
                     } else {
                         trafficLightStateChangeTimer.stop();
                     }
@@ -334,8 +334,7 @@ public class TrafficLightGui
                 }
                 case "switchToGreen": {
                     if (!getActTrafficLightState().equals(trafficLightState.green)) {
-                        changeTrafficLightColor(trafficLightState.values()[timerTick]);
-                        timerTick--;
+                        changeTrafficLightColor(trafficLightState.values()[actStateTrafficLight-1]);
                     } else {
                         trafficLightStateChangeTimer.stop();
                     }
