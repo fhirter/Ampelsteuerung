@@ -119,4 +119,14 @@ public class ControllerPrimaryStage {
         }
 
     }
+
+    public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent)
+    {
+        TrafficLight trafficLight = new TrafficLight();
+        try {
+            trafficLight.launchGui();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

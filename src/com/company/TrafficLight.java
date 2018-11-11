@@ -6,23 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class TrafficLight  extends Application
+public class TrafficLight
 {
-    @Override
-    public void start(Stage trafficLight) throws Exception
-    {
-        try
-        {
-            Parent TrafficLightGui = FXMLLoader.load(getClass().getResource("trafficLightGui.fxml"));
-            trafficLight.setTitle("TrafficLightGui");
-            trafficLight.setScene(new Scene(TrafficLightGui, 320, 200));
-            trafficLight.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     /**
      * launchGui(): Start gui for trafficLight
      *
@@ -31,8 +16,18 @@ public class TrafficLight  extends Application
      * @autor   Schweizer Patrick
      * @date    10.11.2018
      */
-    public void launchGui()
+    public void launchGui() throws Exception
     {
-        launch(null);
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightGui.fxml"));
+            Parent TrafficLightGui = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("TrafficLightGui");
+            stage.setScene(new Scene(TrafficLightGui));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
