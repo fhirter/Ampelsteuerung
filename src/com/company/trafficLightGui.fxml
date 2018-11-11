@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.TrafficLightGui">
+    <children>
+        <CheckBox fx:id="simulationOnOff" layoutX="194.0" layoutY="85.0" mnemonicParsing="false" onAction="#trafficLightRunSimulation" text="Simulation On/Off" />
+        <CheckBox fx:id="flashYellow" layoutX="194.0" layoutY="113.0" mnemonicParsing="false" onAction="#startChangeTrafficLightColor" text="Yellow flash" />
+        <CheckBox fx:id="stateToRed" layoutX="194.0" layoutY="139.0" mnemonicParsing="false" onAction="#startChangeTrafficLightColor" text="Red" />
+        <CheckBox fx:id="stateToGreen" layoutX="194.0" layoutY="165.0" mnemonicParsing="false" onAction="#startChangeTrafficLightColor" text="Green" />
+        <Group>
+            <children>
+                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#000000f8" height="157.0" layoutX="15.0" layoutY="15.0" stroke="BLACK" width="55.0" />
+                <Circle fx:id="redLightTraffic" layoutX="43.0" layoutY="44.0" radius="20.0" stroke="BLACK" strokeType="INSIDE">
+                    <fill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.9883720930232558">
+                            <stops>
+                                <Stop color="RED" />
+                                <Stop color="RED" offset="0.17624521072796934" />
+                                <Stop color="RED" offset="1.0" />
+                            </stops>
+                        </RadialGradient>
+                    </fill>
+                </Circle>
+                <Circle fx:id="yellowLightTraffic" fill="#ababab" layoutX="43.0" layoutY="93.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fx:id="greenLightTraffic" fill="#ababab" layoutX="43.0" layoutY="143.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+            </children>
+        </Group>
+        <Group fx:id="symbolPedestrain" visible="false">
+            <children>
+                <Group layoutX="26.0" layoutY="36.0">
+                    <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Circle layoutX="17.0" layoutY="-4.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="7.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="24.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="12.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="19.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                    </children>
+                </Group>
+                <Group layoutX="26.0" layoutY="85.0">
+                    <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Circle layoutX="17.0" layoutY="-4.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="7.0" rotate="11.3" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="24.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" layoutY="11.0" rotate="28.6" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="19.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                    </children>
+                </Group>
+                <Group layoutX="26.0" layoutY="135.0" nodeOrientation="LEFT_TO_RIGHT">
+                    <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                        <Circle layoutX="17.0" layoutY="-4.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="7.0" rotate="39.8" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="24.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" layoutY="11.0" rotate="23.6" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="22.0" layoutY="11.0" rotate="-33.7" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                    </children>
+                </Group>
+            </children></Group>
+        <Group fx:id="groupRadioButton">
+            <children>
+                <RadioButton fx:id="trafficLightRed" layoutX="97.0" layoutY="24.0" mnemonicParsing="false" onAction="#trafficLightChangeColor" selected="true" text="Red">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="trafficLightGroup" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="trafficLightYellowRed" layoutX="97.0" layoutY="47.0" mnemonicParsing="false" onAction="#trafficLightChangeColor" text="YellowRed" toggleGroup="$trafficLightGroup" />
+                <RadioButton fx:id="trafficLightYellow" layoutX="97.0" layoutY="71.0" mnemonicParsing="false" onAction="#trafficLightChangeColor" text="Yellow" toggleGroup="$trafficLightGroup" />
+                <RadioButton fx:id="trafficLightGreen" layoutX="97.0" layoutY="96.0" mnemonicParsing="false" onAction="#trafficLightChangeColor" text="Green" toggleGroup="$trafficLightGroup" />
+                <RadioButton fx:id="trafficLightAllOn" layoutX="97.0" layoutY="128.0" mnemonicParsing="false" onAction="#trafficLightChangeColor" text="AllOn" toggleGroup="$trafficLightGroup" />
+                <RadioButton fx:id="trafficLightDark" layoutX="97.0" layoutY="150.0" mnemonicParsing="false" onAction="#trafficLightChangeColor" text="Off" toggleGroup="$trafficLightGroup" />
+                <RadioButton fx:id="trafficLightTypeCar" layoutX="194.0" layoutY="24.0" mnemonicParsing="false" onAction="#trafficLightSetType" selected="true" text="Car">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="trafficLightGroupType" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="trafficLightTypePedestrain" layoutX="194.0" layoutY="47.0" mnemonicParsing="false" onAction="#trafficLightSetType" text="Pedestrain" toggleGroup="$trafficLightGroupType" />
+            </children></Group>
+    </children>
+</Pane>

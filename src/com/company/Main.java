@@ -58,6 +58,14 @@ public class Main extends Application {
 
     public static void main(String[] args)
     {
+
+//        TrafficLight trafficLight = new TrafficLight();
+//       trafficLight.launchGui();
+
+
+
+
+
         launch(args);
         Algorithmus crossroadSimulate = new Algorithmus();
 
@@ -67,3 +75,5 @@ public class Main extends Application {
 
 
 }
+
+
