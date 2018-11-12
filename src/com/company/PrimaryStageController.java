@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Handler;
 
-public class ControllerPrimaryStage {
+public class PrimaryStageController {
 
 
     @FXML

@@ -1,6 +1,5 @@
 package com.company;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +19,7 @@ public class TrafficLight
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightGui.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
             Parent TrafficLightGui = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("TrafficLightGui");

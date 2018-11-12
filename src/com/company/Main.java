@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Ampelsteuerung");
 
-        ControllerPrimaryStage controller = loader.getController();
+        PrimaryStageController controller = loader.getController();
 
         List<String> algorithm = new LinkedList<>();
         algorithm.add("Algorithm A");
