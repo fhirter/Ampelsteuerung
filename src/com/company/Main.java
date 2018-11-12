@@ -36,7 +36,6 @@ public class Main extends Application {
         algorithm.add("Algorithm C");
         algorithm.add("Algorithm D");
         controller.setSetchoiceOfAlgorithm(algorithm);
-
         List<String> crossing = new LinkedList<>();
         crossing.add("3 Streets");
         crossing.add("4 Streets");

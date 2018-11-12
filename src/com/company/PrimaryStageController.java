@@ -1,7 +1,6 @@
 package com.company;
 
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,25 +9,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.w3c.dom.css.Rect;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class PrimaryStageController {
 
 
-    @FXML
-    AnchorPane aboutPane;
-    @FXML
-    Pane driveway;
+
     @FXML
     MenuItem exitSoftware;
     @FXML
@@ -39,12 +29,12 @@ public class PrimaryStageController {
     CheckBox checkboxtramway;
     @FXML
     Rectangle street;
-
+    @FXML
+    AnchorPane drivewayAnchor;
     @FXML
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
-
 
     @FXML
     private void handleSubmitButtonAction() {
@@ -104,25 +94,23 @@ public class PrimaryStageController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void startButtonConfig() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("driveway.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+                Parent root = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent)
     {
-        TrafficLight trafficLight = new TrafficLight();
+        TrafficLightView trafficLight = new TrafficLightView();
         try {
             trafficLight.launchGui();
         } catch (Exception e) {
