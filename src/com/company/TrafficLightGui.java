@@ -7,15 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import static java.sql.Types.NULL;
 
 public class TrafficLightGui
 {
@@ -31,10 +30,12 @@ public class TrafficLightGui
     @FXML   private RadioButton trafficLightTypeCar;
     @FXML   private RadioButton trafficLightTypePedestrain;
     @FXML   private Group symbolPedestrain;
+    @FXML   private Group trafficLightGuiGroup;
     @FXML   private CheckBox simulationOnOff;
     @FXML   private CheckBox flashYellow;
     @FXML   private CheckBox stateToRed;
     @FXML   private CheckBox stateToGreen;
+    @FXML   private Slider scaleFactor;
 
     private enum trafficLightType {car, pedestrain};
     private enum trafficLightState {green, yellow, yellowRed, red, dark, allOn;};
@@ -67,6 +68,20 @@ public class TrafficLightGui
         {
             setTrafficLightType(trafficLightType.pedestrain);
         }
+    }
+
+
+    /**
+     * changeTrafficLightScaleFactor(): Change the scale Factor from the GUI trafficLight
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    10.11.2018
+     * @arg     ActionEvent actionEvent
+     */
+    public void changeTrafficLightScaleFactor(MouseEvent mouseEvent)
+    {
+        setTrafficLightScaleFactor(scaleFactor.getValue());
     }
 
 
@@ -108,13 +123,13 @@ public class TrafficLightGui
 
 
     /**
-     * trafficLightyellowFlash(): Let the trafficLight flash with the yellow signal.
+     * startChangeTrafficLightColor(): Start the timer based change from the trafficLight.
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @return  enum actTrafficLightState
+     * @arg     ActionEvent actionEvent
      */
     public void startChangeTrafficLightColor(ActionEvent actionEvent)
     {
@@ -132,7 +147,7 @@ public class TrafficLightGui
         }
         else
         {
-            trafficLightStateChangeTimer("stopp");
+            trafficLightStateChangeTimer("timerStopp");
         }
     }
 
@@ -153,7 +168,7 @@ public class TrafficLightGui
         }
         else
         {
-            trafficLightStateChangeTimer("stopp");
+            trafficLightStateChangeTimer("timerStopp");
         }
     }
 
@@ -161,6 +176,43 @@ public class TrafficLightGui
     /***************************** Own methodes from the class **************************************************************************
 
      /**
+     * setTrafficLightSettings(): setAllSettings for the trafficlight.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    12.11.2018
+     * @arg     enum trafficLightType
+     * @arg     double scaleFactor
+     */
+    public void setTrafficLightSettings(trafficLightType newTrafficLightType, double scaleFactor)
+    {
+        setTrafficLightScaleFactor(scaleFactor);
+
+        setTrafficLightType(newTrafficLightType);
+    }
+
+
+    /**
+     * setTrafficLightScaleFactor(): Set the scale factor from the trafficLight.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    12.11.2018
+     * @arg     enum trafficLightType
+     * @arg     double scaleFactor
+     */
+    public void setTrafficLightScaleFactor(double scaleFactor)
+    {
+        if(scaleFactor > 0.1) {
+            trafficLightGuiGroup.setScaleX(scaleFactor);
+            trafficLightGuiGroup.setScaleY(scaleFactor);
+        }
+    }
+
+
+    /**
      * setTrafficLightType(): Change the type for the trafficlight.
      *
      * Set the graphical group for pedestrain visible or unvisible.
@@ -274,7 +326,7 @@ public class TrafficLightGui
      */
     public void trafficLightStateChangeTimer(String operation)
     {
-        if(!operation.equals("stopp"))
+        if(!operation.equals("timerStopp"))
         {
             trafficLightStateChangeTimer.setCycleCount(Animation.INDEFINITE);
             trafficLightStateChangeTimer.play();
