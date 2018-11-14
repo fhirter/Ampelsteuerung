@@ -1,4 +1,3 @@
-
 package com.company;
 
 import javafx.animation.Animation;
@@ -15,10 +14,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-import static java.awt.Color.green;
 import static java.sql.Types.NULL;
 
-public class TrafficLightController implements Observer
+public class TrafficLightGui
 {
     @FXML   private Circle redLightTraffic;
     @FXML   private Circle yellowLightTraffic;
@@ -39,12 +37,161 @@ public class TrafficLightController implements Observer
     @FXML   private CheckBox stateToGreen;
     @FXML   private Slider scaleFactor;
 
+    private enum trafficLightType {car, pedestrain};
     private enum trafficLightState {green, yellow, yellowRed, red, dark, allOn;};
+    private trafficLightState actTrafficLightState;
 
-    @Override
-    public void update() {
+    private Timeline trafficLightStateChangeTimer = new Timeline(new KeyFrame(
+            Duration.millis(500),
+            ae -> trafficLightStateChangeTimerTick()));
+    private String trafficLightOrder = "";
 
+
+
+    /***************************** Methodes where are called from GUI **************************************************************************
+
+     /**
+     * trafficLightSetType(): Called when the radioButtons (trafficLight type) are changed
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    10.11.2018
+     * @arg     ActionEvent actionEvent
+     */
+    public void trafficLightSetType(ActionEvent actionEvent)
+    {
+        if(trafficLightTypeCar.isSelected())
+        {
+            setTrafficLightType(trafficLightType.car);
+        }
+        else if(trafficLightTypePedestrain.isSelected())
+        {
+            setTrafficLightType(trafficLightType.pedestrain);
+        }
     }
+
+
+    /**
+     * changeTrafficLightScaleFactor(): Change the scale Factor from the GUI trafficLight
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    10.11.2018
+     * @arg     ActionEvent actionEvent
+     */
+    public void changeTrafficLightScaleFactor(MouseEvent mouseEvent)
+    {
+        setTrafficLightScaleFactor(scaleFactor.getValue());
+    }
+
+
+    /**
+     * trafficLightChangeColor(): Called when the radioButtons (trafficLight state) are changed
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    10.11.2018
+     * @arg     ActionEvent actionEvent
+     */
+    public void trafficLightChangeColor(ActionEvent actionEvent)
+    {
+        if(trafficLightRed.isSelected())
+        {
+            changeTrafficLightColor(trafficLightState.red);
+        }
+        else if(trafficLightYellowRed.isSelected())
+        {
+            changeTrafficLightColor(trafficLightState.yellowRed);
+        }
+        else if(trafficLightYellow.isSelected())
+        {
+            changeTrafficLightColor(trafficLightState.yellow);
+        }
+        else if(trafficLightGreen.isSelected())
+        {
+            changeTrafficLightColor(trafficLightState.green);
+        }
+        else if(trafficLightDark.isSelected())
+        {
+            changeTrafficLightColor(trafficLightState.dark);
+        }
+        else if(trafficLightAllOn.isSelected())
+        {
+            changeTrafficLightColor(trafficLightState.allOn);
+        }
+    }
+
+
+    /**
+     * startChangeTrafficLightColor(): Start the timer based change from the trafficLight.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    10.11.2018
+     * @arg     ActionEvent actionEvent
+     */
+    public void startChangeTrafficLightColor(ActionEvent actionEvent)
+    {
+        if(stateToRed.isSelected())
+        {
+            trafficLightStateChangeTimer("switchToRed");
+        }
+        else if(stateToGreen.isSelected())
+        {
+            trafficLightStateChangeTimer("switchToGreen");
+        }
+        else if(flashYellow.isSelected())
+        {
+            trafficLightStateChangeTimer("flashYellow");
+        }
+        else
+        {
+            trafficLightStateChangeTimer("timerStopp");
+        }
+    }
+
+
+    /**
+     * trafficLightRunSimulation(): Start or stops the simulation
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    10.11.2018
+     * @arg     ActionEvent actionEvent
+     */
+    public void trafficLightRunSimulation(ActionEvent actionEvent)
+    {
+        if(simulationOnOff.isSelected())
+        {
+            trafficLightStateChangeTimer("simulation");
+        }
+        else
+        {
+            trafficLightStateChangeTimer("timerStopp");
+        }
+    }
+
+
+    /***************************** Own methodes from the class **************************************************************************
+
+     /**
+     * setTrafficLightSettings(): setAllSettings for the trafficlight.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    12.11.2018
+     * @arg     enum trafficLightType
+     * @arg     double scaleFactor
+     */
+    public void setTrafficLightSettings(trafficLightType newTrafficLightType, double scaleFactor)
+    {
+        setTrafficLightScaleFactor(scaleFactor);
+
+        setTrafficLightType(newTrafficLightType);
+    }
+
 
     /**
      * setTrafficLightScaleFactor(): Set the scale factor from the trafficLight.
@@ -65,32 +212,34 @@ public class TrafficLightController implements Observer
     }
 
 
-    /***************************** Methodes where are called from GUI **************************************************************************
-
-     /**
-     * trafficLightSetType(): Called when the radioButtons (trafficLight type) are changed
+    /**
+     * setTrafficLightType(): Change the type for the trafficlight.
+     *
+     * Set the graphical group for pedestrain visible or unvisible.
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
+     * @arg     enum trafficLightType
      */
-/*
-    public void trafficLightSetType(ActionEvent actionEvent)
+    public void setTrafficLightType(trafficLightType newTrafficLightType)
     {
-        if(trafficLightTypeCar.isSelected())
+        switch(newTrafficLightType)
         {
-            setTrafficLightType(trafficLightType.car);
-        }
-        else if(trafficLightTypePedestrain.isSelected())
-        {
-            setTrafficLightType(trafficLightType.pedestrain);
+            case car: {
+                symbolPedestrain.setVisible(false);
+                break;
+            }
+            case pedestrain: {
+                symbolPedestrain.setVisible(true);
+                break;
+            }
         }
     }
-*/
+
 
     /**
-     * changeColor(): Redraw the color from the trafficLight
+     * changeTrafficLightColor(): Redraw the color from the trafficLight
      *
      * Depending the state from the trafficLight the color from the lights are changed.
      *
@@ -99,8 +248,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum trafficLightState
      */
-    /*
-    public void changeColor(TrafficLight.trafficLightState newTrafficLightState)
+    public void changeTrafficLightColor(trafficLightState newTrafficLightState)
     {
         actTrafficLightState = newTrafficLightState;
 
@@ -149,112 +297,112 @@ public class TrafficLightController implements Observer
             }
         }
     }
-*/
+
     /**
-     * changeTrafficLightScaleFactor(): Change the scale Factor from the GUI trafficLight
+     * getActTrafficLightState(): Returns the actual state from the trafficLight
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
+     * @return  enum actTrafficLightState
      */
-    public void changeTrafficLightScaleFactor(MouseEvent mouseEvent)
+    public trafficLightState getActTrafficLightState()
     {
-        setTrafficLightScaleFactor(scaleFactor.getValue());
+        return actTrafficLightState;
     }
 
 
     /**
-     * trafficLightChangeColor(): Called when the radioButtons (trafficLight state) are changed
+     * trafficLightStateChangeTimer(): Simulate the trafficLight
+     *
+     * Initialize a new continous timer.
+     * Every xxSeconds the methode timerTick() is called.
+     *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
+     * @arg     operation: Operation order what the trafficLight must change
      */
-    /*
-    public void trafficLightChangeColor(ActionEvent actionEvent)
+    public void trafficLightStateChangeTimer(String operation)
     {
-        if(trafficLightRed.isSelected())
+        if(!operation.equals("timerStopp"))
+        {
+            trafficLightStateChangeTimer.setCycleCount(Animation.INDEFINITE);
+            trafficLightStateChangeTimer.play();
+        }
+        else
+        {
+            trafficLightStateChangeTimer.stop();
+        }
+
+        // Need the operation into the trafficLightStateChangeTimerTick function.
+        trafficLightOrder = operation;
+    }
+
+
+    /**
+     * trafficLightStateChangeTimerTick(): Change in combination with the timer the lights from the trafficLight
+     *
+     * Every xxSeconds the methode trafficLightStateChangeTimerTick() is called from the timer.
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    10.11.2018
+     */
+    public void trafficLightStateChangeTimerTick()
+    {
+        int actStateTrafficLight = 0;
+
+        try {
+
+            // Returns the from the actual trafficLight state the integer number from the enum
+            actStateTrafficLight = trafficLightState.valueOf(getActTrafficLightState().toString()).ordinal();
+            System.out.println("Act TrafficLight: " + actStateTrafficLight + " " + trafficLightState.values()[actStateTrafficLight]);
+
+            switch (trafficLightOrder) {
+                case "simulation": {
+                    actStateTrafficLight++;
+                    if(actStateTrafficLight >= trafficLightState.values().length)
+                    {actStateTrafficLight = 0;}
+                    changeTrafficLightColor(trafficLightState.values()[actStateTrafficLight]);
+                    break;
+                }
+                case "flashYellow": {
+                    if (!getActTrafficLightState().equals(trafficLightState.yellow)) {
+                        changeTrafficLightColor(trafficLightState.yellow);
+                    } else {
+                        changeTrafficLightColor(trafficLightState.dark);
+                    }
+                    break;
+                }
+                case "switchToRed": {
+                    if (!getActTrafficLightState().equals(trafficLightState.red)) {
+                        changeTrafficLightColor(trafficLightState.values()[actStateTrafficLight+1]);
+                    } else {
+                        trafficLightStateChangeTimer.stop();
+                    }
+                    break;
+                }
+                case "switchToGreen": {
+                    if (!getActTrafficLightState().equals(trafficLightState.green)) {
+                        changeTrafficLightColor(trafficLightState.values()[actStateTrafficLight-1]);
+                    } else {
+                        trafficLightStateChangeTimer.stop();
+                    }
+                    break;
+                }
+                default: {
+                    changeTrafficLightColor(trafficLightState.dark);
+                    trafficLightStateChangeTimer.stop();
+                    break;
+                }
+            }
+        }catch (Exception e)
         {
             changeTrafficLightColor(trafficLightState.red);
         }
-        else if(trafficLightYellowRed.isSelected())
-        {
-            changeTrafficLightColor(trafficLightState.yellowRed);
-        }
-        else if(trafficLightYellow.isSelected())
-        {
-            changeTrafficLightColor(trafficLightState.yellow);
-        }
-        else if(trafficLightGreen.isSelected())
-        {
-            changeTrafficLightColor(trafficLightState.green);
-        }
-        else if(trafficLightDark.isSelected())
-        {
-            changeTrafficLightColor(trafficLightState.dark);
-        }
-        else if(trafficLightAllOn.isSelected())
-        {
-            changeTrafficLightColor(trafficLightState.allOn);
-        }
+
     }
-*/
-
-    /**
-     * startChangeTrafficLightColor(): Start the timer based change from the trafficLight.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
-     */
-    /*
-    public void startChangeTrafficLightColor(ActionEvent actionEvent)
-    {
-        if(stateToRed.isSelected())
-        {
-            trafficLightStateChangeTimer("switchToRed");
-        }
-        else if(stateToGreen.isSelected())
-        {
-            trafficLightStateChangeTimer("switchToGreen");
-        }
-        else if(flashYellow.isSelected())
-        {
-            trafficLightStateChangeTimer("flashYellow");
-        }
-        else
-        {
-            trafficLightStateChangeTimer("timerStopp");
-        }
-    }
-*/
-
-    /**
-     * trafficLightRunSimulation(): Start or stops the simulation
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
-     */
-
-  /*
-    public void trafficLightRunSimulation(ActionEvent actionEvent)
-    {
-        if(simulationOnOff.isSelected())
-        {
-            trafficLightStateChangeTimer("simulation");
-        }
-        else
-        {
-            trafficLightStateChangeTimer("timerStopp");
-        }
-    }
-
-*/
-
 }
+

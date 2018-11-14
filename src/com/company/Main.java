@@ -61,6 +61,8 @@ public class Main extends Application {
 
         System.out.println("Start project.");
 
+        //root.getChildern().add(circle);
+
     }
 
 
