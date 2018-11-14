@@ -85,7 +85,6 @@ public class PrimaryStageController {
 
 
     }
-
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
