@@ -36,7 +36,7 @@ public class PrimaryStageController {
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
     @FXML
-    private TabPane tabPane;
+    TabPane tabPane;
 
     @FXML
     private void handleSubmitButtonAction() {
