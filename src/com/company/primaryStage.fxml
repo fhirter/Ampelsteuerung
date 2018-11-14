@@ -99,9 +99,9 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TabPane prefHeight="856.0" prefWidth="1667.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="tabPane" prefHeight="856.0" prefWidth="1667.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
-                <Tab fx:id="tbPane" text="Untitled Tab 1" />
+                <Tab text="Untitled Tab 1" />
               </tabs>
             </TabPane>
          </children></AnchorPane>
