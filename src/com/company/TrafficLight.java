@@ -11,10 +11,12 @@ public class TrafficLight extends Obserable{
     private enum trafficLightType {car, pedestrian};
     private enum trafficLightState {green, yellow, yellowRed, red, dark, allOn;};
     private trafficLightState actTrafficLightState;
-
+/*
     private Timeline trafficLightStateChangeTimer = new Timeline(new KeyFrame(
             Duration.millis(500),
-            ae -> ChangeTimerTick()));
+        ae -> ChangeTimerTick()));
+
+ */
     private String trafficLightOrder = "";
     private trafficLightType type;
     
@@ -63,6 +65,8 @@ public class TrafficLight extends Obserable{
      * @date    10.11.2018
      * @arg     operation: Operation order what the trafficLight must change
      */
+
+    /*
     public void stateChangeTimer(String operation)
     {
         if(!operation.equals("timerStopp"))
@@ -79,7 +83,7 @@ public class TrafficLight extends Obserable{
         trafficLightOrder = operation;
     }
 
-
+*/
     /**
      * ChangeTimerTick(): Change in combination with the timer the lights from the trafficLight
      *
@@ -89,6 +93,8 @@ public class TrafficLight extends Obserable{
      * @autor   Schweizer Patrick
      * @date    10.11.2018
      */
+
+/*
     public void ChangeTimerTick()
     {
         int actStateTrafficLight = 0;
@@ -143,4 +149,5 @@ public class TrafficLight extends Obserable{
         }
 
     }
+    */
 }

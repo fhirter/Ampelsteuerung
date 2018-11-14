@@ -3,6 +3,7 @@ package com.company;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -35,6 +35,8 @@ public class PrimaryStageController {
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private void handleSubmitButtonAction() {
@@ -98,11 +100,9 @@ public class PrimaryStageController {
 
     public void startButtonConfig() throws Exception {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("driveway.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
+            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
+            Tab tb=new Tab("Kreuzung", node);
+            tabPane.getTabs().add(tb);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,4 +117,5 @@ public class PrimaryStageController {
             e.printStackTrace();
         }
     }
+
 }

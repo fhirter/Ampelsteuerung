@@ -1,3 +1,4 @@
+
 package com.company;
 
 import javafx.animation.Animation;
@@ -74,6 +75,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     ActionEvent actionEvent
      */
+/*
     public void trafficLightSetType(ActionEvent actionEvent)
     {
         if(trafficLightTypeCar.isSelected())
@@ -85,7 +87,7 @@ public class TrafficLightController implements Observer
             setTrafficLightType(trafficLightType.pedestrain);
         }
     }
-
+*/
 
     /**
      * changeColor(): Redraw the color from the trafficLight
@@ -97,6 +99,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum trafficLightState
      */
+    /*
     public void changeColor(TrafficLight.trafficLightState newTrafficLightState)
     {
         actTrafficLightState = newTrafficLightState;
@@ -146,7 +149,7 @@ public class TrafficLightController implements Observer
             }
         }
     }
-
+*/
     /**
      * changeTrafficLightScaleFactor(): Change the scale Factor from the GUI trafficLight
      *
@@ -169,6 +172,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     ActionEvent actionEvent
      */
+    /*
     public void trafficLightChangeColor(ActionEvent actionEvent)
     {
         if(trafficLightRed.isSelected())
@@ -196,7 +200,7 @@ public class TrafficLightController implements Observer
             changeTrafficLightColor(trafficLightState.allOn);
         }
     }
-
+*/
 
     /**
      * startChangeTrafficLightColor(): Start the timer based change from the trafficLight.
@@ -207,6 +211,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     ActionEvent actionEvent
      */
+    /*
     public void startChangeTrafficLightColor(ActionEvent actionEvent)
     {
         if(stateToRed.isSelected())
@@ -226,7 +231,7 @@ public class TrafficLightController implements Observer
             trafficLightStateChangeTimer("timerStopp");
         }
     }
-
+*/
 
     /**
      * trafficLightRunSimulation(): Start or stops the simulation
@@ -236,6 +241,8 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     ActionEvent actionEvent
      */
+
+  /*
     public void trafficLightRunSimulation(ActionEvent actionEvent)
     {
         if(simulationOnOff.isSelected())
@@ -248,7 +255,6 @@ public class TrafficLightController implements Observer
         }
     }
 
-
+*/
 
 }
-
