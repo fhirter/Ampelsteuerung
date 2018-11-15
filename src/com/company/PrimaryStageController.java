@@ -18,7 +18,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class PrimaryStageController {
+public class PrimaryStageController {
 
 
     @FXML
@@ -118,9 +118,10 @@ public abstract class PrimaryStageController {
     public void PedestrianStripeVisable() throws Exception {
         try {
             Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Group GP = new Group();
+            Group GP = new Group(node);
             GP.setVisible(true);
         } catch (Exception e) {
         }
-    }
+}
+
 }

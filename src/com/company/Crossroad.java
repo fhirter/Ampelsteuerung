@@ -8,8 +8,6 @@ public class Crossroad {
         Driveway DrivewaySouth = new Driveway(false, false, false);
         Driveway DrivewayWest = new Driveway(false, false, false);
 
-        DrivewayNord.GetPedestrianStripes();
-
 
     }
 
