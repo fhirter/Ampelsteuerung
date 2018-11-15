@@ -1,6 +1,7 @@
 package com.company;
 
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -115,13 +116,7 @@ public class PrimaryStageController {
         }
     }
 
-    public void PedestrianStripeVisible() throws Exception {
-        try {
-            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Group GP = new Group(node);
-            GP.setVisible(true);
-        } catch (Exception e) {
-        }
-}
+    public void PedestrianStripeVisible(ActionEvent actionEvent) {
 
+    }
 }
