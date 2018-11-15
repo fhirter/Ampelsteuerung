@@ -1,6 +1,7 @@
 package com.company;
 
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class PrimaryStageController {
-
 
 
     @FXML
@@ -45,7 +45,7 @@ public class PrimaryStageController {
         String message = "Your Choice:\n";
 
 
-        if (checkboxvelostripes.isSelected()){
+        if (checkboxvelostripes.isSelected()) {
             message += "Velo Stripes TRUE\n";
 
         }
@@ -62,7 +62,6 @@ public class PrimaryStageController {
         System.out.println(setchoiceOfAlgorithm.getValue());
 
     }
-
 
     @FXML
     public void setSetchoiceOfAlgorithm(List<String> algorithm) {
@@ -85,6 +84,7 @@ public class PrimaryStageController {
 
 
     }
+
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
@@ -97,18 +97,17 @@ public class PrimaryStageController {
         }
     }
 
-        public void startButtonConfig() throws Exception {
-            try {
-                Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-                Tab tb=new Tab("Kreuzung", node);
-                tabPane.getTabs().add(tb);
-                handleSubmitButtonAction();
-            } catch (Exception e) {
-            }
+    public void startButtonConfig() throws Exception {
+        try {
+            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
+            Tab tb = new Tab("Kreuzung", node);
+            tabPane.getTabs().add(tb);
+            handleSubmitButtonAction();
+        } catch (Exception e) {
+        }
     }
 
-    public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent)
-    {
+    public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent) {
         TrafficLightView trafficLight = new TrafficLightView();
         try {
             trafficLight.launchGui();
@@ -117,4 +116,7 @@ public class PrimaryStageController {
         }
     }
 
+    public void PedestrianStripeVisible(ActionEvent actionEvent) {
+
+    }
 }
