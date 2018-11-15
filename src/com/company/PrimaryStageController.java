@@ -3,6 +3,7 @@ package com.company;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,23 +31,24 @@ public class PrimaryStageController {
     @FXML
     CheckBox checkboxtramway;
     @FXML
-    Rectangle street;
-    @FXML
-    AnchorPane drivewayAnchor;
-    @FXML
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
     @FXML
     TabPane tabPane;
+    @FXML
+    Group pedestrainStripes;
+
 
     @FXML
     private void handleSubmitButtonAction() {
         String message = "Your Choice:\n";
 
 
-        if (checkboxvelostripes.isSelected())
+        if (checkboxvelostripes.isSelected()){
             message += "Velo Stripes TRUE\n";
+
+        }
 
         if (checkboxbusway.isSelected())
             message += "Bus Way TRUE\n";
@@ -57,9 +61,6 @@ public class PrimaryStageController {
         System.out.println(setnumberOfCrossing.getValue());
         System.out.println(setchoiceOfAlgorithm.getValue());
 
-
-        street.setVisible(true);
-
     }
 
 
@@ -71,7 +72,6 @@ public class PrimaryStageController {
 
     public void setSetnumberOfCrossing(List<String> crossing) {
 
-        setnumberOfCrossing.getItems().addAll(crossing);
     }
 
     public void handleExitSoftware() {
@@ -97,14 +97,14 @@ public class PrimaryStageController {
         }
     }
 
-    public void startButtonConfig() throws Exception {
-        try {
-            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Tab tb=new Tab("Kreuzung", node);
-            tabPane.getTabs().add(tb);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        public void startButtonConfig() throws Exception {
+            try {
+                Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
+                Tab tb=new Tab("Kreuzung", node);
+                tabPane.getTabs().add(tb);
+                handleSubmitButtonAction();
+            } catch (Exception e) {
+            }
     }
 
     public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent)

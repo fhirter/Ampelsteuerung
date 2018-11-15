@@ -58,6 +58,8 @@ public class Main extends Application {
     {
         launch(args);
         Algorithmus crossroadSimulate = new Algorithmus();
+        Crossroad generateCrossroad = new Crossroad();
+        generateCrossroad.generateDriveway();
 
         System.out.println("Start project.");
 
