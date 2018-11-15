@@ -108,12 +108,8 @@ public class PrimaryStageController {
     }
 
     public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent) {
-        TrafficLightView trafficLight = new TrafficLightView();
-        try {
-            trafficLight.launchGui();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        TrafficLightView view = new TrafficLightView();
+        view.launchGui("traffigLightGui");
     }
 
     public void PedestrianStripeVisible(ActionEvent actionEvent) {
