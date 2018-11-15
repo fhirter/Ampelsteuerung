@@ -18,11 +18,6 @@ import java.util.List;
 public class Algorithmus
 {
 
-
-
-
-
-
     public Algorithmus()
     {
 

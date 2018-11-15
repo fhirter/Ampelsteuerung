@@ -7,6 +7,10 @@ public class Crossroad {
         Driveway DrivewayEast = new Driveway(false, false, false);
         Driveway DrivewaySouth = new Driveway(false, false, false);
         Driveway DrivewayWest = new Driveway(false, false, false);
+
+        DrivewayNord.GetPedestrianStripes();
+
+
     }
 
 }
