@@ -118,9 +118,10 @@ public class PrimaryStageController {
     public void PedestrianStripeVisible() throws Exception {
         try {
             Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Group GP = new Group();
+            Group GP = new Group(node);
             GP.setVisible(true);
         } catch (Exception e) {
         }
-    }
+}
+
 }
