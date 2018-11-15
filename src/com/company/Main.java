@@ -54,17 +54,13 @@ public class Main extends Application {
 
     }
 
+
     public static void main(String[] args)
     {
         launch(args);
-        Algorithmus crossroadSimulate = new Algorithmus();
-        Crossroad generateCrossroad = new Crossroad();
-        generateCrossroad.generateDriveway();
-
         System.out.println("Start project.");
 
     }
-
 
 }
 

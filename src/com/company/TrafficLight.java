@@ -5,7 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-public class TrafficLight extends Obserable{
+public class TrafficLight {
 
 
     private enum trafficLightType {car, pedestrian};
