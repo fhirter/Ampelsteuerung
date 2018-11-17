@@ -1,4 +1,3 @@
-package com.company;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +22,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Crossroad crossroad = new Crossroad();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
         Parent root = loader.load();
 
@@ -42,7 +43,6 @@ public class Main extends Application {
         crossing.add("5 Streets");
         controller.setSetnumberOfCrossing(crossing);
 
-
         primaryStage.setScene(new Scene(root, 1920, 1080));
         primaryStage.show();
 
@@ -59,6 +59,8 @@ public class Main extends Application {
     {
         launch(args);
         System.out.println("Start project.");
+
+        //root.getChildern().add(circle);
 
     }
 

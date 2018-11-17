@@ -1,6 +1,3 @@
-package com.company;
-
-
 public class Algorithmus
 {
 
