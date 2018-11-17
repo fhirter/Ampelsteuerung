@@ -1,7 +1,7 @@
+import javafx.fxml.FXMLLoader;
 package com.company;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -9,6 +9,13 @@ import javafx.scene.layout.AnchorPane;
 import java.awt.*;
 
 public class Crossroad {
+    Crossroad() {
+        TrafficLight trafficLight = new TrafficLight(); // hier wird die Kreuzung initialisiert, d.h. alle Models werden anhand einer Konfiguration erstellt
+
+        TrafficLightView trafficLightView = new TrafficLightView(trafficLight);     // der view wird dann anhand des models erstellt
+
+        trafficLight.machWas();
+    }
 
     @FXML
     Checkbox pedestrainStripesCheckbox;

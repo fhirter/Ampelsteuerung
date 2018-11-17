@@ -1,5 +1,3 @@
-package com.company;
-
 /**
  * Class Driveway: Data model for the crossroad
  *
