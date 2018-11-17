@@ -1,6 +1,3 @@
-package com.company;
-
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -108,9 +103,10 @@ public class PrimaryStageController {
     }
 
     public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent) {
-        TrafficLightView view = new TrafficLightView();
+        // muss hier nicht auf knopfdruck geschehen, die ampeln sind ja bereits bei der initialisierung vorhanden
+//        TrafficLightView view = new TrafficLightView();
         try {
-            view.launchGui();
+//            view.launchGui();
         } catch (Exception e) {
             e.printStackTrace();
         }

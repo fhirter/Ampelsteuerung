@@ -1,5 +1,3 @@
-package com.company;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -67,6 +65,7 @@ public class TrafficLightController implements Observer
     @Override
     public void update()
     {
+        // hier reagierst du auf änderungen im model -> den state aktualisieren
         System.out.println("Obstacle wurde aktiviert.");
     }
 

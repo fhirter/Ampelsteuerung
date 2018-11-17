@@ -1,13 +1,19 @@
-package com.company;
-
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class TrafficLightView
+public class TrafficLightView extends Node      // so können dann deine ampeln in die main gui eingebaut werden, dies habe ich aber nicht getestet
 {
+    private TrafficLight trafficLight;
+
+    public TrafficLightView(TrafficLight trafficLight) {
+        this.trafficLight = trafficLight;       // hier übergebe ich dir mal das datenmodell. anhand von diesem erstellst du dann das gui. in diesem konkreten fall wohl nur, ob fussgänger oder autoampel, der rest ist ja immer gleich
+
+        launchGui();
+    }
+
     /**
      * launchGui(): Start gui for trafficLight
      *
@@ -19,7 +25,12 @@ public class TrafficLightView
     public void launchGui() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+
             Parent root = (Parent) fxmlLoader.load();
+
+            TrafficLightController trafficLightController = fxmlLoader.getController();
+
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
