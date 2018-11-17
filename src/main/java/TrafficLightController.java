@@ -35,6 +35,11 @@ public class TrafficLightController implements Observer
     @FXML   private Slider scaleFactor;
 
 
+    final Paint redColor = Paint.valueOf("#ff0000");
+    final Paint darkColor = Paint.valueOf("#ababab");
+    final Paint yellowColor = Paint.valueOf("#e8ff1f");
+    final Paint greenColor = Paint.valueOf("#05d721");
+
     private trafficLightState actState;
     private Timeline stateChangeTimer = new Timeline(new KeyFrame(
             Duration.millis(500),
@@ -43,20 +48,7 @@ public class TrafficLightController implements Observer
 
 
     /**
-     * TrafficLightController():
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    14.11.2018
-     */
-    public TrafficLightController()
-    {
-
-    }
-
-
-    /**
-     * update(): Obstacle where ist registred into TrafficLightModel
+     * update(): Obstacle where is registred into TrafficLightModel
      *
      * @version 1.0
      * @autor   Schweizer Patrick
@@ -276,44 +268,44 @@ public class TrafficLightController implements Observer
 
         switch(actState) {
             case red: {
-                redLightTraffic.setFill(Paint.valueOf("#ff0000"));
-                yellowLightTraffic.setFill(Paint.valueOf("#ababab"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+                redLightTraffic.setFill(redColor);
+                yellowLightTraffic.setFill(darkColor);
+                greenLightTraffic.setFill(darkColor);
                 red.setSelected(true);
                 break;
             }
             case yellowRed: {
-                redLightTraffic.setFill(Paint.valueOf("#ff0000"));
-                yellowLightTraffic.setFill(Paint.valueOf("#e8ff1f"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+                redLightTraffic.setFill(redColor);
+                yellowLightTraffic.setFill(yellowColor);
+                greenLightTraffic.setFill(darkColor);
                 yellowRed.setSelected(true);
                 break;
             }
             case yellow: {
-                redLightTraffic.setFill(Paint.valueOf("#ababab"));
-                yellowLightTraffic.setFill(Paint.valueOf("#e8ff1f"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+                redLightTraffic.setFill(darkColor);
+                yellowLightTraffic.setFill(yellowColor);
+                greenLightTraffic.setFill(darkColor);
                 yellow.setSelected(true);
                 break;
             }
             case green: {
-                redLightTraffic.setFill(Paint.valueOf("#ababab"));
-                yellowLightTraffic.setFill(Paint.valueOf("#ababab"));
-                greenLightTraffic.setFill(Paint.valueOf("#05d721"));
+                redLightTraffic.setFill(darkColor);
+                yellowLightTraffic.setFill(darkColor);
+                greenLightTraffic.setFill(greenColor);
                 green.setSelected(true);
                 break;
             }
             case dark: {
-                redLightTraffic.setFill(Paint.valueOf("#ababab"));
-                yellowLightTraffic.setFill(Paint.valueOf("#ababab"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+                redLightTraffic.setFill(darkColor);
+                yellowLightTraffic.setFill(darkColor);
+                greenLightTraffic.setFill(darkColor);
                 dark.setSelected(true);
                 break;
             }
             case allOn: {
-                redLightTraffic.setFill(Paint.valueOf("#ff0000"));
-                yellowLightTraffic.setFill(Paint.valueOf("#e8ff1f"));
-                greenLightTraffic.setFill(Paint.valueOf("#05d721"));
+                redLightTraffic.setFill(redColor);
+                yellowLightTraffic.setFill(yellowColor);
+                greenLightTraffic.setFill(greenColor);
                 allOn.setSelected(true);
                 break;
             }
