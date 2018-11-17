@@ -103,6 +103,9 @@ public class PrimaryStageController {
             Tab tb = new Tab("Kreuzung", node);
             tabPane.getTabs().add(tb);
             handleSubmitButtonAction();
+            Crossroad Road = new Crossroad();
+            Road.generateDriveway();
+            Road.PedestrianStripeVisible();
         } catch (Exception e) {
         }
     }
