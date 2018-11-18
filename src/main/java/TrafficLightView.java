@@ -6,13 +6,16 @@ import javafx.stage.Stage;
 
 public class TrafficLightView extends Node      // so können dann deine ampeln in die main gui eingebaut werden, dies habe ich aber nicht getestet
 {
-    private TrafficLight trafficLight;
+    private TrafficLightModel model;
+    private TrafficLightController trafficLightController;
 
-    public TrafficLightView(TrafficLight trafficLight) {
-        this.trafficLight = trafficLight;       // hier übergebe ich dir mal das datenmodell. anhand von diesem erstellst du dann das gui. in diesem konkreten fall wohl nur, ob fussgänger oder autoampel, der rest ist ja immer gleich
+    public TrafficLightView(TrafficLightModel model)
+    {
+        this.model = model;       // hier übergebe ich dir mal das datenmodell. anhand von diesem erstellst du dann das gui. in diesem konkreten fall wohl nur, ob fussgänger oder autoampel, der rest ist ja immer gleich
 
         launchGui();
     }
+
 
     /**
      * launchGui(): Start gui for trafficLight
@@ -28,8 +31,8 @@ public class TrafficLightView extends Node      // so können dann deine ampeln 
 
             Parent root = (Parent) fxmlLoader.load();
 
-            TrafficLightController trafficLightController = fxmlLoader.getController();
-
+            trafficLightController = fxmlLoader.getController();
+            trafficLightController.setModel(model);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -37,5 +40,20 @@ public class TrafficLightView extends Node      // so können dann deine ampeln 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * getController(): Returns the instance from the controller (gui)
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    17.11.2018
+     * @return  trafficLightController
+     */
+    public TrafficLightController getController()
+    {
+        return trafficLightController;
     }
 }
