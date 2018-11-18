@@ -1,6 +1,8 @@
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -11,11 +13,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.beans.Visibility;
 import java.io.IOException;
 import java.util.List;
 
-public class PrimaryStageController {
+public class PrimaryStageController implements Observer {
 
+
+    public CheckBox pedestrainStripesCheckbox;
+    public Group pedestrainStripes;
 
     @FXML
     MenuItem exitSoftware;
@@ -31,8 +38,11 @@ public class PrimaryStageController {
     private ChoiceBox<String> setnumberOfCrossing;
     @FXML
     TabPane tabPane;
-    @FXML
-    Group pedestrainStripes;
+
+
+
+
+
 
 
     @FXML
@@ -57,6 +67,9 @@ public class PrimaryStageController {
         System.out.println(setchoiceOfAlgorithm.getValue());
 
     }
+
+    public PrimaryStageController (){}
+
 
     @FXML
     public void setSetchoiceOfAlgorithm(List<String> algorithm) {
@@ -92,15 +105,15 @@ public class PrimaryStageController {
         }
     }
 
+
     public void startButtonConfig() throws Exception {
         try {
             Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
             Tab tb = new Tab("Kreuzung", node);
             tabPane.getTabs().add(tb);
-            handleSubmitButtonAction();
-            Crossroad Road = new Crossroad();
-            Road.generateDriveway();
-            Road.PedestrianStripeVisible();
+            if (pedestrainStripesCheckbox.isSelected())
+                node.visibleProperty();
+
         } catch (Exception e) {
         }
     }
@@ -115,7 +128,8 @@ public class PrimaryStageController {
         }
     }
 
-    public void PedestrianStripeVisible(ActionEvent actionEvent) {
+    @Override
+    public void update() {
 
     }
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TrafficMemberController">
+<AnchorPane prefHeight="1200.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PrimaryStageController">
    <children>
       <Group fx:id="streetNormal" layoutX="200.0" layoutY="200.0">
          <children>
@@ -16,7 +16,7 @@
             <Line endX="580.0" layoutY="75.0" style="-fx-stroke-dash-array: 40;" />
          </children>
       </Group>
-      <Group fx:id="pedestrainStripes" layoutX="600.0" layoutY="200.0" visible="true" AnchorPane.bottomAnchor="850.0" AnchorPane.topAnchor="200.0">
+      <Group fx:id="pedestrainStripes" layoutX="600.0" layoutY="200.0" AnchorPane.bottomAnchor="850.0" AnchorPane.topAnchor="200.0">
          <Line endX="100.0" layoutY="5.0" stroke="#e1e417" strokeWidth="10.0"/>
          <Line endX="100.0" layoutY="25.0" stroke="#e1e417" strokeWidth="10.0"/>
          <Line endX="100.0" layoutY="45.0" stroke="#e1e417" strokeWidth="10.0"/>
