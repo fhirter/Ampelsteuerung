@@ -46,70 +46,19 @@ public class TrafficLightController implements Observer
             ae -> stateChangeTimerTick()));
     private String order = "";
 
-    private TrafficLightModel model = new TrafficLightModel();
-
-
-    /**
-     * setModel(): Set the instance from the model (gui)
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    17.11.2018
-     * @arg     TrafficLightModel
-     */
-    public void setModel(TrafficLightModel model)
-    {
-        this.model = model;
-    }
-
 
     /**
      * update(): Obstacle where is registred into TrafficLightModel
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    18.11.2018
+     * @date    13.11.2018
      */
     @Override
-    public void update(String string, Object obj)
+    public void update()
     {
-        switch(string)
-        {
-            case "setScaleFactor":
-            {
-                setScaleFactor((Double) obj);
-                break;
-            }
-            case "setType":
-            {
-                setType((Boolean) obj);
-                break;
-            }
-            case "changeColor":
-            {
-                changeColor((trafficLightState) obj);
-                break;
-            }
-        }
-    }
-
-
-    /**
-     * update(): Obstacle where is registred into TrafficLightModel with response
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @return  Object
-     */
-    public Object update(String string)
-    {
-        if(string.indexOf("getState") != 0)
-        {
-            return (trafficLightState)getActState();
-        }
-        return 0;
+        // hier reagierst du auf änderungen im model -> den state aktualisieren
+        System.out.println("Obstacle wurde aktiviert.");
     }
 
 
@@ -127,11 +76,11 @@ public class TrafficLightController implements Observer
     {
         if(typeCar.isSelected())
         {
-            model.setType(trafficLightType.car);
+            setType(trafficLightType.car);
         }
         else if(typePedestrian.isSelected())
         {
-            model.setType(trafficLightType.pedestrian);
+            setType(trafficLightType.pedestrian);
         }
     }
 
@@ -146,7 +95,7 @@ public class TrafficLightController implements Observer
      */
     public void changeScaleFactor(MouseEvent mouseEvent)
     {
-        model.setScaleFactor(scaleFactor.getValue());
+        setScaleFactor(scaleFactor.getValue());
     }
 
 
@@ -162,27 +111,27 @@ public class TrafficLightController implements Observer
     {
         if(red.isSelected())
         {
-            model.setRed();
+            changeColor(trafficLightState.red);
         }
         else if(yellowRed.isSelected())
         {
-            model.setYellowRed();
+            changeColor(trafficLightState.yellowRed);
         }
         else if(yellow.isSelected())
         {
-            model.setYellow();
+            changeColor(trafficLightState.yellow);
         }
         else if(green.isSelected())
         {
-            model.setGreen();
+            changeColor(trafficLightState.green);
         }
         else if(dark.isSelected())
         {
-            model.setDark();
+            changeColor(trafficLightState.dark);
         }
         else if(allOn.isSelected())
         {
-            model.setAllOn();
+            changeColor(trafficLightState.allOn);
         }
     }
 
@@ -239,7 +188,26 @@ public class TrafficLightController implements Observer
 
 
     /***************************** Own methodes from the class **************************************************************************
+
      /**
+     * setSettings(): setAllSettings for the trafficlight.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    12.11.2018
+     * @arg     enum type
+     * @arg     double scaleFactor
+     */
+    public void setSettings(trafficLightType newType, double scaleFactor)
+    {
+        setScaleFactor(scaleFactor);
+
+        setType(newType);
+    }
+
+
+    /**
      * setScaleFactor(): Set the scale factor from the trafficLight.
      *
      *
@@ -251,8 +219,10 @@ public class TrafficLightController implements Observer
      */
     public void setScaleFactor(double scaleFactor)
     {
-        groupScaleFactor.setScaleX(scaleFactor);
-        groupScaleFactor.setScaleY(scaleFactor);
+        if(scaleFactor > 0.1) {
+            groupScaleFactor.setScaleX(scaleFactor);
+            groupScaleFactor.setScaleY(scaleFactor);
+        }
     }
 
 
@@ -266,9 +236,19 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum type
      */
-    public void setType(Boolean type)
+    public void setType(trafficLightType newType)
     {
-        symbolPedestrian.setVisible(type);
+        switch(newType)
+        {
+            case car: {
+                symbolPedestrian.setVisible(false);
+                break;
+            }
+            case pedestrian: {
+                symbolPedestrian.setVisible(true);
+                break;
+            }
+        }
     }
 
 

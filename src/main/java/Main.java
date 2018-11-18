@@ -43,7 +43,8 @@ public class Main extends Application {
         crossing.add("5 Streets");
         controller.setSetnumberOfCrossing(crossing);
 
-        primaryStage.setScene(new Scene(root, 1920, 1080));
+        primaryStage.setScene(new Scene(root, 500, 800));
+//        primaryStage.setScene(new Scene(root, 1920, 1080));
         primaryStage.show();
 
 

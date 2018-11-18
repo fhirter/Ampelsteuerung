@@ -7,11 +7,11 @@ public class Crossroad {
 
     Crossroad()
     {
-        TrafficLightModel trafficLight = new TrafficLightModel(); // hier wird die Kreuzung initialisiert, d.h. alle Models werden anhand einer Konfiguration erstellt
-        TrafficLightView trafficLightView = new TrafficLightView(trafficLight);     // der view wird dann anhand des models erstellt
+        TrafficLightModel trafficLight = new TrafficLightModel();
+        TrafficLightView trafficLightView = new TrafficLightView(trafficLight);
         trafficLight.addObserver(trafficLightView.getController());
 
-        trafficLight.machWas();
+        trafficLight.setYellow();
     }
 
     public void generateDriveway ()

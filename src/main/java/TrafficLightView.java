@@ -16,19 +16,6 @@ public class TrafficLightView extends Node      // so können dann deine ampeln 
         launchGui();
     }
 
-    /**
-     * getController(): Returns the instance from the controller (gui)
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    17.11.2018
-     * @return  trafficLightController
-     */
-    public TrafficLightController getController()
-    {
-        return trafficLightController;
-    }
 
     /**
      * launchGui(): Start gui for trafficLight
@@ -45,6 +32,7 @@ public class TrafficLightView extends Node      // so können dann deine ampeln 
             Parent root = (Parent) fxmlLoader.load();
 
             trafficLightController = fxmlLoader.getController();
+            trafficLightController.setModel(model);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -52,5 +40,20 @@ public class TrafficLightView extends Node      // so können dann deine ampeln 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * getController(): Returns the instance from the controller (gui)
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    17.11.2018
+     * @return  trafficLightController
+     */
+    public TrafficLightController getController()
+    {
+        return trafficLightController;
     }
 }
