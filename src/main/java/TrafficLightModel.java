@@ -137,7 +137,7 @@ public class TrafficLightModel extends Obserable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @returns trafficLightState: Act state from the trafficLight
+     * @return trafficLightState: Act state from the trafficLight
      */
     public TrafficLightState getActState()
     {

@@ -37,10 +37,10 @@ public class Main extends Application {
         algorithm.add("Algorithm C");
         algorithm.add("Algorithm D");
         controller.setSetchoiceOfAlgorithm(algorithm);
-        List<String> crossing = new LinkedList<>();
-        crossing.add("3 Streets");
-        crossing.add("4 Streets");
-        crossing.add("5 Streets");
+        List<Integer> crossing = new LinkedList<>();
+        crossing.add(3);
+        crossing.add(4);
+        crossing.add(5);
         controller.setSetnumberOfCrossing(crossing);
 
         primaryStage.setScene(new Scene(root, 500, 800));
@@ -61,7 +61,7 @@ public class Main extends Application {
         launch(args);
         System.out.println("Start project.");
 
-        //root.getChildern().add(circle);
+
 
     }
 

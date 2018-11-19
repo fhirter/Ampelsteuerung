@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -28,7 +27,7 @@ public class PrimaryStageController {
     @FXML
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
-    private ChoiceBox<String> setnumberOfCrossing;
+    private ChoiceBox<Integer> setnumberOfCrossing;
     @FXML
     TabPane tabPane;
     @FXML
@@ -64,8 +63,8 @@ public class PrimaryStageController {
         setchoiceOfAlgorithm.getItems().addAll(algorithm);
     }
 
-    public void setSetnumberOfCrossing(List<String> crossing) {
-
+    public void setSetnumberOfCrossing(List<Integer> crossing) {
+        setnumberOfCrossing.getItems().addAll(crossing);
     }
 
     public void handleExitSoftware() {
