@@ -34,6 +34,7 @@ public class PrimaryStageController {
     Group pedestrainStripes;
 
 
+    //todo
     @FXML
     private void handleSubmitButtonAction() {
         String message = "Your Choice:\n";
@@ -97,6 +98,7 @@ public class PrimaryStageController {
             Tab tb = new Tab("Kreuzung", node);
             tabPane.getTabs().add(tb);
             handleSubmitButtonAction();
+
         } catch (Exception e) {
         }
     }
