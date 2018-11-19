@@ -1,4 +1,3 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -6,17 +5,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.List;
 
 public class PrimaryStageController {
 
 
+    @FXML
+    Group pedestrainStripes;
     @FXML
     MenuItem exitSoftware;
     @FXML
@@ -30,9 +29,7 @@ public class PrimaryStageController {
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
     @FXML
-    TabPane tabPane;
-    @FXML
-    Group pedestrainStripes;
+    Pane DrivewayPane;
 
 
     //todo
@@ -65,26 +62,17 @@ public class PrimaryStageController {
         setchoiceOfAlgorithm.getItems().addAll(algorithm);
     }
 
-    public void setSetnumberOfCrossing(List<String> crossing) {
-
-    }
-
     public void handleExitSoftware() {
         System.exit(0);
 
     }
 
 
-    public void newProject(MouseEvent mouseEvent) throws IOException {
-        // Erstellen eines neuen Projektes
-
-
-    }
 
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -93,19 +81,20 @@ public class PrimaryStageController {
         }
     }
 
+
+
+
     public void startButtonConfig() throws Exception {
         try {
-            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Tab tb = new Tab("Kreuzung", node);
-            tabPane.getTabs().add(tb);
+            Node node = (Pane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
+            Pane pane = new Pane();
+            pane.getChildren().add(node);
             handleSubmitButtonAction();
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
 
-    public void PedestrianStripeVisible(ActionEvent actionEvent) {
-
-    }
 }
+

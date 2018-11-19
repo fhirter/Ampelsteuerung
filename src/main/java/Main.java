@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -39,10 +38,9 @@ public class Main extends Application {
         algorithm.add("Algorithm C");
         algorithm.add("Algorithm D");
         controller.setSetchoiceOfAlgorithm(algorithm);
-        List<String> crossing = new LinkedList<>();
-        crossing.add("3 Streets");
-        crossing.add("4 Streets");
-        crossing.add("5 Streets");
+        List<Integer> crossing = new LinkedList<>();
+        crossing.add(3);
+        crossing.add(2);
         controller.setSetnumberOfCrossing(crossing);
 
 

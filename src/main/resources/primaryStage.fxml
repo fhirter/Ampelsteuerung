@@ -19,11 +19,11 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar onMouseClicked="#newProject">
+            <MenuBar>
               <menus>
                 <Menu mnemonicParsing="false" text="Datei">
                      <items>
-                        <MenuItem fx:id="newProject" mnemonicParsing="false" onAction="#newProject" text="Neues Projekt" />
+                        <MenuItem fx:id="newProject" mnemonicParsing="false" text="Neues Projekt" />
                         <MenuItem fx:id="exitSoftware" mnemonicParsing="false" onAction="#handleExitSoftware" text="Exit" />
                      </items></Menu>
                 <Menu mnemonicParsing="false" text="Bearbeiten">
@@ -101,7 +101,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="856.0" prefWidth="1667.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TabPane prefHeight="856.0" prefWidth="1667.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
    </center>
 </BorderPane>

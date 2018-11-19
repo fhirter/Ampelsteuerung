@@ -35,10 +35,10 @@ public class TrafficLightController implements Observer
     @FXML   private Slider scaleFactor;
 
 
-    final Paint redColor = Paint.valueOf("#ff0000");
-    final Paint darkColor = Paint.valueOf("#ababab");
-    final Paint yellowColor = Paint.valueOf("#e8ff1f");
-    final Paint greenColor = Paint.valueOf("#05d721");
+    private final Paint redColor = Paint.valueOf("#ff0000");
+    private final Paint darkColor = Paint.valueOf("#ababab");
+    private final Paint yellowColor = Paint.valueOf("#e8ff1f");
+    private final Paint greenColor = Paint.valueOf("#05d721");
 
     private TrafficLightState actState;
     private Timeline stateChangeTimer = new Timeline(new KeyFrame(
@@ -72,45 +72,13 @@ public class TrafficLightController implements Observer
      * @date    18.11.2018
      */
     @Override
-    public void update(String string, Object obj)
+    public void update()
+
     {
-        switch(string)
-        {
-            case "setScaleFactor":
-            {
-                setScaleFactor((Double) obj);
-                break;
-            }
-            case "setType":
-            {
-                setType((Boolean) obj);
-                break;
-            }
-            case "changeColor":
-            {
-                changeColor((TrafficLightState) obj);
-                break;
-            }
-        }
+        changeColor((TrafficLightState));
+
     }
 
-
-    /**
-     * update(): Obstacle where is registred into TrafficLightModel with response
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @return  Object
-     */
-    public Object update(String string)
-    {
-        if(string.indexOf("getState") != 0)
-        {
-            return (TrafficLightState)getActState();
-        }
-        return 0;
-    }
 
 
     /***************************** Methodes where are called from GUI **************************************************************************
@@ -249,7 +217,7 @@ public class TrafficLightController implements Observer
      * @arg     enum type
      * @arg     double scaleFactor
      */
-    public void setScaleFactor(double scaleFactor)
+    private void setScaleFactor(double scaleFactor)
     {
         groupScaleFactor.setScaleX(scaleFactor);
         groupScaleFactor.setScaleY(scaleFactor);
@@ -266,7 +234,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum type
      */
-    public void setType(Boolean type)
+    private void setType(Boolean type)
     {
         symbolPedestrian.setVisible(type);
     }
@@ -282,7 +250,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum state
      */
-    public void changeColor(TrafficLightState newState)
+    private void changeColor(TrafficLightState newState)
     {
         actState = newState;
 
@@ -340,7 +308,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @return  enum actState
      */
-    public TrafficLightState getActState()
+    private TrafficLightState getActState()
     {
         return actState;
     }
@@ -358,7 +326,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     operation: Operation order what the trafficLight must change
      */
-    public void stateChangeTimer(String operation)
+    private void stateChangeTimer(String operation)
     {
         if(!operation.equals("timerStopp"))
         {
@@ -384,9 +352,9 @@ public class TrafficLightController implements Observer
      * @autor   Schweizer Patrick
      * @date    10.11.2018
      */
-    public void stateChangeTimerTick()
+    private void stateChangeTimerTick()
     {
-        int actState = 0;
+        int actState;
 
         try {
 

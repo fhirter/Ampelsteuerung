@@ -1,4 +1,4 @@
-public class TrafficLightModel extends Obserable
+class TrafficLightModel extends Obserable
 {
     /**
      * setScaleFactor(): Set the scale factor from the trafficLight.
@@ -141,7 +141,7 @@ public class TrafficLightModel extends Obserable
      */
     public TrafficLightState getActState()
     {
-        return (TrafficLightState) notifyObserversWithResponse("getActState");
+        return (TrafficLightState) notifyObservers();
     }
 }
 

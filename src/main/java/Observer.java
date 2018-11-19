@@ -1,4 +1,4 @@
-public interface Observer {
+interface Observer {
 
     void update(String string, Object obj);
 

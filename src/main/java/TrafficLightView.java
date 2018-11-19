@@ -1,15 +1,6 @@
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
-import java.awt.*;
-import java.io.IOException;
-
-public class TrafficLightView extends Node      // so können dann deine ampeln in die main gui eingebaut werden, dies habe ich aber nicht getestet
+class TrafficLightView extends Node      // so können dann deine ampeln in die main gui eingebaut werden, dies habe ich aber nicht getestet
 {
     private TrafficLightModel model;
     private TrafficLightController trafficLightController;
