@@ -3,25 +3,16 @@ import java.util.List;
 
 abstract class Obserable  {
 
-    private final List<Observer> observers = new LinkedList<>();
+    List<Observer> observers = new LinkedList<>();
 
 
-    public void addObserver(Observer observer){
+    protected void addObserver(Observer observer){
         observers.add(observer);
     }
 
-    void notifyObservers(String string, Object obj){
+    protected void notifyObservers(){
         for (Observer i : observers) {
-         i.update(string, obj);
+         i.update();
         }
     }
-
-    Object notifyObserversWithResponse(String string){
-        for (Observer i : observers) {
-            return i.update(string);
-        }
-        return 0;
-    }
-
-
 }

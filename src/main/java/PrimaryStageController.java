@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -15,8 +16,6 @@ public class PrimaryStageController {
 
 
     @FXML
-    Group pedestrainStripes;
-    @FXML
     MenuItem exitSoftware;
     @FXML
     CheckBox checkboxvelostripes;
@@ -29,7 +28,9 @@ public class PrimaryStageController {
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
     @FXML
-    Pane DrivewayPane;
+    TabPane tabPane;
+    @FXML
+    Group pedestrainStripes;
 
 
     //todo
@@ -62,17 +63,25 @@ public class PrimaryStageController {
         setchoiceOfAlgorithm.getItems().addAll(algorithm);
     }
 
+    public void setSetnumberOfCrossing(List<String> crossing) {
+
+    }
+
     public void handleExitSoftware() {
         System.exit(0);
 
     }
 
 
+    public void newProject(MouseEvent mouseEvent) throws IOException {
+        // Erstellen eines neuen Projektes
+
+    }
 
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
-            Parent root = fxmlLoader.load();
+            Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -81,17 +90,15 @@ public class PrimaryStageController {
         }
     }
 
-
-
-
     public void startButtonConfig() throws Exception {
         try {
-            Node node = (Pane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Pane pane = new Pane();
-            pane.getChildren().add(node);
+            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
+            Tab tb = new Tab("Kreuzung", node);
+            tabPane.getTabs().add(tb);
             handleSubmitButtonAction();
 
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

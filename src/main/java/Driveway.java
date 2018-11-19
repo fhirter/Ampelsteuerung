@@ -14,10 +14,6 @@ class Driveway {
     private boolean BicyclePath;
     private boolean PublicTrafficRail;
 
-    public Driveway() {
-    }
-
-
     public void setPedestrainStripes (boolean PedestrianStripes) {
             this.PedestrianStripes = PedestrianStripes;
     }
