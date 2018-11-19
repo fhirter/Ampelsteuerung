@@ -102,15 +102,6 @@ public class PrimaryStageController {
         }
     }
 
-    public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent) {
-        // muss hier nicht auf knopfdruck geschehen, die ampeln sind ja bereits bei der initialisierung vorhanden
-//        TrafficLightView view = new TrafficLightView();
-        try {
-//            view.launchGui();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void PedestrianStripeVisible(ActionEvent actionEvent) {
 
