@@ -30,15 +30,15 @@ public class TrafficLightModel extends Obserable
      * @date    18.11.2018
      * @arg     enum type
      */
-    public void setType(trafficLightType newType)
+    public void setType(TrafficLightType newType)
     {
         switch(newType)
         {
-            case car: {
+            case CAR: {
                 notifyObservers("setType", false );
                 break;
             }
-            case pedestrian: {
+            case PEDESTRIAN: {
                 notifyObservers("setType", true );
                 break;
             }
@@ -56,7 +56,7 @@ public class TrafficLightModel extends Obserable
      */
     public void setRed()
     {
-        notifyObservers("changeColor", trafficLightState.red);
+        notifyObservers("changeColor", TrafficLightState.RED);
     }
 
 
@@ -70,7 +70,7 @@ public class TrafficLightModel extends Obserable
      */
     public void setGreen()
     {
-        notifyObservers("changeColor", trafficLightState.green);
+        notifyObservers("changeColor", TrafficLightState.GREEN);
     }
 
 
@@ -84,7 +84,7 @@ public class TrafficLightModel extends Obserable
      */
     public void setYellow()
     {
-        notifyObservers("changeColor", trafficLightState.yellow);
+        notifyObservers("changeColor", TrafficLightState.YELLOW);
     }
 
 
@@ -98,7 +98,7 @@ public class TrafficLightModel extends Obserable
      */
     public void setYellowRed()
     {
-        notifyObservers("changeColor", trafficLightState.yellowRed);
+        notifyObservers("changeColor", TrafficLightState.YELLOWRED);
     }
 
 
@@ -112,7 +112,7 @@ public class TrafficLightModel extends Obserable
      */
     public void setDark()
     {
-        notifyObservers("changeColor", trafficLightState.dark);
+        notifyObservers("changeColor", TrafficLightState.DARK);
     }
 
 
@@ -126,7 +126,7 @@ public class TrafficLightModel extends Obserable
      */
     public void setAllOn()
     {
-        notifyObservers("changeColor", trafficLightState.allOn);
+        notifyObservers("changeColor", TrafficLightState.ALLON);
     }
 
 
@@ -139,9 +139,9 @@ public class TrafficLightModel extends Obserable
      * @date    18.11.2018
      * @returns trafficLightState: Act state from the trafficLight
      */
-    public trafficLightState getActState()
+    public TrafficLightState getActState()
     {
-        return (trafficLightState) notifyObserversWithResponse("getActState");
+        return (TrafficLightState) notifyObserversWithResponse("getActState");
     }
 }
 

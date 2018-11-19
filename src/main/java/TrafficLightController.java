@@ -40,7 +40,7 @@ public class TrafficLightController implements Observer
     final Paint yellowColor = Paint.valueOf("#e8ff1f");
     final Paint greenColor = Paint.valueOf("#05d721");
 
-    private trafficLightState actState;
+    private TrafficLightState actState;
     private Timeline stateChangeTimer = new Timeline(new KeyFrame(
             Duration.millis(500),
             ae -> stateChangeTimerTick()));
@@ -88,7 +88,7 @@ public class TrafficLightController implements Observer
             }
             case "changeColor":
             {
-                changeColor((trafficLightState) obj);
+                changeColor((TrafficLightState) obj);
                 break;
             }
         }
@@ -107,7 +107,7 @@ public class TrafficLightController implements Observer
     {
         if(string.indexOf("getState") != 0)
         {
-            return (trafficLightState)getActState();
+            return (TrafficLightState)getActState();
         }
         return 0;
     }
@@ -127,11 +127,11 @@ public class TrafficLightController implements Observer
     {
         if(typeCar.isSelected())
         {
-            model.setType(trafficLightType.car);
+            model.setType(TrafficLightType.CAR);
         }
         else if(typePedestrian.isSelected())
         {
-            model.setType(trafficLightType.pedestrian);
+            model.setType(TrafficLightType.PEDESTRIAN);
         }
     }
 
@@ -282,47 +282,47 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum state
      */
-    public void changeColor(trafficLightState newState)
+    public void changeColor(TrafficLightState newState)
     {
         actState = newState;
 
         switch(actState) {
-            case red: {
+            case RED: {
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(darkColor);
                 greenLightTraffic.setFill(darkColor);
                 red.setSelected(true);
                 break;
             }
-            case yellowRed: {
+            case YELLOWRED: {
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(darkColor);
                 yellowRed.setSelected(true);
                 break;
             }
-            case yellow: {
+            case YELLOW: {
                 redLightTraffic.setFill(darkColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(darkColor);
                 yellow.setSelected(true);
                 break;
             }
-            case green: {
+            case GREEN: {
                 redLightTraffic.setFill(darkColor);
                 yellowLightTraffic.setFill(darkColor);
                 greenLightTraffic.setFill(greenColor);
                 green.setSelected(true);
                 break;
             }
-            case dark: {
+            case DARK: {
                 redLightTraffic.setFill(darkColor);
                 yellowLightTraffic.setFill(darkColor);
                 greenLightTraffic.setFill(darkColor);
                 dark.setSelected(true);
                 break;
             }
-            case allOn: {
+            case ALLON: {
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(greenColor);
@@ -340,7 +340,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @return  enum actState
      */
-    public trafficLightState getActState()
+    public TrafficLightState getActState()
     {
         return actState;
     }
@@ -391,50 +391,50 @@ public class TrafficLightController implements Observer
         try {
 
             // Returns the from the actual trafficLight state the integer number from the enum
-            actState = trafficLightState.valueOf(getActState().toString()).ordinal();
-            System.out.println("Act TrafficLight: " + actState + " " + trafficLightState.values()[actState]);
+            actState = TrafficLightState.valueOf(getActState().toString()).ordinal();
+            System.out.println("Act TrafficLight: " + actState + " " + TrafficLightState.values()[actState]);
 
             switch (order) {
                 case "simulation": {
                     actState++;
-                    if(actState >= trafficLightState.values().length)
+                    if(actState >= TrafficLightState.values().length)
                     {actState = 0;}
-                    changeColor(trafficLightState.values()[actState]);
+                    changeColor(TrafficLightState.values()[actState]);
                     break;
                 }
                 case "flashYellow": {
-                    if (!getActState().equals(trafficLightState.yellow)) {
-                        changeColor(trafficLightState.yellow);
+                    if (!getActState().equals(TrafficLightState.YELLOW)) {
+                        changeColor(TrafficLightState.YELLOW);
                     } else {
-                        changeColor(trafficLightState.dark);
+                        changeColor(TrafficLightState.DARK);
                     }
                     break;
                 }
                 case "switchToRed": {
-                    if (!getActState().equals(trafficLightState.red)) {
-                        changeColor(trafficLightState.values()[actState+1]);
+                    if (!getActState().equals(TrafficLightState.RED)) {
+                        changeColor(TrafficLightState.values()[actState+1]);
                     } else {
                         stateChangeTimer.stop();
                     }
                     break;
                 }
                 case "switchToGreen": {
-                    if (!getActState().equals(trafficLightState.green)) {
-                        changeColor(trafficLightState.values()[actState-1]);
+                    if (!getActState().equals(TrafficLightState.GREEN)) {
+                        changeColor(TrafficLightState.values()[actState-1]);
                     } else {
                         stateChangeTimer.stop();
                     }
                     break;
                 }
                 default: {
-                    changeColor(trafficLightState.dark);
+                    changeColor(TrafficLightState.DARK);
                     stateChangeTimer.stop();
                     break;
                 }
             }
         }catch (Exception e)
         {
-            changeColor(trafficLightState.red);
+            changeColor(TrafficLightState.RED);
         }
 
     }
