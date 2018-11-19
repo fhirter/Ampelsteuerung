@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -78,7 +77,6 @@ public class PrimaryStageController {
     public void newProject(MouseEvent mouseEvent) throws IOException {
         // Erstellen eines neuen Projektes
 
-
     }
 
     public void openAboutWindow() throws Exception {
@@ -101,6 +99,7 @@ public class PrimaryStageController {
             handleSubmitButtonAction();
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

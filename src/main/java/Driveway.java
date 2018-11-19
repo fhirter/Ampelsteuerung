@@ -8,15 +8,11 @@
  * @date   14.11.2018
  */
 
-public class Driveway {
+class Driveway {
 
     private boolean PedestrianStripes;
     private boolean BicyclePath;
     private boolean PublicTrafficRail;
-
-    public Driveway() {
-    }
-
 
     public void setPedestrainStripes (boolean PedestrianStripes) {
             this.PedestrianStripes = PedestrianStripes;
