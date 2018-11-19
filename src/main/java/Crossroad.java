@@ -12,18 +12,10 @@ public class Crossroad {
         trafficLight.addObserver(trafficLightView.getController());
 
         trafficLight.setYellow();
-    }
-
-    public void generateDriveway ()
-    {
-        Driveway DrivewayNord = new Driveway(false, false, false);
-        Driveway DrivewayEast = new Driveway(false, false, false);
-        Driveway DrivewaySouth = new Driveway(false, false, false);
-        Driveway DrivewayWest = new Driveway(false, false, false);
 
     }
 
-        public void PedestrianStripeVisible() throws Exception {
+        public void pedestrianStripeVisible() throws Exception {
             try {
                 Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
                 Group GP = new Group(node);

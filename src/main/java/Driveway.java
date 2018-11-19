@@ -14,31 +14,31 @@ public class Driveway {
     private boolean BicyclePath;
     private boolean PublicTrafficRail;
 
-    public Driveway(boolean PedestrianStripes, boolean BicyclePath, boolean PublicTrafficRail) {
+    public Driveway() {
     }
 
 
-    public void SetPedestrainStripes (boolean PedestrianStripes) {
+    public void setPedestrainStripes (boolean PedestrianStripes) {
             this.PedestrianStripes = PedestrianStripes;
     }
 
-    public boolean GetPedestrianStripes() {
+    public boolean getPedestrianStripes() {
         return PedestrianStripes;
     }
 
-    public void SetBicyclePatch (boolean BicyclePath){
+    public void setBicyclePatch (boolean BicyclePath){
         this.BicyclePath = BicyclePath;
     }
 
-    public boolean GetBicyclePatch (){
+    public boolean getBicyclePatch (){
         return BicyclePath;
     }
 
-    public void SetPublicTrafficRail (boolean PublicTrafficRail){
+    public void setPublicTrafficRail (boolean PublicTrafficRail){
         this.PublicTrafficRail = PublicTrafficRail;
     }
 
-    public boolean GetPublicTrafficRail () {
+    public boolean getPublicTrafficRail () {
         return PublicTrafficRail;
     }
 
