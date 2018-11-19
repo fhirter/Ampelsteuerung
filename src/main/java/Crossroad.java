@@ -7,11 +7,7 @@ public class Crossroad {
 
     Crossroad()
     {
-        TrafficLightModel trafficLight = new TrafficLightModel();
-        TrafficLightView trafficLightView = new TrafficLightView(trafficLight);
-        trafficLight.addObserver(trafficLightView.getController());
 
-        trafficLight.setYellow();
 
     }
 

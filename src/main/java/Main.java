@@ -1,7 +1,9 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.LinkedList;
@@ -25,7 +27,7 @@ public class Main extends Application {
         Crossroad crossroad = new Crossroad();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
-        Parent root = loader.load();
+        BorderPane root = loader.load();
 
         primaryStage.setTitle("Ampelsteuerung");
 
@@ -43,11 +45,28 @@ public class Main extends Application {
         crossing.add("5 Streets");
         controller.setSetnumberOfCrossing(crossing);
 
+
+
+        Node node = getTrafficLight();
+
+
+
         primaryStage.setScene(new Scene(root, 500, 800));
 //        primaryStage.setScene(new Scene(root, 1920, 1080));
+        root.getChildren().add(node);
         primaryStage.show();
 
 
+
+    }
+
+    private Node getTrafficLight() throws java.io.IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+
+        TrafficLightModel trafficLight = new TrafficLightModel();
+        trafficLight.addObserver(fxmlLoader.getController());
+
+        return (Node) fxmlLoader.load();
     }
 
     @Override
