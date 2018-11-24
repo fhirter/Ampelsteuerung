@@ -1,28 +1,20 @@
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.beans.Visibility;
 import java.io.IOException;
 import java.util.List;
 
-public class PrimaryStageController implements Observer {
+public class PrimaryStageController {
 
-
-    public CheckBox pedestrainStripesCheckbox;
-    public Group pedestrainStripes;
 
     @FXML
     MenuItem exitSoftware;
@@ -38,13 +30,11 @@ public class PrimaryStageController implements Observer {
     private ChoiceBox<String> setnumberOfCrossing;
     @FXML
     TabPane tabPane;
+    @FXML
+    Group pedestrainStripes;
 
 
-
-
-
-
-
+    //todo
     @FXML
     private void handleSubmitButtonAction() {
         String message = "Your Choice:\n";
@@ -68,9 +58,6 @@ public class PrimaryStageController implements Observer {
 
     }
 
-    public PrimaryStageController (){}
-
-
     @FXML
     public void setSetchoiceOfAlgorithm(List<String> algorithm) {
 
@@ -90,7 +77,6 @@ public class PrimaryStageController implements Observer {
     public void newProject(MouseEvent mouseEvent) throws IOException {
         // Erstellen eines neuen Projektes
 
-
     }
 
     public void openAboutWindow() throws Exception {
@@ -105,31 +91,20 @@ public class PrimaryStageController implements Observer {
         }
     }
 
-
     public void startButtonConfig() throws Exception {
         try {
             Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
             Tab tb = new Tab("Kreuzung", node);
             tabPane.getTabs().add(tb);
-            if (pedestrainStripesCheckbox.isSelected())
-                node.visibleProperty();
+            handleSubmitButtonAction();
 
-        } catch (Exception e) {
-        }
-    }
-
-    public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent) {
-        // muss hier nicht auf knopfdruck geschehen, die ampeln sind ja bereits bei der initialisierung vorhanden
-//        TrafficLightView view = new TrafficLightView();
-        try {
-//            view.launchGui();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void update() {
+
+    public void PedestrianStripeVisible(ActionEvent actionEvent) {
 
     }
 }
