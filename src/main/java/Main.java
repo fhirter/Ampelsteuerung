@@ -1,10 +1,10 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,31 +47,36 @@ public class Main extends Application {
         crossing.add("5 Streets");
         controller.setSetnumberOfCrossing(crossing);
 
-
-        Node node = getTrafficLight();
-        Node drivewayNode = getDriveway();
+        //Node node = getTrafficLight();
+        ;
 
 
         primaryStage.setScene(new Scene(root, 500, 800));
 //        primaryStage.setScene(new Scene(root, 1920, 1080));
-        root.getChildren().add(node);
+  //      root.getChildren().add(node);
         primaryStage.show();
-        root.getChildren().add(drivewayNode);
 
 
+
+        PrimaryStageController primaryStageController = new PrimaryStageController();
+
+        if (primaryStageController.startButtonConfig()){
+            Pane drivewayNode = getDriveway();
+            root.getChildren().add(drivewayNode);
+            getDriveway();
+
+        }
     }
 
-    private Node getDriveway() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("driveway.fxml"));
 
-        Driveway driveway = new Driveway();
-        driveway.addObserver(fxmlLoader.getController());
-        return (Node) fxmlLoader.load();
+    private Pane getDriveway() throws IOException {
+        Pane fxmlLoader = (Pane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
+
+        return fxmlLoader;
     }
 
 
-
-
+    /*
     private Node getTrafficLight() throws java.io.IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
 
@@ -79,14 +84,13 @@ public class Main extends Application {
         trafficLight.addObserver(fxmlLoader.getController());
         return (Node) fxmlLoader.load();
     }
-
+*/
 
 
     @Override
     public void stop(){
 
     }
-
 
     public static void main(String[] args)
     {

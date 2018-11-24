@@ -1,15 +1,13 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -29,10 +27,7 @@ public class PrimaryStageController {
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
     @FXML
-    TabPane tabPane;
-    @FXML
-    Group pedestrainStripes;
-
+    CheckBox pedestrainStripesCheckbox;
 
     //todo
     @FXML
@@ -58,6 +53,9 @@ public class PrimaryStageController {
 
     }
 
+    public PrimaryStageController() {
+    }
+
     @FXML
     public void setSetchoiceOfAlgorithm(List<String> algorithm) {
 
@@ -79,6 +77,14 @@ public class PrimaryStageController {
 
     }
 
+    public boolean getIsPedestrianStripeSelected() {
+
+       if (pedestrainStripesCheckbox.isSelected()){
+           return true;
+          }
+        return false;
+    }
+
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
@@ -91,20 +97,8 @@ public class PrimaryStageController {
         }
     }
 
-    public void startButtonConfig() throws Exception {
-        try {
-            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Tab tb = new Tab("Kreuzung", node);
-            tabPane.getTabs().add(tb);
-            handleSubmitButtonAction();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void PedestrianStripeVisible(ActionEvent actionEvent) {
+    public boolean startButtonConfig(ActionEvent actionEvent) {
 
     }
 }
