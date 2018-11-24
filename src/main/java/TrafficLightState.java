@@ -1,0 +1,1 @@
+public enum TrafficLightState {GREEN, YELLOW, YELLOWRED, RED, DARK, ALLON;};

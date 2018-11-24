@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -35,6 +34,7 @@ public class PrimaryStageController {
     Group pedestrainStripes;
 
 
+    //todo
     @FXML
     private void handleSubmitButtonAction() {
         String message = "Your Choice:\n";
@@ -77,7 +77,6 @@ public class PrimaryStageController {
     public void newProject(MouseEvent mouseEvent) throws IOException {
         // Erstellen eines neuen Projektes
 
-
     }
 
     public void openAboutWindow() throws Exception {
@@ -98,19 +97,12 @@ public class PrimaryStageController {
             Tab tb = new Tab("Kreuzung", node);
             tabPane.getTabs().add(tb);
             handleSubmitButtonAction();
-        } catch (Exception e) {
-        }
-    }
 
-    public void handleStartTrafficLight(javafx.event.ActionEvent actionEvent) {
-        // muss hier nicht auf knopfdruck geschehen, die ampeln sind ja bereits bei der initialisierung vorhanden
-//        TrafficLightView view = new TrafficLightView();
-        try {
-//            view.launchGui();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     public void PedestrianStripeVisible(ActionEvent actionEvent) {
 

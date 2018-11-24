@@ -1,20 +1,18 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Obserable  {
+abstract class Obserable  {
 
     List<Observer> observers = new LinkedList<>();
 
 
-    public void addObserver(Observer observer){
+    protected void addObserver(Observer observer){
         observers.add(observer);
     }
 
-    public void notifyObservers(){
+    protected void notifyObservers(){
         for (Observer i : observers) {
          i.update();
         }
     }
-
-
 }

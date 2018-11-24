@@ -35,38 +35,81 @@ public class TrafficLightController implements Observer
     @FXML   private Slider scaleFactor;
 
 
-    private trafficLightState actState;
+    final Paint redColor = Paint.valueOf("#ff0000");
+    final Paint darkColor = Paint.valueOf("#ababab");
+    final Paint yellowColor = Paint.valueOf("#e8ff1f");
+    final Paint greenColor = Paint.valueOf("#05d721");
+
+    private TrafficLightState actState;
     private Timeline stateChangeTimer = new Timeline(new KeyFrame(
             Duration.millis(500),
             ae -> stateChangeTimerTick()));
     private String order = "";
 
+    private TrafficLightModel model = new TrafficLightModel();
+
 
     /**
-     * TrafficLightController():
+     * setModel(): Set the instance from the model (gui)
+     *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    14.11.2018
+     * @date    17.11.2018
+     * @arg     TrafficLightModel
      */
-    public TrafficLightController()
+    public void setModel(TrafficLightModel model)
     {
-
+        this.model = model;
     }
 
 
     /**
-     * update(): Obstacle where ist registred into TrafficLightModel
+     * update(): Obstacle where is registred into TrafficLightModel
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    13.11.2018
+     * @date    18.11.2018
      */
     @Override
-    public void update()
+    public void update(String string, Object obj)
     {
-        // hier reagierst du auf änderungen im model -> den state aktualisieren
-        System.out.println("Obstacle wurde aktiviert.");
+        switch(string)
+        {
+            case "setScaleFactor":
+            {
+                setScaleFactor((Double) obj);
+                break;
+            }
+            case "setType":
+            {
+                setType((Boolean) obj);
+                break;
+            }
+            case "changeColor":
+            {
+                changeColor((TrafficLightState) obj);
+                break;
+            }
+        }
+    }
+
+
+    /**
+     * update(): Obstacle where is registred into TrafficLightModel with response
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    18.11.2018
+     * @return  Object
+     */
+    public Object update(String string)
+    {
+        if(string.indexOf("getState") != 0)
+        {
+            return (TrafficLightState)getActState();
+        }
+        return 0;
     }
 
 
@@ -84,11 +127,11 @@ public class TrafficLightController implements Observer
     {
         if(typeCar.isSelected())
         {
-            setType(trafficLightType.car);
+            model.setType(TrafficLightType.CAR);
         }
         else if(typePedestrian.isSelected())
         {
-            setType(trafficLightType.pedestrian);
+            model.setType(TrafficLightType.PEDESTRIAN);
         }
     }
 
@@ -103,7 +146,7 @@ public class TrafficLightController implements Observer
      */
     public void changeScaleFactor(MouseEvent mouseEvent)
     {
-        setScaleFactor(scaleFactor.getValue());
+        model.setScaleFactor(scaleFactor.getValue());
     }
 
 
@@ -119,27 +162,27 @@ public class TrafficLightController implements Observer
     {
         if(red.isSelected())
         {
-            changeColor(trafficLightState.red);
+            model.setRed();
         }
         else if(yellowRed.isSelected())
         {
-            changeColor(trafficLightState.yellowRed);
+            model.setYellowRed();
         }
         else if(yellow.isSelected())
         {
-            changeColor(trafficLightState.yellow);
+            model.setYellow();
         }
         else if(green.isSelected())
         {
-            changeColor(trafficLightState.green);
+            model.setGreen();
         }
         else if(dark.isSelected())
         {
-            changeColor(trafficLightState.dark);
+            model.setDark();
         }
         else if(allOn.isSelected())
         {
-            changeColor(trafficLightState.allOn);
+            model.setAllOn();
         }
     }
 
@@ -196,26 +239,7 @@ public class TrafficLightController implements Observer
 
 
     /***************************** Own methodes from the class **************************************************************************
-
      /**
-     * setSettings(): setAllSettings for the trafficlight.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    12.11.2018
-     * @arg     enum type
-     * @arg     double scaleFactor
-     */
-    public void setSettings(trafficLightType newType, double scaleFactor)
-    {
-        setScaleFactor(scaleFactor);
-
-        setType(newType);
-    }
-
-
-    /**
      * setScaleFactor(): Set the scale factor from the trafficLight.
      *
      *
@@ -227,10 +251,8 @@ public class TrafficLightController implements Observer
      */
     public void setScaleFactor(double scaleFactor)
     {
-        if(scaleFactor > 0.1) {
-            groupScaleFactor.setScaleX(scaleFactor);
-            groupScaleFactor.setScaleY(scaleFactor);
-        }
+        groupScaleFactor.setScaleX(scaleFactor);
+        groupScaleFactor.setScaleY(scaleFactor);
     }
 
 
@@ -244,19 +266,9 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum type
      */
-    public void setType(trafficLightType newType)
+    public void setType(Boolean type)
     {
-        switch(newType)
-        {
-            case car: {
-                symbolPedestrian.setVisible(false);
-                break;
-            }
-            case pedestrian: {
-                symbolPedestrian.setVisible(true);
-                break;
-            }
-        }
+        symbolPedestrian.setVisible(type);
     }
 
 
@@ -270,50 +282,50 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @arg     enum state
      */
-    public void changeColor(trafficLightState newState)
+    public void changeColor(TrafficLightState newState)
     {
         actState = newState;
 
         switch(actState) {
-            case red: {
-                redLightTraffic.setFill(Paint.valueOf("#ff0000"));
-                yellowLightTraffic.setFill(Paint.valueOf("#ababab"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+            case RED: {
+                redLightTraffic.setFill(redColor);
+                yellowLightTraffic.setFill(darkColor);
+                greenLightTraffic.setFill(darkColor);
                 red.setSelected(true);
                 break;
             }
-            case yellowRed: {
-                redLightTraffic.setFill(Paint.valueOf("#ff0000"));
-                yellowLightTraffic.setFill(Paint.valueOf("#e8ff1f"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+            case YELLOWRED: {
+                redLightTraffic.setFill(redColor);
+                yellowLightTraffic.setFill(yellowColor);
+                greenLightTraffic.setFill(darkColor);
                 yellowRed.setSelected(true);
                 break;
             }
-            case yellow: {
-                redLightTraffic.setFill(Paint.valueOf("#ababab"));
-                yellowLightTraffic.setFill(Paint.valueOf("#e8ff1f"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+            case YELLOW: {
+                redLightTraffic.setFill(darkColor);
+                yellowLightTraffic.setFill(yellowColor);
+                greenLightTraffic.setFill(darkColor);
                 yellow.setSelected(true);
                 break;
             }
-            case green: {
-                redLightTraffic.setFill(Paint.valueOf("#ababab"));
-                yellowLightTraffic.setFill(Paint.valueOf("#ababab"));
-                greenLightTraffic.setFill(Paint.valueOf("#05d721"));
+            case GREEN: {
+                redLightTraffic.setFill(darkColor);
+                yellowLightTraffic.setFill(darkColor);
+                greenLightTraffic.setFill(greenColor);
                 green.setSelected(true);
                 break;
             }
-            case dark: {
-                redLightTraffic.setFill(Paint.valueOf("#ababab"));
-                yellowLightTraffic.setFill(Paint.valueOf("#ababab"));
-                greenLightTraffic.setFill(Paint.valueOf("#ababab"));
+            case DARK: {
+                redLightTraffic.setFill(darkColor);
+                yellowLightTraffic.setFill(darkColor);
+                greenLightTraffic.setFill(darkColor);
                 dark.setSelected(true);
                 break;
             }
-            case allOn: {
-                redLightTraffic.setFill(Paint.valueOf("#ff0000"));
-                yellowLightTraffic.setFill(Paint.valueOf("#e8ff1f"));
-                greenLightTraffic.setFill(Paint.valueOf("#05d721"));
+            case ALLON: {
+                redLightTraffic.setFill(redColor);
+                yellowLightTraffic.setFill(yellowColor);
+                greenLightTraffic.setFill(greenColor);
                 allOn.setSelected(true);
                 break;
             }
@@ -328,7 +340,7 @@ public class TrafficLightController implements Observer
      * @date    10.11.2018
      * @return  enum actState
      */
-    public trafficLightState getActState()
+    public TrafficLightState getActState()
     {
         return actState;
     }
@@ -379,50 +391,50 @@ public class TrafficLightController implements Observer
         try {
 
             // Returns the from the actual trafficLight state the integer number from the enum
-            actState = trafficLightState.valueOf(getActState().toString()).ordinal();
-            System.out.println("Act TrafficLight: " + actState + " " + trafficLightState.values()[actState]);
+            actState = TrafficLightState.valueOf(getActState().toString()).ordinal();
+            System.out.println("Act TrafficLight: " + actState + " " + TrafficLightState.values()[actState]);
 
             switch (order) {
                 case "simulation": {
                     actState++;
-                    if(actState >= trafficLightState.values().length)
+                    if(actState >= TrafficLightState.values().length)
                     {actState = 0;}
-                    changeColor(trafficLightState.values()[actState]);
+                    changeColor(TrafficLightState.values()[actState]);
                     break;
                 }
                 case "flashYellow": {
-                    if (!getActState().equals(trafficLightState.yellow)) {
-                        changeColor(trafficLightState.yellow);
+                    if (!getActState().equals(TrafficLightState.YELLOW)) {
+                        changeColor(TrafficLightState.YELLOW);
                     } else {
-                        changeColor(trafficLightState.dark);
+                        changeColor(TrafficLightState.DARK);
                     }
                     break;
                 }
                 case "switchToRed": {
-                    if (!getActState().equals(trafficLightState.red)) {
-                        changeColor(trafficLightState.values()[actState+1]);
+                    if (!getActState().equals(TrafficLightState.RED)) {
+                        changeColor(TrafficLightState.values()[actState+1]);
                     } else {
                         stateChangeTimer.stop();
                     }
                     break;
                 }
                 case "switchToGreen": {
-                    if (!getActState().equals(trafficLightState.green)) {
-                        changeColor(trafficLightState.values()[actState-1]);
+                    if (!getActState().equals(TrafficLightState.GREEN)) {
+                        changeColor(TrafficLightState.values()[actState-1]);
                     } else {
                         stateChangeTimer.stop();
                     }
                     break;
                 }
                 default: {
-                    changeColor(trafficLightState.dark);
+                    changeColor(TrafficLightState.DARK);
                     stateChangeTimer.stop();
                     break;
                 }
             }
         }catch (Exception e)
         {
-            changeColor(trafficLightState.red);
+            changeColor(TrafficLightState.RED);
         }
 
     }
