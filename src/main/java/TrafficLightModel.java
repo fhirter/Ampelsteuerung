@@ -10,6 +10,7 @@ public class TrafficLightModel extends Obserable
      * @arg     enum type
      * @arg     double scaleFactor
      */
+
     public void setScaleFactor(double scaleFactor)
     {
         if((scaleFactor < 0.1) || (scaleFactor > 1.0))
@@ -143,6 +144,7 @@ public class TrafficLightModel extends Obserable
     {
         return (TrafficLightState) notifyObserversWithResponse("getActState");
     }
+
 }
 
 

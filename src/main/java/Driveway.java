@@ -8,11 +8,12 @@
  * @date   14.11.2018
  */
 
-class Driveway {
+public class Driveway extends Obserable {
 
     private boolean PedestrianStripes;
     private boolean BicyclePath;
     private boolean PublicTrafficRail;
+
 
     public void setPedestrainStripes (boolean PedestrianStripes) {
             this.PedestrianStripes = PedestrianStripes;

@@ -6,17 +6,19 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TrafficMemberController">
+<AnchorPane prefHeight="486.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TrafficMemberController">
    <children>
-      <Group fx:id="streetNormal" layoutX="200.0" layoutY="200.0">
+      <Group fx:id="streetNormal" layoutX="200.0" layoutY="200.0" AnchorPane.bottomAnchor="850.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="1275.0" AnchorPane.topAnchor="200.0">
          <children>
             <Canvas height="150.0" width="580.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="150.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
             <Group />
             <Line endX="580.0" layoutY="75.0" style="-fx-stroke-dash-array: 40;" />
+            <Line endX="580.0" layoutY="20.0" stroke="#eee30a" style="-fx-stroke-dash-array: 10;" />
+            <Line endX="580.0" layoutY="130.0" stroke="#eee30a" style="-fx-stroke-dash-array: 10;" />
          </children>
       </Group>
-      <Group fx:id="pedestrainStripes" layoutX="600.0" layoutY="200.0" visible="false" AnchorPane.bottomAnchor="850.0" AnchorPane.topAnchor="200.0">
+      <Group fx:id="pedestrainStripes" layoutX="600.0" layoutY="200.0" AnchorPane.bottomAnchor="850.0" AnchorPane.topAnchor="200.0">
          <Line endX="100.0" layoutY="5.0" stroke="#e1e417" strokeWidth="10.0" />
          <Line endX="100.0" layoutY="25.0" stroke="#e1e417" strokeWidth="10.0" />
          <Line endX="100.0" layoutY="45.0" stroke="#e1e417" strokeWidth="10.0" />
@@ -26,5 +28,7 @@
          <Line endX="100.0" layoutY="125.0" stroke="#e1e417" strokeWidth="10.0" />
          <Line endX="100.0" layoutY="145.0" stroke="#e1e417" strokeWidth="10.0" />
       </Group>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c6c9" height="31.0" layoutX="200.0" layoutY="350.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c6c9" height="31.0" layoutX="200.0" layoutY="169.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
    </children>
 </AnchorPane>

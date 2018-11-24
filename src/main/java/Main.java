@@ -2,9 +2,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,28 +48,39 @@ public class Main extends Application {
         controller.setSetnumberOfCrossing(crossing);
 
 
-
         Node node = getTrafficLight();
-
+        Node drivewayNode = getDriveway();
 
 
         primaryStage.setScene(new Scene(root, 500, 800));
 //        primaryStage.setScene(new Scene(root, 1920, 1080));
         root.getChildren().add(node);
         primaryStage.show();
-
+        root.getChildren().add(drivewayNode);
 
 
     }
+
+    private Node getDriveway() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("driveway.fxml"));
+
+        Driveway driveway = new Driveway();
+        driveway.addObserver(fxmlLoader.getController());
+        return (Node) fxmlLoader.load();
+    }
+
+
+
 
     private Node getTrafficLight() throws java.io.IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
 
         TrafficLightModel trafficLight = new TrafficLightModel();
         trafficLight.addObserver(fxmlLoader.getController());
-
         return (Node) fxmlLoader.load();
     }
+
+
 
     @Override
     public void stop(){
