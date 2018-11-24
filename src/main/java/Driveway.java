@@ -10,32 +10,40 @@
 
 class Driveway {
 
-    private boolean PedestrianStripes;
-    private boolean BicyclePath;
-    private boolean PublicTrafficRail;
+    private boolean pedestrianStripes;
+    private boolean bicyclePath;
+    private boolean publicTrafficRail;
+    private boolean driveable;
 
     public void setPedestrainStripes (boolean PedestrianStripes) {
-            this.PedestrianStripes = PedestrianStripes;
+            this.pedestrianStripes = PedestrianStripes;
     }
 
     public boolean getPedestrianStripes() {
-        return PedestrianStripes;
+        return pedestrianStripes;
     }
 
     public void setBicyclePatch (boolean BicyclePath){
-        this.BicyclePath = BicyclePath;
+        this.bicyclePath = BicyclePath;
     }
 
     public boolean getBicyclePatch (){
-        return BicyclePath;
+        return bicyclePath;
     }
 
     public void setPublicTrafficRail (boolean PublicTrafficRail){
-        this.PublicTrafficRail = PublicTrafficRail;
+        this.publicTrafficRail = PublicTrafficRail;
     }
 
     public boolean getPublicTrafficRail () {
-        return PublicTrafficRail;
+        return publicTrafficRail;
     }
 
+    public void setdrivable (boolean driveable) {
+        this.driveable = driveable;
+    }
+
+    public boolean getdivable () {
+        return driveable;
+    }
 }
