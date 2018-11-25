@@ -1,5 +1,9 @@
 public class TrafficLightModel extends Obserable
 {
+    double scaleFactor = 0;
+    TrafficLightType type = TrafficLightType.CAR;
+    TrafficLightState state = TrafficLightState.RED;
+
     /**
      * setScaleFactor(): Set the scale factor from the trafficLight.
      *
@@ -7,42 +11,64 @@ public class TrafficLightModel extends Obserable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @arg     enum type
-     * @arg     double scaleFactor
+     * @arg     scaleFactor: Scale factor from 0.1 to 1 for the size from the trafficLight
      */
     public void setScaleFactor(double scaleFactor)
     {
         if((scaleFactor < 0.1) || (scaleFactor > 1.0))
         {
-            scaleFactor = 1.0;
+            this.scaleFactor = 1.0;
+        }else
+        {
+            this.scaleFactor = scaleFactor;
         }
-        notifyObservers("setScaleFactor", scaleFactor);
+        notifyObservers();
     }
 
 
     /**
-     * settype(): Change the type for the trafficlight.
+     * getScaleFactor(): Returns the selected scale factor
      *
-     * Set the graphical group for pedestrian visible or unvisible.
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    20.11.2018
+     * @return  double scaleFactor: Scale factor from 0.1 to 1 for the size from the trafficLight
+     */
+    public double getScaleFactor()
+    {
+        return scaleFactor;
+    }
+
+
+    /**
+     * setType(): Change the type (CAR or PEDESTRIAN) for the trafficlight.
+     *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @arg     enum type
+     * @arg     type: Type from the trafficLight
      */
-    public void setType(TrafficLightType newType)
+    public void setType(TrafficLightType type)
     {
-        switch(newType)
-        {
-            case CAR: {
-                notifyObservers("setType", false );
-                break;
-            }
-            case PEDESTRIAN: {
-                notifyObservers("setType", true );
-                break;
-            }
-        }
+        this.type = type;
+        notifyObservers();
+    }
+
+
+    /**
+     * getType(): Returns the type for the trafficLight. (CAR or PEDESTRIAN)
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    18.11.2018
+     * @return  type: Type from the trafficLight
+     */
+    public TrafficLightType getType()
+    {
+        return type;
     }
 
 
@@ -56,7 +82,8 @@ public class TrafficLightModel extends Obserable
      */
     public void setRed()
     {
-        notifyObservers("changeColor", TrafficLightState.RED);
+        state = TrafficLightState.RED;
+        notifyObservers();
     }
 
 
@@ -70,21 +97,8 @@ public class TrafficLightModel extends Obserable
      */
     public void setGreen()
     {
-        notifyObservers("changeColor", TrafficLightState.GREEN);
-    }
-
-
-    /**
-     * setYellow(): Change the color from the trafficLight to YELLOW.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     */
-    public void setYellow()
-    {
-        notifyObservers("changeColor", TrafficLightState.YELLOW);
+        state = TrafficLightState.GREEN;
+        notifyObservers();
     }
 
 
@@ -98,7 +112,23 @@ public class TrafficLightModel extends Obserable
      */
     public void setYellowRed()
     {
-        notifyObservers("changeColor", TrafficLightState.YELLOWRED);
+        state = TrafficLightState.YELLOWRED;
+        notifyObservers();
+    }
+
+
+    /**
+     * setYellow(): Change the color from the trafficLight to YELLOW.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    18.11.2018
+     */
+    public void setYellow()
+    {
+        state = TrafficLightState.YELLOW;
+        notifyObservers();
     }
 
 
@@ -112,7 +142,8 @@ public class TrafficLightModel extends Obserable
      */
     public void setDark()
     {
-        notifyObservers("changeColor", TrafficLightState.DARK);
+        state = TrafficLightState.DARK;
+        notifyObservers();
     }
 
 
@@ -126,22 +157,23 @@ public class TrafficLightModel extends Obserable
      */
     public void setAllOn()
     {
-        notifyObservers("changeColor", TrafficLightState.ALLON);
+        state = TrafficLightState.ALLON;
+        notifyObservers();
     }
 
 
     /**
-     * getActState(): Returns the act state from the traffic light.
+     * getState(): Returns the state (color) from the trafficLight
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @returns trafficLightState: Act state from the trafficLight
+     * @return  state: State from the trafficLight
      */
-    public TrafficLightState getActState()
+    public TrafficLightState getState()
     {
-        return (TrafficLightState) notifyObserversWithResponse("getActState");
+        return state;
     }
 }
 

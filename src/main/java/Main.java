@@ -18,20 +18,26 @@ import java.util.List;
  * @autor   Class NIN
  * @date    04.11.2018
  */
-
 public class Main extends Application {
 
+    /**
+     * start(Stage primaryStage): Turns all lights on.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    20.11.2018
+     * @arg     Stage primaryStage: Object from Stage
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
-        BorderPane root = loader.load();
-
         primaryStage.setTitle("Ampelsteuerung");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
+        BorderPane borderPaneLoader = loader.load();
+        primaryStage.setScene(new Scene(borderPaneLoader, 500, 800));
 
         PrimaryStageController controller = loader.getController();
-
         List<String> algorithm = new LinkedList<>();
         algorithm.add("Algorithm A");
         algorithm.add("Algorithm B");
@@ -44,45 +50,62 @@ public class Main extends Application {
         crossing.add("5 Streets");
         controller.setSetnumberOfCrossing(crossing);
 
-
-
-        Node node = getTrafficLight();
-
-
-
-        primaryStage.setScene(new Scene(root, 500, 800));
-//        primaryStage.setScene(new Scene(root, 1920, 1080));
-        root.getChildren().add(node);
-        primaryStage.show();
-
-
-
-    }
-
-    private Node getTrafficLight() throws java.io.IOException {
+        /* TrafficLight */
+        Node nodeTrafficLight;
+        TrafficLightModel trafficLightModel = new TrafficLightModel();
+        TrafficLightController trafficLightController = new TrafficLightController();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        nodeTrafficLight = fxmlLoader.load();
+        fxmlLoader.setController(trafficLightController);
+        trafficLightController.setModel(trafficLightModel);
+        trafficLightModel.addObserver(fxmlLoader.getController());
+        borderPaneLoader.getChildren().add(nodeTrafficLight);
 
-        TrafficLightModel trafficLight = new TrafficLightModel();
-        trafficLight.addObserver(fxmlLoader.getController());
 
-        return (Node) fxmlLoader.load();
+        primaryStage.show();
     }
+
 
     @Override
-    public void stop(){
+    public void stop()
+    {
 
     }
 
 
+    /**
+     * main(String[] args): Main routine,.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    20.11.2018
+     */
     public static void main(String[] args)
     {
         launch(args);
         System.out.println("Start project.");
-
-        //root.getChildern().add(circle);
-
     }
 
+
+    /**
+     * createNewTrafficLight(): Implements a new Instance from trafficLight
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    20.11.2018
+     * @arg     Node: Index from the Node fxmlLoader from trafficLight
+     */
+    private Node createNewTrafficLight() throws java.io.IOException
+    {
+
+
+        return null;
+
+
+
+    }
 }
 
 

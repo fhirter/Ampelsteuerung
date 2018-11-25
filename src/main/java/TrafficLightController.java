@@ -46,17 +46,16 @@ public class TrafficLightController implements Observer
             ae -> stateChangeTimerTick()));
     private String order = "";
 
-    private TrafficLightModel model = new TrafficLightModel();
+    private TrafficLightModel model;
 
 
     /**
-     * setModel(): Set the instance from the model (gui)
-     *
+     * setModel(): Set a instance from the trafficLight model
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    17.11.2018
-     * @arg     TrafficLightModel
+     * @date    18.11.2018
+     * @arg     model: Instance from the trafficLight model
      */
     public void setModel(TrafficLightModel model)
     {
@@ -72,46 +71,14 @@ public class TrafficLightController implements Observer
      * @date    18.11.2018
      */
     @Override
-    public void update(String string, Object obj)
+    public void update()
     {
-        switch(string)
-        {
-            case "setScaleFactor":
-            {
-                setScaleFactor((Double) obj);
-                break;
-            }
-            case "setType":
-            {
-                setType((Boolean) obj);
-                break;
-            }
-            case "changeColor":
-            {
-                changeColor((TrafficLightState) obj);
-                break;
-            }
-        }
+        model.getScaleFactor();
+        model.getType();
+        model.getState();
+
+
     }
-
-
-    /**
-     * update(): Obstacle where is registred into TrafficLightModel with response
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @return  Object
-     */
-    public Object update(String string)
-    {
-        if(string.indexOf("getState") != 0)
-        {
-            return (TrafficLightState)getActState();
-        }
-        return 0;
-    }
-
 
     /***************************** Methodes where are called from GUI **************************************************************************
 
