@@ -65,15 +65,18 @@ public class Main extends Application {
 
 
 
-        DrivewayController drivewayController = loader.getController();
+        FXMLLoader loaderDriveway = new FXMLLoader(getClass().getResource("driveway.fxml"));
+        loaderDriveway.setController(primaryStageController);
 
         DrivewayModel drivewayModel = new DrivewayModel();
-        drivewayModel.addObserver(drivewayController);
-        drivewayController.setModel(drivewayModel);
-
+        drivewayModel.addObserver(primaryStageController);
 
         Node drivewayNode = (Pane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
         borderPaneLoader.setCenter(drivewayNode);
+
+
+
+
 
 
 

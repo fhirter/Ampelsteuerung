@@ -36,6 +36,9 @@ public class PrimaryStageController implements Observer {
     private DrivewayModel drivewayModel;
     @FXML
     CheckBox pedestrainStripesCheckbox;
+    @FXML
+    Pane pedestrianStripes;
+
 
 
     //todo
@@ -100,6 +103,7 @@ public class PrimaryStageController implements Observer {
 
             if (pedestrainStripesCheckbox.isSelected()) {
                 drivewayModel.setPedestrianStripes(true);
+                pedestrianStripes.visibleProperty().setValue(true);
             }
 
         } catch (Exception e) {
@@ -111,7 +115,14 @@ public class PrimaryStageController implements Observer {
     @Override
     public void update() {
 
+        drivewayModel.getPedestrianStripes();
+        drivewayModel.getBicyclePatch();
+        drivewayModel.getPublicTrafficRail();
     }
 
+    public void setModel(DrivewayModel drivewayModel) {
+        this.drivewayModel = drivewayModel;
+
+    }
 
 }
