@@ -17,7 +17,7 @@ class DrivewayModel extends Obserable {
     public DrivewayModel() {
     }
 
-    public void setPedestrainStripes (boolean PedestrianStripes) {
+    public void setPedestrianStripes(boolean PedestrianStripes) {
             this.pedestrianStripes = PedestrianStripes;
             notifyObservers();
     }
@@ -28,6 +28,7 @@ class DrivewayModel extends Obserable {
 
     public void setBicyclePatch (boolean BicyclePath){
         this.bicyclePath = BicyclePath;
+        notifyObservers();
     }
 
     public boolean getBicyclePatch (){
@@ -36,6 +37,7 @@ class DrivewayModel extends Obserable {
 
     public void setPublicTrafficRail (boolean PublicTrafficRail){
         this.publicTrafficRail = PublicTrafficRail;
+        notifyObservers();
     }
 
     public boolean getPublicTrafficRail () {

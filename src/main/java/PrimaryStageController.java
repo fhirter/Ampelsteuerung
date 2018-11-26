@@ -1,13 +1,10 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,6 +28,10 @@ public class PrimaryStageController implements Observer {
 
     private DrivewayModel drivewayModel;
 
+    @FXML
+    CheckBox pedestrainStripesCheckbox;
+    @FXML
+    Group pedestrianStripes;
 
 
     //todo
@@ -92,18 +93,16 @@ public class PrimaryStageController implements Observer {
 
     public void startButtonConfig() throws Exception {
         try {
-            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            handleSubmitButtonAction();
+
+            if (pedestrainStripesCheckbox.isSelected()) {
+                drivewayModel.setPedestrianStripes(true);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-    public void PedestrianStripeVisible(ActionEvent actionEvent) {
-
-    }
 
     @Override
     public void update() {

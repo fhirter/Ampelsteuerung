@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.LinkedList;
@@ -50,7 +51,7 @@ public class Main extends Application {
         crossing.add("5 Streets");
         primaryStageController.setSetnumberOfCrossing(crossing);
 
-        /*TrafficLight*/
+        /*TrafficLight
         Node nodeTrafficLight;
         TrafficLightModel trafficLightModel = new TrafficLightModel();
         TrafficLightController trafficLightController = new TrafficLightController();
@@ -60,10 +61,18 @@ public class Main extends Application {
         trafficLightController.setModel(trafficLightModel);
         trafficLightModel.addObserver(fxmlLoader.getController());
         borderPaneLoader.getChildren().add(nodeTrafficLight);
-
+*/
         DrivewayModel drivewayModel = new DrivewayModel();
         drivewayModel.addObserver(primaryStageController);
         primaryStageController.setModel(drivewayModel);
+
+        Node drivewayNode = (Pane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
+        borderPaneLoader.setCenter(drivewayNode);
+
+
+
+
+
 
 
 
