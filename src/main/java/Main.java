@@ -37,19 +37,20 @@ public class Main extends Application {
         BorderPane borderPaneLoader = loader.load();
         primaryStage.setScene(new Scene(borderPaneLoader, 500, 800));
 
-        PrimaryStageController controller = loader.getController();
+        PrimaryStageController primaryStageController = loader.getController();
         List<String> algorithm = new LinkedList<>();
         algorithm.add("Algorithm A");
         algorithm.add("Algorithm B");
         algorithm.add("Algorithm C");
         algorithm.add("Algorithm D");
-        controller.setSetchoiceOfAlgorithm(algorithm);
-        List<Integer> crossing = new LinkedList<>();
-        crossing.add(3);
-        crossing.add(2);
-        controller.setSetnumberOfCrossing(crossing);
+        primaryStageController.setSetchoiceOfAlgorithm(algorithm);
+        List<String> crossing = new LinkedList<>();
+        crossing.add("3 Streets");
+        crossing.add("4 Streets");
+        crossing.add("5 Streets");
+        primaryStageController.setSetnumberOfCrossing(crossing);
 
-        /* TrafficLight */
+        /*TrafficLight*/
         Node nodeTrafficLight;
         TrafficLightModel trafficLightModel = new TrafficLightModel();
         TrafficLightController trafficLightController = new TrafficLightController();
@@ -59,6 +60,13 @@ public class Main extends Application {
         trafficLightController.setModel(trafficLightModel);
         trafficLightModel.addObserver(fxmlLoader.getController());
         borderPaneLoader.getChildren().add(nodeTrafficLight);
+
+        DrivewayModel drivewayModel = new DrivewayModel();
+        drivewayModel.addObserver(primaryStageController);
+        primaryStageController.setModel(drivewayModel);
+
+
+
 
 
         primaryStage.show();
