@@ -3,12 +3,13 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PrimaryStageController">
+<AnchorPane prefHeight="1200.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DrivewayController">
    <children>
-      <Group fx:id="streetNormal" layoutX="200.0" layoutY="200.0">
+      <Group fx:id="streetNormal">
          <children>
             <Canvas height="150.0" width="580.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="150.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
@@ -16,15 +17,19 @@
             <Line endX="580.0" layoutY="75.0" style="-fx-stroke-dash-array: 40;" />
          </children>
       </Group>
-      <Group fx:id="pedestrianStripes" layoutX="600.0" layoutY="200.0" visible="false" AnchorPane.bottomAnchor="850.0" AnchorPane.topAnchor="200.0">
-         <Line endX="100.0" layoutY="5.0" stroke="#e1e417" strokeWidth="10.0"/>
-         <Line endX="100.0" layoutY="25.0" stroke="#e1e417" strokeWidth="10.0"/>
-         <Line endX="100.0" layoutY="45.0" stroke="#e1e417" strokeWidth="10.0"/>
-         <Line endX="100.0" layoutY="65.0" stroke="#e1e417" strokeWidth="10.0"/>
-         <Line endX="100.0" layoutY="85.0" stroke="#e1e417" strokeWidth="10.0"/>
-         <Line endX="100.0" layoutY="105.0" stroke="#e1e417" strokeWidth="10.0"/>
-         <Line endX="100.0" layoutY="125.0" stroke="#e1e417" strokeWidth="10.0"/>
-         <Line endX="100.0" layoutY="145.0" stroke="#e1e417" strokeWidth="10.0"/>
-      </Group>
+      <Pane fx:id="pedestrianStripes" prefHeight="150.0" prefWidth="580.0" visible="false">
+         <children>
+            <Group>
+               <Line endX="100.0" layoutY="5.0" stroke="#e1e417" strokeWidth="10.0" />
+               <Line endX="100.0" layoutY="25.0" stroke="#e1e417" strokeWidth="10.0" />
+               <Line endX="100.0" layoutY="45.0" stroke="#e1e417" strokeWidth="10.0" />
+               <Line endX="100.0" layoutY="65.0" stroke="#e1e417" strokeWidth="10.0" />
+               <Line endX="100.0" layoutY="85.0" stroke="#e1e417" strokeWidth="10.0" />
+               <Line endX="100.0" layoutY="105.0" stroke="#e1e417" strokeWidth="10.0" />
+               <Line endX="100.0" layoutY="125.0" stroke="#e1e417" strokeWidth="10.0" />
+               <Line endX="100.0" layoutY="145.0" stroke="#e1e417" strokeWidth="10.0" />
+            </Group>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

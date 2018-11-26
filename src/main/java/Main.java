@@ -62,12 +62,21 @@ public class Main extends Application {
         trafficLightModel.addObserver(fxmlLoader.getController());
         borderPaneLoader.getChildren().add(nodeTrafficLight);
 */
+
+
+
+        DrivewayController drivewayController = loader.getController();
+
         DrivewayModel drivewayModel = new DrivewayModel();
-        drivewayModel.addObserver(primaryStageController);
-        primaryStageController.setModel(drivewayModel);
+        drivewayModel.addObserver(drivewayController);
+        drivewayController.setModel(drivewayModel);
+
 
         Node drivewayNode = (Pane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
         borderPaneLoader.setCenter(drivewayNode);
+
+
+
 
 
 
