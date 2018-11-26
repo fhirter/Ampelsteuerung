@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
-public class PrimaryStageController {
+public class PrimaryStageController implements Observer {
 
 
     @FXML
@@ -28,10 +28,9 @@ public class PrimaryStageController {
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
-    @FXML
-    TabPane tabPane;
-    @FXML
-    Group pedestrainStripes;
+
+    private DrivewayModel drivewayModel;
+
 
 
     //todo
@@ -94,8 +93,6 @@ public class PrimaryStageController {
     public void startButtonConfig() throws Exception {
         try {
             Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Tab tb = new Tab("Kreuzung", node);
-            tabPane.getTabs().add(tb);
             handleSubmitButtonAction();
 
         } catch (Exception e) {
@@ -105,6 +102,18 @@ public class PrimaryStageController {
 
 
     public void PedestrianStripeVisible(ActionEvent actionEvent) {
+
+    }
+
+    @Override
+    public void update() {
+        drivewayModel.getPedestrianStripes();
+        drivewayModel.getBicyclePatch();
+        drivewayModel.getPublicTrafficRail();
+    }
+
+    public void setModel(DrivewayModel drivewayModel) {
+        this.drivewayModel = drivewayModel;
 
     }
 }
