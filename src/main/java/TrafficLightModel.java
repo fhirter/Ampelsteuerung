@@ -1,59 +1,21 @@
 public class TrafficLightModel extends Obserable
 {
-    double scaleFactor = 0;
-    TrafficLightType type = TrafficLightType.CAR;
-    TrafficLightState state = TrafficLightState.RED;
+    private TrafficLightType type;
+    private TrafficLightState state = TrafficLightState.RED;
+
 
     /**
-     * setScaleFactor(): Set the scale factor from the trafficLight.
+     * TrafficLightModel(): Constructor. Define the type from the trafficLight
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @arg     scaleFactor: Scale factor from 0.1 to 1 for the size from the trafficLight
+     * @date    26.11.2018
+     * @arg     TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
      */
-    public void setScaleFactor(double scaleFactor)
-    {
-        if((scaleFactor < 0.1) || (scaleFactor > 1.0))
-        {
-            this.scaleFactor = 1.0;
-        }else
-        {
-            this.scaleFactor = scaleFactor;
-        }
-        notifyObservers();
-    }
-
-
-    /**
-     * getScaleFactor(): Returns the selected scale factor
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    20.11.2018
-     * @return  double scaleFactor: Scale factor from 0.1 to 1 for the size from the trafficLight
-     */
-    public double getScaleFactor()
-    {
-        return scaleFactor;
-    }
-
-
-    /**
-     * setType(): Change the type (CAR or PEDESTRIAN) for the trafficlight.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @arg     type: Type from the trafficLight
-     */
-    public void setType(TrafficLightType type)
+    public TrafficLightModel(TrafficLightType type)
     {
         this.type = type;
-        notifyObservers();
     }
 
 
@@ -64,11 +26,11 @@ public class TrafficLightModel extends Obserable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @return  type: Type from the trafficLight
+     * @return  TrafficLightType: Type from the trafficLight
      */
     public TrafficLightType getType()
     {
-        return type;
+        return this.type;
     }
 
 
