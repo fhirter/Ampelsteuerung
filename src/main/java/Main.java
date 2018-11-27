@@ -50,19 +50,19 @@ public class Main extends Application {
         crossing.add("5 Streets");
         controller.setSetnumberOfCrossing(crossing);
 
-        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
-        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
+        /* TrafficLight */
+        Node nodeTrafficLight;
+        TrafficLightModel trafficLightModel = new TrafficLightModel();
+        TrafficLightController trafficLightController = new TrafficLightController();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        nodeTrafficLight = fxmlLoader.load();
+        fxmlLoader.setController(trafficLightController);
+        trafficLightController.setModel(trafficLightModel);
+        trafficLightModel.addObserver(fxmlLoader.getController());
+        borderPaneLoader.getChildren().add(nodeTrafficLight);
 
-        borderPaneLoader.getChildren().add(trafficLightNode);
+
         primaryStage.show();
-
-//toDo: muss noch geloescht werden. Dient lediglich zum Testen
-//        trafficLightModel.setYellow();
-//        trafficLightModel.setGreen();
-//        trafficLightModel.setRed();
-//        trafficLightModel.setYellowRed();
-        trafficLightModel.setAllOn();
-//        trafficLightModel.setDark();
     }
 
 
@@ -95,21 +95,16 @@ public class Main extends Application {
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    20.11.2018
-     * @arg     TrafficLightModel: Instance form the model
-     * @return  Node: Index from the Node fxmlLoader from trafficLight
+     * @arg     Node: Index from the Node fxmlLoader from trafficLight
      */
-    private Node createNewTrafficLight(TrafficLightModel model) throws java.io.IOException
+    private Node createNewTrafficLight() throws java.io.IOException
     {
-        Node nodeTrafficLight;
 
-        TrafficLightController trafficLightController = new TrafficLightController(model);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
-        fxmlLoader.setController(trafficLightController);
-        nodeTrafficLight = fxmlLoader.load();
 
-        model.addObserver(trafficLightController);
+        return null;
 
-        return nodeTrafficLight;
+
+
     }
 }
 

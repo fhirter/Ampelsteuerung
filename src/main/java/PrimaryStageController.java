@@ -1,19 +1,24 @@
-import javafx.event.ActionEvent;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class PrimaryStageController {
+public class PrimaryStageController implements Observer {
+
 
 
     @FXML
@@ -28,10 +33,12 @@ public class PrimaryStageController {
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
+    private DrivewayModel drivewayModel;
     @FXML
-    TabPane tabPane;
+    CheckBox pedestrainStripesCheckbox;
     @FXML
-    Group pedestrainStripes;
+    Pane pedestrianStripes;
+
 
 
     //todo
@@ -93,10 +100,11 @@ public class PrimaryStageController {
 
     public void startButtonConfig() throws Exception {
         try {
-            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Tab tb = new Tab("Kreuzung", node);
-            tabPane.getTabs().add(tb);
-            handleSubmitButtonAction();
+
+            if (pedestrainStripesCheckbox.isSelected()) {
+                drivewayModel.setPedestrianStripes(true);
+                pedestrianStripes.visibleProperty().setValue(true);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +112,17 @@ public class PrimaryStageController {
     }
 
 
-    public void PedestrianStripeVisible(ActionEvent actionEvent) {
+    @Override
+    public void update() {
+
+        drivewayModel.getPedestrianStripes();
+        drivewayModel.getBicyclePatch();
+        drivewayModel.getPublicTrafficRail();
+    }
+
+    public void setModel(DrivewayModel drivewayModel) {
+        this.drivewayModel = drivewayModel;
 
     }
+
 }
