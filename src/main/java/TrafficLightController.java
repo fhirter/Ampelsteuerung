@@ -98,6 +98,8 @@ public class TrafficLightController implements Observer, Initializable
     {
         TrafficLightState state = model.getState();
 
+        stateChangeTimer.stop();
+
         if(state == TrafficLightState.RED)
         {
             stateChangeTimer(order.switchToRed);
