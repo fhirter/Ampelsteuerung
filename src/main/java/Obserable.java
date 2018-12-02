@@ -10,7 +10,7 @@ abstract class Obserable  {
         observers.add(observer);
     }
 
-    protected void notifyObservers(){
+    protected void notifyObservers(String changeColor, TrafficLightState allon){
         for (Observer i : observers) {
          i.update();
         }

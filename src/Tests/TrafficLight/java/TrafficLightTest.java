@@ -4,7 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 /*
 public class TrafficLightTest extends Application
