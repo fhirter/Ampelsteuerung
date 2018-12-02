@@ -1,5 +1,5 @@
 /**
- * Class Driveway: Data model for the crossroad
+ * Class DrivewayModel: Data model for the crossroad
  *
  *
  *
@@ -8,15 +8,18 @@
  * @date   14.11.2018
  */
 
-class Driveway {
+public class DrivewayModel extends Obserable {
 
-    private boolean pedestrianStripes;
-    private boolean bicyclePath;
-    private boolean publicTrafficRail;
-    private boolean driveable;
+    private boolean pedestrianStripes = false;
+    private boolean bicyclePath = false;
+    private boolean publicTrafficRail = false;
 
-    public void setPedestrainStripes (boolean PedestrianStripes) {
+    public DrivewayModel() {
+    }
+
+    public void setPedestrianStripes(boolean PedestrianStripes) {
             this.pedestrianStripes = PedestrianStripes;
+            notifyObservers();
     }
 
     public boolean getPedestrianStripes() {
@@ -25,6 +28,7 @@ class Driveway {
 
     public void setBicyclePatch (boolean BicyclePath){
         this.bicyclePath = BicyclePath;
+        notifyObservers();
     }
 
     public boolean getBicyclePatch (){
@@ -33,17 +37,14 @@ class Driveway {
 
     public void setPublicTrafficRail (boolean PublicTrafficRail){
         this.publicTrafficRail = PublicTrafficRail;
+        notifyObservers();
     }
 
     public boolean getPublicTrafficRail () {
         return publicTrafficRail;
     }
 
-    public void setdrivable (boolean driveable) {
-        this.driveable = driveable;
-    }
-
-    public boolean getdivable () {
-        return driveable;
-    }
 }
+
+
+

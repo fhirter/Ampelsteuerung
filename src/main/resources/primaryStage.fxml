@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,11 +18,11 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar onMouseClicked="#newProject">
+            <MenuBar>
               <menus>
                 <Menu mnemonicParsing="false" text="Datei">
                      <items>
-                        <MenuItem fx:id="newProject" mnemonicParsing="false" onAction="#newProject" text="Neues Projekt" />
+                        <MenuItem fx:id="newProject" mnemonicParsing="false" text="Neues Projekt" />
                         <MenuItem fx:id="exitSoftware" mnemonicParsing="false" onAction="#handleExitSoftware" text="Exit" />
                      </items></Menu>
                 <Menu mnemonicParsing="false" text="Bearbeiten">
@@ -89,7 +88,7 @@
                </VBox.margin></ChoiceBox>
             <Pane layoutX="10.0" layoutY="117.0" prefHeight="234.0" prefWidth="150.0">
                <children>
-                  <Button fx:id="startButtonConfiguration" layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" onAction="#startButtonConfig" prefHeight="45.0" prefWidth="153.0" text="Start Configuration" />
+                  <Button fx:id="startButtonConfiguration" layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="153.0" text="Start Configuration" />
                </children></Pane>
             <Button mnemonicParsing="false" text="Statistik">
                <VBox.margin>
@@ -101,7 +100,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="856.0" prefWidth="1667.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="CrossroadPane" prefHeight="979.0" prefWidth="990.0" />
          </children></AnchorPane>
    </center>
 </BorderPane>

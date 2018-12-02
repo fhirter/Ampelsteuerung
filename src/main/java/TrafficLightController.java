@@ -3,6 +3,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -12,242 +13,121 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TrafficLightController implements Observer
+
+public class TrafficLightController implements Observer, Initializable
 {
     @FXML   private Circle redLightTraffic;
     @FXML   private Circle yellowLightTraffic;
     @FXML   private Circle greenLightTraffic;
-    @FXML   private RadioButton red;
-    @FXML   private RadioButton yellowRed;
-    @FXML   private RadioButton yellow;
-    @FXML   private RadioButton green;
-    @FXML   private RadioButton dark;
-    @FXML   private RadioButton allOn;
-    @FXML   private RadioButton typeCar;
-    @FXML   private RadioButton typePedestrian;
     @FXML   private Group symbolPedestrian;
     @FXML   private Group groupScaleFactor;
-    @FXML   private CheckBox simulationOnOff;
-    @FXML   private CheckBox flashYellow;
-    @FXML   private CheckBox stateToRed;
-    @FXML   private CheckBox stateToGreen;
-    @FXML   private Slider scaleFactor;
 
-
+    final double scaleFactorCAR = 0.6;
+    final double scaleFactorPEDESTRIAN = 0.4;
     final Paint redColor = Paint.valueOf("#ff0000");
     final Paint darkColor = Paint.valueOf("#ababab");
     final Paint yellowColor = Paint.valueOf("#e8ff1f");
     final Paint greenColor = Paint.valueOf("#05d721");
 
     private TrafficLightState actState;
+    private TrafficLightModel model;
+    private TrafficLightType type;
+    private enum order {simulation, flashYellow, switchToRed, switchToGreen, timerStopp}
+
+    private order operationTimer;
+
     private Timeline stateChangeTimer = new Timeline(new KeyFrame(
             Duration.millis(500),
-            ae -> stateChangeTimerTick()));
-    private String order = "";
-
-    private TrafficLightModel model = new TrafficLightModel();
+            ae -> stateChangeTimerTick(operationTimer)));
 
 
     /**
-     * setModel(): Set the instance from the model (gui)
-     *
+     * TrafficLightController(): Constructor
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    17.11.2018
-     * @arg     TrafficLightModel
+     * @date    27.11.2018
+     * @arg
      */
-    public void setModel(TrafficLightModel model)
+    public TrafficLightController(TrafficLightModel trafficLightModel)
     {
-        this.model = model;
+        model = trafficLightModel;
+    }
+
+    /**
+     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the trafficLight
+     *      *
+     * Is automatic called when fxmlLoader.load() ist called.
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    27.11.2018
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        type = model.getType();
+        setType(type);
+
+        if(type == TrafficLightType.CAR)
+        {
+            setScaleFactor(scaleFactorCAR);
+        }else if(type == TrafficLightType.PEDESTRIAN)
+        {
+            setScaleFactor(scaleFactorPEDESTRIAN);
+        }else
+        {
+            setScaleFactor(0.5);
+        }
     }
 
 
     /**
      * update(): Obstacle where is registred into TrafficLightModel
      *
+     * Is automatic called when something into trafficLightModel is changed.
+     *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    18.11.2018
+     * @date    27.11.2018
      */
     @Override
-    public void update(String string, Object obj)
+    public void update()
     {
-        switch(string)
+        TrafficLightState state = model.getState();
+
+        stateChangeTimer.stop();
+
+        if(state == TrafficLightState.RED)
         {
-            case "setScaleFactor":
-            {
-                setScaleFactor((Double) obj);
-                break;
-            }
-            case "setType":
-            {
-                setType((Boolean) obj);
-                break;
-            }
-            case "changeColor":
-            {
-                changeColor((TrafficLightState) obj);
-                break;
-            }
+            stateChangeTimer(order.switchToRed);
+        }else if(state == TrafficLightState.GREEN)
+        {
+            stateChangeTimer(order.switchToGreen);
+        }else if(state == TrafficLightState.YELLOW)
+        {
+            stateChangeTimer(order.flashYellow);
+        }else if(state == TrafficLightState.ALLON)
+        {
+            stateChangeTimer(order.simulation);
+        }else
+        {
+            changeColor(state);
         }
     }
 
 
     /**
-     * update(): Obstacle where is registred into TrafficLightModel with response
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @return  Object
-     */
-    public Object update(String string)
-    {
-        if(string.indexOf("getState") != 0)
-        {
-            return (TrafficLightState)getActState();
-        }
-        return 0;
-    }
-
-
-    /***************************** Methodes where are called from GUI **************************************************************************
-
-     /**
-     * setType(): Called when the radioButtons (type) are changed
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
-     */
-    public void changeType(ActionEvent actionEvent)
-    {
-        if(typeCar.isSelected())
-        {
-            model.setType(TrafficLightType.CAR);
-        }
-        else if(typePedestrian.isSelected())
-        {
-            model.setType(TrafficLightType.PEDESTRIAN);
-        }
-    }
-
-
-    /**
-     * changeScaleFactor(): Change the scale Factor from the trafficLight
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
-     */
-    public void changeScaleFactor(MouseEvent mouseEvent)
-    {
-        model.setScaleFactor(scaleFactor.getValue());
-    }
-
-
-    /**
-     * changeColor(): Called when the radioButtons (state) are changed
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
-     */
-    public void changeColor(ActionEvent actionEvent)
-    {
-        if(red.isSelected())
-        {
-            model.setRed();
-        }
-        else if(yellowRed.isSelected())
-        {
-            model.setYellowRed();
-        }
-        else if(yellow.isSelected())
-        {
-            model.setYellow();
-        }
-        else if(green.isSelected())
-        {
-            model.setGreen();
-        }
-        else if(dark.isSelected())
-        {
-            model.setDark();
-        }
-        else if(allOn.isSelected())
-        {
-            model.setAllOn();
-        }
-    }
-
-
-    /**
-     * startChangeColor(): Start the timer based change from the trafficLight.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
-     */
-    public void startChangeColor(ActionEvent actionEvent)
-    {
-        if(stateToRed.isSelected())
-        {
-            stateChangeTimer("switchToRed");
-        }
-        else if(stateToGreen.isSelected())
-        {
-            stateChangeTimer("switchToGreen");
-        }
-        else if(flashYellow.isSelected())
-        {
-            stateChangeTimer("flashYellow");
-        }
-        else
-        {
-            stateChangeTimer("timerStopp");
-        }
-    }
-
-
-    /**
-     * runSimulation(): Start or stops the simulation
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.11.2018
-     * @arg     ActionEvent actionEvent
-     */
-    public void runSimulation(ActionEvent actionEvent)
-    {
-        if(simulationOnOff.isSelected())
-        {
-            stateChangeTimer("simulation");
-        }
-        else
-        {
-            stateChangeTimer("timerStopp");
-        }
-    }
-
-
-    /***************************** Own methodes from the class **************************************************************************
-     /**
-     * setScaleFactor(): Set the scale factor from the trafficLight.
+     * setScaleFactor(): Set the scaleFactor from the trafficLight.
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    12.11.2018
      * @arg     enum type
-     * @arg     double scaleFactor
+     * @arg     double scaleFactor: (value: 0.1 to 1)
      */
     public void setScaleFactor(double scaleFactor)
     {
@@ -257,18 +137,24 @@ public class TrafficLightController implements Observer
 
 
     /**
-     * settype(): Change the type for the trafficlight.
+     * setType(): Change the type for the trafficLight (CAR, PEDESTRIAN, BUS, etc).
      *
      * Set the graphical group for pedestrian visible or unvisible.
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @arg     enum type
+     * @arg     TrafficLightType type: (value: enum TrafficLightType)
      */
-    public void setType(Boolean type)
+    public void setType(TrafficLightType type)
     {
-        symbolPedestrian.setVisible(type);
+        if(type == TrafficLightType.CAR)
+        {
+            symbolPedestrian.setVisible(false);
+        }else if(type == TrafficLightType.PEDESTRIAN)
+        {
+            symbolPedestrian.setVisible(true);
+        }
     }
 
 
@@ -280,7 +166,7 @@ public class TrafficLightController implements Observer
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @arg     enum state
+     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
      */
     public void changeColor(TrafficLightState newState)
     {
@@ -291,46 +177,41 @@ public class TrafficLightController implements Observer
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(darkColor);
                 greenLightTraffic.setFill(darkColor);
-                red.setSelected(true);
                 break;
             }
             case YELLOWRED: {
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(darkColor);
-                yellowRed.setSelected(true);
                 break;
             }
             case YELLOW: {
                 redLightTraffic.setFill(darkColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(darkColor);
-                yellow.setSelected(true);
                 break;
             }
             case GREEN: {
                 redLightTraffic.setFill(darkColor);
                 yellowLightTraffic.setFill(darkColor);
                 greenLightTraffic.setFill(greenColor);
-                green.setSelected(true);
                 break;
             }
             case DARK: {
                 redLightTraffic.setFill(darkColor);
                 yellowLightTraffic.setFill(darkColor);
                 greenLightTraffic.setFill(darkColor);
-                dark.setSelected(true);
                 break;
             }
             case ALLON: {
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(greenColor);
-                allOn.setSelected(true);
                 break;
             }
         }
     }
+
 
     /**
      * getActState(): Returns the actual state from the trafficLight
@@ -338,7 +219,7 @@ public class TrafficLightController implements Observer
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @return  enum actState
+     * @return  TrafficLightState: (value: enum TrafficLightState)
      */
     public TrafficLightState getActState()
     {
@@ -350,17 +231,18 @@ public class TrafficLightController implements Observer
      * stateChangeTimer(): Simulate the trafficLight
      *
      * Initialize a new continous timer.
-     * Every xxSeconds the methode timerTick() is called.
+     * Every xxSeconds the method timerTick() is called.
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
-     * @arg     operation: Operation order what the trafficLight must change
+     * @arg     String operation: (value: enum operation)
      */
-    public void stateChangeTimer(String operation)
+    public void stateChangeTimer(order operation)
     {
-        if(!operation.equals("timerStopp"))
+        this.operationTimer = operation;
+        if(operation != order.timerStopp)
         {
             stateChangeTimer.setCycleCount(Animation.INDEFINITE);
             stateChangeTimer.play();
@@ -369,22 +251,19 @@ public class TrafficLightController implements Observer
         {
             stateChangeTimer.stop();
         }
-
-        // Need the operation into the trafficLightStateChangeTimerTick function.
-        order = operation;
     }
 
 
     /**
      * stateChangeTimerTick(): Change in combination with the timer the lights from the trafficLight
      *
-     * Every xxSeconds the methode trafficLightStateChangeTimerTick() is called from the timer.
+     * Every xxSeconds the method stateChangeTimerTick() is called from the timer.
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    10.11.2018
      */
-    public void stateChangeTimerTick()
+    public void stateChangeTimerTick(order operationTimer)
     {
         int actState = 0;
 
@@ -394,15 +273,15 @@ public class TrafficLightController implements Observer
             actState = TrafficLightState.valueOf(getActState().toString()).ordinal();
             System.out.println("Act TrafficLight: " + actState + " " + TrafficLightState.values()[actState]);
 
-            switch (order) {
-                case "simulation": {
+            switch (operationTimer) {
+                case simulation: {
                     actState++;
                     if(actState >= TrafficLightState.values().length)
                     {actState = 0;}
                     changeColor(TrafficLightState.values()[actState]);
                     break;
                 }
-                case "flashYellow": {
+                case flashYellow: {
                     if (!getActState().equals(TrafficLightState.YELLOW)) {
                         changeColor(TrafficLightState.YELLOW);
                     } else {
@@ -410,7 +289,7 @@ public class TrafficLightController implements Observer
                     }
                     break;
                 }
-                case "switchToRed": {
+                case switchToRed: {
                     if (!getActState().equals(TrafficLightState.RED)) {
                         changeColor(TrafficLightState.values()[actState+1]);
                     } else {
@@ -418,7 +297,7 @@ public class TrafficLightController implements Observer
                     }
                     break;
                 }
-                case "switchToGreen": {
+                case switchToGreen: {
                     if (!getActState().equals(TrafficLightState.GREEN)) {
                         changeColor(TrafficLightState.values()[actState-1]);
                     } else {
