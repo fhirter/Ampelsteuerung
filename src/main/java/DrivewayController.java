@@ -1,25 +1,53 @@
-public class DrivewayController implements Observer{
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
-    private DrivewayModel drivewayModel;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    public DrivewayController(DrivewayModel drivewayModel) {
-        setModel(drivewayModel);
+public class DrivewayController implements Observer, Initializable {
 
+    @FXML
+    AnchorPane drivewayAnchorPane;
+    @FXML
+    Pane pedestrianStripes;
+    @FXML
+    Group driveway;
+
+    private DrivewayModel model;
+/*
+
+    public DrivewayController(DrivewayModel drivewayModel)
+    {
+        model = drivewayModel;
+    }
+
+
+    public void setPostion(){
+        drivewayAnchorPane.setVisible(false);
     }
 
 
 
+    /**
+     * update(): Obstacle where is registered into driveway
+     *
+     * Is automatic called when something into drivewayModel is changed.
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date    01.12.2018
+     */
     @Override
     public void update() {
 
-        drivewayModel.getPedestrianStripes();
-        drivewayModel.getBicyclePatch();
-        drivewayModel.getPublicTrafficRail();
     }
 
-    private void setModel(DrivewayModel drivewayModel) {
-        this.drivewayModel = drivewayModel;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
-
 }

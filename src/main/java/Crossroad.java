@@ -1,13 +1,12 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,10 +51,13 @@ public class Crossroad extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
         BorderPane borderPaneLoader = loader.load();
 
-        FXMLLoader drivewayLoader = new FXMLLoader(getClass().getResource("drivewayView.fxml"));
-        Node nodeDriveway = drivewayLoader.load();
 
-        borderPaneLoader.setCenter(nodeDriveway);
+        DrivewayModel drivewayModel = new DrivewayModel();
+        Node drivewayNode = createDriveway(drivewayModel);
+        borderPaneLoader.setCenter(drivewayNode);
+
+        createDriveway(drivewayModel);
+
 
         primaryStage.setScene(new Scene(borderPaneLoader, 500, 800));
 
@@ -72,7 +74,7 @@ public class Crossroad extends Application {
         crossing.add("5 Streets");
         controller.setSetnumberOfCrossing(crossing);
 
-        DrivewayModel drivewayModel = new DrivewayModel();
+
 
 
  //       TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
@@ -89,6 +91,19 @@ public class Crossroad extends Application {
 //        trafficLightModel.setAllOn();
 //        trafficLightModel.setDark();
     }
+    private Node createDriveway(DrivewayModel model) throws IOException {
+
+        Node nodeDriveway;
+
+        DrivewayController drivewayController = new DrivewayController();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivewayView.fxml"));
+        nodeDriveway = fxmlLoader.load();
+
+        model.addObserver(drivewayController);
+
+        return nodeDriveway;
+    }
+
 
 
     @Override
