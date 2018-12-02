@@ -8,7 +8,7 @@
  * @date   14.11.2018
  */
 
-class DrivewayModel extends Obserable {
+public class DrivewayModel extends Obserable {
 
     private boolean pedestrianStripes = false;
     private boolean bicyclePath = false;
@@ -45,3 +45,6 @@ class DrivewayModel extends Obserable {
     }
 
 }
+
+
+
