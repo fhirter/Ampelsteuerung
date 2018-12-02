@@ -48,7 +48,7 @@ public class Crossroad extends Application
         BorderPane borderPaneLoader = loader.load();
         primaryStage.setScene(new Scene(borderPaneLoader, 500, 800));
 
-        DrivewayModel drivewayModel = new DrivewayModel();
+        DrivewayModel drivewayModel = new DrivewayModel(true, true, true, true);
         Node drivewayNode = createDriveway(drivewayModel);
         borderPaneLoader.setCenter(drivewayNode);
 

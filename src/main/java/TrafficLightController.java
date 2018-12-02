@@ -284,7 +284,7 @@ public class TrafficLightController implements Observer, Initializable
 
             // Returns the from the actual trafficLight state the integer number from the enum
             actState = getActState().ordinal();
-            System.out.println("Act TrafficLight: " + actState + " " + TrafficLightState.values()[actState]);
+//            System.out.println("Act TrafficLight: " + actState + " " + TrafficLightState.values()[actState]);
 
             switch (operationTimer) {
                 case simulation: {

@@ -32,9 +32,7 @@ public class Main{
     public static void main(String[] args)
     {
         Crossroad crossroad = new Crossroad();
-
         crossroad.crossroadStart();
-        System.out.println("Start project.");
     }
 }
 
