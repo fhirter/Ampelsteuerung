@@ -88,7 +88,7 @@
                </VBox.margin></ChoiceBox>
             <Pane layoutX="10.0" layoutY="117.0" prefHeight="234.0" prefWidth="150.0">
                <children>
-                  <Button fx:id="startButtonConfiguration" layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="153.0" text="Start Configuration" />
+                  <Button fx:id="startButtonConfiguration" layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" onAction="#startButtonConfig" prefHeight="45.0" prefWidth="153.0" text="Start Configuration" />
                </children></Pane>
             <Button mnemonicParsing="false" text="Statistik">
                <VBox.margin>

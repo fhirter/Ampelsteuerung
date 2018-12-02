@@ -16,13 +16,7 @@ public class DrivewayController implements Observer, Initializable {
     @FXML
     Group driveway;
 
-    private DrivewayModel model;
-/*
 
-    public DrivewayController(DrivewayModel drivewayModel)
-    {
-        model = drivewayModel;
-    }
 
 
     public void setPostion(){
@@ -48,6 +42,7 @@ public class DrivewayController implements Observer, Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
     }
 }
