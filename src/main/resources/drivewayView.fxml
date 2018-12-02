@@ -7,29 +7,49 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="drivewayAnchorPane" prefHeight="1200.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="drivewayAnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Group fx:id="driveway">
+      <Pane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Canvas height="150.0" width="580.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="150.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
-            <Group />
-            <Line endX="580.0" layoutY="75.0" style="-fx-stroke-dash-array: 40;" />
-         </children>
-      </Group>
-      <Pane fx:id="pedestrianStripes" prefHeight="150.0" prefWidth="580.0" visible="false">
-         <children>
-            <Group>
-               <Line endX="100.0" layoutY="5.0" stroke="#e1e417" strokeWidth="10.0" />
-               <Line endX="100.0" layoutY="25.0" stroke="#e1e417" strokeWidth="10.0" />
-               <Line endX="100.0" layoutY="45.0" stroke="#e1e417" strokeWidth="10.0" />
-               <Line endX="100.0" layoutY="65.0" stroke="#e1e417" strokeWidth="10.0" />
-               <Line endX="100.0" layoutY="85.0" stroke="#e1e417" strokeWidth="10.0" />
-               <Line endX="100.0" layoutY="105.0" stroke="#e1e417" strokeWidth="10.0" />
-               <Line endX="100.0" layoutY="125.0" stroke="#e1e417" strokeWidth="10.0" />
-               <Line endX="100.0" layoutY="145.0" stroke="#e1e417" strokeWidth="10.0" />
+            <Group fx:id="driveway">
+               <children>
+                  <Canvas height="150.0" width="580.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="150.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
+                  <Group />
+                  <Line endX="580.0" layoutY="75.0" style="-fx-stroke-dash-array: 40;" />
+               </children>
             </Group>
+            <AnchorPane>
+               <children>
+                  <Group AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0">
+                     <Line endX="100.0" layoutY="5.0" stroke="#e1e417" strokeWidth="10.0" />
+                     <Line endX="100.0" layoutY="25.0" stroke="#e1e417" strokeWidth="10.0" />
+                     <Line endX="100.0" layoutY="45.0" stroke="#e1e417" strokeWidth="10.0" />
+                     <Line endX="100.0" layoutY="65.0" stroke="#e1e417" strokeWidth="10.0" />
+                     <Line endX="100.0" layoutY="85.0" stroke="#e1e417" strokeWidth="10.0" />
+                     <Line endX="100.0" layoutY="105.0" stroke="#e1e417" strokeWidth="10.0" />
+                     <Line endX="100.0" layoutY="125.0" stroke="#e1e417" strokeWidth="10.0" />
+                     <Line endX="100.0" layoutY="145.0" stroke="#e1e417" strokeWidth="10.0" />
+                  </Group>
+               </children>
+            </AnchorPane>
          </children>
       </Pane>
+      <AnchorPane prefHeight="200.0" prefWidth="580.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86898d" height="50.0" stroke="BLACK" strokeType="INSIDE" width="580.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86898d" height="50.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="580.0" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="580.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Line endX="580.0" stroke="#e1e417" strokeWidth="2.0" style="-fx-stroke-dash-array: 20;" AnchorPane.topAnchor="70.0" />
+            <Line endX="580.0" layoutY="180.0" stroke="#e1e417" strokeWidth="2.0" style="-fx-stroke-dash-array: 20;" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
