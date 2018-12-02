@@ -13,14 +13,38 @@ public class DrivewayModel extends Obserable {
     private boolean pedestrianStripes = false;
     private boolean bicyclePath = false;
     private boolean publicTrafficRail = false;
+    private boolean carDriveway = false;
 
-    public DrivewayModel() {
+    public boolean getCarDriveway() {
+        return carDriveway;
+    }
+
+    public void setCarDriveway(boolean carDriveway) {
+        this.carDriveway = carDriveway;
+    }
+
+
+    private DrivewayType drivewayType;
+
+/*
+    public DrivewayModel(DrivewayType drivewayType ) {
+        this.drivewayType = drivewayType;
+        }
+*/
+
+    public DrivewayModel(boolean pedestrianStripes, boolean bicyclePath, boolean publicTrafficRail, boolean carDriveway) {
+
+        this.pedestrianStripes = pedestrianStripes;
+        this.bicyclePath = bicyclePath;
+        this.publicTrafficRail = publicTrafficRail;
+        this.carDriveway = carDriveway;
     }
 
     public void setPedestrianStripes(boolean PedestrianStripes) {
             this.pedestrianStripes = PedestrianStripes;
             notifyObservers();
     }
+
 
     public boolean getPedestrianStripes() {
         return pedestrianStripes;
@@ -45,6 +69,7 @@ public class DrivewayModel extends Obserable {
     }
 
 }
+
 
 
 
