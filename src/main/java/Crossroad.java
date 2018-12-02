@@ -3,9 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,23 +11,24 @@ import java.util.List;
 /**
  * Class Crossroad: Mainmethode for the TEKO project "Ampelsteuerung".
  *
- * LONG DESCRIOTION
  *
  * @version 1.0
  * @autor   Class NIN
  * @date    04.11.2018
  */
-public class Crossroad extends Application {
-
-    public static void main(String[] args){
-        launch(args);
-
-        System.out.println("Start project.");
-
-    }
-
-
-    public Crossroad() {
+public class Crossroad extends Application
+{
+    /**
+     * crossroadStart: Start with a new Object from the crossroad.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.12.2018
+     */
+    public void crossroadStart()
+    {
+        launch(null);
     }
 
     /**
@@ -42,24 +41,22 @@ public class Crossroad extends Application {
      * @arg     Stage primaryStage: Object from Stage
      */
     @Override
-    public void start(Stage primaryStage) throws Exception{
-
-        PrimaryStageController primaryStageController = new PrimaryStageController();
-
-
+    public void start(Stage primaryStage) throws Exception
+    {
         primaryStage.setTitle("Ampelsteuerung");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
         BorderPane borderPaneLoader = loader.load();
-
+        primaryStage.setScene(new Scene(borderPaneLoader, 500, 800));
 
         DrivewayModel drivewayModel = new DrivewayModel();
         Node drivewayNode = createDriveway(drivewayModel);
         borderPaneLoader.setCenter(drivewayNode);
 
-        createDriveway(drivewayModel);
+        //todo Ampel ist Auskommentiert. Testen anschliessend loeschen
+//        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
+//        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
+//        borderPaneLoader.getChildren().add(trafficLightNode);
 
-
-        primaryStage.setScene(new Scene(borderPaneLoader, 500, 800));
 
         PrimaryStageController controller = loader.getController();
         List<String> algorithm = new LinkedList<>();
@@ -75,23 +72,13 @@ public class Crossroad extends Application {
         controller.setSetnumberOfCrossing(crossing);
 
 
-
-
- //       TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
- //       Node trafficLightNode = createNewTrafficLight(trafficLightModel);
-
-//        borderPaneLoader.getChildren().add(trafficLightNode);
         primaryStage.show();
-
-//toDo: muss noch geloescht werden. Dient lediglich zum Testen
-//        trafficLightModel.setYellow();
-//        trafficLightModel.setGreen();
-//        trafficLightModel.setRed();
-//        trafficLightModel.setYellowRed();
-//        trafficLightModel.setAllOn();
-//        trafficLightModel.setDark();
     }
+
+
     private Node createDriveway(DrivewayModel model) throws IOException {
+
+        //todo: Achtung: Beim Observer wird eine andere Instanz vom Controller uebergeben!
 
         Node nodeDriveway;
 
@@ -104,13 +91,6 @@ public class Crossroad extends Application {
         return nodeDriveway;
     }
 
-
-
-    @Override
-    public void stop()
-    {
-
-    }
 
     /**
      * createNewTrafficLight(): Implements a new Instance from trafficLight
@@ -135,7 +115,6 @@ public class Crossroad extends Application {
 
         return nodeTrafficLight;
     }
-
 }
 
 

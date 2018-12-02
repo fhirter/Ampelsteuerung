@@ -40,8 +40,8 @@ public class TrafficLightController implements Observer, Initializable
 
     private order operationTimer;
 
-    KeyFrame durationFrame1 = new KeyFrame(Duration.millis(100),ae -> stateChangeTimerTick(operationTimer));
-    KeyFrame durationFrame2 = new KeyFrame(Duration.millis(500),ae -> stateChangeTimerTick(operationTimer));
+    KeyFrame durationFrame1 = new KeyFrame(Duration.millis(300),ae -> stateChangeTimerTick(operationTimer));
+    KeyFrame durationFrame2 = new KeyFrame(Duration.millis(800),ae -> stateChangeTimerTick(operationTimer));
     ArrayList<KeyFrame> durationFrame = new ArrayList<KeyFrame>();
     Timeline stateChangeTimer;
 
@@ -89,6 +89,8 @@ public class TrafficLightController implements Observer, Initializable
         {
             setScaleFactor(0.5);
         }
+
+        changeColor(TrafficLightState.RED);
     }
 
 
@@ -104,9 +106,9 @@ public class TrafficLightController implements Observer, Initializable
     @Override
     public void update()
     {
-        TrafficLightState state = model.getState();
-
         stateChangeTimer.stop();
+
+        TrafficLightState state = model.getState();
 
         if(state == TrafficLightState.RED)
         {
@@ -301,8 +303,15 @@ public class TrafficLightController implements Observer, Initializable
                     break;
                 }
                 case switchToRed: {
-                    if (!getActState().equals(TrafficLightState.RED)) {
-                        changeColor(TrafficLightState.values()[actState+1]);
+                    if (!getActState().equals(TrafficLightState.RED))
+                    {
+                        // Notwendig wenn nach Betriebsart Blinklicht in Zustand Rot gewechselt wird
+                        if(actState < TrafficLightState.RED.ordinal()) {
+                            changeColor(TrafficLightState.values()[(actState + 1)]);
+                        }else
+                        {
+                            changeColor(TrafficLightState.RED);
+                        }
                     } else {
                         stateChangeTimer.stop();
                     }
@@ -310,7 +319,7 @@ public class TrafficLightController implements Observer, Initializable
                 }
                 case switchToGreen: {
                     if (!getActState().equals(TrafficLightState.GREEN)) {
-                        changeColor(TrafficLightState.values()[actState-1]);
+                        changeColor(TrafficLightState.values()[(actState-1)]);
                     } else {
                         stateChangeTimer.stop();
                     }

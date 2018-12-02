@@ -115,6 +115,14 @@ public class PrimaryStageController implements Observer {
     @Override
     public void update() {
 
+        drivewayModel.getPedestrianStripes();
+        drivewayModel.getBicyclePatch();
+        drivewayModel.getPublicTrafficRail();
+    }
+
+    public void setModel(DrivewayModel drivewayModel) {
+        this.drivewayModel = drivewayModel;
+
     }
 
 }
