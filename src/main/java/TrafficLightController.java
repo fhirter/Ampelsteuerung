@@ -14,6 +14,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -39,9 +40,10 @@ public class TrafficLightController implements Observer, Initializable
 
     private order operationTimer;
 
-    private Timeline stateChangeTimer = new Timeline(new KeyFrame(
-            Duration.millis(500),
-            ae -> stateChangeTimerTick(operationTimer)));
+    KeyFrame durationFrame1 = new KeyFrame(Duration.millis(100),ae -> stateChangeTimerTick(operationTimer));
+    KeyFrame durationFrame2 = new KeyFrame(Duration.millis(500),ae -> stateChangeTimerTick(operationTimer));
+    ArrayList<KeyFrame> durationFrame = new ArrayList<KeyFrame>();
+    Timeline stateChangeTimer;
 
 
     /**
@@ -71,6 +73,12 @@ public class TrafficLightController implements Observer, Initializable
         type = model.getType();
         setType(type);
 
+        /* Set two different duration time for change the trafficLight (RED_YELLOW) should be shown only short. */
+        durationFrame.add(durationFrame1);
+        durationFrame.add(durationFrame2);
+        stateChangeTimer = new Timeline(durationFrame.get(1));
+
+        /* Initialize trafficLight */
         if(type == TrafficLightType.CAR)
         {
             setScaleFactor(scaleFactorCAR);
@@ -177,18 +185,21 @@ public class TrafficLightController implements Observer, Initializable
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(darkColor);
                 greenLightTraffic.setFill(darkColor);
+                stateChangeTimer.getKeyFrames().set(0, durationFrame.get(1));
                 break;
             }
             case YELLOWRED: {
                 redLightTraffic.setFill(redColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(darkColor);
+                stateChangeTimer.getKeyFrames().set(0, durationFrame.get(0));
                 break;
             }
             case YELLOW: {
                 redLightTraffic.setFill(darkColor);
                 yellowLightTraffic.setFill(yellowColor);
                 greenLightTraffic.setFill(darkColor);
+                stateChangeTimer.getKeyFrames().set(0, durationFrame.get(1));
                 break;
             }
             case GREEN: {
@@ -270,7 +281,7 @@ public class TrafficLightController implements Observer, Initializable
         try {
 
             // Returns the from the actual trafficLight state the integer number from the enum
-            actState = TrafficLightState.valueOf(getActState().toString()).ordinal();
+            actState = getActState().ordinal();
             System.out.println("Act TrafficLight: " + actState + " " + TrafficLightState.values()[actState]);
 
             switch (operationTimer) {
