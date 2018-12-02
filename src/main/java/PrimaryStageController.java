@@ -18,6 +18,15 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Class PrimaryStageController: Class for handling the PrimaryStage
+ *
+ *
+ *
+ * @version 1.0
+ * @autor   Class NIN
+ * @date   30.11.2018
+ */
 public class PrimaryStageController implements Observer {
 
 
@@ -76,6 +85,15 @@ public class PrimaryStageController implements Observer {
 
     }
 
+    /**
+     * Method handleExitSoftware: Exit Software
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   30.11.2018
+     */
     public void handleExitSoftware() {
         System.exit(0);
 
@@ -87,7 +105,7 @@ public class PrimaryStageController implements Observer {
 
     }
     /**
-     * Class epenAboutWindow: New Window for info
+     * Method epenAboutWindow: New Window for info
      *
      *
      *
@@ -108,7 +126,7 @@ public class PrimaryStageController implements Observer {
     }
 
     /**
-     * Class startButtonConfig: Start for the configuration
+     * Method startButtonConfig: Start for the configuration
      *
      *
      *
@@ -121,11 +139,17 @@ public class PrimaryStageController implements Observer {
 
     }
 
-
+    /**
+     * Method update: update function for Observer
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
     @Override
     public void update() {
-
-
 
     }
 }
