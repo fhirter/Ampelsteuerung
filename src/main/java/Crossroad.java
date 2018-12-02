@@ -56,7 +56,7 @@ public class Crossroad extends Application {
         borderPaneLoader.setCenter(drivewayNode);
 
 
-        primaryStage.setScene(new Scene(borderPaneLoader, 500, 800));
+        primaryStage.setScene(new Scene(borderPaneLoader, 1000, 800));
 
         PrimaryStageController controller = loader.getController();
         List<String> algorithm = new LinkedList<>();
@@ -72,10 +72,10 @@ public class Crossroad extends Application {
         controller.setSetnumberOfCrossing(crossing);
 
 
-        //       TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
-        //       Node trafficLightNode = createNewTrafficLight(trafficLightModel);
+        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
+        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
 
-//        borderPaneLoader.getChildren().add(trafficLightNode);
+        borderPaneLoader.getChildren().add(trafficLightNode);
         primaryStage.show();
 
 //toDo: muss noch geloescht werden. Dient lediglich zum Testen
