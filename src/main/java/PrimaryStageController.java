@@ -12,13 +12,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class PrimaryStageController implements Observer {
-
 
 
     @FXML
@@ -33,13 +33,14 @@ public class PrimaryStageController implements Observer {
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
-    private DrivewayModel drivewayModel;
     @FXML
     CheckBox pedestrainStripesCheckbox;
     @FXML
     Pane pedestrianStripes;
+    @FXML
+    Button startButtonConfiguration;
 
-
+    DrivewayModel drivewayModel;
 
     //todo
     @FXML
@@ -85,7 +86,15 @@ public class PrimaryStageController implements Observer {
         // Erstellen eines neuen Projektes
 
     }
-
+    /**
+     * Class epenAboutWindow: New Window for info
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
@@ -98,23 +107,25 @@ public class PrimaryStageController implements Observer {
         }
     }
 
+    /**
+     * Class startButtonConfig: Start for the configuration
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
     public void startButtonConfig() throws Exception {
-        try {
+        notify();
 
-            if (pedestrainStripesCheckbox.isSelected()) {
-                drivewayModel.setPedestrianStripes(true);
-                pedestrianStripes.visibleProperty().setValue(true);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
     @Override
     public void update() {
 
-    }
 
+
+    }
 }
