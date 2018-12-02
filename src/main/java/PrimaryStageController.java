@@ -1,17 +1,24 @@
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class PrimaryStageController {
+public class PrimaryStageController implements Observer {
+
 
 
     @FXML
@@ -26,8 +33,13 @@ public class PrimaryStageController {
     private ChoiceBox<String> setchoiceOfAlgorithm;
     @FXML
     private ChoiceBox<String> setnumberOfCrossing;
+    private DrivewayModel drivewayModel;
     @FXML
     CheckBox pedestrainStripesCheckbox;
+    @FXML
+    Pane pedestrianStripes;
+
+
 
     //todo
     @FXML
@@ -53,9 +65,6 @@ public class PrimaryStageController {
 
     }
 
-    public PrimaryStageController() {
-    }
-
     @FXML
     public void setSetchoiceOfAlgorithm(List<String> algorithm) {
 
@@ -77,14 +86,6 @@ public class PrimaryStageController {
 
     }
 
-    public boolean getIsPedestrianStripeSelected() {
-
-       if (pedestrainStripesCheckbox.isSelected()){
-           return true;
-          }
-        return false;
-    }
-
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
@@ -97,8 +98,23 @@ public class PrimaryStageController {
         }
     }
 
+    public void startButtonConfig() throws Exception {
+        try {
 
-    public boolean startButtonConfig(ActionEvent actionEvent) {
+            if (pedestrainStripesCheckbox.isSelected()) {
+                drivewayModel.setPedestrianStripes(true);
+                pedestrianStripes.visibleProperty().setValue(true);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void update() {
 
     }
+
 }

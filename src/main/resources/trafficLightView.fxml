@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TrafficLightController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="58.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <CheckBox fx:id="simulationOnOff" layoutX="217.0" layoutY="82.0" mnemonicParsing="false" onAction="#runSimulation" text="Simulation On/Off" />
-        <CheckBox fx:id="flashYellow" layoutX="217.0" layoutY="110.0" mnemonicParsing="false" onAction="#startChangeColor" text="Yellow flash" />
-        <CheckBox fx:id="stateToRed" layoutX="217.0" layoutY="136.0" mnemonicParsing="false" onAction="#startChangeColor" text="Red" />
-        <CheckBox fx:id="stateToGreen" layoutX="217.0" layoutY="162.0" mnemonicParsing="false" onAction="#startChangeColor" text="Green" />
-        <Group fx:id="groupScaleFactor">
+        <Group fx:id="groupScaleFactor" layoutX="-14.0" layoutY="-13.0">
             <children>
                 <Group fx:id="guiGroup">
                     <children>
@@ -74,26 +65,5 @@
                 </Group>
             </children>
         </Group>
-        <Group fx:id="groupRadioButton" layoutX="23.0" layoutY="-3.0">
-            <children>
-                <RadioButton fx:id="red" layoutX="97.0" layoutY="24.0" mnemonicParsing="false" onAction="#changeColor" selected="true" text="Red">
-                    <toggleGroup>
-                        <ToggleGroup fx:id="trafficLightGroup" />
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton fx:id="yellowRed" layoutX="97.0" layoutY="47.0" mnemonicParsing="false" onAction="#changeColor" text="YellowRed" toggleGroup="$trafficLightGroup" />
-                <RadioButton fx:id="yellow" layoutX="97.0" layoutY="71.0" mnemonicParsing="false" onAction="#changeColor" text="Yellow" toggleGroup="$trafficLightGroup" />
-                <RadioButton fx:id="green" layoutX="97.0" layoutY="96.0" mnemonicParsing="false" onAction="#changeColor" text="Green" toggleGroup="$trafficLightGroup" />
-                <RadioButton fx:id="allOn" layoutX="97.0" layoutY="128.0" mnemonicParsing="false" onAction="#changeColor" text="AllOn" toggleGroup="$trafficLightGroup" />
-                <RadioButton fx:id="dark" layoutX="97.0" layoutY="150.0" mnemonicParsing="false" onAction="#changeColor" text="Off" toggleGroup="$trafficLightGroup" />
-                <RadioButton fx:id="typeCar" layoutX="194.0" layoutY="24.0" mnemonicParsing="false" onAction="#changeType" selected="true" text="Car">
-                    <toggleGroup>
-                        <ToggleGroup fx:id="trafficLightGroupType" />
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton fx:id="typePedestrian" layoutX="194.0" layoutY="47.0" mnemonicParsing="false" onAction="#changeType" text="Pedestrian" toggleGroup="$trafficLightGroupType" />
-                <Slider fx:id="scaleFactor" blockIncrement="0.1" layoutX="66.0" layoutY="26.0" majorTickUnit="0.1" max="1.0" min="0.1" minorTickCount="0" onDragDetected="#changeScaleFactor" orientation="VERTICAL" value="1.0" />
-            </children>
-      </Group>
     </children>
 </Pane>

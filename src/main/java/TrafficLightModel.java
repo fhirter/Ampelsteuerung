@@ -1,49 +1,36 @@
 public class TrafficLightModel extends Obserable
 {
+    private TrafficLightType type;
+    private TrafficLightState state = TrafficLightState.RED;
+
+
     /**
-     * setScaleFactor(): Set the scale factor from the trafficLight.
+     * TrafficLightModel(): Constructor. Define the type from the trafficLight
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @arg     enum type
-     * @arg     double scaleFactor
+     * @date    26.11.2018
+     * @arg     TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
      */
-
-    public void setScaleFactor(double scaleFactor)
+    public TrafficLightModel(TrafficLightType type)
     {
-        if((scaleFactor < 0.1) || (scaleFactor > 1.0))
-        {
-            scaleFactor = 1.0;
-        }
-        notifyObservers("setScaleFactor", scaleFactor);
+        this.type = type;
     }
 
 
     /**
-     * settype(): Change the type for the trafficlight.
+     * getType(): Returns the type for the trafficLight. (CAR or PEDESTRIAN)
      *
-     * Set the graphical group for pedestrian visible or unvisible.
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @arg     enum type
+     * @return  TrafficLightType: Type from the trafficLight
      */
-    public void setType(TrafficLightType newType)
+    public TrafficLightType getType()
     {
-        switch(newType)
-        {
-            case CAR: {
-                notifyObservers("setType", false );
-                break;
-            }
-            case PEDESTRIAN: {
-                notifyObservers("setType", true );
-                break;
-            }
-        }
+        return this.type;
     }
 
 
@@ -57,7 +44,8 @@ public class TrafficLightModel extends Obserable
      */
     public void setRed()
     {
-        notifyObservers("changeColor", TrafficLightState.RED);
+        state = TrafficLightState.RED;
+        notifyObservers();
     }
 
 
@@ -71,21 +59,8 @@ public class TrafficLightModel extends Obserable
      */
     public void setGreen()
     {
-        notifyObservers("changeColor", TrafficLightState.GREEN);
-    }
-
-
-    /**
-     * setYellow(): Change the color from the trafficLight to YELLOW.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     */
-    public void setYellow()
-    {
-        notifyObservers("changeColor", TrafficLightState.YELLOW);
+        state = TrafficLightState.GREEN;
+        notifyObservers();
     }
 
 
@@ -99,7 +74,23 @@ public class TrafficLightModel extends Obserable
      */
     public void setYellowRed()
     {
-        notifyObservers("changeColor", TrafficLightState.YELLOWRED);
+        state = TrafficLightState.YELLOWRED;
+        notifyObservers();
+    }
+
+
+    /**
+     * setYellow(): Change the color from the trafficLight to YELLOW.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    18.11.2018
+     */
+    public void setYellow()
+    {
+        state = TrafficLightState.YELLOW;
+        notifyObservers();
     }
 
 
@@ -113,7 +104,8 @@ public class TrafficLightModel extends Obserable
      */
     public void setDark()
     {
-        notifyObservers("changeColor", TrafficLightState.DARK);
+        state = TrafficLightState.DARK;
+        notifyObservers();
     }
 
 
@@ -127,24 +119,24 @@ public class TrafficLightModel extends Obserable
      */
     public void setAllOn()
     {
-        notifyObservers("changeColor", TrafficLightState.ALLON);
+        state = TrafficLightState.ALLON;
+        notifyObservers();
     }
 
 
     /**
-     * getActState(): Returns the act state from the traffic light.
+     * getState(): Returns the state (color) from the trafficLight
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @returns trafficLightState: Act state from the trafficLight
+     * @return  state: State from the trafficLight
      */
-    public TrafficLightState getActState()
+    public TrafficLightState getState()
     {
-        return (TrafficLightState) notifyObserversWithResponse("getActState");
+        return state;
     }
-
 }
 
 
