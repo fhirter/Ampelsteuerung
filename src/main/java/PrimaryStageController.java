@@ -1,19 +1,33 @@
-import javafx.event.ActionEvent;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class PrimaryStageController {
+/**
+ * Class PrimaryStageController: Class for handling the PrimaryStage
+ *
+ *
+ *
+ * @version 1.0
+ * @autor   Class NIN
+ * @date   30.11.2018
+ */
+public class PrimaryStageController implements Observer {
 
 
     @FXML
@@ -29,10 +43,13 @@ public class PrimaryStageController {
     @FXML
     private ChoiceBox<Integer> setnumberOfCrossing;
     @FXML
-    TabPane tabPane;
+    CheckBox pedestrainStripesCheckbox;
     @FXML
-    Group pedestrainStripes;
+    Pane pedestrianStripes;
+    @FXML
+    Button startButtonConfiguration;
 
+    DrivewayModel drivewayModel;
 
     //todo
     @FXML
@@ -68,6 +85,15 @@ public class PrimaryStageController {
         setnumberOfCrossing.getItems().addAll(crossing);
     }
 
+    /**
+     * Method handleExitSoftware: Exit Software
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   30.11.2018
+     */
     public void handleExitSoftware() {
         System.exit(0);
 
@@ -77,9 +103,16 @@ public class PrimaryStageController {
     public void newProject(MouseEvent mouseEvent) throws IOException {
         // Erstellen eines neuen Projektes
 
-
     }
-
+    /**
+     * Method epenAboutWindow: New Window for info
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
     public void openAboutWindow() throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
@@ -92,19 +125,31 @@ public class PrimaryStageController {
         }
     }
 
+    /**
+     * Method startButtonConfig: Start for the configuration
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
     public void startButtonConfig() throws Exception {
-        try {
-            Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("driveway.fxml"));
-            Tab tb = new Tab("Kreuzung", node);
-            tabPane.getTabs().add(tb);
-            handleSubmitButtonAction();
+        notify();
 
-        } catch (Exception e) {
-        }
     }
 
-
-    public void PedestrianStripeVisible(ActionEvent actionEvent) {
+    /**
+     * Method update: update function for Observer
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
+    @Override
+    public void update() {
 
     }
 }
