@@ -13,7 +13,7 @@ public class TrafficLightTestModel
     LinkedList<TrafficLightModel> model = new LinkedList<TrafficLightModel>();
 
 
-    public void setModelsForTesting(TrafficLightModel model)
+    public void addModelsForTesting(TrafficLightModel model)
     {
         this.model.add(model);
     }
@@ -36,7 +36,7 @@ public class TrafficLightTestModel
     public void setYellow()
     {
         for(TrafficLightModel i : model)
-        {i.setYellow();}
+        {i.setYellowFlash();}
     }
 
 
@@ -50,7 +50,7 @@ public class TrafficLightTestModel
     public void setAllOn()
     {
         for(TrafficLightModel i : model)
-        {i.setAllOn();}
+        {i.setSIMULATION();}
     }
 
 }
