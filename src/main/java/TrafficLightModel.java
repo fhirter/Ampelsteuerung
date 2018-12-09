@@ -62,7 +62,7 @@ public class TrafficLightModel extends Obserable
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    18.11.2018
+     * @date    08.12.2018
      * @return  boolean: State if an change of lights in progress (true or false)
      */
     public boolean getInProgress()

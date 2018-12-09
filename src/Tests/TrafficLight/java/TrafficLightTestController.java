@@ -5,7 +5,6 @@ import javafx.scene.control.RadioButton;
 public class TrafficLightTestController
 {
     private TrafficLightTestModel model;
-    private TrafficLightState actState;
 
     @FXML private RadioButton allOn;
     @FXML private RadioButton flashYellow;

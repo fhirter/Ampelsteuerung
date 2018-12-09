@@ -15,7 +15,7 @@
                     </toggleGroup>
                 </RadioButton>
                 <RadioButton fx:id="flashYellow" layoutX="97.0" layoutY="47.0" mnemonicParsing="false" onAction="#runSimulation" text="Yellow flash" toggleGroup="$trafficLightGroup" />
-                <RadioButton fx:id="stateToRed" layoutX="97.0" layoutY="71.0" mnemonicParsing="false" onAction="#runSimulation" text="Red" toggleGroup="$trafficLightGroup" />
+                <RadioButton fx:id="stateToRed" layoutX="97.0" layoutY="71.0" mnemonicParsing="false" onAction="#runSimulation" selected="true" text="Red" toggleGroup="$trafficLightGroup" />
                 <RadioButton fx:id="stateToGreen" layoutX="97.0" layoutY="96.0" mnemonicParsing="false" onAction="#runSimulation" text="Green" toggleGroup="$trafficLightGroup" />
                 <RadioButton fx:id="dark" layoutX="97.0" layoutY="120.0" mnemonicParsing="false" onAction="#runSimulation" text="Off" toggleGroup="$trafficLightGroup" />
             </children>

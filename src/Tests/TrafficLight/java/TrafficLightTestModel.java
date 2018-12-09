@@ -42,6 +42,7 @@ public class TrafficLightTestModel
 
     public void setDark()
     {
+//        model.get(1).setRed();
         for(TrafficLightModel i : model)
         {i.setDark();}
     }
