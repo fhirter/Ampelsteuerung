@@ -53,9 +53,9 @@ public class Crossroad extends Application
         borderPaneLoader.setCenter(drivewayNode);
 
         //todo Ampel ist Auskommentiert. Testen anschliessend loeschen
-        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
-        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
-        borderPaneLoader.getChildren().add(trafficLightNode);
+//        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
+//        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
+//        borderPaneLoader.getChildren().add(trafficLightNode);
 
 
         PrimaryStageController controller = loader.getController();
@@ -73,9 +73,6 @@ public class Crossroad extends Application
 
 
         primaryStage.show();
-
-        trafficLightModel.setSIMULATION();
-
     }
 
 

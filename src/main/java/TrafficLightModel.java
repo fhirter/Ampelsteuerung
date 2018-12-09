@@ -6,7 +6,7 @@ public class TrafficLightModel extends Obserable
     private TrafficLightType type;
     private TrafficLightState actState, newState;
     private boolean inProgress = false;
-    private Timer timerChangeState = new Timer();
+    private Timer timerChangeState;
 
 
     /**
@@ -53,6 +53,21 @@ public class TrafficLightModel extends Obserable
     public TrafficLightState getState()
     {
         return actState;
+    }
+
+
+    /**
+     * getInProgress(): Returns if the trafficLight is in progress
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    18.11.2018
+     * @return  boolean: State if an change of lights in progress (true or false)
+     */
+    public boolean getInProgress()
+    {
+        return inProgress;
     }
 
 
@@ -111,8 +126,13 @@ public class TrafficLightModel extends Obserable
      */
     public void setDark()
     {
-        newState = TrafficLightState.DARK;
-        startTimerForChangeState(newState);
+        if(inProgress == true)
+        {
+            inProgress = false;
+            timerChangeState.cancel();
+        }
+        actState = TrafficLightState.DARK;
+        notifyObservers();
     }
 
 
@@ -142,10 +162,16 @@ public class TrafficLightModel extends Obserable
      */
     private void startTimerForChangeState(TrafficLightState newState)
     {
-        inProgress = true;
+        if(inProgress == true)
+        {
+            timerChangeState.cancel();
+            inProgress = false;
+        }
+        timerChangeState = new Timer();
         timerChangeState.schedule(new TimerTask() {
                                       @Override
                                       public void run() {
+                                          inProgress = true;
                                           changeTimberBasedState(newState);
                                       }
                                   },
@@ -191,6 +217,7 @@ public class TrafficLightModel extends Obserable
 
         if((actState == newState) && ((actState == TrafficLightState.RED) || (actState == TrafficLightState.GREEN)))
         {
+            inProgress = false;
             timerChangeState.cancel();
         }
         notifyObservers();
@@ -211,10 +238,10 @@ public class TrafficLightModel extends Obserable
         {
             case GREEN:
             {
-                actState = TrafficLightState.YELLOW_RED;
+                actState = TrafficLightState.YELLOW;
                 break;
             }
-            case YELLOW_RED:
+            case YELLOW:
             {
                 actState = TrafficLightState.RED;
                 break;
@@ -242,10 +269,10 @@ public class TrafficLightModel extends Obserable
         {
             case RED:
             {
-                actState = TrafficLightState.YELLOW;
+                actState = TrafficLightState.YELLOW_RED;
                 break;
             }
-            case YELLOW:
+            case YELLOW_RED:
             {
                 actState = TrafficLightState.GREEN;
                 break;

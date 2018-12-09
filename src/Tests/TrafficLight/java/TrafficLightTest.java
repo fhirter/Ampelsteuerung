@@ -30,29 +30,29 @@ public class TrafficLightTest extends Application
         /* 2x CAR (only 1 object: mirroring) */
         TrafficLightModel trafficLightModelCAR = new TrafficLightModel(TrafficLightType.CAR);
         Node nodeTestProzedureCAR = createNewTrafficLight(trafficLightModelCAR);
-//        Node nodeTestProzedureCARMirror = createNewTrafficLight(trafficLightModelCAR);
+        Node nodeTestProzedureCARMirror = createNewTrafficLight(trafficLightModelCAR);
         /* 1x PEDESTRIAN (with own object) */
-//       TrafficLightModel trafficLightModelPEDESTRIAN = new TrafficLightModel(TrafficLightType.PEDESTRIAN);
-//        Node nodeTestProzedurePEDESTRIAN = createNewTrafficLight(trafficLightModelPEDESTRIAN);
+        TrafficLightModel trafficLightModelPEDESTRIAN = new TrafficLightModel(TrafficLightType.PEDESTRIAN);
+        Node nodeTestProzedurePEDESTRIAN = createNewTrafficLight(trafficLightModelPEDESTRIAN);
 
 
         /* Define place into GUI */
-//        nodeTestProzedureCAR.setLayoutX(0);
-//        nodeTestProzedureCAR.setLayoutY(0);
-//        nodeTestProzedureCARMirror.setLayoutX(50);
-//        nodeTestProzedureCARMirror.setLayoutY(0);
-//        nodeTestProzedurePEDESTRIAN.setLayoutX(120);
-//        nodeTestProzedurePEDESTRIAN.setLayoutY(0);
+        nodeTestProzedureCAR.setLayoutX(0);
+        nodeTestProzedureCAR.setLayoutY(0);
+        nodeTestProzedureCARMirror.setLayoutX(50);
+        nodeTestProzedureCARMirror.setLayoutY(0);
+        nodeTestProzedurePEDESTRIAN.setLayoutX(120);
+        nodeTestProzedurePEDESTRIAN.setLayoutY(0);
 
 
         paneLoader.getChildren().add(nodeTestProzedureCAR);
-//        paneLoader.getChildren().add(nodeTestProzedureCARMirror);
-//        paneLoader.getChildren().add(nodeTestProzedurePEDESTRIAN);
+        paneLoader.getChildren().add(nodeTestProzedureCARMirror);
+        paneLoader.getChildren().add(nodeTestProzedurePEDESTRIAN);
         primaryStage.show();
 
         /* Add the models from testing */
         testModel.addModelsForTesting(trafficLightModelCAR);
-//        testModel.addModelsForTesting(trafficLightModelPEDESTRIAN);
+        testModel.addModelsForTesting(trafficLightModelPEDESTRIAN);
     }
 
 
