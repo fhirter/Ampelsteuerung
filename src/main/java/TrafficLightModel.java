@@ -1,7 +1,12 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class TrafficLightModel extends Obserable
 {
     private TrafficLightType type;
-    private TrafficLightState state = TrafficLightState.RED;
+    private TrafficLightState actState, newState;
+    private boolean inProgress = false;
+    private Timer timerChangeState;
 
 
     /**
@@ -16,6 +21,7 @@ public class TrafficLightModel extends Obserable
     public TrafficLightModel(TrafficLightType type)
     {
         this.type = type;
+        actState = newState = TrafficLightState.RED;
     }
 
 
@@ -35,6 +41,37 @@ public class TrafficLightModel extends Obserable
 
 
     /**
+     * getState(): Returns the actState (color) from the trafficLight
+     *
+     * Additional: Called from TrafficLightController after notifyObservers()!
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    18.11.2018
+     * @return  state: State from the trafficLight
+     */
+    public TrafficLightState getState()
+    {
+        return actState;
+    }
+
+
+    /**
+     * getInProgress(): Returns if the trafficLight is in progress
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    08.12.2018
+     * @return  boolean: State if an change of lights in progress (true or false)
+     */
+    public boolean getInProgress()
+    {
+        return inProgress;
+    }
+
+
+    /**
      * setRed(): Change the color from the trafficLight to RED.
      *
      *
@@ -44,8 +81,8 @@ public class TrafficLightModel extends Obserable
      */
     public void setRed()
     {
-        state = TrafficLightState.RED;
-        notifyObservers();
+        newState = TrafficLightState.RED;
+        startTimerForChangeState(newState);
     }
 
 
@@ -59,38 +96,23 @@ public class TrafficLightModel extends Obserable
      */
     public void setGreen()
     {
-        state = TrafficLightState.GREEN;
-        notifyObservers();
+        newState = TrafficLightState.GREEN;
+        startTimerForChangeState(newState);
     }
 
 
     /**
-     * setYellowRed(): Change the color from the trafficLight to YELLOW_RED.
+     * setYellowFlash(): Flash the yellow color from the trafficLight
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
-    public void setYellowRed()
+    public void setYellowFlash()
     {
-        state = TrafficLightState.YELLOWRED;
-        notifyObservers();
-    }
-
-
-    /**
-     * setYellow(): Change the color from the trafficLight to YELLOW.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     */
-    public void setYellow()
-    {
-        state = TrafficLightState.YELLOW;
-        notifyObservers();
+        newState = TrafficLightState.YELLOW;
+        startTimerForChangeState(newState);
     }
 
 
@@ -104,41 +126,239 @@ public class TrafficLightModel extends Obserable
      */
     public void setDark()
     {
-        state = TrafficLightState.DARK;
+        if(inProgress == true)
+        {
+            inProgress = false;
+            timerChangeState.cancel();
+        }
+        actState = TrafficLightState.DARK;
         notifyObservers();
     }
 
 
     /**
-     * setAllOn(): Turns all lights on.
+     * setSIMULATION(): Makes a free run light.
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
-    public void setAllOn()
+    public void setSIMULATION()
     {
-        state = TrafficLightState.ALLON;
+        newState = TrafficLightState.SIMULATION;
+        startTimerForChangeState(newState);
+    }
+
+
+    /**
+     * startTimerForChangeState(): Starts the timer for time-based change from the state
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    08.12.2018
+     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
+     */
+    private void startTimerForChangeState(TrafficLightState newState)
+    {
+        if(inProgress == true)
+        {
+            timerChangeState.cancel();
+            inProgress = false;
+        }
+        timerChangeState = new Timer();
+        timerChangeState.schedule(new TimerTask() {
+                                      @Override
+                                      public void run() {
+                                          inProgress = true;
+                                          changeTimberBasedState(newState);
+                                      }
+                                  },
+                0 /* ms delay */,
+                1000 /* ms period */);
+    }
+
+
+    /**
+     * changeTimberBasedState(): Automatic called every 1Sec after start timerChangeState
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    08.12.2018
+     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
+     */
+    private void changeTimberBasedState(TrafficLightState newState)
+    {
+        switch(newState)
+        {
+            case RED:
+            {
+                switchToRed();
+                break;
+            }
+            case GREEN:
+            {
+                switchToGreen();
+                break;
+            }
+            case YELLOW:
+            {
+                switchToYellowFlash();
+                break;
+            }
+            case SIMULATION:
+            {
+                switchToSIMULATION();
+                break;
+            }
+        }
+
+        if((actState == newState) && ((actState == TrafficLightState.RED) || (actState == TrafficLightState.GREEN)))
+        {
+            inProgress = false;
+            timerChangeState.cancel();
+        }
         notifyObservers();
     }
 
 
     /**
-     * getState(): Returns the state (color) from the trafficLight
+     * switchToRed(): State-Machine from the lights to switch to the RED state.
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @return  state: State from the trafficLight
+     * @date    08.12.2018
      */
-    public TrafficLightState getState()
+    private void switchToRed()
     {
-        return state;
+        switch (actState)
+        {
+            case GREEN:
+            {
+                actState = TrafficLightState.YELLOW;
+                break;
+            }
+            case YELLOW:
+            {
+                actState = TrafficLightState.RED;
+                break;
+            }
+            default:
+            {
+                actState = TrafficLightState.RED;
+                break;
+            }
+        }
+    }
+
+
+    /**
+     * switchToGreen(): State-Machine from the lights to switch to the GREEN state.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    08.12.2018
+     */
+    private void switchToGreen()
+    {
+        switch (actState)
+        {
+            case RED:
+            {
+                actState = TrafficLightState.YELLOW_RED;
+                break;
+            }
+            case YELLOW_RED:
+            {
+                actState = TrafficLightState.GREEN;
+                break;
+            }
+            default:
+            {
+                actState = TrafficLightState.RED;
+                break;
+            }
+        }
+    }
+
+
+    /**
+     * switchToYellowFlash(): State-Machine from the lights to flash the YELLOW light.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    08.12.2018
+     */
+    private void switchToYellowFlash()
+    {
+        switch (actState)
+        {
+            case YELLOW:
+            {
+                actState = TrafficLightState.DARK;
+                break;
+            }
+            case DARK:
+            {
+                actState = TrafficLightState.YELLOW;
+                break;
+            }
+            default:
+            {
+                actState = TrafficLightState.YELLOW;
+                break;
+            }
+        }
+    }
+
+
+    /**
+     * switchToSIMULATION(): State-Machine from the lights for SIMULATION (running lights).
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    08.12.2018
+     */
+    private void switchToSIMULATION()
+    {
+        switch (actState)
+        {
+            case GREEN:
+            {
+                actState = TrafficLightState.YELLOW;
+                break;
+            }
+            case YELLOW:
+            {
+                actState = TrafficLightState.YELLOW_RED;
+                break;
+            }
+            case YELLOW_RED:
+            {
+                actState = TrafficLightState.RED;
+                break;
+            }
+            case RED:
+            {
+                actState = TrafficLightState.DARK;
+                break;
+            }
+            case DARK:
+            {
+                actState = TrafficLightState.ALLOn;
+                break;
+            }
+            case ALLOn:
+            {
+                actState = TrafficLightState.GREEN;
+                break;
+            }
+        }
     }
 }
-
-
-
-

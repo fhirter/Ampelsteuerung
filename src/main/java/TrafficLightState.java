@@ -1,1 +1,1 @@
-public enum TrafficLightState {GREEN, YELLOW, YELLOWRED, RED, DARK, ALLON;};
+public enum TrafficLightState {GREEN, YELLOW, YELLOW_RED, RED, DARK, ALLOn, SIMULATION}

@@ -3,9 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,50 +11,52 @@ import java.util.List;
 /**
  * Class Crossroad: Mainmethode for the TEKO project "Ampelsteuerung".
  *
- * LONG DESCRIOTION
  *
  * @version 1.0
  * @autor   Class NIN
  * @date    04.11.2018
  */
-public class Crossroad extends Application {
-
-    public static void main(String[] args) {
-        launch(args);
-
-        System.out.println("Start project.");
-
-    }
-
-
-    public Crossroad() {
+public class Crossroad extends Application
+{
+    /**
+     * crossroadStart: Start with a new Object from the crossroad.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.12.2018
+     */
+    public void crossroadStart()
+    {
+        launch(null);
     }
 
     /**
      * start(Stage primaryStage): Turns all lights on.
      *
+     *
      * @version 1.0
-     * @autor Schweizer Patrick
-     * @date 20.11.2018
-     * @arg Stage primaryStage: Object from Stage
+     * @autor   Schweizer Patrick
+     * @date    20.11.2018
+     * @arg     Stage primaryStage: Object from Stage
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
-        PrimaryStageController primaryStageController = new PrimaryStageController();
-
-
+    public void start(Stage primaryStage) throws Exception
+    {
         primaryStage.setTitle("Ampelsteuerung");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
         BorderPane borderPaneLoader = loader.load();
+        primaryStage.setScene(new Scene(borderPaneLoader, 800, 800));
 
-
-        DrivewayModel drivewayModel = new DrivewayModel(true, false, false, false);
+        DrivewayModel drivewayModel = new DrivewayModel(false, false, false, false);
         Node drivewayNode = createDriveway(drivewayModel);
         borderPaneLoader.setCenter(drivewayNode);
 
+        //todo Ampel ist Auskommentiert. Testen anschliessend loeschen
+//        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
+//        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
+//        borderPaneLoader.getChildren().add(trafficLightNode);
 
-        primaryStage.setScene(new Scene(borderPaneLoader, 1000, 800));
 
         PrimaryStageController controller = loader.getController();
         List<String> algorithm = new LinkedList<>();
@@ -72,52 +72,38 @@ public class Crossroad extends Application {
         controller.setSetnumberOfCrossing(crossing);
 
 
-        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
-        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
-
-        borderPaneLoader.getChildren().add(trafficLightNode);
         primaryStage.show();
-
-//toDo: muss noch geloescht werden. Dient lediglich zum Testen
-//        trafficLightModel.setYellow();
-//        trafficLightModel.setGreen();
-//        trafficLightModel.setRed();
-//        trafficLightModel.setYellowRed();
-//        trafficLightModel.setAllOn();
-//        trafficLightModel.setDark();
     }
 
+
     private Node createDriveway(DrivewayModel model) throws IOException {
+
+        //todo: Achtung: Beim Observer wird eine andere Instanz vom Controller uebergeben!
 
         Node nodeDriveway;
 
         DrivewayController drivewayController = new DrivewayController();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivewayView.fxml"));
         nodeDriveway = fxmlLoader.load();
-        fxmlLoader.setController(drivewayController);
+
         model.addObserver(drivewayController);
-
-
 
         return nodeDriveway;
     }
 
 
-    @Override
-    public void stop() {
-
-    }
-
     /**
      * createNewTrafficLight(): Implements a new Instance from trafficLight
      *
-     * @return Node: Index from the Node fxmlLoader from trafficLight
+     *
      * @version 1.0
-     * @autor Schweizer Patrick
-     * @date 20.11.2018
-     * @arg TrafficLightModel: Instance form the model
+     * @autor   Schweizer Patrick
+     * @date    20.11.2018
+     * @arg     TrafficLightModel: Instance form the model
+     * @return  Node: Index from the Node fxmlLoader from trafficLight
      */
-    private Node createNewTrafficLight(TrafficLightModel model) throws java.io.IOException {
+    private Node createNewTrafficLight(TrafficLightModel model) throws java.io.IOException
+    {
         Node nodeTrafficLight;
 
         TrafficLightController trafficLightController = new TrafficLightController(model);
@@ -129,6 +115,6 @@ public class Crossroad extends Application {
 
         return nodeTrafficLight;
     }
+}
 
 
-    }
