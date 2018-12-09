@@ -18,6 +18,9 @@ import java.util.List;
  */
 public class Crossroad extends Application
 {
+
+
+
     /**
      * crossroadStart: Start with a new Object from the crossroad.
      *
@@ -47,10 +50,10 @@ public class Crossroad extends Application
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
         BorderPane borderPaneLoader = loader.load();
         primaryStage.setScene(new Scene(borderPaneLoader, 800, 800));
+        borderPaneLoader.setCenter(createDriveway());
 
-        DrivewayModel drivewayModel = new DrivewayModel(false, false, false, false);
-        Node drivewayNode = createDriveway(drivewayModel);
-        borderPaneLoader.setCenter(drivewayNode);
+
+
 
         //todo Ampel ist Auskommentiert. Testen anschliessend loeschen
 //        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
@@ -76,7 +79,7 @@ public class Crossroad extends Application
     }
 
 
-    private Node createDriveway(DrivewayModel model) throws IOException {
+     private Node createDriveway() throws IOException {
 
         //todo: Achtung: Beim Observer wird eine andere Instanz vom Controller uebergeben!
 
@@ -85,8 +88,8 @@ public class Crossroad extends Application
         DrivewayController drivewayController = new DrivewayController();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivewayView.fxml"));
         nodeDriveway = fxmlLoader.load();
-
-        model.addObserver(drivewayController);
+        fxmlLoader.setController(drivewayController);
+        DrivewayModel drivewayModel = new DrivewayModel(false, false, false, false, DrivewayType.carDrivway);
 
         return nodeDriveway;
     }

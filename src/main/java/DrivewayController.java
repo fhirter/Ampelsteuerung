@@ -17,12 +17,19 @@ public class DrivewayController implements Observer, Initializable {
     Group driveway;
 
 
+    public DrivewayController() {
+
+    }
 
 
     public void setPostion(){
         drivewayAnchorPane.setVisible(false);
     }
 
+
+    public void setPedestrianStripes (){
+
+    }
 
 
     /**

@@ -14,12 +14,6 @@ public class DrivewayModel extends Obserable {
     private boolean carDriveway = false;
     private DrivewayType drivewayType;
 
-/*
-    public DrivewayModel(DrivewayType drivewayType ) {
-        this.drivewayType = drivewayType;
-        }
-*/
-
     /**
      * Constructor DrivewayModel: Constructor for the DrivewayModel
      *
@@ -27,12 +21,13 @@ public class DrivewayModel extends Obserable {
      * @autor   Class NIN
      * @date   30.11.2018
      */
-    public DrivewayModel(boolean pedestrianStripes, boolean bicyclePath, boolean publicTrafficRail, boolean carDriveway) {
+    public DrivewayModel(boolean pedestrianStripes, boolean bicyclePath, boolean publicTrafficRail, boolean carDriveway, DrivewayType drivewayType) {
 
         this.pedestrianStripes = pedestrianStripes;
         this.bicyclePath = bicyclePath;
         this.publicTrafficRail = publicTrafficRail;
         this.carDriveway = carDriveway;
+        this.drivewayType = drivewayType;
     }
 
     /**
@@ -53,6 +48,17 @@ public class DrivewayModel extends Obserable {
      * @autor   Class NIN
      * @date   14.11.2018
      */
+
+    public boolean getPedestrianStripes() {
+        return pedestrianStripes;
+    }
+    /**
+     * Method setBicyclePatch: Setter for bicyclePath
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
     public boolean getCarDriveway() {
         return carDriveway;
     }
@@ -68,16 +74,6 @@ public class DrivewayModel extends Obserable {
     }
     /**
      * Method getPedestrianStripes: Getter for Pedestrian Stripes
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public boolean getPedestrianStripes() {
-        return pedestrianStripes;
-    }
-    /**
-     * Method setBicyclePatch: Setter for bicyclePath
      *
      * @version 1.0
      * @autor   Class NIN
