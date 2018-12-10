@@ -6,7 +6,7 @@
  * @date   14.11.2018
  */
 
-public class DrivewayModel extends Obserable {
+public class DrivewayModel extends Observable {
 
     private boolean pedestrianStripes = false;
     private boolean bicyclePath = false;

@@ -1,7 +1,7 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TrafficLightModel extends Obserable
+public class TrafficLightModel extends Observable
 {
     private TrafficLightType type;
     private TrafficLightState actState, newState;
