@@ -1,3 +1,5 @@
+import javafx.application.Platform;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -171,8 +173,13 @@ public class TrafficLightModel extends Observable
         timerChangeState.schedule(new TimerTask() {
                                       @Override
                                       public void run() {
-                                          inProgress = true;
-                                          changeTimberBasedState(newState);
+                                          Platform.runLater(new Runnable() {
+                                              @Override
+                                              public void run() {
+                                                  inProgress = true;
+                                                  changeTimberBasedState(newState);
+                                              }
+                                          });
                                       }
                                   },
                 0 /* ms delay */,
