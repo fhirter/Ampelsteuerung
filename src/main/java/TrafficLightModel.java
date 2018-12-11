@@ -1,5 +1,3 @@
-import javafx.application.Platform;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +10,7 @@ public class TrafficLightModel extends Observable
 
 
     /**
-     * TrafficLightModel(): Constructor. Define the type from the trafficLight
+     * TrafficLightModel(): Konstruktor. Define the type from the trafficLight
      *
      *
      * @version 1.0
@@ -113,7 +111,7 @@ public class TrafficLightModel extends Observable
      */
     public void setYellowFlash()
     {
-        newState = TrafficLightState.YELLOW;
+        newState = TrafficLightState.YELLOW_FLASH;
         startTimerForChangeState(newState);
     }
 
@@ -128,13 +126,8 @@ public class TrafficLightModel extends Observable
      */
     public void setDark()
     {
-        if(inProgress == true)
-        {
-            inProgress = false;
-            timerChangeState.cancel();
-        }
-        actState = TrafficLightState.DARK;
-        notifyObservers();
+        newState = TrafficLightState.DARK;
+        startTimerForChangeState(newState);
     }
 
 
@@ -169,26 +162,22 @@ public class TrafficLightModel extends Observable
             timerChangeState.cancel();
             inProgress = false;
         }
+
         timerChangeState = new Timer();
-        timerChangeState.schedule(new TimerTask() {
+        timerChangeState.scheduleAtFixedRate(new TimerTask() {
                                       @Override
                                       public void run() {
-                                          Platform.runLater(new Runnable() {
-                                              @Override
-                                              public void run() {
-                                                  inProgress = true;
-                                                  changeTimberBasedState(newState);
-                                              }
-                                          });
+                                          inProgress = true;
+                                          changeTimerBasedState(newState);
                                       }
                                   },
-                0 /* ms delay */,
+                10 /* ms delay */,
                 1000 /* ms period */);
     }
 
 
     /**
-     * changeTimberBasedState(): Automatic called every 1Sec after start timerChangeState
+     * changeTimerBasedState(): Automatic called every 1Sec after start timerChangeState
      *
      *
      * @version 1.0
@@ -196,7 +185,7 @@ public class TrafficLightModel extends Observable
      * @date    08.12.2018
      * @arg     TrafficLightState newState: (value: enum TrafficLightState)
      */
-    private void changeTimberBasedState(TrafficLightState newState)
+    private void changeTimerBasedState(TrafficLightState newState)
     {
         switch(newState)
         {
@@ -210,9 +199,14 @@ public class TrafficLightModel extends Observable
                 switchToGreen();
                 break;
             }
-            case YELLOW:
+            case YELLOW_FLASH:
             {
                 switchToYellowFlash();
+                break;
+            }
+            case DARK:
+            {
+                switchToDark();
                 break;
             }
             case SIMULATION:
@@ -220,12 +214,6 @@ public class TrafficLightModel extends Observable
                 switchToSIMULATION();
                 break;
             }
-        }
-
-        if((actState == newState) && ((actState == TrafficLightState.RED) || (actState == TrafficLightState.GREEN)))
-        {
-            inProgress = false;
-            timerChangeState.cancel();
         }
         notifyObservers();
     }
@@ -259,6 +247,13 @@ public class TrafficLightModel extends Observable
                 break;
             }
         }
+
+        /* Stop timer */
+        if(actState == TrafficLightState.RED)
+        {
+            inProgress = false;
+            timerChangeState.cancel();
+        }
     }
 
 
@@ -290,6 +285,13 @@ public class TrafficLightModel extends Observable
                 break;
             }
         }
+
+        /* Stop timer */
+        if(actState == TrafficLightState.GREEN)
+        {
+            inProgress = false;
+            timerChangeState.cancel();
+        }
     }
 
 
@@ -318,6 +320,35 @@ public class TrafficLightModel extends Observable
             default:
             {
                 actState = TrafficLightState.YELLOW;
+                break;
+            }
+        }
+    }
+
+
+    /**
+     * switchToDark(): State-Machine from the lights to switch to the DARK state.
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    08.12.2018
+     */
+    private void switchToDark()
+    {
+        switch (actState)
+        {
+            case ALLOn:
+            {
+                actState = TrafficLightState.DARK;
+                /* Stop timer */
+                inProgress = false;
+                timerChangeState.cancel();
+                break;
+            }
+            default:
+            {
+                actState = TrafficLightState.ALLOn;
                 break;
             }
         }

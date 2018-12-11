@@ -1,22 +1,12 @@
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import static javafx.collections.FXCollections.observableArrayList;
+
 
 /**
  * Class PrimaryStageController: Class for handling the PrimaryStage
@@ -27,117 +17,64 @@ import java.util.ResourceBundle;
  * @autor   Class NIN
  * @date   30.11.2018
  */
-public class PrimaryStageController implements Observer {
+public class PrimaryStageController implements Observer, Initializable
+{
+    @FXML    private CheckBox checkboxvelostripes;
+    @FXML    private CheckBox checkboxbusway;
+    @FXML    private CheckBox checkboxtramway;
+    @FXML    private CheckBox pedestrainStripesCheckbox;
+    @FXML    private ChoiceBox setchoiceOfAlgorithm;
+    @FXML    private ChoiceBox setnumberOfCrossing;
 
-
-    @FXML
-    MenuItem exitSoftware;
-    @FXML
-    CheckBox checkboxvelostripes;
-    @FXML
-    CheckBox checkboxbusway;
-    @FXML
-    CheckBox checkboxtramway;
-    @FXML
-    private ChoiceBox<String> setchoiceOfAlgorithm;
-    @FXML
-    private ChoiceBox<String> setnumberOfCrossing;
-    @FXML
-    CheckBox pedestrainStripesCheckbox;
-    @FXML
-    Pane pedestrianStripes;
-    @FXML
-    Button startButtonConfiguration;
-
-    DrivewayModel drivewayModel;
-
-    //todo
-    @FXML
-    private void handleSubmitButtonAction() {
-        String message = "Your Choice:\n";
-
-
-        if (checkboxvelostripes.isSelected()) {
-            message += "Velo Stripes TRUE\n";
-
-        }
-
-        if (checkboxbusway.isSelected())
-            message += "Bus Way TRUE\n";
-
-        if (checkboxtramway.isSelected())
-            message += "Tramway TRUE\n";
-
-
-        System.out.println(message);
-        System.out.println(setnumberOfCrossing.getValue());
-        System.out.println(setchoiceOfAlgorithm.getValue());
-
-    }
-
-    @FXML
-    public void setSetchoiceOfAlgorithm(List<String> algorithm) {
-
-        setchoiceOfAlgorithm.getItems().addAll(algorithm);
-    }
-
-    public void setSetnumberOfCrossing(List<String> crossing) {
-
-    }
+    private PrimaryStageModel model;
+    private ArrayList<String> allgorithmusTypes = new ArrayList<>();
+    private ArrayList<String> typeOfCrossroad = new ArrayList<>();
+    private HashMap<String, HashMap> settingsForCrossroad = new HashMap<>();
+    private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
+    private HashMap<String, String> allgorithmusAndTypeFromCrossroad = new HashMap<>();
 
     /**
-     * Method handleExitSoftware: Exit Software
-     *
-     *
+     * PrimaryStageController(): Constructor
      *
      * @version 1.0
-     * @autor   Class NIN
-     * @date   30.11.2018
+     * @autor   Schweizer Patrick
+     * @date    27.11.2018
+     * @arg     PrimaryStageModel model: (Object form model class)
      */
-    public void handleExitSoftware() {
-        System.exit(0);
-
+    public PrimaryStageController(PrimaryStageModel model)
+    {
+        this.model = model;
     }
 
-
-    public void newProject(MouseEvent mouseEvent) throws IOException {
-        // Erstellen eines neuen Projektes
-
-    }
-    /**
-     * Method epenAboutWindow: New Window for info
-     *
-     *
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public void openAboutWindow() throws Exception {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
-     * Method startButtonConfig: Start for the configuration
+     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the PrimaryStateController
      *
-     *
+     * Is automatic called when fxmlLoader.load() ist called.
      *
      * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
+     * @autor   Schweizer Patrick
+     * @date    10.12.2018
      */
-    public void startButtonConfig() throws Exception {
-        notify();
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        HashMap<String, String[]> controllerSettings = new HashMap<>();
+        ObservableList<String> observableList = null;
 
+        controllerSettings = model.setControllerSettings();
+
+        observableList = observableArrayList(controllerSettings.get("allgorithmusType"));
+        setchoiceOfAlgorithm.setItems(observableList);
+        observableList = observableArrayList(controllerSettings.get("typeOfCrossroad"));
+        setnumberOfCrossing.setItems(observableList);
+
+        checkboxvelostripes.setSelected(false);
+        checkboxbusway.setSelected(false);
+        checkboxtramway.setSelected(false);
+        pedestrainStripesCheckbox.setSelected(false);
     }
+
 
     /**
      * Method update: update function for Observer
@@ -148,8 +85,66 @@ public class PrimaryStageController implements Observer {
      * @autor   Class NIN
      * @date   14.11.2018
      */
-    @Override
-    public void update() {
+    public void update()
+    {
+        //toDo Placeholder for draw the crossroad
+    }
 
+
+    /**
+     * mnuExitApplication: Called when exit button from MainMenue was pressed
+     *
+     * Close the program Ampelsteuerung
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    11.12.2018
+     * @arg     ActionEvent actionEvent: ActionEvent from FXML
+     */
+    @FXML
+    public void mnuExitApplication(ActionEvent actionEvent)
+    {
+        model.closeProgram();
+    }
+
+
+    /**
+     * mnuOpenAboutWindow: Open a new Gui with project informations
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    11.12.2018
+     * @arg     ActionEvent actionEvent: ActionEvent from FXML
+     */
+    @FXML
+    public void mnuOpenAboutWindow(ActionEvent actionEvent) throws Exception
+    {
+        model.openAboutWindow();
+    }
+
+
+    /**
+     * startButtonConfig: Starts a new draw from a crossroad with the desired settings
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    11.12.2018
+     * @arg     ActionEvent actionEvent: ActionEvent from FXML
+     */
+    @FXML
+    public void startButtonConfig(ActionEvent actionEvent)
+    {
+        allgorithmusAndTypeFromCrossroad.put("allgorithmusTypes", setchoiceOfAlgorithm.getValue().toString());
+        allgorithmusAndTypeFromCrossroad.put("typeOfCrossroad", setnumberOfCrossing.getValue().toString());
+        settingsFromCheckBoxes.put("checkboxvelostripes", checkboxvelostripes.isSelected());
+        settingsFromCheckBoxes.put("checkboxbusway", checkboxbusway.isSelected());
+        settingsFromCheckBoxes.put("checkboxtramway", checkboxtramway.isSelected());
+        settingsFromCheckBoxes.put("pedestrainStripesCheckbox", pedestrainStripesCheckbox.isSelected());
+
+        settingsForCrossroad.put("allgorithmusAndType", allgorithmusAndTypeFromCrossroad);
+        settingsForCrossroad.put("checkboxes", settingsFromCheckBoxes);
+        model.startConfigurationFromCrossroad(settingsForCrossroad);
     }
 }

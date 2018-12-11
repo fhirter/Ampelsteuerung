@@ -31,7 +31,7 @@ public class TrafficLightController implements Observer, Initializable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    27.11.2018
-     * @arg
+     * @arg     TrafficLightModel trafficLightModel: (Object form model class)
      */
     public TrafficLightController(TrafficLightModel trafficLightModel)
     {
@@ -68,8 +68,8 @@ public class TrafficLightController implements Observer, Initializable
     @Override
     public void update()
     {
-        TrafficLightState state = model.getState();
-        changeColor(state);
+        TrafficLightState newState = model.getState();
+        changeColor(newState);
     }
 
 

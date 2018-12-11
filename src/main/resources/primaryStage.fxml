@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PrimaryStageController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -22,17 +22,11 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Datei">
                      <items>
-                        <MenuItem fx:id="newProject" mnemonicParsing="false" text="Neues Projekt" />
-                        <MenuItem fx:id="exitSoftware" mnemonicParsing="false" onAction="#handleExitSoftware" text="Exit" />
+                        <MenuItem fx:id="exitSoftware" mnemonicParsing="false" onAction="#mnuExitApplication" text="Exit" />
                      </items></Menu>
-                <Menu mnemonicParsing="false" text="Bearbeiten">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
                 <Menu mnemonicParsing="false" text="Hilfe">
                   <items>
-                    <MenuItem fx:id="aboutMenu" mnemonicParsing="false" onAction="#openAboutWindow" text="About" />
+                    <MenuItem fx:id="aboutMenu" mnemonicParsing="false" onAction="#mnuOpenAboutWindow" text="About" />
                   </items>
                 </Menu>
               </menus>
@@ -46,8 +40,7 @@
    <left>
       <VBox layoutX="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="11.0" prefWidth="150.0" />
-            <Pane layoutX="20.0" prefHeight="20.0" prefWidth="150.0" />
+            <Pane layoutX="20.0" prefHeight="53.0" prefWidth="150.0" />
             <CheckBox fx:id="checkboxvelostripes" mnemonicParsing="true" text="Velo stripes">
                <VBox.margin>
                   <Insets left="20.0" top="10.0" />
@@ -86,14 +79,8 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></ChoiceBox>
-            <Pane layoutX="10.0" layoutY="117.0" prefHeight="234.0" prefWidth="150.0">
-               <children>
-                  <Button fx:id="startButtonConfiguration" layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" onAction="#startButtonConfig" prefHeight="45.0" prefWidth="153.0" text="Start Configuration" />
-               </children></Pane>
-            <Button mnemonicParsing="false" text="Statistik">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="20.0" />
-               </VBox.margin></Button>
+            <Pane layoutX="10.0" layoutY="117.0" prefHeight="30.0" prefWidth="153.0" />
+            <Button fx:id="startButtonConfiguration" mnemonicParsing="false" onAction="#startButtonConfig" prefHeight="32.0" prefWidth="153.0" text="Start Configuration" />
          </children>
       </VBox>
    </left>

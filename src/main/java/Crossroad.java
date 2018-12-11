@@ -18,9 +18,6 @@ import java.util.List;
  */
 public class Crossroad extends Application
 {
-
-
-
     /**
      * crossroadStart: Start with a new Object from the crossroad.
      *
@@ -47,41 +44,29 @@ public class Crossroad extends Application
     public void start(Stage primaryStage) throws Exception
     {
         primaryStage.setTitle("Ampelsteuerung");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
-        BorderPane borderPaneLoader = loader.load();
-        primaryStage.setScene(new Scene(borderPaneLoader, 800, 800));
-        borderPaneLoader.setCenter(createDriveway());
 
+        PrimaryStageModel primaryStageModel = new PrimaryStageModel();
+        PrimaryStageController primaryStageController = new PrimaryStageController(primaryStageModel);
+        FXMLLoader fxmlLoaderPrimaryStage = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
+        fxmlLoaderPrimaryStage.setController(primaryStageController);
+        BorderPane borderPaneLoaderPrimaryStage = fxmlLoaderPrimaryStage.load();
+        primaryStage.setScene(new Scene(borderPaneLoaderPrimaryStage, 800, 800));
 
+        borderPaneLoaderPrimaryStage.setCenter(createDriveway());
 
 
         //todo Ampel ist Auskommentiert. Testen anschliessend loeschen
 //        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
 //        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
-//        borderPaneLoader.getChildren().add(trafficLightNode);
-
-
-        PrimaryStageController controller = loader.getController();
-        List<String> algorithm = new LinkedList<>();
-        algorithm.add("Algorithm A");
-        algorithm.add("Algorithm B");
-        algorithm.add("Algorithm C");
-        algorithm.add("Algorithm D");
-        controller.setSetchoiceOfAlgorithm(algorithm);
-        List<String> crossing = new LinkedList<>();
-        crossing.add("3 Streets");
-        crossing.add("4 Streets");
-        crossing.add("5 Streets");
-        controller.setSetnumberOfCrossing(crossing);
-
+//        trafficLightNode.setLayoutX(100);
+//        trafficLightNode.setLayoutY(100);
+//        borderPaneLoaderPrimaryStage.getChildren().add(trafficLightNode);
 
         primaryStage.show();
     }
 
 
      private Node createDriveway() throws IOException {
-
-        //todo: Achtung: Beim Observer wird eine andere Instanz vom Controller uebergeben!
 
         Node nodeDriveway;
 
