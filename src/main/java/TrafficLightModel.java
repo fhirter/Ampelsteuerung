@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -162,17 +163,21 @@ public class TrafficLightModel extends Observable
             timerChangeState.cancel();
             inProgress = false;
         }
-
         timerChangeState = new Timer();
-        timerChangeState.scheduleAtFixedRate(new TimerTask() {
+        timerChangeState.schedule(new TimerTask() {
                                       @Override
                                       public void run() {
-                                          inProgress = true;
-                                          changeTimerBasedState(newState);
+                                          Platform.runLater(new Runnable() {
+                                              @Override
+                                              public void run() {
+                                                  inProgress = true;
+                                                  changeTimerBasedState(newState);
+                                              }
+                                          });
                                       }
                                   },
-                10 /* ms delay */,
-                1000 /* ms period */);
+                0 /* ms delay */,
+                100 /* ms period */);
     }
 
 

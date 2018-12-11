@@ -42,17 +42,15 @@ public class TrafficLightTestModel
 
     public void setDark()
     {
-        model.get(0).setRed();
-//        for(TrafficLightModel i : model)
-//        {i.setDark();}
+        for(TrafficLightModel i : model)
+        {i.setDark();}
     }
 
 
     public void setAllOn()
     {
-        model.get(1).setRed();
-//        for(TrafficLightModel i : model)
-//        {i.setSIMULATION();}
+        for(TrafficLightModel i : model)
+        {i.setSIMULATION();}
     }
 
 }
