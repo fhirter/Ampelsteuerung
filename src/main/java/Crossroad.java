@@ -74,7 +74,7 @@ public class Crossroad extends Application
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivewayView.fxml"));
         nodeDriveway = fxmlLoader.load();
         fxmlLoader.setController(drivewayController);
-        DrivewayModel drivewayModel = new DrivewayModel(false, false, false, false, DrivewayType.carDrivway);
+        DrivewayModel drivewayModel = new DrivewayModel(false, false, false, false);
 
         return nodeDriveway;
     }

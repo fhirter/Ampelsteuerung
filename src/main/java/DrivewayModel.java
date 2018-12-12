@@ -12,7 +12,7 @@ public class DrivewayModel extends Observable {
     private boolean bicyclePath = false;
     private boolean publicTrafficRail = false;
     private boolean carDriveway = false;
-    private DrivewayType drivewayType;
+
 
     /**
      * Constructor DrivewayModel: Constructor for the DrivewayModel
@@ -21,13 +21,13 @@ public class DrivewayModel extends Observable {
      * @autor   Class NIN
      * @date   30.11.2018
      */
-    public DrivewayModel(boolean pedestrianStripes, boolean bicyclePath, boolean publicTrafficRail, boolean carDriveway, DrivewayType drivewayType) {
+    public DrivewayModel(boolean pedestrianStripes, boolean bicyclePath, boolean publicTrafficRail, boolean carDriveway) {
 
         this.pedestrianStripes = pedestrianStripes;
         this.bicyclePath = bicyclePath;
         this.publicTrafficRail = publicTrafficRail;
         this.carDriveway = carDriveway;
-        this.drivewayType = drivewayType;
+
     }
 
     /**
