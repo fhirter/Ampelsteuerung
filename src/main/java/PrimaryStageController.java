@@ -136,15 +136,21 @@ public class PrimaryStageController implements Observer, Initializable
     @FXML
     public void startButtonConfig(ActionEvent actionEvent)
     {
-        allgorithmusAndTypeFromCrossroad.put("allgorithmusTypes", setchoiceOfAlgorithm.getValue().toString());
-        allgorithmusAndTypeFromCrossroad.put("typeOfCrossroad", setnumberOfCrossing.getValue().toString());
-        settingsFromCheckBoxes.put("checkboxvelostripes", checkboxvelostripes.isSelected());
-        settingsFromCheckBoxes.put("checkboxbusway", checkboxbusway.isSelected());
-        settingsFromCheckBoxes.put("checkboxtramway", checkboxtramway.isSelected());
-        settingsFromCheckBoxes.put("pedestrainStripesCheckbox", pedestrainStripesCheckbox.isSelected());
+        try {
+            allgorithmusAndTypeFromCrossroad.put("allgorithmusTypes", setchoiceOfAlgorithm.getValue().toString());
+            allgorithmusAndTypeFromCrossroad.put("typeOfCrossroad", setnumberOfCrossing.getValue().toString());
+            settingsFromCheckBoxes.put("checkboxvelostripes", checkboxvelostripes.isSelected());
+            settingsFromCheckBoxes.put("checkboxbusway", checkboxbusway.isSelected());
+            settingsFromCheckBoxes.put("checkboxtramway", checkboxtramway.isSelected());
+            settingsFromCheckBoxes.put("pedestrainStripesCheckbox", pedestrainStripesCheckbox.isSelected());
 
-        settingsForCrossroad.put("allgorithmusAndType", allgorithmusAndTypeFromCrossroad);
-        settingsForCrossroad.put("checkboxes", settingsFromCheckBoxes);
-        model.startConfigurationFromCrossroad(settingsForCrossroad);
+            settingsForCrossroad.put("allgorithmusAndType", allgorithmusAndTypeFromCrossroad);
+            settingsForCrossroad.put("checkboxes", settingsFromCheckBoxes);
+            model.startConfigurationFromCrossroad(settingsForCrossroad);
+        }catch (NullPointerException e)
+        {
+            System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
+        }
+
     }
 }
