@@ -71,3 +71,40 @@ public class TrafficLightTest extends Application
         return nodeTestProzedure;
     }
 }
+
+
+
+
+
+//        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
+//        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
+//        trafficLightNode.setLayoutX(100);
+//        trafficLightNode.setLayoutY(100);
+//        borderPaneLoaderPrimaryStage.getChildren().add(trafficLightNode);
+
+    /**
+     * createNewTrafficLight(): Implements a new Instance from trafficLight
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    20.11.2018
+     * @arg     TrafficLightModel: Instance form the model
+     * @return  Node: Index from the Node fxmlLoader from trafficLight
+     */
+/*    private Node createNewTrafficLight(TrafficLightModel model) throws java.io.IOException
+    {
+        Node nodeTrafficLight;
+
+        TrafficLightController trafficLightController = new TrafficLightController(model);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        fxmlLoader.setController(trafficLightController);
+        nodeTrafficLight = fxmlLoader.load();
+
+        model.addObserver(trafficLightController);
+
+        return nodeTrafficLight;
+    }
+
+*/
+

@@ -17,7 +17,7 @@ import static javafx.collections.FXCollections.observableArrayList;
  * @autor   Class NIN
  * @date   30.11.2018
  */
-public class PrimaryStageController implements Observer, Initializable
+public class PrimaryStageController implements Initializable
 {
     @FXML    private CheckBox checkboxvelostripes;
     @FXML    private CheckBox checkboxbusway;
@@ -27,8 +27,6 @@ public class PrimaryStageController implements Observer, Initializable
     @FXML    private ChoiceBox setnumberOfCrossing;
 
     private PrimaryStageModel model;
-    private ArrayList<String> allgorithmusTypes = new ArrayList<>();
-    private ArrayList<String> typeOfCrossroad = new ArrayList<>();
     private HashMap<String, HashMap> settingsForCrossroad = new HashMap<>();
     private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
     private HashMap<String, String> allgorithmusAndTypeFromCrossroad = new HashMap<>();
@@ -73,21 +71,6 @@ public class PrimaryStageController implements Observer, Initializable
         checkboxbusway.setSelected(false);
         checkboxtramway.setSelected(false);
         pedestrainStripesCheckbox.setSelected(false);
-    }
-
-
-    /**
-     * Method update: update function for Observer
-     *
-     *
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public void update()
-    {
-        //toDo Placeholder for draw the crossroad
     }
 
 
@@ -151,6 +134,5 @@ public class PrimaryStageController implements Observer, Initializable
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
         }
-
     }
 }

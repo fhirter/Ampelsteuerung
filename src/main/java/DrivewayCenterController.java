@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DrivewayController implements Observer, Initializable {
+public class DrivewayCenterController implements Observer, Initializable {
 
     @FXML
     AnchorPane drivewayAnchorPane;
@@ -15,22 +15,6 @@ public class DrivewayController implements Observer, Initializable {
     Pane pedestrianStripes;
     @FXML
     Group driveway;
-
-
-    public DrivewayController() {
-
-    }
-
-
-    public void setPostion(){
-        drivewayAnchorPane.setVisible(false);
-    }
-
-
-    public void setPedestrianStripes (){
-
-    }
-
 
     /**
      * update(): Obstacle where is registered into driveway
@@ -42,14 +26,32 @@ public class DrivewayController implements Observer, Initializable {
      * @date    01.12.2018
      */
     @Override
-    public void update() {
+    public void update()
+    {
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+
+
+    }
+
+    public DrivewayCenterController()
+    {
 
     }
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void setPostion()
+    {
+        drivewayAnchorPane.setVisible(false);
+    }
 
+
+    public void setPedestrianStripes ()
+    {
 
     }
 }
