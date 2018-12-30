@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Class DrivewayRouteModel: Data model for the crossroad
  *
@@ -6,13 +8,9 @@
  * @date   14.11.2018
  */
 
-public class DrivewayRouteModel extends Observable {
-
-    private boolean pedestrianStripes = false;
-    private boolean bicyclePath = false;
-    private boolean publicTrafficRail = false;
-    private boolean carDriveway = false;
-
+public class DrivewayRouteModel extends Observable
+{
+    private HashMap<String, Boolean> settingsFromCheckBoxes;
 
     /**
      * Constructor DrivewayRouteModel: Constructor for the DrivewayModel
@@ -21,122 +19,18 @@ public class DrivewayRouteModel extends Observable {
      * @autor   Class NIN
      * @date   30.11.2018
      */
-    public DrivewayRouteModel(boolean pedestrianStripes, boolean bicyclePath, boolean publicTrafficRail, boolean carDriveway)
+    public DrivewayRouteModel(HashMap<String, HashMap> settingsForCrossroad)
     {
-        this.pedestrianStripes = pedestrianStripes;
-        this.bicyclePath = bicyclePath;
-        this.publicTrafficRail = publicTrafficRail;
-        this.carDriveway = carDriveway;
+        this.settingsFromCheckBoxes = settingsForCrossroad.get("checkboxes");
     }
 
 
-    /**
-     * Method setPedestrianStripes: Setter for pedestrian Stripes
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public void setPedestrianStripes(boolean PedestrianStripes)
+    public HashMap<String, Boolean> getStateFromChckboxes()
     {
-            this.pedestrianStripes = PedestrianStripes;
-            notifyObservers();
-    }
-
-
-    /**
-     * Method getCarDriveway: Getter for Car Driveway
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-
-    public boolean getPedestrianStripes()
-    {
-        return pedestrianStripes;
-    }
-
-
-    /**
-     * Method setBicyclePatch: Setter for bicyclePath
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public boolean getCarDriveway()
-    {
-        return carDriveway;
-    }
-
-
-    /**
-     * Method setCarDriveway: Setter for Car Driveway
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public void setCarDriveway(boolean carDriveway)
-    {
-        this.carDriveway = carDriveway;
-    }
-
-
-    /**
-     * Method getPedestrianStripes: Getter for Pedestrian Stripes
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public void setBicyclePath (boolean BicyclePath)
-    {
-        this.bicyclePath = BicyclePath;
-        notifyObservers();
-    }
-
-
-    /**
-     * Method getBicyclePatch: Getter for bicyclePath
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public boolean getBicyclePatch ()
-    {
-        return bicyclePath;
-    }
-
-
-    /**
-     * Method setPublicTrafficRail: Setter for Public Trafficrrail
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public void setPublicTrafficRail (boolean PublicTrafficRail)
-    {
-        this.publicTrafficRail = PublicTrafficRail;
-        notifyObservers();
-    }
-
-
-    /**
-     * Method getPublicTrafficRail: Getter for Public Trafficrail
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public boolean getPublicTrafficRail ()
-    {
-        return publicTrafficRail;
+        return this.settingsFromCheckBoxes;
     }
 }
+
 
 
 

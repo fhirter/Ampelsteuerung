@@ -60,7 +60,7 @@ public class PrimaryStageController implements Initializable
         HashMap<String, String[]> controllerSettings = new HashMap<>();
         ObservableList<String> observableList = null;
 
-        controllerSettings = model.setControllerSettings();
+        controllerSettings = model.getControllerSettings();
 
         observableList = observableArrayList(controllerSettings.get("allgorithmusType"));
         setchoiceOfAlgorithm.setItems(observableList);
@@ -129,7 +129,9 @@ public class PrimaryStageController implements Initializable
 
             settingsForCrossroad.put("allgorithmusAndType", allgorithmusAndTypeFromCrossroad);
             settingsForCrossroad.put("checkboxes", settingsFromCheckBoxes);
-            model.startConfigurationFromCrossroad(settingsForCrossroad);
+
+            model.startConfigurationIsPressed(settingsForCrossroad);
+
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");

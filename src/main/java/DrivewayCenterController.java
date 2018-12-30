@@ -1,57 +1,51 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-
+import javafx.scene.shape.Rectangle;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class DrivewayCenterController implements Observer, Initializable {
+public class DrivewayCenterController implements Initializable
+{
+    @FXML   private Rectangle pedestrianWay;
 
-    @FXML
-    AnchorPane drivewayAnchorPane;
-    @FXML
-    Pane pedestrianStripes;
-    @FXML
-    Group driveway;
+    private DrivewayCenterModel drivewayCenterModel;
+    private HashMap<String, String> allgorithmusAndTypeFromCrossroad;
 
     /**
-     * update(): Obstacle where is registered into driveway
-     *
-     * Is automatic called when something into drivewayModel is changed.
+     * DrivewayCenterController(): Constructor
      *
      * @version 1.0
-     * @autor   Class NIN
-     * @date    01.12.2018
+     * @autor   Schweizer Patrick
+     * @date    29.12.2018
+     * @arg     DrivewayCenterModel: (Instance from DrivewayCenterModel)
      */
-    @Override
-    public void update()
+    public DrivewayCenterController(DrivewayCenterModel drivewayCenterModel)
     {
-
+        this.drivewayCenterModel = drivewayCenterModel;
     }
 
+
+    /**
+     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the DrivewayCenterController
+     *
+     * Is automatic called when fxmlLoader.load() ist called.
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    29.12.2018
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        allgorithmusAndTypeFromCrossroad = drivewayCenterModel.getAllgorithmusAndTypeFromCrossroad();
 
-
-    }
-
-    public DrivewayCenterController()
-    {
-
-    }
-
-
-    public void setPostion()
-    {
-        drivewayAnchorPane.setVisible(false);
-    }
-
-
-    public void setPedestrianStripes ()
-    {
-
+        if(allgorithmusAndTypeFromCrossroad.get("typeOfCrossroad").equals("3 Streets"))
+        {
+            pedestrianWay.setVisible(true);
+        }else if(allgorithmusAndTypeFromCrossroad.get("typeOfCrossroad").equals("4 Streets"))
+        {
+            pedestrianWay.setVisible(false);
+        }
     }
 }

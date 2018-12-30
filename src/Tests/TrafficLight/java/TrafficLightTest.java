@@ -83,7 +83,7 @@ public class TrafficLightTest extends Application
 //        borderPaneLoaderPrimaryStage.getChildren().add(trafficLightNode);
 
     /**
-     * createNewTrafficLight(): Implements a new Instance from trafficLight
+     * createNewTrafficLight(): Create a new node from the trafficLight
      *
      *
      * @version 1.0

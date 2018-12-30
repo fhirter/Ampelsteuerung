@@ -1,30 +1,40 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 public class PrimaryStageModel extends Observable
 {
-    final private String[] allgorithmusTypes = {"Algorithm A",
+    private final String[] allgorithmusTypes = {"Algorithm A",
                                                 "Algorithm B",
                                                 "Algorithm C",
                                                 "Algorithm D"};
 
-    final private String[] typeOfCrossroad = {"3 Streets",
+    private final String[] typeOfCrossroad = {"3 Streets",
                                               "4 Streets"};
 
-    private HashMap<String, HashMap> settingsForCrossroad = new HashMap<>();
-    private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
-    private HashMap<String, String> allgorithmusAndTypeFromCrossroad = new HashMap<>();
+    private Crossroad crossroad;
+
 
     /**
-     * setControllerSettings: Set the settings into the controller
+     * PrimaryStageModel: Constructor for class PrimaryStageModel
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    11.12.2018
+     * @arg     Crossroad crossroad: Instance form class crossroad
+     */
+    public PrimaryStageModel(Crossroad crossroad)
+    {
+        this.crossroad = crossroad;
+    }
+
+
+    /**
+     * getControllerSettings: Set the settings into the controller
      *
      *
      * @version 1.0
@@ -32,7 +42,7 @@ public class PrimaryStageModel extends Observable
      * @date    11.12.2018
      * @return  HashMap<String, String[]>: (Input-text for the ChoiceBoxes)
      */
-    public HashMap<String, String[]> setControllerSettings()
+    public HashMap<String, String[]> getControllerSettings()
     {
         HashMap<String, String[]> controllerSettings = new HashMap<>();
 
@@ -44,17 +54,21 @@ public class PrimaryStageModel extends Observable
 
 
     /**
-     * startConfigurationFromCrossroad: Configure a new crossrad
-     *
-     *
+     * startConfigurationIsPressed: Store from selected crossroad the configuration.
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date   11.12.2018
      */
-    public void startConfigurationFromCrossroad(HashMap<String, HashMap> settingsForCrossroad)
+    public void startConfigurationIsPressed(HashMap<String, HashMap> settingsForCrossroad)
     {
-        this.settingsForCrossroad = settingsForCrossroad;
+        try {
+
+            crossroad.configureAndDrawCrossroad(settingsForCrossroad);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
