@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -41,15 +41,15 @@
       <VBox layoutX="20.0" BorderPane.alignment="CENTER">
          <children>
             <Pane layoutX="20.0" prefHeight="53.0" prefWidth="150.0" />
-            <CheckBox fx:id="checkboxvelostripes" mnemonicParsing="true" text="Velo stripes">
+            <CheckBox fx:id="checkboxvelostripes" mnemonicParsing="true" text="Velostreifen">
                <VBox.margin>
                   <Insets left="20.0" top="10.0" />
                </VBox.margin></CheckBox>
-            <CheckBox fx:id="checkboxbusway" mnemonicParsing="false" prefHeight="17.0" prefWidth="89.0" text="Busway">
+            <CheckBox fx:id="checkboxbusway" mnemonicParsing="false" prefHeight="17.0" prefWidth="89.0" text="Bussstreifen">
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
                </VBox.margin></CheckBox>
-            <CheckBox fx:id="checkboxtramway" mnemonicParsing="false" text="Tramway">
+            <CheckBox fx:id="checkboxtramway" mnemonicParsing="false" text="Tramgleise">
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
                </VBox.margin></CheckBox>
@@ -62,7 +62,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></Pane>
-            <Label lineSpacing="1.0" prefHeight="26.0" prefWidth="136.0" text="Crossings">
+            <Label lineSpacing="1.0" prefHeight="26.0" prefWidth="136.0" text="Kreuzung auswählen:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Label>
@@ -70,7 +70,7 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></ChoiceBox>
-            <Label layoutX="10.0" layoutY="188.0" lineSpacing="1.0" prefHeight="26.0" prefWidth="136.0" text="Algorithm type">
+            <Label layoutX="10.0" layoutY="188.0" lineSpacing="1.0" prefHeight="26.0" prefWidth="136.0" text="Algorithmus auswählen:">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -80,7 +80,7 @@
                   <Insets top="10.0" />
                </VBox.margin></ChoiceBox>
             <Pane layoutX="10.0" layoutY="117.0" prefHeight="30.0" prefWidth="153.0" />
-            <Button fx:id="startButtonConfiguration" mnemonicParsing="false" onAction="#startButtonConfig" prefHeight="32.0" prefWidth="153.0" text="Start Configuration" />
+            <Button fx:id="startButtonConfiguration" mnemonicParsing="false" onAction="#startButtonConfig" prefHeight="32.0" prefWidth="153.0" text="Start Konfiguration" />
          </children>
       </VBox>
    </left>
