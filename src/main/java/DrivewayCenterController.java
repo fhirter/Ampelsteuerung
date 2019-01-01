@@ -1,13 +1,15 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Pane;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class DrivewayCenterController implements Initializable
 {
-    @FXML   private Rectangle pedestrianWay;
+    @FXML   private Pane pedestrianWay;
+    @FXML   private Pane fourthRoute;
 
     private DrivewayCenterModel drivewayCenterModel;
     private HashMap<String, String> allgorithmusAndTypeFromCrossroad;
@@ -43,9 +45,11 @@ public class DrivewayCenterController implements Initializable
         if(allgorithmusAndTypeFromCrossroad.get("typeOfCrossroad").equals("3 Streets"))
         {
             pedestrianWay.setVisible(true);
+            fourthRoute.setVisible(false);
         }else if(allgorithmusAndTypeFromCrossroad.get("typeOfCrossroad").equals("4 Streets"))
         {
             pedestrianWay.setVisible(false);
+            fourthRoute.setVisible(true);
         }
     }
 }

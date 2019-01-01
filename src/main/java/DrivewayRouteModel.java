@@ -1,3 +1,6 @@
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+
 import java.util.HashMap;
 
 /**
@@ -28,6 +31,32 @@ public class DrivewayRouteModel extends Observable
     public HashMap<String, Boolean> getStateFromChckboxes()
     {
         return this.settingsFromCheckBoxes;
+    }
+
+
+/**
+ * createTrafficLights(): Creates on the DrivewayRoute the appopriate trafficlights
+ *
+ *
+ * @version 1.0
+ * @autor   Schweizer Patrick
+ * @date    30.12.2018
+ * @arg     TrafficLightType: (Type from trafficLight which should be create)
+ * @return  Node: Index from the TrafficLight Node. Can be needed in xxxx.getChild().add(Node);
+ */
+    public Node createTrafficLight(TrafficLightType trafficLightType) throws java.io.IOException
+    {
+        Node nodeTrafficLight;
+
+        TrafficLightModel trafficLightModel = new TrafficLightModel(trafficLightType);
+        TrafficLightController trafficLightController = new TrafficLightController(trafficLightModel);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        fxmlLoader.setController(trafficLightController);
+        nodeTrafficLight = fxmlLoader.load();
+
+        trafficLightModel.addObserver(trafficLightController);
+
+        return nodeTrafficLight;
     }
 }
 

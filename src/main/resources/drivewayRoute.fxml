@@ -35,8 +35,14 @@
          <children>
             <Pane minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86898d" height="50.0" stroke="BLACK" strokeType="INSIDE" width="300.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86898d" height="50.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="300.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86898d" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86898d" height="50.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+                  <Line endX="300.0" />
+                  <Line endX="300.0" layoutY="50.0" />
+                  <Line endX="300.0" layoutY="250.0" />
+                  <Line endX="300.0" layoutY="200.0" />
+                  <Line startY="50.0" />
+                  <Line layoutY="200.0" startY="50.0" />
                </children>
             </Pane>
          </children>
@@ -47,5 +53,6 @@
             <Line endX="280.0" layoutY="180.0" stroke="#e1e417" strokeWidth="2.0" style="-fx-stroke-dash-array: 20;" />
          </children>
       </AnchorPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="75.0" x="90.0" y="200.0" />
    </children>
 </AnchorPane>
