@@ -64,13 +64,16 @@ public class PrimaryStageController implements Initializable
 
         observableList = observableArrayList(controllerSettings.get("allgorithmusType"));
         setchoiceOfAlgorithm.setItems(observableList);
+        setchoiceOfAlgorithm.setValue("Algorithm A");
+
         observableList = observableArrayList(controllerSettings.get("typeOfCrossroad"));
         setnumberOfCrossing.setItems(observableList);
+        setnumberOfCrossing.setValue("4 Streets");
 
-        checkboxvelostripes.setSelected(false);
+        checkboxvelostripes.setSelected(true);
         checkboxbusway.setSelected(false);
         checkboxtramway.setSelected(false);
-        pedestrainStripesCheckbox.setSelected(false);
+        pedestrainStripesCheckbox.setSelected(true);
     }
 
 

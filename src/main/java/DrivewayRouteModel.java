@@ -15,6 +15,7 @@ public class DrivewayRouteModel extends Observable
 {
     private HashMap<String, Boolean> settingsFromCheckBoxes;
 
+
     /**
      * Constructor DrivewayRouteModel: Constructor for the DrivewayModel
      *
@@ -24,7 +25,7 @@ public class DrivewayRouteModel extends Observable
      */
     public DrivewayRouteModel(HashMap<String, HashMap> settingsForCrossroad)
     {
-        this.settingsFromCheckBoxes = settingsForCrossroad.get("checkboxes");
+        settingsFromCheckBoxes = settingsForCrossroad.get("checkboxes");
     }
 
 
@@ -41,14 +42,13 @@ public class DrivewayRouteModel extends Observable
  * @version 1.0
  * @autor   Schweizer Patrick
  * @date    30.12.2018
- * @arg     TrafficLightType: (Type from trafficLight which should be create)
+ * @arg     TrafficLightModel: (Index from TrafficLightModel)
  * @return  Node: Index from the TrafficLight Node. Can be needed in xxxx.getChild().add(Node);
  */
-    public Node createTrafficLight(TrafficLightType trafficLightType) throws java.io.IOException
+    public Node createTrafficLight(TrafficLightModel trafficLightModel) throws java.io.IOException
     {
         Node nodeTrafficLight;
 
-        TrafficLightModel trafficLightModel = new TrafficLightModel(trafficLightType);
         TrafficLightController trafficLightController = new TrafficLightController(trafficLightModel);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
         fxmlLoader.setController(trafficLightController);
@@ -59,6 +59,8 @@ public class DrivewayRouteModel extends Observable
         return nodeTrafficLight;
     }
 }
+
+
 
 
 

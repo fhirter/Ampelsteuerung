@@ -10,7 +10,8 @@ public class PrimaryStageModel extends Observable
     private final String[] allgorithmusTypes = {"Algorithm A",
                                                 "Algorithm B",
                                                 "Algorithm C",
-                                                "Algorithm D"};
+                                                "Algorithm D",
+                                                "Algorithm E"};
 
     private final String[] typeOfCrossroad = {"3 Streets",
                                               "4 Streets"};

@@ -1,1 +1,1 @@
-public enum TrafficLightType {CAR, PEDESTRIAN, BUS, BICYCLE}
+public enum TrafficLightType {CAR, PEDESTRIAN}

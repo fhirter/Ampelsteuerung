@@ -1,6 +1,5 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -25,9 +24,9 @@ public class Crossroad extends Application
     private int getCountOfBasedChildren = 0;
     private double scaleFactorCrossroad = 1;
 
-    private PrimaryStageModel primaryStageModel = new PrimaryStageModel(this);
     private BorderPane borderPaneLoaderPrimaryStage;
-
+    private HashMap<String, TrafficLightModel> crossroadControlMap = new HashMap<>();
+    private Algorithmus algorithmus = new Algorithmus(crossroadControlMap);
 
     /**
      * crossroadStart: Start with a new Object from the crossroad.
@@ -55,6 +54,7 @@ public class Crossroad extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        PrimaryStageModel primaryStageModel = new PrimaryStageModel(this);
         primaryStage.setTitle("Ampelsteuerung");
 
         PrimaryStageController primaryStageController = new PrimaryStageController(primaryStageModel);
@@ -82,45 +82,45 @@ public class Crossroad extends Application
     {
         double lengthCrossroad;
         double widthCrossroad;
-        HashMap<String, String> allgorithmusAndTypeFromCrossroad = settingsForCrossroad.get("allgorithmusAndType");
         Node nodeDrawCenter;
-        Pane nodeDrawStreet0Degree, nodeDrawStreet90Degree, nodeDrawStreet180Degree, nodeDrawStreet270Degree;
+        Pane nodeStreet0Degree, nodeStreet90Degree, nodeStreet180Degree, nodeStreet270Degree;
 
+        crossroadControlMap.clear();
         borderPaneLoaderPrimaryStage.getChildren().remove(getCountOfBasedChildren, borderPaneLoaderPrimaryStage.getChildren().size());
         System.out.println("Set configuration is Pressed.");
 
-        nodeDrawStreet0Degree = createDrivewayRoute(settingsForCrossroad);
-        nodeDrawStreet0Degree.setLayoutX(refPointCrossroadX);
-        nodeDrawStreet0Degree.setLayoutY(refPointCrossroadY);
-        lengthCrossroad = nodeDrawStreet0Degree.prefWidth(0) * scaleFactorCrossroad;
-        widthCrossroad = nodeDrawStreet0Degree.prefHeight(0) * scaleFactorCrossroad;
-        nodeDrawStreet0Degree.setRotate(0);
-        nodeDrawStreet0Degree.setScaleX(scaleFactorCrossroad);
-        nodeDrawStreet0Degree.setScaleY(scaleFactorCrossroad);
+        nodeStreet0Degree = createDrivewayRoute("West", settingsForCrossroad);
+        nodeStreet0Degree.setLayoutX(refPointCrossroadX);
+        nodeStreet0Degree.setLayoutY(refPointCrossroadY);
+        lengthCrossroad = nodeStreet0Degree.prefWidth(0) * scaleFactorCrossroad;
+        widthCrossroad = nodeStreet0Degree.prefHeight(0) * scaleFactorCrossroad;
+        nodeStreet0Degree.setRotate(0);
+        nodeStreet0Degree.setScaleX(scaleFactorCrossroad);
+        nodeStreet0Degree.setScaleY(scaleFactorCrossroad);
 
         /* Street with 90 Degree */
-        nodeDrawStreet90Degree = createDrivewayRoute(settingsForCrossroad);
-        nodeDrawStreet90Degree.setLayoutX(refPointCrossroadX + widthCrossroad + lengthCrossroad);
-        nodeDrawStreet90Degree.setLayoutY(refPointCrossroadY - lengthCrossroad);
-        nodeDrawStreet90Degree.setRotate(90);
-        nodeDrawStreet90Degree.setScaleX(scaleFactorCrossroad);
-        nodeDrawStreet90Degree.setScaleY(scaleFactorCrossroad);
+        nodeStreet90Degree = createDrivewayRoute("North",settingsForCrossroad);
+        nodeStreet90Degree.setLayoutX(refPointCrossroadX + widthCrossroad + lengthCrossroad);
+        nodeStreet90Degree.setLayoutY(refPointCrossroadY - lengthCrossroad);
+        nodeStreet90Degree.setRotate(90);
+        nodeStreet90Degree.setScaleX(scaleFactorCrossroad);
+        nodeStreet90Degree.setScaleY(scaleFactorCrossroad);
 
         /* Street with 180 Degree */
-        nodeDrawStreet180Degree = createDrivewayRoute(settingsForCrossroad);
-        nodeDrawStreet180Degree.setLayoutX(refPointCrossroadX + lengthCrossroad + lengthCrossroad + widthCrossroad);
-        nodeDrawStreet180Degree.setLayoutY(refPointCrossroadY + widthCrossroad);
-        nodeDrawStreet180Degree.setRotate(180);
-        nodeDrawStreet180Degree.setScaleX(scaleFactorCrossroad);
-        nodeDrawStreet180Degree.setScaleY(scaleFactorCrossroad);
+        nodeStreet180Degree = createDrivewayRoute("East",settingsForCrossroad);
+        nodeStreet180Degree.setLayoutX(refPointCrossroadX + lengthCrossroad + lengthCrossroad + widthCrossroad);
+        nodeStreet180Degree.setLayoutY(refPointCrossroadY + widthCrossroad);
+        nodeStreet180Degree.setRotate(180);
+        nodeStreet180Degree.setScaleX(scaleFactorCrossroad);
+        nodeStreet180Degree.setScaleY(scaleFactorCrossroad);
 
         /* Street with 270 Degree */
-        nodeDrawStreet270Degree = createDrivewayRoute(settingsForCrossroad);
-        nodeDrawStreet270Degree.setLayoutX(refPointCrossroadX + lengthCrossroad);
-        nodeDrawStreet270Degree.setLayoutY(refPointCrossroadY + lengthCrossroad + widthCrossroad);
-        nodeDrawStreet270Degree.setRotate(270);
-        nodeDrawStreet270Degree.setScaleX(scaleFactorCrossroad);
-        nodeDrawStreet270Degree.setScaleY(scaleFactorCrossroad);
+        nodeStreet270Degree = createDrivewayRoute("South",settingsForCrossroad);
+        nodeStreet270Degree.setLayoutX(refPointCrossroadX + lengthCrossroad);
+        nodeStreet270Degree.setLayoutY(refPointCrossroadY + lengthCrossroad + widthCrossroad);
+        nodeStreet270Degree.setRotate(270);
+        nodeStreet270Degree.setScaleX(scaleFactorCrossroad);
+        nodeStreet270Degree.setScaleY(scaleFactorCrossroad);
 
         /* Center */
         nodeDrawCenter = createDrivewayCenter(settingsForCrossroad);
@@ -131,29 +131,33 @@ public class Crossroad extends Application
 
         /* Draw the crossroad */
         borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawCenter);
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawStreet0Degree);
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawStreet90Degree);
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawStreet180Degree);
-        if(allgorithmusAndTypeFromCrossroad.get("typeOfCrossroad").equals("4 Streets"))
+        borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet0Degree);
+        borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet90Degree);
+        borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet180Degree);
+        if(settingsForCrossroad.get("allgorithmusAndType").get("typeOfCrossroad").equals("4 Streets"))
         {
-            borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawStreet270Degree);
+            borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet270Degree);
         }
+
+        //todo: Testfunktion fuer Allgorithmus der Ampeln! Schaltspiel muss gemaess Allgorithmus noch bearbeitet werden
+        algorithmus.testfunktionAmpelspiel(settingsForCrossroad);
     }
 
 
     /**
-     * createDrivewayCenter: Create a new node from the drivewayRoute
+     * createDrivewayRoute: Create a new Pane from the drivewayRoute with trafficLights and store
+     *                      for control all trafficLights into "Allgorithmus" the RouteID into crossroadControlMap
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
-     * @date    28.12.2018
+     * @date    01.01.2019
+     * @arg     String: (Name or ID for storing the route with trafficLights into crossroadControlMap.)
      * @arg     HashMap<String, HashMap>: (HashMap where the selected settings from the crossroad are stored.)
      * @return  Pane: (Pane from the nodes route and trafficLight)
      */
-     private Pane createDrivewayRoute(HashMap<String, HashMap> settingsForCrossroad) throws IOException
+     private Pane createDrivewayRoute(String RouteID, HashMap<String, HashMap> settingsForCrossroad) throws IOException
      {
-        HashMap<String, Boolean> settingsFromCheckBoxes = settingsForCrossroad.get("checkboxes");
         Pane paneDrivewayRoute = new Pane();
         Node nodeDrivewayRoute, nodeTrafficLightCAR, nodeTrafficLightPEDESTRIANLeft, nodeTrafficLightPEDESTRIANRight;
 
@@ -165,17 +169,19 @@ public class Crossroad extends Application
         nodeDrivewayRoute = fxmlLoader.load();
 
         /* Create TrafficLights */
-        nodeTrafficLightCAR = drivewayRouteModel.createTrafficLight(TrafficLightType.CAR);
+        TrafficLightModel trafficLightModelCAR = new TrafficLightModel(TrafficLightType.CAR);
+        nodeTrafficLightCAR = drivewayRouteModel.createTrafficLight(trafficLightModelCAR);
         nodeTrafficLightCAR.setRotate(90);
         nodeTrafficLightCAR.setTranslateX(100);
         nodeTrafficLightCAR.setTranslateY(140);
-
-        nodeTrafficLightPEDESTRIANLeft = drivewayRouteModel.createTrafficLight(TrafficLightType.PEDESTRIAN);
+        /* TrafficLight PEDESTRIAN Left */
+        TrafficLightModel trafficLightModelPEDESTRIAN = new TrafficLightModel(TrafficLightType.PEDESTRIAN);
+        nodeTrafficLightPEDESTRIANLeft = drivewayRouteModel.createTrafficLight(trafficLightModelPEDESTRIAN);
         nodeTrafficLightPEDESTRIANLeft.setRotate(90);
         nodeTrafficLightPEDESTRIANLeft.setTranslateX(230);
         nodeTrafficLightPEDESTRIANLeft.setTranslateY(140);
-
-        nodeTrafficLightPEDESTRIANRight = drivewayRouteModel.createTrafficLight(TrafficLightType.PEDESTRIAN);
+        /* TrafficLight PEDESTRIAN Right ----- MIRRORING FROM TRAFFICLIGHT LEFT! ----- */
+        nodeTrafficLightPEDESTRIANRight = drivewayRouteModel.createTrafficLight(trafficLightModelPEDESTRIAN);
         nodeTrafficLightPEDESTRIANRight.setRotate(90);
         nodeTrafficLightPEDESTRIANRight.setTranslateX(230);
         nodeTrafficLightPEDESTRIANRight.setTranslateY(-50);
@@ -183,11 +189,16 @@ public class Crossroad extends Application
         /* Add for drawing route and trafficLights into Pane */
         paneDrivewayRoute.getChildren().add(nodeDrivewayRoute);
         paneDrivewayRoute.getChildren().add(nodeTrafficLightCAR);
-        if(settingsFromCheckBoxes.get("pedestrainStripesCheckbox") == true)
+        if(settingsForCrossroad.get("checkboxes").get("pedestrainStripesCheckbox").equals(true))
         {
             paneDrivewayRoute.getChildren().add(nodeTrafficLightPEDESTRIANLeft);
             paneDrivewayRoute.getChildren().add(nodeTrafficLightPEDESTRIANRight);
         }
+
+        /* Add RouteIndex into crossroadControlMap for control all trafficLights */
+        crossroadControlMap.put(RouteID + "_CAR", trafficLightModelCAR);
+        crossroadControlMap.put(RouteID + "_PEDESTRIAN", trafficLightModelPEDESTRIAN);
+
         return paneDrivewayRoute;
      }
 

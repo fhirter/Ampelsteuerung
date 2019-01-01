@@ -177,7 +177,7 @@ public class TrafficLightModel extends Observable
                                       }
                                   },
                 0 /* ms delay */,
-                100 /* ms period */);
+                500 /* ms period */);
     }
 
 
