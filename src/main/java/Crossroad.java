@@ -133,9 +133,8 @@ public class Crossroad extends Application
         nodeGreenPlanet = crateGreenPlanet();
         nodeGreenPlanet.setLayoutX(refPointCrossroadX);
         nodeGreenPlanet.setLayoutY(refPointCrossroadY - lengthCrossroad);
-        nodeGreenPlanet.prefWidth(2*lengthCrossroad + widthCrossroad);
-        nodeDrawCenter.setScaleX(scaleFactorCrossroad);
-        nodeDrawCenter.setScaleY(scaleFactorCrossroad);
+        nodeGreenPlanet.setScaleX(scaleFactorCrossroad);
+        nodeGreenPlanet.setScaleY(scaleFactorCrossroad);
 
         /* Draw crossroad */
         borderPaneLoaderPrimaryStage.getChildren().add(nodeGreenPlanet);
