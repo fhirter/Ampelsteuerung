@@ -89,52 +89,31 @@ public class Crossroad extends Application
         borderPaneLoaderPrimaryStage.getChildren().remove(getCountOfBasedChildren, borderPaneLoaderPrimaryStage.getChildren().size());
         System.out.println("Set configuration is Pressed.");
 
+        /* Street with 0 Degree */
         nodeStreet0Degree = createDrivewayRoute("West", settingsForCrossroad);
-        nodeStreet0Degree.setLayoutX(refPointCrossroadX);
-        nodeStreet0Degree.setLayoutY(refPointCrossroadY);
         lengthCrossroad = nodeStreet0Degree.prefWidth(0) * scaleFactorCrossroad;
         widthCrossroad = nodeStreet0Degree.prefHeight(0) * scaleFactorCrossroad;
-        nodeStreet0Degree.setRotate(0);
-        nodeStreet0Degree.setScaleX(scaleFactorCrossroad);
-        nodeStreet0Degree.setScaleY(scaleFactorCrossroad);
+        setCrossroadLayout(nodeStreet0Degree, 0,0,0);
 
         /* Street with 90 Degree */
         nodeStreet90Degree = createDrivewayRoute("North",settingsForCrossroad);
-        nodeStreet90Degree.setLayoutX(refPointCrossroadX + widthCrossroad + lengthCrossroad);
-        nodeStreet90Degree.setLayoutY(refPointCrossroadY - lengthCrossroad);
-        nodeStreet90Degree.setRotate(90);
-        nodeStreet90Degree.setScaleX(scaleFactorCrossroad);
-        nodeStreet90Degree.setScaleY(scaleFactorCrossroad);
+        setCrossroadLayout(nodeStreet90Degree, (widthCrossroad + lengthCrossroad), (-1*lengthCrossroad),90);
 
         /* Street with 180 Degree */
         nodeStreet180Degree = createDrivewayRoute("East",settingsForCrossroad);
-        nodeStreet180Degree.setLayoutX(refPointCrossroadX + lengthCrossroad + lengthCrossroad + widthCrossroad);
-        nodeStreet180Degree.setLayoutY(refPointCrossroadY + widthCrossroad);
-        nodeStreet180Degree.setRotate(180);
-        nodeStreet180Degree.setScaleX(scaleFactorCrossroad);
-        nodeStreet180Degree.setScaleY(scaleFactorCrossroad);
+        setCrossroadLayout(nodeStreet180Degree, (lengthCrossroad + lengthCrossroad + widthCrossroad), widthCrossroad,180);
 
         /* Street with 270 Degree */
         nodeStreet270Degree = createDrivewayRoute("South",settingsForCrossroad);
-        nodeStreet270Degree.setLayoutX(refPointCrossroadX + lengthCrossroad);
-        nodeStreet270Degree.setLayoutY(refPointCrossroadY + lengthCrossroad + widthCrossroad);
-        nodeStreet270Degree.setRotate(270);
-        nodeStreet270Degree.setScaleX(scaleFactorCrossroad);
-        nodeStreet270Degree.setScaleY(scaleFactorCrossroad);
+        setCrossroadLayout(nodeStreet270Degree, lengthCrossroad, (lengthCrossroad + widthCrossroad),270);
 
         /* Center */
         nodeDrawCenter = createDrivewayCenter(settingsForCrossroad);
-        nodeDrawCenter.setLayoutX(refPointCrossroadX + lengthCrossroad);
-        nodeDrawCenter.setLayoutY(refPointCrossroadY);
-        nodeDrawCenter.setScaleX(scaleFactorCrossroad);
-        nodeDrawCenter.setScaleY(scaleFactorCrossroad);
+        setCrossroadLayout((Pane)nodeDrawCenter, lengthCrossroad, 0,0);
 
         /* GreenPlanet */
         nodeGreenPlanet = crateGreenPlanet();
-        nodeGreenPlanet.setLayoutX(refPointCrossroadX);
-        nodeGreenPlanet.setLayoutY(refPointCrossroadY - lengthCrossroad);
-        nodeGreenPlanet.setScaleX(scaleFactorCrossroad);
-        nodeGreenPlanet.setScaleY(scaleFactorCrossroad);
+        setCrossroadLayout((Pane)nodeGreenPlanet, 0, (-1*lengthCrossroad),0);
 
         /* Draw crossroad */
         borderPaneLoaderPrimaryStage.getChildren().add(nodeGreenPlanet);
@@ -209,6 +188,28 @@ public class Crossroad extends Application
 
         return paneDrivewayRoute;
      }
+
+
+    /**
+     * setCrossroadLayout: Sets the Layout, Rotation and Scalefactor for the nodes from crossroad
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.01.2018
+     * @arg     Pane: (Pane or node from crossroad)
+     * @arg     double layoutXOffset, layoutYOffset: (Layoutoffset for place (X/Y) the node into the GUI)
+     * @arg     int degree: (Number of Rotation)
+
+     */
+    public void setCrossroadLayout(Pane nodeStreetxxDegree, double layoutXOffset, double layoutYOffset, int degree)
+    {
+        nodeStreetxxDegree.setLayoutX(refPointCrossroadX + layoutXOffset);
+        nodeStreetxxDegree.setLayoutY(refPointCrossroadY + layoutYOffset);
+        nodeStreetxxDegree.setRotate(degree);
+        nodeStreetxxDegree.setScaleX(scaleFactorCrossroad);
+        nodeStreetxxDegree.setScaleY(scaleFactorCrossroad);
+    }
 
 
     /**
