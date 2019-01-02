@@ -1,3 +1,7 @@
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+
 import java.util.HashMap;
 
 public class Algorithmus
@@ -77,3 +81,4 @@ public class Algorithmus
         }
     }
 }
+

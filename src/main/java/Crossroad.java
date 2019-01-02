@@ -82,7 +82,7 @@ public class Crossroad extends Application
     {
         double lengthCrossroad;
         double widthCrossroad;
-        Node nodeDrawCenter;
+        Node nodeDrawCenter, nodeGreenPlanet;
         Pane nodeStreet0Degree, nodeStreet90Degree, nodeStreet180Degree, nodeStreet270Degree;
 
         crossroadControlMap.clear();
@@ -129,7 +129,16 @@ public class Crossroad extends Application
         nodeDrawCenter.setScaleX(scaleFactorCrossroad);
         nodeDrawCenter.setScaleY(scaleFactorCrossroad);
 
-        /* Draw the crossroad */
+        /* GreenPlanet */
+        nodeGreenPlanet = crateGreenPlanet();
+        nodeGreenPlanet.setLayoutX(refPointCrossroadX);
+        nodeGreenPlanet.setLayoutY(refPointCrossroadY - lengthCrossroad);
+        nodeGreenPlanet.prefWidth(2*lengthCrossroad + widthCrossroad);
+        nodeDrawCenter.setScaleX(scaleFactorCrossroad);
+        nodeDrawCenter.setScaleY(scaleFactorCrossroad);
+
+        /* Draw crossroad */
+        borderPaneLoaderPrimaryStage.getChildren().add(nodeGreenPlanet);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawCenter);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet0Degree);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet90Degree);
@@ -225,6 +234,26 @@ public class Crossroad extends Application
 
         return nodeDrivewayCenter;
     }
+
+
+    /**
+     * crateGreenPlanet: Create a new node from the greenPlanet
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.01.2018
+     * @return  Node: (Node from the greenPlanet)
+     */
+    public Node crateGreenPlanet() throws java.io.IOException
+    {
+        Node nodeGreenPlanet;
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("greenPlanet.fxml"));
+        GreenPlanetController greenPlanetController = new GreenPlanetController();
+        fxmlLoader.setController(greenPlanetController);
+        nodeGreenPlanet = fxmlLoader.load();
+
+        return nodeGreenPlanet;
+    }
 }
-
-
