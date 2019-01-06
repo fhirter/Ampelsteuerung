@@ -1,5 +1,6 @@
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -119,6 +120,7 @@ public class PrimaryStageController implements Initializable
      * @date    11.12.2018
      * @arg     ActionEvent actionEvent: ActionEvent from FXML
      */
+
     @FXML
     public void startButtonConfig(ActionEvent actionEvent)
     {
@@ -140,4 +142,4 @@ public class PrimaryStageController implements Initializable
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
         }
     }
-}
+    }

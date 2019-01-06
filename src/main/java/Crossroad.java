@@ -82,7 +82,7 @@ public class Crossroad extends Application
     {
         double lengthCrossroad;
         double widthCrossroad;
-        Node nodeDrawCenter, nodeGreenPlanet;
+        Node nodeDrawCenter, nodeGreenPlanet, nodeVehicle;
         Pane nodeStreet0Degree, nodeStreet90Degree, nodeStreet180Degree, nodeStreet270Degree;
 
         crossroadControlMap.clear();
@@ -115,12 +115,23 @@ public class Crossroad extends Application
         nodeGreenPlanet = crateGreenPlanet();
         setCrossroadLayout((Pane)nodeGreenPlanet, 0, (-1*lengthCrossroad),0);
 
+        /* Vehicles */
+        nodeVehicle = createVehicle();
+        nodeVehicle.setLayoutX(200);
+
+
+
+
+
+
+
         /* Draw crossroad */
         borderPaneLoaderPrimaryStage.getChildren().add(nodeGreenPlanet);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawCenter);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet0Degree);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet90Degree);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet180Degree);
+        borderPaneLoaderPrimaryStage.getChildren().add(createVehicle());
         if(settingsForCrossroad.get("allgorithmusAndType").get("typeOfCrossroad").equals("4 Streets"))
         {
             borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet270Degree);
@@ -256,4 +267,17 @@ public class Crossroad extends Application
 
         return nodeGreenPlanet;
     }
+
+    public Node createVehicle() throws java.io.IOException
+    {
+        Node nodeVehicle;
+        VehicleModel vehicleModel = new VehicleModel();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("vehicle.fxml"));
+        VehicleController vehicleController = new VehicleController(vehicleModel);
+        fxmlLoader.setController(vehicleController);
+        nodeVehicle = fxmlLoader.load();
+
+        return  nodeVehicle;
+    }
+
 }

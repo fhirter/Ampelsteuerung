@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="200.0" minWidth="100.0" prefHeight="200.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="bicyleImage" fitHeight="200.0" fitWidth="100.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
+         <image>
+            <Image url="@../../../Dokumente/Bilder/bicycle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carImage" fitHeight="200.0" fitWidth="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <image>
+            <Image url="@../../../Dokumente/Bilder/car.png" />
+         </image></ImageView>
+      <ImageView fx:id="busImage" fitHeight="200.0" fitWidth="100.0" layoutX="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Dokumente/Bilder/bus.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

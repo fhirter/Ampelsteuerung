@@ -90,4 +90,7 @@
             <Pane fx:id="CrossroadPane" prefHeight="979.0" prefWidth="990.0" />
          </children></AnchorPane>
    </center>
+   <bottom>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
