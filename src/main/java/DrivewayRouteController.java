@@ -13,19 +13,19 @@ public class DrivewayRouteController implements Initializable
     @FXML   private AnchorPane bicycleSripes;
     @FXML   private Group pedestrianStripes;
 
-    private DrivewayRouteModel drivewayRouteModel;
+    private DrivewayRoute drivewayRoute;
     private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
 
-    public DrivewayRouteController(DrivewayRouteModel drivewayRouteModel)
+    public DrivewayRouteController(DrivewayRoute drivewayRoute)
     {
-        this.drivewayRouteModel = drivewayRouteModel;
+        this.drivewayRoute = drivewayRoute;
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        settingsFromCheckBoxes = drivewayRouteModel.getStateFromChckboxes();
+        settingsFromCheckBoxes = drivewayRoute.getStateFromChckboxes();
 
         bicycleSripes.setVisible(false);
         pedestrianStripes.setVisible(false);

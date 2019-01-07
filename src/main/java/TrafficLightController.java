@@ -22,7 +22,7 @@ public class TrafficLightController implements Observer, Initializable
     final Paint yellowColor = Paint.valueOf("#e8ff1f");
     final Paint greenColor = Paint.valueOf("#05d721");
 
-    private TrafficLightModel model;
+    private TrafficLight model;
 
 
     /**
@@ -31,11 +31,11 @@ public class TrafficLightController implements Observer, Initializable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    27.11.2018
-     * @arg     TrafficLightModel trafficLightModel: (Object form model class)
+     * @arg     TrafficLight trafficLight: (Object form model class)
      */
-    public TrafficLightController(TrafficLightModel trafficLightModel)
+    public TrafficLightController(TrafficLight trafficLight)
     {
-        model = trafficLightModel;
+        model = trafficLight;
     }
 
     /**
@@ -57,7 +57,7 @@ public class TrafficLightController implements Observer, Initializable
 
 
     /**
-     * update(): Obstacle where is registred into TrafficLightModel
+     * update(): Obstacle where is registred into TrafficLight
      *
      * Is automatic called when something into trafficLightModel is changed.
      *

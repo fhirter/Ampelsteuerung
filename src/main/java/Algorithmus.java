@@ -1,14 +1,10 @@
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-
 import java.util.HashMap;
 
 public class Algorithmus
 {
-    private HashMap<String, TrafficLightModel> crossroadControlMap;
+    private HashMap<String, TrafficLight> crossroadControlMap;
 
-    public Algorithmus(HashMap<String, TrafficLightModel> crossroadControlMap)
+    public Algorithmus(HashMap<String, TrafficLight> crossroadControlMap)
     {
         this.crossroadControlMap = crossroadControlMap;
     }
