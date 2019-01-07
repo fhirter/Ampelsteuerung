@@ -117,7 +117,10 @@ public class Crossroad extends Application
 
         /* Vehicles */
         nodeVehicle = createVehicle();
-        nodeVehicle.setLayoutX(200);
+        nodeVehicle.setLayoutX(380);
+        nodeVehicle.setLayoutY(440);
+        nodeVehicle.setRotate(90);
+
 
 
 
@@ -131,7 +134,7 @@ public class Crossroad extends Application
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet0Degree);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet90Degree);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet180Degree);
-        borderPaneLoaderPrimaryStage.getChildren().add(createVehicle());
+        borderPaneLoaderPrimaryStage.getChildren().add(nodeVehicle);
         if(settingsForCrossroad.get("allgorithmusAndType").get("typeOfCrossroad").equals("4 Streets"))
         {
             borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet270Degree);
