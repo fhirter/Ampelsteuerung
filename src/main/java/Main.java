@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -23,6 +25,11 @@ public class Main extends Application
     private final int refPointCrossroadY = 330;
     private int getCountOfBasedChildren = 0;
     private double scaleFactorCrossroad = 0.5;
+    private boolean pedestrianStripes;
+    private boolean velostripes;
+    private int numberOfCrossings;
+    private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
+    private TrafficLight nodeTrafficLight;
 
     private BorderPane borderPaneLoaderPrimaryStage;
     private HashMap<String, TrafficLight> crossroadControlMap = new HashMap<>();
@@ -162,15 +169,16 @@ public class Main extends Application
         Node nodeDrivewayRoute, nodeTrafficLightCAR, nodeTrafficLightPEDESTRIANLeft, nodeTrafficLightPEDESTRIANRight;
 
         /* Create Route */
-
-        DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute);
+        Crossroad crossroad = new Crossroad(pedestrianStripes, velostripes,numberOfCrossings);
+        drivewayRoutes = crossroad.getDrivewayRoute();
+        DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoutes.get(0));
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivewayRoute.fxml"));
         fxmlLoader.setController(drivewayRouteController);
         nodeDrivewayRoute = fxmlLoader.load();
 
         /* Create TrafficLights */
-        TrafficLight trafficLightCAR = new TrafficLight(TrafficLightType.CAR);
-        nodeTrafficLightCAR = drivewayRoute.createTrafficLight(trafficLightCAR);
+
+        nodeTrafficLightCAR = createTrafficLight(nodeTrafficLight);
         nodeTrafficLightCAR.setRotate(90);
         nodeTrafficLightCAR.setTranslateX(100);
         nodeTrafficLightCAR.setTranslateY(140);
@@ -201,6 +209,30 @@ public class Main extends Application
 
         return paneDrivewayRoute;
      }
+
+    /**
+     * createTrafficLights(): Creates on the DrivewayRoute the appopriate trafficlights
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    30.12.2018
+     * @arg     TrafficLight: (Index from TrafficLight)
+     * @return  Node: Index from the TrafficLight Node. Can be needed in xxxx.getChild().add(Node);
+     */
+    public Node createTrafficLight(TrafficLight trafficLight) throws java.io.IOException
+    {
+        Node nodeTrafficLight;
+
+        TrafficLightController trafficLightController = new TrafficLightController(trafficLight);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        fxmlLoader.setController(trafficLightController);
+        nodeTrafficLight = fxmlLoader.load();
+
+        trafficLight.addObserver(trafficLightController);
+
+        return nodeTrafficLight;
+    }
 
 
     /**

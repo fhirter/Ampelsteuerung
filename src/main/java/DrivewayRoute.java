@@ -16,16 +16,31 @@ import java.util.Map;
 public class DrivewayRoute extends Observable
 {
 
-    private List<TrafficLight> trafficLights;
+    private TrafficLight trafficLightCar;
+    private TrafficLight trafficLightPedestrian;
     private boolean pedestrianStripes;
     private boolean velostripes;
 
     public DrivewayRoute(boolean pedestrianStripes, boolean velostripes) {
         this.pedestrianStripes = pedestrianStripes;
         this.velostripes = velostripes;
-
+        createTrafficLightCar();
+        createTrafficLightPedestrian();
     }
 
+    public TrafficLight createTrafficLightCar () {
+        TrafficLight trafficLightCAR = new TrafficLight(TrafficLightType.CAR);
+        return trafficLightCAR;
+    }
+
+    public TrafficLight createTrafficLightPedestrian () {
+        TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
+        return trafficLightPedestrian;
+    }
+
+    public TrafficLight getTrafficLightCar (){
+        return trafficLightCar;
+    }
 
 
 
@@ -38,29 +53,7 @@ public class DrivewayRoute extends Observable
     }
 
 */
-/**
- * createTrafficLights(): Creates on the DrivewayRoute the appopriate trafficlights
- *
- *
- * @version 1.0
- * @autor   Schweizer Patrick
- * @date    30.12.2018
- * @arg     TrafficLight: (Index from TrafficLight)
- * @return  Node: Index from the TrafficLight Node. Can be needed in xxxx.getChild().add(Node);
- */
-    public Node createTrafficLight(TrafficLight trafficLight) throws java.io.IOException
-    {
-        Node nodeTrafficLight;
 
-        TrafficLightController trafficLightController = new TrafficLightController(trafficLight);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
-        fxmlLoader.setController(trafficLightController);
-        nodeTrafficLight = fxmlLoader.load();
-
-        trafficLight.addObserver(trafficLightController);
-
-        return nodeTrafficLight;
-    }
 }
 
 

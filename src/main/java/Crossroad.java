@@ -36,6 +36,9 @@ public class Crossroad extends Observable
         }
     }
 
+    public List<DrivewayRoute> getDrivewayRoute (){
+        return drivewayRoutes;
+    }
 
     /**
      * getControllerSettings: Set the settings into the controller
