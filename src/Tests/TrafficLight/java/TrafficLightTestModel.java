@@ -10,10 +10,10 @@ import java.util.LinkedList;
  */
 public class TrafficLightTestModel
 {
-    LinkedList<TrafficLightModel> model = new LinkedList<TrafficLightModel>();
+    LinkedList<TrafficLight> model = new LinkedList<TrafficLight>();
 
 
-    public void addModelsForTesting(TrafficLightModel model)
+    public void addModelsForTesting(TrafficLight model)
     {
         this.model.add(model);
     }
@@ -21,35 +21,35 @@ public class TrafficLightTestModel
 
     public void setRed()
     {
-        for(TrafficLightModel i : model)
+        for(TrafficLight i : model)
         {i.setRed();}
     }
 
 
     public void setGreen()
     {
-        for(TrafficLightModel i : model)
+        for(TrafficLight i : model)
         {i.setGreen();}
     }
 
 
     public void setYellow()
     {
-        for(TrafficLightModel i : model)
+        for(TrafficLight i : model)
         {i.setYellowFlash();}
     }
 
 
     public void setDark()
     {
-        for(TrafficLightModel i : model)
+        for(TrafficLight i : model)
         {i.setDark();}
     }
 
 
     public void setAllOn()
     {
-        for(TrafficLightModel i : model)
+        for(TrafficLight i : model)
         {i.setSIMULATION();}
     }
 

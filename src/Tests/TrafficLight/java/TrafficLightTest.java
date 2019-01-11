@@ -28,12 +28,12 @@ public class TrafficLightTest extends Application
 
         /* Create models for testing */
         /* 2x CAR (only 1 object: mirroring) */
-        TrafficLightModel trafficLightModelCAR = new TrafficLightModel(TrafficLightType.CAR);
-        Node nodeTestProzedureCAR = createNewTrafficLight(trafficLightModelCAR);
-        Node nodeTestProzedureCARMirror = createNewTrafficLight(trafficLightModelCAR);
+        TrafficLight trafficLightCAR = new TrafficLight(TrafficLightType.CAR);
+        Node nodeTestProzedureCAR = createNewTrafficLight(trafficLightCAR);
+        Node nodeTestProzedureCARMirror = createNewTrafficLight(trafficLightCAR);
         /* 1x PEDESTRIAN (with own object) */
-        TrafficLightModel trafficLightModelPEDESTRIAN = new TrafficLightModel(TrafficLightType.PEDESTRIAN);
-        Node nodeTestProzedurePEDESTRIAN = createNewTrafficLight(trafficLightModelPEDESTRIAN);
+        TrafficLight trafficLightPEDESTRIAN = new TrafficLight(TrafficLightType.PEDESTRIAN);
+        Node nodeTestProzedurePEDESTRIAN = createNewTrafficLight(trafficLightPEDESTRIAN);
 
 
         /* Define place into GUI */
@@ -52,12 +52,12 @@ public class TrafficLightTest extends Application
         primaryStage.show();
 
         /* Add the models from testing */
-        testModel.addModelsForTesting(trafficLightModelCAR);
-        testModel.addModelsForTesting(trafficLightModelPEDESTRIAN);
+        testModel.addModelsForTesting(trafficLightCAR);
+        testModel.addModelsForTesting(trafficLightPEDESTRIAN);
     }
 
 
-    private Node createNewTrafficLight(TrafficLightModel model) throws java.io.IOException
+    private Node createNewTrafficLight(TrafficLight model) throws java.io.IOException
     {
         Node nodeTestProzedure;
 
@@ -76,7 +76,7 @@ public class TrafficLightTest extends Application
 
 
 
-//        TrafficLightModel trafficLightModel = new TrafficLightModel(TrafficLightType.CAR);
+//        TrafficLight trafficLightModel = new TrafficLight(TrafficLightType.CAR);
 //        Node trafficLightNode = createNewTrafficLight(trafficLightModel);
 //        trafficLightNode.setLayoutX(100);
 //        trafficLightNode.setLayoutY(100);
@@ -89,10 +89,10 @@ public class TrafficLightTest extends Application
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    20.11.2018
-     * @arg     TrafficLightModel: Instance form the model
+     * @arg     TrafficLight: Instance form the model
      * @return  Node: Index from the Node fxmlLoader from trafficLight
      */
-/*    private Node createNewTrafficLight(TrafficLightModel model) throws java.io.IOException
+/*    private Node createNewTrafficLight(TrafficLight model) throws java.io.IOException
     {
         Node nodeTrafficLight;
 

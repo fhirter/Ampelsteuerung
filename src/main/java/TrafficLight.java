@@ -2,7 +2,7 @@ import javafx.application.Platform;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TrafficLightModel extends Observable
+public class TrafficLight extends Observable
 {
     private TrafficLightType type;
     private TrafficLightState actState, newState;
@@ -10,8 +10,9 @@ public class TrafficLightModel extends Observable
     private Timer timerChangeState;
 
 
+
     /**
-     * TrafficLightModel(): Konstruktor. Define the type from the trafficLight
+     * TrafficLight(): Konstruktor. Define the type from the trafficLight
      *
      *
      * @version 1.0
@@ -19,7 +20,7 @@ public class TrafficLightModel extends Observable
      * @date    26.11.2018
      * @arg     TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
      */
-    public TrafficLightModel(TrafficLightType type)
+    public TrafficLight(TrafficLightType type)
     {
         this.type = type;
         actState = newState = TrafficLightState.RED;

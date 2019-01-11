@@ -1,6 +1,5 @@
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -27,7 +26,7 @@ public class PrimaryStageController implements Initializable
     @FXML    private ChoiceBox setchoiceOfAlgorithm;
     @FXML    private ChoiceBox setnumberOfCrossing;
 
-    private PrimaryStageModel model;
+    private Crossroad model;
     private HashMap<String, HashMap> settingsForCrossroad = new HashMap<>();
     private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
     private HashMap<String, String> allgorithmusAndTypeFromCrossroad = new HashMap<>();
@@ -38,9 +37,9 @@ public class PrimaryStageController implements Initializable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    27.11.2018
-     * @arg     PrimaryStageModel model: (Object form model class)
+     * @arg     Crossroad model: (Object form model class)
      */
-    public PrimaryStageController(PrimaryStageModel model)
+    public PrimaryStageController(Crossroad model)
     {
         this.model = model;
     }
