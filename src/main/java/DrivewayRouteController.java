@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -8,29 +9,30 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class DrivewayRouteController implements Initializable
+public class DrivewayRouteController extends Node implements Initializable
 {
     @FXML   private AnchorPane bicycleSripes;
     @FXML   private Group pedestrianStripes;
 
-    private DrivewayRoute drivewayRoute;
-    private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
+    private DrivewayRoute model;
+
 
     public DrivewayRouteController(DrivewayRoute drivewayRoute)
     {
-        this.drivewayRoute = drivewayRoute;
+        this.model= drivewayRoute;
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        settingsFromCheckBoxes = drivewayRoute.getStateFromChckboxes();
 
+        model.getStateFromCheckboxes();
+        /*
         bicycleSripes.setVisible(false);
         pedestrianStripes.setVisible(false);
 
-        /* Settings for checkboxes */
+        /* Settings for checkboxes */ /*
         if(settingsFromCheckBoxes.get("checkboxvelostripes") == true)
         {
             bicycleSripes.setVisible(true);
@@ -47,5 +49,6 @@ public class DrivewayRouteController implements Initializable
         {
             pedestrianStripes.setVisible(true);
         }
+        */
     }
 }

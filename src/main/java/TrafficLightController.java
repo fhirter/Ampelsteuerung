@@ -1,13 +1,14 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class TrafficLightController implements Observer, Initializable
+public class TrafficLightController extends Node implements Observer, Initializable
 {
     @FXML   private Circle redLightTraffic;
     @FXML   private Circle yellowLightTraffic;

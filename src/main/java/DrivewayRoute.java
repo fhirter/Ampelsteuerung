@@ -20,6 +20,7 @@ public class DrivewayRoute extends Observable
     private TrafficLight trafficLightPedestrian;
     private boolean pedestrianStripes;
     private boolean velostripes;
+    private DrivewayRoute drivewayRoute;
 
     public DrivewayRoute(boolean pedestrianStripes, boolean velostripes) {
         this.pedestrianStripes = pedestrianStripes;
@@ -38,21 +39,18 @@ public class DrivewayRoute extends Observable
         return trafficLightPedestrian;
     }
 
+    public TrafficLight getTrafficLightPedestrian() {
+        return trafficLightPedestrian;
+    }
+
     public TrafficLight getTrafficLightCar (){
         return trafficLightCar;
     }
 
-
-
-
-
-
-  /*  public HashMap<String, Boolean> getStateFromChckboxes()
+    public DrivewayRoute getStateFromCheckboxes()
     {
-        return this.settingsFromCheckBoxes;
+        return this.drivewayRoute;
     }
-
-*/
 
 }
 

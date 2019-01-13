@@ -2,6 +2,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import java.net.URL;
 import java.util.*;
@@ -9,7 +10,7 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 
 /**
- * Class PrimaryStageController: Class for handling the PrimaryStage
+ * Class CrossroadController: Class for handling the PrimaryStage
  *
  *
  *
@@ -17,7 +18,7 @@ import static javafx.collections.FXCollections.observableArrayList;
  * @autor   Class NIN
  * @date   30.11.2018
  */
-public class PrimaryStageController implements Initializable
+public class CrossroadController extends Node implements Initializable
 {
     @FXML    private CheckBox checkboxvelostripes;
     @FXML    private CheckBox checkboxbusway;
@@ -27,19 +28,20 @@ public class PrimaryStageController implements Initializable
     @FXML    private ChoiceBox setnumberOfCrossing;
 
     private Crossroad model;
+    private Main mainModel;
     private HashMap<String, HashMap> settingsForCrossroad = new HashMap<>();
     private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
     private HashMap<String, String> allgorithmusAndTypeFromCrossroad = new HashMap<>();
 
     /**
-     * PrimaryStageController(): Constructor
+     * CrossroadController(): Constructor
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    27.11.2018
      * @arg     Crossroad model: (Object form model class)
      */
-    public PrimaryStageController(Crossroad model)
+    public CrossroadController(Crossroad model)
     {
         this.model = model;
     }
@@ -57,10 +59,11 @@ public class PrimaryStageController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+       /*
         HashMap<String, String[]> controllerSettings = new HashMap<>();
         ObservableList<String> observableList = null;
 
-        controllerSettings = model.getControllerSettings();
+        controllerSettings = mainModel.getControllerSettings();
 
         observableList = observableArrayList(controllerSettings.get("allgorithmusType"));
         setchoiceOfAlgorithm.setItems(observableList);
@@ -74,23 +77,12 @@ public class PrimaryStageController implements Initializable
         checkboxbusway.setSelected(false);
         checkboxtramway.setSelected(false);
         pedestrainStripesCheckbox.setSelected(true);
+        */
     }
-
-
-    /**
-     * mnuExitApplication: Called when exit button from MainMenue was pressed
-     *
-     * Close the program Ampelsteuerung
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    11.12.2018
-     * @arg     ActionEvent actionEvent: ActionEvent from FXML
-     */
     @FXML
     public void mnuExitApplication(ActionEvent actionEvent)
     {
-        model.closeProgram();
+        mainModel.closeProgram();
     }
 
 
@@ -106,7 +98,7 @@ public class PrimaryStageController implements Initializable
     @FXML
     public void mnuOpenAboutWindow(ActionEvent actionEvent) throws Exception
     {
-        model.openAboutWindow();
+        mainModel.openAboutWindow();
     }
 
 
@@ -134,11 +126,16 @@ public class PrimaryStageController implements Initializable
             settingsForCrossroad.put("allgorithmusAndType", allgorithmusAndTypeFromCrossroad);
             settingsForCrossroad.put("checkboxes", settingsFromCheckBoxes);
 
-            model.startConfigurationIsPressed(settingsForCrossroad);
+            mainModel.startConfigurationIsPressed(settingsForCrossroad);
 
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
         }
     }
-    }
+}
+
+
+
+
+

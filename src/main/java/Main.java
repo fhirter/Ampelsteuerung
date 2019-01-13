@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -61,12 +62,12 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        Crossroad crossroad = new Crossroad(this);
+        Crossroad crossroad = new Crossroad(false,false,0);
         primaryStage.setTitle("Ampelsteuerung");
 
-        PrimaryStageController primaryStageController = new PrimaryStageController(crossroad);
+        CrossroadController crossroadController = new CrossroadController(crossroad);
         FXMLLoader fxmlLoaderPrimaryStage = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
-        fxmlLoaderPrimaryStage.setController(primaryStageController);
+        fxmlLoaderPrimaryStage.setController(crossroadController);
         borderPaneLoaderPrimaryStage = fxmlLoaderPrimaryStage.load();
         primaryStage.setScene(new Scene(borderPaneLoaderPrimaryStage, 1100, 900));
         /* Needed for redraw or remove from the Children from drivewayRoute or drivewayCenter */
@@ -127,13 +128,6 @@ public class Main extends Application
 
 
 
-
-
-
-
-
-
-
         /* Draw crossroad */
         borderPaneLoaderPrimaryStage.getChildren().add(nodeGreenPlanet);
         borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawCenter);
@@ -169,9 +163,8 @@ public class Main extends Application
         Node nodeDrivewayRoute, nodeTrafficLightCAR, nodeTrafficLightPEDESTRIANLeft, nodeTrafficLightPEDESTRIANRight;
 
         /* Create Route */
-        Crossroad crossroad = new Crossroad(pedestrianStripes, velostripes,numberOfCrossings);
-        drivewayRoutes = crossroad.getDrivewayRoute();
-        DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoutes.get(0));
+        DrivewayRoute drivewayRoute = new DrivewayRoute(false, false);
+        DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivewayRoute.fxml"));
         fxmlLoader.setController(drivewayRouteController);
         nodeDrivewayRoute = fxmlLoader.load();
@@ -183,13 +176,12 @@ public class Main extends Application
         nodeTrafficLightCAR.setTranslateX(100);
         nodeTrafficLightCAR.setTranslateY(140);
         /* TrafficLight PEDESTRIAN Left */
-        TrafficLight trafficLightPEDESTRIAN = new TrafficLight(TrafficLightType.PEDESTRIAN);
-        nodeTrafficLightPEDESTRIANLeft = drivewayRoute.createTrafficLight(trafficLightPEDESTRIAN);
+        nodeTrafficLightPEDESTRIANLeft = createTrafficLight(nodeTrafficLight);
         nodeTrafficLightPEDESTRIANLeft.setRotate(90);
         nodeTrafficLightPEDESTRIANLeft.setTranslateX(230);
         nodeTrafficLightPEDESTRIANLeft.setTranslateY(140);
         /* TrafficLight PEDESTRIAN Right ----- MIRRORING FROM TRAFFICLIGHT LEFT! ----- */
-        nodeTrafficLightPEDESTRIANRight = drivewayRoute.createTrafficLight(trafficLightPEDESTRIAN);
+        nodeTrafficLightPEDESTRIANRight = createTrafficLight(nodeTrafficLight);
         nodeTrafficLightPEDESTRIANRight.setRotate(90);
         nodeTrafficLightPEDESTRIANRight.setTranslateX(230);
         nodeTrafficLightPEDESTRIANRight.setTranslateY(-50);
@@ -203,10 +195,10 @@ public class Main extends Application
             paneDrivewayRoute.getChildren().add(nodeTrafficLightPEDESTRIANRight);
         }
 
-        /* Add RouteIndex into crossroadControlMap for control all trafficLights */
+        /* Add RouteIndex into crossroadControlMap for control all trafficLights
         crossroadControlMap.put(RouteID + "_CAR", trafficLightCAR);
         crossroadControlMap.put(RouteID + "_PEDESTRIAN", trafficLightPEDESTRIAN);
-
+        */
         return paneDrivewayRoute;
      }
 
@@ -314,4 +306,80 @@ public class Main extends Application
         return  nodeVehicle;
     }
 
+    /**
+     * getControllerSettings: Set the settings into the controller
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    11.12.2018
+     * @return  HashMap<String, String[]>: (Input-text for the ChoiceBoxes)
+
+    public HashMap<String, String[]> getControllerSettings()
+    {
+        HashMap<String, String[]> controllerSettings = new HashMap<>();
+
+
+        controllerSettings.put("allgorithmusType", allgorithmusTypes);
+        controllerSettings.put("typeOfCrossroad", typeOfCrossroad);
+
+        return controllerSettings;
+    }
+
+    /**
+     * startConfigurationIsPressed: Store from selected main the configuration.
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date   11.12.2018
+     */
+    public void startConfigurationIsPressed(HashMap<String, HashMap> settingsForCrossroad)
+    {
+        try {
+
+            configureAndDrawCrossroad(settingsForCrossroad);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Method epenAboutWindow: New Window for info
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date   14.11.2018
+     */
+    public void openAboutWindow() throws Exception {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Projektinformationen");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * closeProgram: Close program Ampelsteuerung
+     *
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date   11.12.2018
+     */
+    public void closeProgram()
+    {
+        System.exit(0);
+    }
 }
+
