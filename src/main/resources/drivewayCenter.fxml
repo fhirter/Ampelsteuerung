@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="drivewayCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="253.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="AnchorPane" fx:id="drivewayCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="253.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="255.0" layoutX="-2.0" layoutY="-2.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
       <Pane fx:id="pedestrianWay" layoutX="-1.7000000476837158" layoutY="199.10000610351562">
@@ -51,4 +51,4 @@
          </children>
       </Pane>
    </children>
-</AnchorPane>
+</fx:root>

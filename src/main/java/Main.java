@@ -1,11 +1,12 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,6 +25,8 @@ public class Main extends Application
 {
     private final int refPointCrossroadX = 200;
     private final int refPointCrossroadY = 330;
+
+    private final Point2D ref = new Point2D(200,330);       // reference point for whole crossroad
     private int getCountOfBasedChildren = 0;
     private double scaleFactorCrossroad = 0.5;
     private boolean pedestrianStripes;
@@ -32,7 +35,7 @@ public class Main extends Application
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
     private TrafficLight nodeTrafficLight;
 
-    private BorderPane borderPaneLoaderPrimaryStage;
+    private BorderPane crossroadController;
     private HashMap<String, TrafficLight> crossroadControlMap = new HashMap<>();
     private Algorithmus algorithmus = new Algorithmus(crossroadControlMap);
 
@@ -62,16 +65,20 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        Crossroad crossroad = new Crossroad(false,false,0);
+        Crossroad crossroad = new Crossroad(false,false,4);
         primaryStage.setTitle("Ampelsteuerung");
 
-        CrossroadController crossroadController = new CrossroadController(crossroad);
-        FXMLLoader fxmlLoaderPrimaryStage = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
-        fxmlLoaderPrimaryStage.setController(crossroadController);
-        borderPaneLoaderPrimaryStage = fxmlLoaderPrimaryStage.load();
-        primaryStage.setScene(new Scene(borderPaneLoaderPrimaryStage, 1100, 900));
+        crossroadController = new CrossroadController(crossroad);
+
+        /* Center */
+        Point2D offset = new Point2D(0,0);      //offset point
+        CenterPane centerPane = new CenterPane(crossroad, ref, offset);
+        crossroadController.getChildren().add(centerPane);        //add
+
+        primaryStage.setScene(new Scene(crossroadController, 1100, 900));
+
         /* Needed for redraw or remove from the Children from drivewayRoute or drivewayCenter */
-        getCountOfBasedChildren = borderPaneLoaderPrimaryStage.getChildren().size();
+        getCountOfBasedChildren = crossroadController.getChildren().size();
 
         primaryStage.show();
     }
@@ -90,11 +97,11 @@ public class Main extends Application
     {
         double lengthCrossroad;
         double widthCrossroad;
-        Node nodeDrawCenter, nodeGreenPlanet, nodeVehicle;
+        Node nodeGreenPlanet, nodeVehicle;
         Pane nodeStreet0Degree, nodeStreet90Degree, nodeStreet180Degree, nodeStreet270Degree;
 
         crossroadControlMap.clear();
-        borderPaneLoaderPrimaryStage.getChildren().remove(getCountOfBasedChildren, borderPaneLoaderPrimaryStage.getChildren().size());
+        crossroadController.getChildren().remove(getCountOfBasedChildren, crossroadController.getChildren().size());
         System.out.println("Set configuration is Pressed.");
 
         /* Street with 0 Degree */
@@ -115,10 +122,6 @@ public class Main extends Application
         nodeStreet270Degree = createDrivewayRoute("South",settingsForCrossroad);
         setCrossroadLayout(nodeStreet270Degree, lengthCrossroad, (lengthCrossroad + widthCrossroad),270);
 
-        /* Center */
-        nodeDrawCenter = createDrivewayCenter(settingsForCrossroad);
-        setCrossroadLayout((Pane)nodeDrawCenter, lengthCrossroad, 0,0);
-
         /* GreenPlanet */
         nodeGreenPlanet = crateGreenPlanet();
         setCrossroadLayout((Pane)nodeGreenPlanet, 0, (-1*lengthCrossroad),0);
@@ -129,15 +132,15 @@ public class Main extends Application
 
 
         /* Draw crossroad */
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeGreenPlanet);
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeDrawCenter);
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet0Degree);
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet90Degree);
-        borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet180Degree);
-        borderPaneLoaderPrimaryStage.getChildren().add(createVehicle());
+        crossroadController.getChildren().add(nodeGreenPlanet);
+        //crossroadController.getChildren().add(nodeDrawCenter);
+        crossroadController.getChildren().add(nodeStreet0Degree);
+        crossroadController.getChildren().add(nodeStreet90Degree);
+        crossroadController.getChildren().add(nodeStreet180Degree);
+        crossroadController.getChildren().add(createVehicle());
         if(settingsForCrossroad.get("allgorithmusAndType").get("typeOfCrossroad").equals("4 Streets"))
         {
-            borderPaneLoaderPrimaryStage.getChildren().add(nodeStreet270Degree);
+            crossroadController.getChildren().add(nodeStreet270Degree);
         }
 
         //todo: Testfunktion fuer Allgorithmus der Ampeln! Schaltspiel muss gemaess Allgorithmus noch bearbeitet werden
@@ -246,32 +249,7 @@ public class Main extends Application
         nodeStreetxxDegree.setScaleX(scaleFactorCrossroad);
         nodeStreetxxDegree.setScaleY(scaleFactorCrossroad);
     }
-
-
-    /**
-     * createDrivewayCenter: Create a new node from the drivewayCenter
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    28.12.2018
-     * @arg     HashMap<String, HashMap>: (HashMap where the selected settings from the crossroad are stored.)
-     * @return  Node: (Node from the drivewayCenter)
-     */
-    private Node createDrivewayCenter(HashMap<String, HashMap> settingsForCrossroad) throws IOException {
-
-        Node nodeDrivewayCenter;
-
-        DrivewayCenterModel drivewayCenterModel = new DrivewayCenterModel(settingsForCrossroad);
-        DrivewayCenterController drivewayCenterController = new DrivewayCenterController(drivewayCenterModel);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("drivewayCenter.fxml"));
-        fxmlLoader.setController(drivewayCenterController);
-        nodeDrivewayCenter = fxmlLoader.load();
-
-        return nodeDrivewayCenter;
-    }
-
-
+    
     /**
      * crateGreenPlanet: Create a new node from the greenPlanet
      *

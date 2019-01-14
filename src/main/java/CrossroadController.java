@@ -8,8 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import static javafx.collections.FXCollections.observableArrayList;
@@ -24,7 +26,7 @@ import static javafx.collections.FXCollections.observableArrayList;
  * @autor   Class NIN
  * @date   30.11.2018
  */
-public class CrossroadController extends Node implements Initializable, Observer
+public class CrossroadController extends BorderPane implements Initializable, Observer
 {
     @FXML    private CheckBox checkboxvelostripes;
     @FXML    private CheckBox checkboxbusway;
@@ -34,10 +36,6 @@ public class CrossroadController extends Node implements Initializable, Observer
     @FXML    private ChoiceBox setnumberOfCrossing;
 
     private Crossroad crossroadModel;
-    private Property numberOfDriveways;
-    private Property<Boolean> velostripes;
-    private Property<Boolean> pedestrianStripes;
-
 
     /**
      * CrossroadController(): Constructor
@@ -49,7 +47,19 @@ public class CrossroadController extends Node implements Initializable, Observer
      */
     public CrossroadController(Crossroad model)
     {
+
         this.crossroadModel = model;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
+        loader.setRoot(this);       // dieses BorderPane als root element des GUI setzen. Dazu muss in primaryStage.fxml das root element folgendes sein: <fx:root type="BorderPane">
+
+        loader.setController(this);
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -75,10 +85,10 @@ public class CrossroadController extends Node implements Initializable, Observer
         setnumberOfCrossing.setItems(observableList);
         setnumberOfCrossing.setValue("4");
 
-        checkboxvelostripes.setSelected(true);
+        checkboxvelostripes.setSelected(crossroadModel.getVelostripes());       // init Werte aus dem Model holen
         checkboxbusway.setSelected(false);
         checkboxtramway.setSelected(false);
-        checkboxpedestrainStripes.setSelected(true);
+        checkboxpedestrainStripes.setSelected(crossroadModel.getPedestrianStripes());
 
     }
     @FXML
@@ -132,7 +142,7 @@ public class CrossroadController extends Node implements Initializable, Observer
 
            crossroadModel.setPedestrianStripes(checkboxpedestrainStripes.isSelected());
            crossroadModel.setVelostripes(checkboxvelostripes.isSelected());
-           crossroadModel.setNumberOfDriveways((Integer)setnumberOfCrossing.getValue());
+           crossroadModel.setNumberOfDriveways(Integer.parseInt((String)setnumberOfCrossing.getValue()));
 
 
         }catch (NullPointerException e)
@@ -143,8 +153,8 @@ public class CrossroadController extends Node implements Initializable, Observer
 
     @Override
     public void update() {
-        pedestrianStripes.setValue(crossroadModel.getPedestrianStripes());
-        velostripes.setValue(crossroadModel.getVelostripes());
+        checkboxpedestrainStripes.setSelected(crossroadModel.getPedestrianStripes());
+        checkboxvelostripes.setSelected(crossroadModel.getVelostripes());
         setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
 
     }
