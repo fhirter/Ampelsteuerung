@@ -170,7 +170,6 @@ public class Main extends Application
         nodeDrivewayRoute = fxmlLoader.load();
 
         /* Create TrafficLights */
-
         nodeTrafficLightCAR = createTrafficLight(nodeTrafficLight);
         nodeTrafficLightCAR.setRotate(90);
         nodeTrafficLightCAR.setTranslateX(100);
@@ -195,10 +194,10 @@ public class Main extends Application
             paneDrivewayRoute.getChildren().add(nodeTrafficLightPEDESTRIANRight);
         }
 
-        /* Add RouteIndex into crossroadControlMap for control all trafficLights
-        crossroadControlMap.put(RouteID + "_CAR", trafficLightCAR);
-        crossroadControlMap.put(RouteID + "_PEDESTRIAN", trafficLightPEDESTRIAN);
-        */
+        /* Add RouteIndex into crossroadControlMap for control all trafficLights */
+        //crossroadControlMap.put(RouteID + "_CAR", trafficLightCAR);
+         //crossroadControlMap.put(RouteID + "_PEDESTRIAN", trafficLightPEDESTRIAN);
+
         return paneDrivewayRoute;
      }
 
@@ -344,42 +343,5 @@ public class Main extends Application
         }
     }
 
-
-    /**
-     * Method epenAboutWindow: New Window for info
-     *
-     *
-     *
-     * @version 1.0
-     * @autor   Class NIN
-     * @date   14.11.2018
-     */
-    public void openAboutWindow() throws Exception {
-        try {
-            Stage stage = new Stage();
-            stage.setTitle("Projektinformationen");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
-     * closeProgram: Close program Ampelsteuerung
-     *
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date   11.12.2018
-     */
-    public void closeProgram()
-    {
-        System.exit(0);
-    }
 }
 

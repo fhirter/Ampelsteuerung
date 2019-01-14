@@ -1,9 +1,15 @@
+import javafx.beans.property.Property;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 import java.net.URL;
 import java.util.*;
 import static javafx.collections.FXCollections.observableArrayList;
@@ -18,20 +24,20 @@ import static javafx.collections.FXCollections.observableArrayList;
  * @autor   Class NIN
  * @date   30.11.2018
  */
-public class CrossroadController extends Node implements Initializable
+public class CrossroadController extends Node implements Initializable, Observer
 {
     @FXML    private CheckBox checkboxvelostripes;
     @FXML    private CheckBox checkboxbusway;
     @FXML    private CheckBox checkboxtramway;
-    @FXML    private CheckBox pedestrainStripesCheckbox;
+    @FXML    private CheckBox checkboxpedestrainStripes;
     @FXML    private ChoiceBox setchoiceOfAlgorithm;
     @FXML    private ChoiceBox setnumberOfCrossing;
 
-    private Crossroad model;
-    private Main mainModel;
-    private HashMap<String, HashMap> settingsForCrossroad = new HashMap<>();
-    private HashMap<String, Boolean> settingsFromCheckBoxes = new HashMap<>();
-    private HashMap<String, String> allgorithmusAndTypeFromCrossroad = new HashMap<>();
+    private Crossroad crossroadModel;
+    private Property numberOfDriveways;
+    private Property<Boolean> velostripes;
+    private Property<Boolean> pedestrianStripes;
+
 
     /**
      * CrossroadController(): Constructor
@@ -43,7 +49,7 @@ public class CrossroadController extends Node implements Initializable
      */
     public CrossroadController(Crossroad model)
     {
-        this.model = model;
+        this.crossroadModel = model;
     }
 
 
@@ -59,30 +65,26 @@ public class CrossroadController extends Node implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-       /*
-        HashMap<String, String[]> controllerSettings = new HashMap<>();
-        ObservableList<String> observableList = null;
+        ObservableList<String> observableList;
 
-        controllerSettings = mainModel.getControllerSettings();
-
-        observableList = observableArrayList(controllerSettings.get("allgorithmusType"));
+        observableList = observableArrayList(crossroadModel.getAlgorithms());
         setchoiceOfAlgorithm.setItems(observableList);
         setchoiceOfAlgorithm.setValue("Algorithm A");
 
-        observableList = observableArrayList(controllerSettings.get("typeOfCrossroad"));
+        observableList = observableArrayList(crossroadModel.getNumberOfDriveways().toString());
         setnumberOfCrossing.setItems(observableList);
-        setnumberOfCrossing.setValue("4 Streets");
+        setnumberOfCrossing.setValue("4");
 
         checkboxvelostripes.setSelected(true);
         checkboxbusway.setSelected(false);
         checkboxtramway.setSelected(false);
-        pedestrainStripesCheckbox.setSelected(true);
-        */
+        checkboxpedestrainStripes.setSelected(true);
+
     }
     @FXML
     public void mnuExitApplication(ActionEvent actionEvent)
     {
-        mainModel.closeProgram();
+        System.exit(0);
     }
 
 
@@ -98,7 +100,16 @@ public class CrossroadController extends Node implements Initializable
     @FXML
     public void mnuOpenAboutWindow(ActionEvent actionEvent) throws Exception
     {
-        mainModel.openAboutWindow();
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Projektinformationen");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -116,22 +127,26 @@ public class CrossroadController extends Node implements Initializable
     public void startButtonConfig(ActionEvent actionEvent)
     {
         try {
-            allgorithmusAndTypeFromCrossroad.put("allgorithmusTypes", setchoiceOfAlgorithm.getValue().toString());
-            allgorithmusAndTypeFromCrossroad.put("typeOfCrossroad", setnumberOfCrossing.getValue().toString());
-            settingsFromCheckBoxes.put("checkboxvelostripes", checkboxvelostripes.isSelected());
-            settingsFromCheckBoxes.put("checkboxbusway", checkboxbusway.isSelected());
-            settingsFromCheckBoxes.put("checkboxtramway", checkboxtramway.isSelected());
-            settingsFromCheckBoxes.put("pedestrainStripesCheckbox", pedestrainStripesCheckbox.isSelected());
 
-            settingsForCrossroad.put("allgorithmusAndType", allgorithmusAndTypeFromCrossroad);
-            settingsForCrossroad.put("checkboxes", settingsFromCheckBoxes);
 
-            mainModel.startConfigurationIsPressed(settingsForCrossroad);
+
+           crossroadModel.setPedestrianStripes(checkboxpedestrainStripes.isSelected());
+           crossroadModel.setVelostripes(checkboxvelostripes.isSelected());
+           crossroadModel.setNumberOfDriveways((Integer)setnumberOfCrossing.getValue());
+
 
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
         }
+    }
+
+    @Override
+    public void update() {
+        pedestrianStripes.setValue(crossroadModel.getPedestrianStripes());
+        velostripes.setValue(crossroadModel.getVelostripes());
+        setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
+
     }
 }
 
