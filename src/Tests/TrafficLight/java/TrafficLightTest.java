@@ -29,25 +29,25 @@ public class TrafficLightTest extends Application
         /* Create models for testing */
         /* 2x CAR (only 1 object: mirroring) */
         TrafficLight trafficLightCAR = new TrafficLight(TrafficLightType.CAR);
-        Node nodeTestProzedureCAR = createNewTrafficLight(trafficLightCAR);
-        Node nodeTestProzedureCARMirror = createNewTrafficLight(trafficLightCAR);
+//        Node nodeTestProzedureCAR = createNewTrafficLight(trafficLightCAR);
+//        Node nodeTestProzedureCARMirror = createNewTrafficLight(trafficLightCAR);
         /* 1x PEDESTRIAN (with own object) */
         TrafficLight trafficLightPEDESTRIAN = new TrafficLight(TrafficLightType.PEDESTRIAN);
-        Node nodeTestProzedurePEDESTRIAN = createNewTrafficLight(trafficLightPEDESTRIAN);
+//        Node nodeTestProzedurePEDESTRIAN = createNewTrafficLight(trafficLightPEDESTRIAN);
 
 
         /* Define place into GUI */
-        nodeTestProzedureCAR.setLayoutX(0);
-        nodeTestProzedureCAR.setLayoutY(0);
-        nodeTestProzedureCARMirror.setLayoutX(50);
-        nodeTestProzedureCARMirror.setLayoutY(0);
-        nodeTestProzedurePEDESTRIAN.setLayoutX(120);
-        nodeTestProzedurePEDESTRIAN.setLayoutY(0);
+//        nodeTestProzedureCAR.setLayoutX(0);
+//        nodeTestProzedureCAR.setLayoutY(0);
+//        nodeTestProzedureCARMirror.setLayoutX(50);
+//        nodeTestProzedureCARMirror.setLayoutY(0);
+//        nodeTestProzedurePEDESTRIAN.setLayoutX(120);
+//        nodeTestProzedurePEDESTRIAN.setLayoutY(0);
 
 
-        paneLoader.getChildren().add(nodeTestProzedureCAR);
-        paneLoader.getChildren().add(nodeTestProzedureCARMirror);
-        paneLoader.getChildren().add(nodeTestProzedurePEDESTRIAN);
+//        paneLoader.getChildren().add(nodeTestProzedureCAR);
+//        paneLoader.getChildren().add(nodeTestProzedureCARMirror);
+//        paneLoader.getChildren().add(nodeTestProzedurePEDESTRIAN);
 
         primaryStage.show();
 
@@ -57,7 +57,7 @@ public class TrafficLightTest extends Application
     }
 
 
-    private Node createNewTrafficLight(TrafficLight model) throws java.io.IOException
+/*    private Node createNewTrafficLight(TrafficLight model) throws java.io.IOException
     {
         Node nodeTestProzedure;
 
@@ -70,6 +70,7 @@ public class TrafficLightTest extends Application
 
         return nodeTestProzedure;
     }
+    */
 }
 
 

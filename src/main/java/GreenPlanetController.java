@@ -1,15 +1,22 @@
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import javax.swing.text.Position;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GreenPlanetController implements Initializable
+public class GreenPlanetController extends AnchorPane implements Initializable
 {
     @FXML   private ImageView imageTree1;
     @FXML   private ImageView imageTree2;
@@ -28,6 +35,30 @@ public class GreenPlanetController implements Initializable
     final String nameTree3 = "Baum3.png";
     final String nameBusch1 = "Busch1.png";
     final String nameBusch2 = "Busch2.png";
+
+    private Crossroad crossroadModel;
+
+    public GreenPlanetController(Crossroad crossroad, Point2D ref, Point2D offset)
+    {
+        this.crossroadModel = crossroad;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("greenPlanet.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // positioning
+        setLayoutX(ref.getX() + offset.getX());
+        setLayoutY(ref.getY() + offset.getY());
+        /* setRotate(0);
+        setScaleX(1);
+        setScaleY(1);
+        */
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)

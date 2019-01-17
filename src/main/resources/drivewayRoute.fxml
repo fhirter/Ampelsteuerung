@@ -7,7 +7,8 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="drivewayRoute" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root type="AnchorPane" fx:id="drivewayRoute" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="150.0" prefWidth="158.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -55,4 +56,4 @@
       </AnchorPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="75.0" x="90.0" y="200.0" />
    </children>
-</AnchorPane>
+</fx:root>

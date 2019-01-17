@@ -133,23 +133,21 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
      * @arg     ActionEvent actionEvent: ActionEvent from FXML
      */
 
+
     @FXML
     public void startButtonConfig(ActionEvent actionEvent)
     {
         try {
-
-
-
            crossroadModel.setPedestrianStripes(checkboxpedestrainStripes.isSelected());
            crossroadModel.setVelostripes(checkboxvelostripes.isSelected());
            crossroadModel.setNumberOfDriveways(Integer.parseInt((String)setnumberOfCrossing.getValue()));
-
 
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
         }
     }
+
 
     @Override
     public void update() {

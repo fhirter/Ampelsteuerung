@@ -1,14 +1,19 @@
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class TrafficLightController extends Node implements Observer, Initializable
+public class TrafficLightController extends AnchorPane implements Observer, Initializable
 {
     @FXML   private Circle redLightTraffic;
     @FXML   private Circle yellowLightTraffic;
@@ -34,9 +39,26 @@ public class TrafficLightController extends Node implements Observer, Initializa
      * @date    27.11.2018
      * @arg     TrafficLight trafficLight: (Object form model class)
      */
-    public TrafficLightController(TrafficLight trafficLight)
+    public TrafficLightController(TrafficLight trafficLight, Point2D ref, Point2D offset)
     {
         model = trafficLight;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // positioning
+        setLayoutX(ref.getX() + offset.getX());
+        setLayoutY(ref.getY() + offset.getY());
+       /* setRotate(0);
+        setScaleX(1);
+        setScaleY(1);
+        */
     }
 
     /**

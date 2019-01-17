@@ -15,37 +15,44 @@ import java.util.Map;
 
 public class DrivewayRoute extends Observable
 {
-
     private TrafficLight trafficLightCar;
     private TrafficLight trafficLightPedestrian;
     private boolean pedestrianStripes;
     private boolean velostripes;
     private DrivewayRoute drivewayRoute;
 
-    public DrivewayRoute(boolean pedestrianStripes, boolean velostripes) {
+
+    public DrivewayRoute(boolean pedestrianStripes, boolean velostripes)
+    {
         this.pedestrianStripes = pedestrianStripes;
         this.velostripes = velostripes;
+
         createTrafficLightCar();
         createTrafficLightPedestrian();
     }
+
 
     public TrafficLight createTrafficLightCar () {
         TrafficLight trafficLightCAR = new TrafficLight(TrafficLightType.CAR);
         return trafficLightCAR;
     }
 
+
     public TrafficLight createTrafficLightPedestrian () {
         TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
         return trafficLightPedestrian;
     }
 
+
     public TrafficLight getTrafficLightPedestrian() {
         return trafficLightPedestrian;
     }
 
+
     public TrafficLight getTrafficLightCar (){
         return trafficLightCar;
     }
+
 
     public DrivewayRoute getStateFromCheckboxes()
     {
