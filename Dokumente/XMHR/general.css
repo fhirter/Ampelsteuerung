@@ -1,0 +1,27 @@
+
+	.itemHeader
+	{
+		grid-area: header;
+	}
+	
+	.itemNav
+	{
+		grid-area: nav;		
+	}
+	
+	.itemMain
+	{
+		grid-area: main;		
+	}
+	
+	.itemFooter
+	{
+		grid-area: footer;		
+	}
+
+
+
+
+
+
+
