@@ -44,6 +44,14 @@ public class DrivewayRoute extends Observable
     }
 
 
+    public boolean getPedestrianStripes() {
+        return pedestrianStripes;
+    }
+
+    public boolean getVelostripes() {
+        return velostripes;
+    }
+
     public TrafficLight getTrafficLightPedestrian() {
         return trafficLightPedestrian;
     }

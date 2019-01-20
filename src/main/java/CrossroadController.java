@@ -155,6 +155,8 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         checkboxvelostripes.setSelected(crossroadModel.getVelostripes());
         setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
 
+
+
     }
 }
 

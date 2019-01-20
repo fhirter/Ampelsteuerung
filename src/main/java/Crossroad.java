@@ -29,6 +29,9 @@ public class Crossroad extends Observable {
         }
 
     }
+    public List<DrivewayRoute> getDrivewayRoutes() {
+        return drivewayRoutes;
+    }
 
     public String[] getAlgorithms() {
         return algorithms;
@@ -49,16 +52,19 @@ public class Crossroad extends Observable {
 
     public void setPedestrianStripes(boolean pedestrianStripes) {
         this.pedestrianStripes = pedestrianStripes;
+        notifyObservers();
     }
 
     public void setVelostripes(boolean velostripes) {
         this.velostripes = velostripes;
+        notifyObservers();
     }
 
     public void setNumberOfDriveways(int numberOfDriveways) {
         this.numberOfDriveways = numberOfDriveways;
+        notifyObservers();
 
-    }
+}
 }
 
 

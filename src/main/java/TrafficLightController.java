@@ -29,6 +29,9 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
     final Paint greenColor = Paint.valueOf("#05d721");
 
     private TrafficLight model;
+    private int Rotate;
+    private double ScaleX;
+    private double ScaleY;
 
 
     /**
@@ -39,7 +42,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
      * @date    27.11.2018
      * @arg     TrafficLight trafficLight: (Object form model class)
      */
-    public TrafficLightController(TrafficLight trafficLight, Point2D ref, Point2D offset)
+    public TrafficLightController(TrafficLight trafficLight, Point2D ref, Point2D offset, int Rotate, double ScaleX, double ScaleY)
     {
         model = trafficLight;
 
@@ -55,10 +58,10 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
         // positioning
         setLayoutX(ref.getX() + offset.getX());
         setLayoutY(ref.getY() + offset.getY());
-       /* setRotate(0);
-        setScaleX(1);
-        setScaleY(1);
-        */
+        setRotate(Rotate);
+        setScaleX(ScaleX);
+        setScaleY(ScaleY);
+
     }
 
     /**

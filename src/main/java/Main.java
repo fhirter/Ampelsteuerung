@@ -79,22 +79,80 @@ public class Main extends Application
         Point2D offset = new Point2D(300,0);      //offset point
         CenterPane centerPane = new CenterPane(crossroad, ref, offset);
         crossroadController.getChildren().add(centerPane);        //add
+        List<DrivewayRoute> drivewayList = crossroad.getDrivewayRoutes();
+
+
+        /*Driveway North*/
+        DrivewayRouteController drivewayRouteControllerNorth = new DrivewayRouteController(drivewayList.get(0), ref, new Point2D(550,-300), 90);
+        crossroadController.getChildren().add(drivewayRouteControllerNorth);
+
+        TrafficLightController trafficLightControllerNorthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(550,-300), 0,0.6,0.6);
+        crossroadController.getChildren().add(trafficLightControllerNorthCar);
+
+        TrafficLightController trafficLightControllerNorthPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(450,-250), 0, 0.4,0.4);
+        crossroadController.getChildren().add(trafficLightControllerNorthPedestrian);
+
+
+        /*Driveway East*/
+        DrivewayRouteController drivewayRouteControllerEast = new DrivewayRouteController(drivewayList.get(1), ref, new Point2D(0,0),0);
+        crossroadController.getChildren().add(drivewayRouteControllerEast);
+
+        TrafficLightController trafficLightControllerEastCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(50,-50), 0,0.6,0.6);
+        crossroadController.getChildren().add(trafficLightControllerEastCar);
+
+        TrafficLightController trafficLightControllerEastPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(60,-60), 0, 0.4,0.4);
+        crossroadController.getChildren().add(trafficLightControllerEastPedestrian);
+
+
+        /*Driveway West*/
+        DrivewayRouteController drivewayRouteControllerWest = new DrivewayRouteController(drivewayList.get(2), ref, new Point2D(850,250),180);
+        crossroadController.getChildren().add(drivewayRouteControllerWest);
+
+        TrafficLightController trafficLightControllerWestCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(650,200), 0,0.6,0.6);
+        crossroadController.getChildren().add(trafficLightControllerWestCar);
+
+        TrafficLightController trafficLightControllerWestPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(550,150), 0, 0.4,0.4);
+        crossroadController.getChildren().add(trafficLightControllerWestPedestrian);
+
+
+        /*Driveway South*/
+        if (crossroad.getNumberOfDriveways() == 4) {
+            DrivewayRouteController drivewayRouteControllerSouth = new DrivewayRouteController(drivewayList.get(3), ref, new Point2D(300, 550), 270);
+            crossroadController.getChildren().add(drivewayRouteControllerSouth);
+
+            TrafficLightController trafficLightControllerSouthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(200,450), 0,0.6,0.6);
+            crossroadController.getChildren().add(trafficLightControllerSouthCar);
+
+            TrafficLightController trafficLightControllerSouthPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(150,400), 0, 0.4,0.4);
+            crossroadController.getChildren().add(trafficLightControllerSouthPedestrian);
+        }
+
+
+
+
+
 
         //todo: Zum testen ob die Strasse funktioniert.
-        /* Driveway Route */
-        DrivewayRoute drivewayRoute = new DrivewayRoute(true,true);
-        DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute, ref, new Point2D(0,0));
-        crossroadController.getChildren().add(drivewayRouteController);
+        /* Driveway Route East
+        DrivewayRoute drivewayRouteEast = new DrivewayRoute(false,false);
+        DrivewayRouteController drivewayRouteControllerEast = new DrivewayRouteController(drivewayRouteEast, ref, new Point2D(200,200));
+        crossroadController.getChildren().add(drivewayRouteControllerEast);
+        */
+
+
+
+
 
         //todo: Nur zum testen ob die Ampel funktioniert.
         //todo: Muss in DrivewayRoute / DrivewayRouteController verschoben werden
         //todo: WICHTIG!! Nachfragen wesshalb die Ampeln nicht mehr aktualisiert werden.
         //todo: --> Timer wird gestartet, jedoch blinkt die Ampel nicht
         /* TrafficLight */
-        TrafficLight trafficLight = new TrafficLight(TrafficLightType.CAR);
+       /* TrafficLight trafficLight = new TrafficLight(TrafficLightType.CAR);
         TrafficLightController trafficLightController = new TrafficLightController(trafficLight, ref, new Point2D(0,0));
         crossroadController.getChildren().add(trafficLightController);
         trafficLight.setYellowFlash();
+*/
 
 
         primaryStage.setScene(new Scene(crossroadController, 1100, 900));
