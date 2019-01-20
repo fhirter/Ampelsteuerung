@@ -127,7 +127,7 @@ public class Main extends Application
             crossroadController.getChildren().add(trafficLightControllerSouthPedestrian);
         }
 
-        VehicleController vehicleController = new VehicleController(new VehicleModel(), ref, new Point2D(150,400), 0);
+        VehicleController vehicleController = new VehicleController(new VehicleModel(), ref, new Point2D(0,0), 0);
         crossroadController.getChildren().add(vehicleController);
 
 

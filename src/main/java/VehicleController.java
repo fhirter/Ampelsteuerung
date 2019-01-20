@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 
 import javax.swing.text.html.ImageView;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class VehicleController implements Initializable {
+public class VehicleController extends AnchorPane implements Initializable {
 
 
     @FXML private ImageView carImage;
@@ -26,14 +27,13 @@ public class VehicleController implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("vehicle.fxml"));
             loader.setRoot(this);       // dieses BorderPane als root element des GUI setzen. Dazu muss in primaryStage.fxml das root element folgendes sein: <fx:root type="BorderPane">
-
             loader.setController(this);
-
             try {
                 loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
 
 
