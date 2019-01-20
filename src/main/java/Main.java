@@ -86,10 +86,10 @@ public class Main extends Application
         DrivewayRouteController drivewayRouteControllerNorth = new DrivewayRouteController(drivewayList.get(0), ref, new Point2D(550,-300), 90);
         crossroadController.getChildren().add(drivewayRouteControllerNorth);
 
-        TrafficLightController trafficLightControllerNorthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(550,-300), 0,0.6,0.6);
+        TrafficLightController trafficLightControllerNorthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(550,-300), 0);
         crossroadController.getChildren().add(trafficLightControllerNorthCar);
 
-        TrafficLightController trafficLightControllerNorthPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(450,-250), 0, 0.4,0.4);
+        TrafficLightController trafficLightControllerNorthPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(450,-250), 0);
         crossroadController.getChildren().add(trafficLightControllerNorthPedestrian);
 
 
@@ -97,10 +97,10 @@ public class Main extends Application
         DrivewayRouteController drivewayRouteControllerEast = new DrivewayRouteController(drivewayList.get(1), ref, new Point2D(0,0),0);
         crossroadController.getChildren().add(drivewayRouteControllerEast);
 
-        TrafficLightController trafficLightControllerEastCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(50,-50), 0,0.6,0.6);
+        TrafficLightController trafficLightControllerEastCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(50,-50), 0);
         crossroadController.getChildren().add(trafficLightControllerEastCar);
 
-        TrafficLightController trafficLightControllerEastPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(60,-60), 0, 0.4,0.4);
+        TrafficLightController trafficLightControllerEastPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(60,-60), 0);
         crossroadController.getChildren().add(trafficLightControllerEastPedestrian);
 
 
@@ -108,10 +108,10 @@ public class Main extends Application
         DrivewayRouteController drivewayRouteControllerWest = new DrivewayRouteController(drivewayList.get(2), ref, new Point2D(850,250),180);
         crossroadController.getChildren().add(drivewayRouteControllerWest);
 
-        TrafficLightController trafficLightControllerWestCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(650,200), 0,0.6,0.6);
+        TrafficLightController trafficLightControllerWestCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(650,200), 0);
         crossroadController.getChildren().add(trafficLightControllerWestCar);
 
-        TrafficLightController trafficLightControllerWestPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(550,150), 0, 0.4,0.4);
+        TrafficLightController trafficLightControllerWestPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(550,150), 0);
         crossroadController.getChildren().add(trafficLightControllerWestPedestrian);
 
 
@@ -120,14 +120,15 @@ public class Main extends Application
             DrivewayRouteController drivewayRouteControllerSouth = new DrivewayRouteController(drivewayList.get(3), ref, new Point2D(300, 550), 270);
             crossroadController.getChildren().add(drivewayRouteControllerSouth);
 
-            TrafficLightController trafficLightControllerSouthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(200,450), 0,0.6,0.6);
+            TrafficLightController trafficLightControllerSouthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(200,450), 0);
             crossroadController.getChildren().add(trafficLightControllerSouthCar);
 
-            TrafficLightController trafficLightControllerSouthPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(150,400), 0, 0.4,0.4);
+            TrafficLightController trafficLightControllerSouthPedestrian = new TrafficLightController(drivewayList.get(0).getTrafficLightPedestrian(), ref, new Point2D(150,400), 0);
             crossroadController.getChildren().add(trafficLightControllerSouthPedestrian);
         }
 
-
+        VehicleController vehicleController = new VehicleController(new VehicleModel(), ref, new Point2D(150,400), 0);
+        crossroadController.getChildren().add(vehicleController);
 
 
 
@@ -230,19 +231,6 @@ public class Main extends Application
 
 //        return nodeGreenPlanet;
 //    }
-
-    public Node createVehicle() throws java.io.IOException
-    {
-        Node nodeVehicle;
-        VehicleModel vehicleModel = new VehicleModel();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("vehicle.fxml"));
-        VehicleController vehicleController = new VehicleController(vehicleModel);
-        fxmlLoader.setController(vehicleController);
-        nodeVehicle = fxmlLoader.load();
-
-        return  nodeVehicle;
-    }
-
 
     /**
      * startConfigurationIsPressed: Store from selected main the configuration.

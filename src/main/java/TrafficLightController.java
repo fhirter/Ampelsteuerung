@@ -21,8 +21,8 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
     @FXML   private Group symbolPedestrian;
     @FXML   private Group groupScaleFactor;
 
-    final float scaleFactorCAR = (float) 0.6;
-    final float scaleFactorPEDESTRIAN = (float) 0.4;
+    final double scaleFactorCAR = 0.6;
+    final double scaleFactorPEDESTRIAN = 0.4;
     final Paint redColor = Paint.valueOf("#ff0000");
     final Paint darkColor = Paint.valueOf("#ababab");
     final Paint yellowColor = Paint.valueOf("#e8ff1f");
@@ -30,8 +30,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
 
     private TrafficLight model;
     private int Rotate;
-    private double ScaleX;
-    private double ScaleY;
+
 
 
     /**
@@ -42,8 +41,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
      * @date    27.11.2018
      * @arg     TrafficLight trafficLight: (Object form model class)
      */
-    public TrafficLightController(TrafficLight trafficLight, Point2D ref, Point2D offset, int Rotate, double ScaleX, double ScaleY)
-    {
+    public TrafficLightController(TrafficLight trafficLight, Point2D ref, Point2D offset, int Rotate) {
         model = trafficLight;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
@@ -59,10 +57,20 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
         setLayoutX(ref.getX() + offset.getX());
         setLayoutY(ref.getY() + offset.getY());
         setRotate(Rotate);
-        setScaleX(ScaleX);
-        setScaleY(ScaleY);
+        /*if (model.getType() == TrafficLightType.CAR) {
+            setScaleX(scaleFactorCAR);
+            setScaleY(scaleFactorCAR);
+        }
+        else {
+                setScaleX(scaleFactorPEDESTRIAN);
+                setLayoutY(scaleFactorPEDESTRIAN);
+        }
+*/
+
+
 
     }
+
 
     /**
      * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the trafficLight
