@@ -33,6 +33,11 @@ public class VehicleController extends AnchorPane implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            setLayoutX(ref.getX() + offset.getX());
+            setLayoutY(ref.getY() + offset.getY());
+            setRotate(Rotate);
+            setScaleX(1);
+            setScaleY(1);
 
         }
 

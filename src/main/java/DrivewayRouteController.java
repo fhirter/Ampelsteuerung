@@ -71,12 +71,12 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
 
         if(model.getVelostripes() == true)
         {
-            bicycleSripes.setVisible(true);
+            bicycleSripes.setVisible(false);
         }
 
         if(model.getPedestrianStripes()== true)
         {
-            pedestrianStripes.setVisible(true);
+            pedestrianStripes.setVisible(false);
         }
 
 

@@ -1,4 +1,5 @@
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Point2D;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Crossroad extends Observable {
         for (int i = 0; i < numberOfDriveways; i++)
         {
             drivewayRoutes.add(new DrivewayRoute(pedestrianStripes, velostripes));
+
         }
 
     }

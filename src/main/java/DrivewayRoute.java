@@ -1,4 +1,5 @@
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 
 import java.util.HashMap;
@@ -45,6 +46,8 @@ public class DrivewayRoute extends Observable
 
 
     public boolean getPedestrianStripes() {
+
+
         return pedestrianStripes;
     }
 

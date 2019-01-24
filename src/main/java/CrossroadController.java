@@ -142,6 +142,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
            crossroadModel.setVelostripes(checkboxvelostripes.isSelected());
            crossroadModel.setNumberOfDriveways(Integer.parseInt((String)setnumberOfCrossing.getValue()));
 
+
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
@@ -154,8 +155,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         checkboxpedestrainStripes.setSelected(crossroadModel.getPedestrianStripes());
         checkboxvelostripes.setSelected(crossroadModel.getVelostripes());
         setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
-
-
 
     }
 }
