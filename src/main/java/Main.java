@@ -29,15 +29,9 @@ public class Main extends Application
     // reference point for whole crossroad
     private int getCountOfBasedChildren = 0;
     private double scaleFactorCrossroad = 1;
-    private boolean pedestrianStripes;
-    private boolean velostripes;
-    private int numberOfCrossings;
-    private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
-    private TrafficLight nodeTrafficLight;
 
 
-    private HashMap<String, TrafficLight> crossroadControlMap = new HashMap<>();
-    private Algorithmus algorithmus = new Algorithmus(crossroadControlMap);
+
 
     /**
      * crossroadStart: Start with a new Object from the crossroad.
@@ -67,10 +61,9 @@ public class Main extends Application
     {
         primaryStage.setTitle("Ampelsteuerung");
 
-        Crossroad crossroad = new Crossroad(false,false,4);
+        Crossroad crossroad = new Crossroad(false,false,3);
         CrossroadController crossroadController = new CrossroadController(crossroad);
         crossroad.addObserver(crossroadController);
-
 
         /* GreenPlanet */
         //todo: Point2D (y) noch anpassen. Nicht als fixer Wert implementieren.
@@ -83,14 +76,12 @@ public class Main extends Application
         crossroadController.getChildren().add(centerPane);        //add
         List<DrivewayRoute> drivewayList = crossroad.getDrivewayRoutes();
 
-
-
         /*Driveway North*/
         DrivewayRouteController drivewayRouteControllerNorth = new DrivewayRouteController(drivewayList.get(0), ref, new Point2D(550,-300), 90);
         crossroadController.getChildren().add(drivewayRouteControllerNorth);
         drivewayList.get(0).addObserver(drivewayRouteControllerNorth);
 
-        /*TrafficLightController trafficLightControllerNorthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(550,-300), 0);
+       /*TrafficLightController trafficLightControllerNorthCar = new TrafficLightController(drivewayList.get(0).getTrafficLightCar(), ref, new Point2D(550,-300), 0);
         drivewayRouteControllerNorth.getChildren().add(trafficLightControllerNorthCar);
         drivewayList.get(0).getTrafficLightCar().addObserver(trafficLightControllerNorthCar);
 
@@ -173,9 +164,6 @@ public class Main extends Application
 
 
         primaryStage.setScene(new Scene(crossroadController, 1100, 900));
-
-        /* Needed for redraw or remove from the Children from drivewayRoute or drivewayCenter */
-        getCountOfBasedChildren = crossroadController.getChildren().size();
 
         primaryStage.show();
     }
