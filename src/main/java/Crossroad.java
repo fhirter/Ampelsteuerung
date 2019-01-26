@@ -16,7 +16,8 @@ public class Crossroad extends Observable {
     private boolean velostripes;
     private Integer numberOfDriveways;
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
-
+    private List<DrivewayRouteController> drivewayRouteControllers = new LinkedList<>();
+    private static Point2D ref = Main.getRef();
 
     public Crossroad(boolean pedestrianStripes, boolean velostripes, int numberOfDriveways)
     {
@@ -26,11 +27,21 @@ public class Crossroad extends Observable {
 
         for (int i = 0; i < numberOfDriveways; i++)
         {
-            drivewayRoutes.add(new DrivewayRoute(pedestrianStripes, velostripes));
-
+            DrivewayRoute drivewayRoute = new DrivewayRoute(pedestrianStripes,velostripes);
+            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute, ref, new Point2D(550,-300), 90);
+            drivewayRoute.addObserver(drivewayRouteController);
+            drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerCar());
+            drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerPedestrian());
+            drivewayRoutes.add(drivewayRoute);
+            drivewayRouteControllers.add(drivewayRouteController);
         }
 
     }
+
+    public List<DrivewayRouteController> getDrivewayRouteControllers() {
+        return drivewayRouteControllers;
+    }
+
     public List<DrivewayRoute> getDrivewayRoutes() {
         return drivewayRoutes;
     }
