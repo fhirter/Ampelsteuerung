@@ -69,7 +69,7 @@ public class Main extends Application
     {
         primaryStage.setTitle("Ampelsteuerung");
 
-        Crossroad crossroad = new Crossroad(false,false,3);
+        Crossroad crossroad = new Crossroad(false,false,4);
         CrossroadController crossroadController = new CrossroadController(crossroad);
         crossroad.addObserver(crossroadController);
 
@@ -91,7 +91,7 @@ public class Main extends Application
 
 
 
-        /*Driveway North*/
+        /*Driveway North* 550 -300 90/
 
 
 

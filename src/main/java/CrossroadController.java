@@ -47,7 +47,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
      */
     public CrossroadController(Crossroad model)
     {
-
         this.crossroadModel = model;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
@@ -157,6 +156,8 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
 
     }
+
+
 }
 
 

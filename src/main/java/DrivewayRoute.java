@@ -31,26 +31,18 @@ public class DrivewayRoute extends Observable
         this.pedestrianStripes = pedestrianStripes;
         this.velostripes = velostripes;
 
-        createTrafficLightCar();
-        createTrafficLightPedestrian();
 
-    }
-
-
-    public TrafficLight createTrafficLightCar () {
         TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
-        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(550, -300), 0);
+        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(450,-250), 0);
         trafficLightCar.addObserver(trafficLightControllerCar);
-        return trafficLightCar;
-    }
 
-
-    public TrafficLight createTrafficLightPedestrian () {
-        TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
+        TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.CAR);
         TrafficLightController trafficLightControllerPedestrian = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(450,-250), 0);
-        trafficLightPedestrian.addObserver(trafficLightControllerPedestrian);
-        return trafficLightPedestrian;
+        trafficLightCar.addObserver(trafficLightControllerPedestrian);
+
     }
+
+
 
 
     public boolean getPedestrianStripes() {
