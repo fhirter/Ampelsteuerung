@@ -3,6 +3,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,11 +20,14 @@ public class DrivewayRoute extends Observable
 
     private boolean pedestrianStripes;
     private boolean velostripes;
-    private TrafficLightController trafficLightControllerCar;
-    private TrafficLightController trafficLightControllerPedestrian;
 
 
-    private final Point2D refTrafficLights = new Point2D(200,330);
+    private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
+    private List<TrafficLightController> trafficLightControllerPedestrians = new LinkedList<>();
+
+
+
+    private final Point2D refTrafficLights = new Point2D(200,200);
 
 
     public DrivewayRoute(boolean pedestrianStripes, boolean velostripes)
@@ -33,12 +37,15 @@ public class DrivewayRoute extends Observable
 
 
         TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
-        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(450,-250), 0);
+        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(300,50), 0);
         trafficLightCar.addObserver(trafficLightControllerCar);
+        trafficLightControllerCars.add(trafficLightControllerCar);
 
-        TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.CAR);
-        TrafficLightController trafficLightControllerPedestrian = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(450,-250), 0);
+
+        TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
+        TrafficLightController trafficLightControllerPedestrian = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(350,0), 180);
         trafficLightCar.addObserver(trafficLightControllerPedestrian);
+        trafficLightControllerPedestrians.add(trafficLightControllerPedestrian);
 
     }
 
@@ -46,8 +53,6 @@ public class DrivewayRoute extends Observable
 
 
     public boolean getPedestrianStripes() {
-
-
         return pedestrianStripes;
     }
 
@@ -55,13 +60,13 @@ public class DrivewayRoute extends Observable
         return velostripes;
     }
 
-    public TrafficLightController getTrafficLightControllerCar (){
-        return trafficLightControllerCar;
+    public List<TrafficLightController> getTrafficLightControllerCar() {
+        return trafficLightControllerCars;
     }
 
-    public TrafficLightController getTrafficLightControllerPedestrian (){
-    return trafficLightControllerPedestrian;
-}
+    public List<TrafficLightController> getTrafficLightControllerPedestrian() {
+        return trafficLightControllerPedestrians;
+    }
 
 
 }

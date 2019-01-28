@@ -21,16 +21,14 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
     @FXML   private Group symbolPedestrian;
     @FXML   private Group groupScaleFactor;
 
-    final double scaleFactorCAR = 0.6;
-    final double scaleFactorPEDESTRIAN = 0.4;
+    final double scaleFactorCAR = 0.8;
+    final double scaleFactorPEDESTRIAN = 0.6;
     final Paint redColor = Paint.valueOf("#ff0000");
     final Paint darkColor = Paint.valueOf("#ababab");
     final Paint yellowColor = Paint.valueOf("#e8ff1f");
     final Paint greenColor = Paint.valueOf("#05d721");
 
     private TrafficLight model;
-    private int Rotate;
-
 
 
     /**
@@ -56,7 +54,8 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
         setLayoutX(refTrafficLights.getX() + offset.getX());
         setLayoutY(refTrafficLights.getY() + offset.getY());
         setRotate(Rotate);
-/*        if (model.getType() == TrafficLightType.CAR) {
+
+        if (model.getType() == TrafficLightType.CAR) {
             setScaleX(scaleFactorCAR);
             setScaleY(scaleFactorCAR);
         }
@@ -64,9 +63,6 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
                 setScaleX(scaleFactorPEDESTRIAN);
                 setLayoutY(scaleFactorPEDESTRIAN);
         }
-
-*/
-
 
     }
 

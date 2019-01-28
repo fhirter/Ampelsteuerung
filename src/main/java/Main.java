@@ -82,7 +82,6 @@ public class Main extends Application
         Point2D offset = new Point2D(300,0);      //offset point
         CenterPane centerPane = new CenterPane(crossroad, ref, offset);
         crossroadController.getChildren().add(centerPane);        //add
-        List<DrivewayRoute> drivewayList = crossroad.getDrivewayRoutes();
         List<DrivewayRouteController> drivewayControllerList = crossroad.getDrivewayRouteControllers();
 
         for (int i = 0; i < drivewayControllerList.size() ; i++) {
