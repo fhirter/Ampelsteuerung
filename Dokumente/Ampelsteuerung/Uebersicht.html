@@ -1,0 +1,141 @@
+<!doctype html>
+
+<html lang="de">
+	<head>
+	
+		<script src="projects.js" defer></script>
+		<script src="script.js" defer></script>		
+		<link rel="stylesheet" href="general.css">
+		<link rel="stylesheet" href="Mobile.css">
+		<link rel="stylesheet" href="Desktop.css">
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Ampelsteuerung Übersicht</title>
+		
+	</head>
+
+	<body>
+
+		<header class = "itemHeader">
+		
+			<h1>Übersicht der Ampelsteuerung</h1>
+			
+		</header>
+
+
+		<nav class = "itemNav">
+		
+			<h4>Seitenmenue</h4>
+			<ul>
+				<li><a href="Index.html">Home</a></li>
+				<li><a href="leereSeite.html">Logout</a></li>
+				<li><a href="Uebersicht.html">Seite Übersicht ohne Login</a></li>
+			</ul>
+			
+		</nav>
+	
+	
+		<main class = "itemMain">
+			
+			<form id="projekteingabe">	
+				<fieldset>
+					<legend>Ansichtseinstellungen</legend>
+				
+					<section>
+						<label for="projektID">Projektname: </label>
+						<input id="projektID" list="projektIDList">
+						<datalist id="projektIDList" >
+						</datalist>
+					</section>
+						
+					<section>
+						<label for="projektltr">Projektleiter: </label>
+						<input id="projektltr" list="projektLeiterName">
+						<datalist id="projektLeiterName">
+						</datalist>	
+					</section>					
+					
+					<section>
+						<label for="projektstart">Projektstart: </label>
+						<input id="projektstart" type="date" >	
+					</section>
+					
+					<section>
+						<label for="projektende">Projektende: </label>
+						<input id="projektende" type="date" >
+					</section>
+					
+				</fieldset>
+			</form>
+			
+
+
+			<img id="pictureKreuzung" src="img/EinstiegsbildKreuzung.jpg" alt="Defaultpicture crossroad" width = "800"/>
+
+			<h4>Kreuzungseigenschaften</h4>
+			<table id = "projektausgabe" border = "1">
+			</table>
+						
+			<form id="technEinstellungen">
+				<fieldset>
+					<legend>Kreuzungsschaltspiel</legend>
+					<h4>Programmablauf der Ampeln</h4>
+						<table id="ampeleinstellung" border="0">
+							<tr>
+								<th></th>
+								<th>Ampel 1</th>
+								<th>Ampel 2</th>
+								<th>Ampel 3</th>
+								<th>Ampel 4</th>
+								<th>Ampel 5</th>
+								<th>Ampel 6</th>
+								<th>Ampel 7</th>
+								<th>Ampel 8</th>
+								<th>Ampel 9</th>
+								<th>Ampel 10</th>
+							</tr>
+							<tr>
+								<td>Ampel 1</td>
+							</tr>
+							<tr>
+								<td>Ampel 2</td>
+							</tr>
+							<tr>
+								<td>Ampel 3</td>
+							</tr>
+							<tr>
+								<td>Ampel 4</td>
+							</tr>
+							<tr>
+								<td>Ampel 5</td>
+							</tr>
+							<tr>
+								<td>Ampel 6</td>
+							</tr>
+							<tr>
+								<td>Ampel 7</td>
+							</tr>
+							<tr>
+								<td>Ampel 8</td>
+							</tr>
+							<tr>
+								<td>Ampel 9</td>
+							</tr>
+							<tr>
+								<td>Ampel 10</td>
+							</tr>
+						</table>
+				</fieldset>							
+			</form>
+			
+		</main>
+
+		<footer class = "itemFooter">
+		
+			<h5>Projekt Ampelsteuerung</h5>
+			<p>	Klasse NIN 2018</p>
+
+		</footer>
+	</body>
+
+</html>
