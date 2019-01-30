@@ -3,13 +3,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class DrivewayRouteController extends AnchorPane implements Initializable, Observer
@@ -19,7 +15,6 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
 
     private DrivewayRoute model;
     private int Rotate;
-
 
 
     public DrivewayRouteController(DrivewayRoute drivewayRoute, Point2D ref, Point2D offset, int Rotate)
@@ -41,30 +36,15 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
         setRotate(Rotate);
         setScaleX(1);
         setScaleY(1);
-
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
-        //model.getStateFromCheckboxes();
-
-
-
-        /* Settings for checkboxes */
-
-        /*if(settingsFromCheckBoxes.get("checkboxbusway") == true)
-        {
-            //todo: Busstreifen noch nicht implementiert
-        }
-        if(settingsFromCheckBoxes.get("checkboxtramway") == true)
-        {
-            //todo: Tramweg noch nicht implementiert
-        }*/
-
     }
+
+
 
     @Override
     public void update() {
@@ -78,7 +58,5 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
         {
             pedestrianStripes.setVisible(false);
         }
-
-
     }
 }

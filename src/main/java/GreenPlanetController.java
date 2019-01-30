@@ -38,6 +38,7 @@ public class GreenPlanetController extends AnchorPane implements Initializable
 
     private Crossroad crossroadModel;
 
+
     public GreenPlanetController(Crossroad crossroad, Point2D ref, Point2D offset)
     {
         this.crossroadModel = crossroad;
@@ -54,11 +55,8 @@ public class GreenPlanetController extends AnchorPane implements Initializable
         // positioning
         setLayoutX(ref.getX() + offset.getX());
         setLayoutY(ref.getY() + offset.getY());
-        /* setRotate(0);
-        setScaleX(1);
-        setScaleY(1);
-        */
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -66,8 +64,8 @@ public class GreenPlanetController extends AnchorPane implements Initializable
         setAndDrawImage(nameTree1, imageTree1, 10, 10, 1.2);
         setAndDrawImage(nameTree2, imageTree2, 50, 150, 1.6);
         setAndDrawImage(nameTree3, imageTree3,650, 100, 1.9);
-        setAndDrawImage(nameTree2, imageTree4, 70, 550,1.5);
-        setAndDrawImage(nameTree1, imageTree5,580, 550,1.4);
+        setAndDrawImage(nameTree2, imageTree4, 70, 600,1.5);
+        setAndDrawImage(nameTree1, imageTree5,580, 590,1.4);
 
         setAndDrawImage(nameBusch1, imageBusch1, 550, 30,0.6);
         setAndDrawImage(nameBusch2, imageBusch2, 700, 700,0.8);
@@ -75,6 +73,7 @@ public class GreenPlanetController extends AnchorPane implements Initializable
         setAndDrawImage(nameBusch2, imageBusch4, 150, 50,0.7);
         setAndDrawImage(nameBusch1, imageBusch5, 330, 600,0.8);
     }
+
 
     public void setAndDrawImage(String pictureName, ImageView image, int posX, int posY, double scale)
     {
@@ -91,5 +90,4 @@ public class GreenPlanetController extends AnchorPane implements Initializable
         image.setScaleY(scale);
         image.setImage(imageStream);
     }
-
 }

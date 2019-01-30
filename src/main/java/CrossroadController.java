@@ -51,7 +51,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primaryStage.fxml"));
         loader.setRoot(this);       // dieses BorderPane als root element des GUI setzen. Dazu muss in primaryStage.fxml das root element folgendes sein: <fx:root type="BorderPane">
-
         loader.setController(this);
 
         try {
@@ -140,8 +139,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
            crossroadModel.setPedestrianStripes(checkboxpedestrainStripes.isSelected());
            crossroadModel.setVelostripes(checkboxvelostripes.isSelected());
            crossroadModel.setNumberOfDriveways(Integer.parseInt((String)setnumberOfCrossing.getValue()));
-
-
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
@@ -150,11 +147,11 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
 
 
     @Override
-    public void update() {
+    public void update()
+    {
         checkboxpedestrainStripes.setSelected(crossroadModel.getPedestrianStripes());
         checkboxvelostripes.setSelected(crossroadModel.getVelostripes());
         setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
-
     }
 
 

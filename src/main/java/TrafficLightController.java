@@ -3,11 +3,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,7 +37,8 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
      * @date    27.11.2018
      * @arg     TrafficLight trafficLight: (Object form model class)
      */
-    public TrafficLightController(TrafficLight trafficLight, Point2D refTrafficLights, Point2D offset, int Rotate) {
+    public TrafficLightController(TrafficLight trafficLight, Point2D refTrafficLights, Point2D offset, int Rotate)
+    {
         this.model = trafficLight;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
@@ -55,15 +54,16 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
         setLayoutY(refTrafficLights.getY() + offset.getY());
         setRotate(Rotate);
 
-        if (model.getType() == TrafficLightType.CAR) {
+        if (model.getType() == TrafficLightType.CAR)
+        {
             setScaleX(scaleFactorCAR);
             setScaleY(scaleFactorCAR);
         }
-        else {
-                setScaleX(scaleFactorPEDESTRIAN);
-                setLayoutY(scaleFactorPEDESTRIAN);
+        else
+        {
+            setScaleX(scaleFactorPEDESTRIAN);
+            setScaleY(scaleFactorPEDESTRIAN);
         }
-
     }
 
 
@@ -80,7 +80,6 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
     public void initialize(URL location, ResourceBundle resources)
     {
         setTypeAndScale(model.getType());
-
         changeColor(TrafficLightState.RED);
     }
 

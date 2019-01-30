@@ -7,8 +7,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<fx:root type="AnchorPane" fx:id="trafficLight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="24.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="trafficLight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="57.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <children>
         <Group fx:id="groupScaleFactor" layoutX="-14.0" layoutY="-12.0">
             <children>

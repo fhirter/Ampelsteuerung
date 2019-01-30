@@ -1,0 +1,134 @@
+
+    /**
+     * createTrafficLights(): Creates on the DrivewayRoute the appopriate trafficlights
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    30.12.2018
+     * @arg     TrafficLight: (Index from TrafficLight)
+     * @return  Node: Index from the TrafficLight Node. Can be needed in xxxx.getChild().add(Node);
+     */
+    public Node createTrafficLight(TrafficLight trafficLight) throws java.io.IOException
+    {
+        Node nodeTrafficLight;
+
+        TrafficLightController trafficLightController = new TrafficLightController(trafficLight);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        fxmlLoader.setController(trafficLightController);
+        nodeTrafficLight = fxmlLoader.load();
+
+        trafficLight.addObserver(trafficLightController);
+
+        return nodeTrafficLight;
+    }
+
+
+
+
+    /**
+     * crateGreenPlanet: Create a new node from the greenPlanet
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.01.2018
+     * @return  Node: (Node from the greenPlanet)
+     */
+    public Node crateGreenPlanet() throws java.io.IOException
+    {
+        Node nodeGreenPlanet = null;
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("greenPlanet.fxml"));
+        GreenPlanetController greenPlanetController = new GreenPlanetController();
+        fxmlLoader.setController(greenPlanetController);
+        nodeGreenPlanet = fxmlLoader.load();
+
+        return nodeGreenPlanet;
+    }
+
+
+
+    /**
+     * setCrossroadLayout: Sets the Layout, Rotation and Scalefactor for the nodes from crossroad
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.01.2018
+     * @arg     Pane: (Pane or node from crossroad)
+     * @arg     double layoutXOffset, layoutYOffset: (Layoutoffset for place (X/Y) the node into the GUI)
+     * @arg     int degree: (Number of Rotation)
+
+     */
+    public void setCrossroadLayout(Pane nodeStreetxxDegree, double layoutXOffset, double layoutYOffset, int degree)
+    {
+        nodeStreetxxDegree.setLayoutX(refPointCrossroadX + layoutXOffset);
+        nodeStreetxxDegree.setLayoutY(refPointCrossroadY + layoutYOffset);
+        nodeStreetxxDegree.setRotate(degree);
+        nodeStreetxxDegree.setScaleX(scaleFactorCrossroad);
+        nodeStreetxxDegree.setScaleY(scaleFactorCrossroad);
+    }
+
+
+
+
+    /**
+     * startConfigurationIsPressed: Store from selected main the configuration.
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date   11.12.2018
+     */
+    public void startConfigurationIsPressed(HashMap<String, HashMap> settingsForCrossroad)
+    {
+        try {
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /*Driveway East
+    DrivewayRouteController drivewayRouteControllerEast = new DrivewayRouteController(drivewayList.get(1), ref, new Point2D(0,0),0);
+    crossroadController.getChildren().add(drivewayRouteControllerEast);
+    drivewayList.get(1).addObserver(drivewayRouteControllerEast);
+
+
+    /*Driveway West
+    DrivewayRouteController drivewayRouteControllerWest = new DrivewayRouteController(drivewayList.get(2), ref, new Point2D(850,250),180);
+    crossroadController.getChildren().add(drivewayRouteControllerWest);
+    drivewayList.get(2).addObserver(drivewayRouteControllerWest);
+
+
+
+    /*Driveway South
+    if (crossroad.getNumberOfDriveways() == 4) {
+        DrivewayRouteController drivewayRouteControllerSouth = new DrivewayRouteController(drivewayList.get(3), ref, new Point2D(300, 550), 270);
+        crossroadController.getChildren().add(drivewayRouteControllerSouth);
+        drivewayList.get(3).addObserver(drivewayRouteControllerSouth);
+
+    }
+
+
+
+    VehicleController vehicleController = new VehicleController(new VehicleModel(), ref, new Point2D(0,0), 0);
+    crossroadController.getChildren().add(vehicleController);
+
+
+
+
+    /* Driveway Route East */
+    DrivewayRoute drivewayRouteEast = new DrivewayRoute(false,false);
+    DrivewayRouteController drivewayRouteControllerEast = new DrivewayRouteController(drivewayRouteEast, ref, new Point2D(200,200));
+    crossroadController.getChildren().add(drivewayRouteControllerEast);
+
+
+    /* TrafficLight */
+    TrafficLight trafficLight = new TrafficLight(TrafficLightType.CAR);
+    TrafficLightController trafficLightController = new TrafficLightController(trafficLight, ref, new Point2D(0,0));
+    crossroadController.getChildren().add(trafficLightController);
+    trafficLight.setYellowFlash();

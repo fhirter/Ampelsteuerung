@@ -10,7 +10,6 @@ public class TrafficLight extends Observable
     private Timer timerChangeState;
 
 
-
     /**
      * TrafficLight(): Konstruktor. Define the type from the trafficLight
      *
