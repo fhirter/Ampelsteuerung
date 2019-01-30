@@ -24,6 +24,7 @@ public class TrafficLight extends Observable
     {
         this.type = type;
         actState = newState = TrafficLightState.RED;
+        notifyObservers();
     }
 
 
@@ -85,6 +86,7 @@ public class TrafficLight extends Observable
     {
         newState = TrafficLightState.RED;
         startTimerForChangeState(newState);
+        notifyObservers();
     }
 
 
@@ -100,6 +102,7 @@ public class TrafficLight extends Observable
     {
         newState = TrafficLightState.GREEN;
         startTimerForChangeState(newState);
+        notifyObservers();
     }
 
 
@@ -115,6 +118,7 @@ public class TrafficLight extends Observable
     {
         newState = TrafficLightState.YELLOW_FLASH;
         startTimerForChangeState(newState);
+        notifyObservers();
     }
 
 
@@ -130,6 +134,7 @@ public class TrafficLight extends Observable
     {
         newState = TrafficLightState.DARK;
         startTimerForChangeState(newState);
+        notifyObservers();
     }
 
 
@@ -145,6 +150,7 @@ public class TrafficLight extends Observable
     {
         newState = TrafficLightState.SIMULATION;
         startTimerForChangeState(newState);
+        notifyObservers();
     }
 
 
@@ -179,6 +185,7 @@ public class TrafficLight extends Observable
                                   },
                 0 /* ms delay */,
                 500 /* ms period */);
+        notifyObservers();
     }
 
 
@@ -260,6 +267,7 @@ public class TrafficLight extends Observable
             inProgress = false;
             timerChangeState.cancel();
         }
+        notifyObservers();
     }
 
 
@@ -298,6 +306,7 @@ public class TrafficLight extends Observable
             inProgress = false;
             timerChangeState.cancel();
         }
+        notifyObservers();
     }
 
 
@@ -329,6 +338,7 @@ public class TrafficLight extends Observable
                 break;
             }
         }
+        notifyObservers();
     }
 
 
@@ -358,6 +368,7 @@ public class TrafficLight extends Observable
                 break;
             }
         }
+        notifyObservers();
     }
 
 

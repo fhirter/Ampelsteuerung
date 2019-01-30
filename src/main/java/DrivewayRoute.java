@@ -18,8 +18,10 @@ import java.util.Map;
 public class DrivewayRoute extends Observable
 {
 
+
     private boolean pedestrianStripes;
     private boolean velostripes;
+
 
 
     private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
@@ -27,7 +29,7 @@ public class DrivewayRoute extends Observable
 
 
 
-    private final Point2D refTrafficLights = new Point2D(200,200);
+    private final Point2D refTrafficLights = new Point2D(200,330);
 
 
     public DrivewayRoute(boolean pedestrianStripes, boolean velostripes)
@@ -37,19 +39,20 @@ public class DrivewayRoute extends Observable
 
 
         TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
-        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(300,50), 0);
+        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(350,50), 0);
         trafficLightCar.addObserver(trafficLightControllerCar);
         trafficLightControllerCars.add(trafficLightControllerCar);
 
 
         TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
-        TrafficLightController trafficLightControllerPedestrian = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(350,0), 180);
+        TrafficLightController trafficLightControllerPedestrian = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(0,-500), 0);
         trafficLightCar.addObserver(trafficLightControllerPedestrian);
         trafficLightControllerPedestrians.add(trafficLightControllerPedestrian);
+        trafficLightCar.setYellowFlash();
+        trafficLightPedestrian.setYellowFlash();
+        notifyObservers();
 
     }
-
-
 
 
     public boolean getPedestrianStripes() {
@@ -60,6 +63,17 @@ public class DrivewayRoute extends Observable
         return velostripes;
     }
 
+    public void setPedestrianStripes(boolean pedestrianStripes) {
+        this.pedestrianStripes = pedestrianStripes;
+        notifyObservers();
+    }
+
+    public void setVelostripes(boolean velostripes) {
+        this.velostripes = velostripes;
+        notifyObservers();
+    }
+
+
     public List<TrafficLightController> getTrafficLightControllerCar() {
         return trafficLightControllerCars;
     }
@@ -67,6 +81,7 @@ public class DrivewayRoute extends Observable
     public List<TrafficLightController> getTrafficLightControllerPedestrian() {
         return trafficLightControllerPedestrians;
     }
+
 
 
 }

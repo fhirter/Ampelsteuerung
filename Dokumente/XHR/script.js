@@ -31,10 +31,10 @@
 	{
 
 		var request = new XMLHttpRequest();
-		var test = "http://192.168.35.46:8080/projects" + url;
+		var test = "http://http://localhost:8080/projects" + url;
 
 //		request.open("GET","https://berghirt.ch/Ampelsteuerung/projects" + url);
-		request.open("GET", "http://192.168.35.46:8080/projects" + url);
+		request.open("GET", "http://http://localhost:8080//projects" + url);
 	
 		request.addEventListener('load', function(event) {
 			if (request.status >= 200 && request.status < 300) 

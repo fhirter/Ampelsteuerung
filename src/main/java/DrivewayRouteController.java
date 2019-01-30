@@ -1,30 +1,31 @@
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import static javafx.collections.FXCollections.observableArrayList;
 
 public class DrivewayRouteController extends AnchorPane implements Initializable, Observer
 {
     @FXML   private AnchorPane bicycleSripes;
     @FXML   private Group pedestrianStripes;
 
-    private DrivewayRoute model;
-    private int Rotate;
+    private DrivewayRoute drivewayModel;
+
 
 
 
     public DrivewayRouteController(DrivewayRoute drivewayRoute, Point2D ref, Point2D offset, int Rotate)
     {
-        this.model= drivewayRoute;
+        this.drivewayModel = drivewayRoute;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("drivewayRoute.fxml"));
         loader.setController(this);
@@ -49,9 +50,10 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
 
-        //model.getStateFromCheckboxes();
 
-
+        bicycleSripes.setVisible(drivewayModel.getVelostripes());
+        pedestrianStripes.setVisible(drivewayModel.getPedestrianStripes());
+        // init Werte aus dem Model holen
 
         /* Settings for checkboxes */
 
@@ -69,12 +71,12 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
     @Override
     public void update() {
 
-        if(model.getVelostripes() == true)
+        if(drivewayModel.getVelostripes() == true)
         {
             bicycleSripes.setVisible(false);
         }
 
-        if(model.getPedestrianStripes()== true)
+        if(drivewayModel.getPedestrianStripes()== true)
         {
             pedestrianStripes.setVisible(false);
         }

@@ -73,6 +73,8 @@ public class Main extends Application
         CrossroadController crossroadController = new CrossroadController(crossroad);
         crossroad.addObserver(crossroadController);
 
+
+
         /* GreenPlanet */
         //todo: Point2D (y) noch anpassen. Nicht als fixer Wert implementieren.
         GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(0,-300));
@@ -140,8 +142,8 @@ public class Main extends Application
         //todo: Muss in DrivewayRoute / DrivewayRouteController verschoben werden
         //todo: WICHTIG!! Nachfragen wesshalb die Ampeln nicht mehr aktualisiert werden.
         //todo: --> Timer wird gestartet, jedoch blinkt die Ampel nicht
-        /* TrafficLight */
-       /* TrafficLight trafficLight = new TrafficLight(TrafficLightType.CAR);
+        /* TrafficLight
+        TrafficLight trafficLight = new TrafficLight(TrafficLightType.CAR);
         TrafficLightController trafficLightController = new TrafficLightController(trafficLight, ref, new Point2D(0,0));
         crossroadController.getChildren().add(trafficLightController);
         trafficLight.setYellowFlash();

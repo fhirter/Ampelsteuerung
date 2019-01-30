@@ -58,8 +58,10 @@ public class Crossroad extends Observable {
             drivewayRoute.addObserver(drivewayRouteController);
             drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerCar().get(0));
             drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerPedestrian().get(0));
-            drivewayRoutes.add(drivewayRoute);
             drivewayRouteControllers.add(drivewayRouteController);
+            drivewayRoutes.add(drivewayRoute);
+            notifyObservers();
+
             rot += 90;
 
 
@@ -72,6 +74,10 @@ public class Crossroad extends Observable {
 
     }
 
+    public List<DrivewayRoute> getDrivewayRoutes() {
+        return drivewayRoutes;
+    }
+
     public String[] getAlgorithms() {
         return algorithms;
     }
@@ -81,7 +87,6 @@ public class Crossroad extends Observable {
     }
 
     public boolean getPedestrianStripes() {
-
         return pedestrianStripes;
     }
 
