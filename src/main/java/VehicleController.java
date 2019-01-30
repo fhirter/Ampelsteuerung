@@ -11,13 +11,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class VehicleController extends AnchorPane implements Initializable {
-
-
+public class VehicleController extends AnchorPane implements Initializable
+{
     @FXML private ImageView carImage;
     @FXML private ImageView busImage;
     @FXML private ImageView biycleView;
-
 
     private VehicleModel vehicleModel;
 
@@ -25,28 +23,24 @@ public class VehicleController extends AnchorPane implements Initializable {
     {
         this.vehicleModel = vehicleModel;
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("vehicle.fxml"));
-            loader.setRoot(this);       // dieses BorderPane als root element des GUI setzen. Dazu muss in primaryStage.fxml das root element folgendes sein: <fx:root type="BorderPane">
-            loader.setController(this);
-            try {
-                loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            setLayoutX(ref.getX() + offset.getX());
-            setLayoutY(ref.getY() + offset.getY());
-            setRotate(Rotate);
-            setScaleX(1);
-            setScaleY(1);
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("vehicle.fxml"));
+        loader.setRoot(this);       // dieses BorderPane als root element des GUI setzen. Dazu muss in primaryStage.fxml das root element folgendes sein: <fx:root type="BorderPane">
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+        setLayoutX(ref.getX() + offset.getX());
+        setLayoutY(ref.getY() + offset.getY());
+        setRotate(Rotate);
+        setScaleX(1);
+        setScaleY(1);
+    }
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-
-
+    public void initialize(URL location, ResourceBundle resources)
+    {
     }
 }

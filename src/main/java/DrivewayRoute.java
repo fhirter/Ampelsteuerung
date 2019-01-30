@@ -17,19 +17,15 @@ import java.util.Map;
 
 public class DrivewayRoute extends Observable
 {
-
-
     private boolean pedestrianStripes;
     private boolean velostripes;
 
-
-
+    private List<TrafficLight> trafficLightModelCars = new LinkedList<>();
+    private List<TrafficLight> trafficLightModelPedestrians = new LinkedList<>();
     private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
     private List<TrafficLightController> trafficLightControllerPedestrians = new LinkedList<>();
 
-
-
-    private final Point2D refTrafficLights = new Point2D(200,330);
+    private final Point2D refTrafficLights = new Point2D(0,0);
 
 
     public DrivewayRoute(boolean pedestrianStripes, boolean velostripes)
@@ -37,53 +33,57 @@ public class DrivewayRoute extends Observable
         this.pedestrianStripes = pedestrianStripes;
         this.velostripes = velostripes;
 
-
         TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
-        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(350,50), 0);
+        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(130,145), 90);
         trafficLightCar.addObserver(trafficLightControllerCar);
+        trafficLightModelCars.add(trafficLightCar);
         trafficLightControllerCars.add(trafficLightControllerCar);
 
-
         TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
-        TrafficLightController trafficLightControllerPedestrian = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(0,-500), 0);
-        trafficLightCar.addObserver(trafficLightControllerPedestrian);
-        trafficLightControllerPedestrians.add(trafficLightControllerPedestrian);
-        trafficLightCar.setYellowFlash();
-        trafficLightPedestrian.setYellowFlash();
-        notifyObservers();
-
+        TrafficLightController trafficLightControllerPedestrianLeft = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(170,-65), 0);
+        trafficLightCar.addObserver(trafficLightControllerPedestrianLeft);
+        trafficLightControllerPedestrians.add(trafficLightControllerPedestrianLeft);
+        TrafficLightController trafficLightControllerPedestrianRight = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(240,155), 180);
+        trafficLightCar.addObserver(trafficLightControllerPedestrianRight);
+        trafficLightModelPedestrians.add(trafficLightPedestrian);
+        trafficLightControllerPedestrians.add(trafficLightControllerPedestrianRight);
     }
 
 
-    public boolean getPedestrianStripes() {
+    public boolean getPedestrianStripes()
+    {
         return pedestrianStripes;
     }
 
-    public boolean getVelostripes() {
+
+    public boolean getVelostripes()
+    {
         return velostripes;
     }
 
-    public void setPedestrianStripes(boolean pedestrianStripes) {
-        this.pedestrianStripes = pedestrianStripes;
-        notifyObservers();
-    }
 
-    public void setVelostripes(boolean velostripes) {
-        this.velostripes = velostripes;
-        notifyObservers();
+    public List<TrafficLight> getTrafficLightModelCar()
+    {
+        return trafficLightModelCars;
     }
 
 
-    public List<TrafficLightController> getTrafficLightControllerCar() {
+    public List<TrafficLight> getTrafficLightModelPedestrian()
+    {
+        return trafficLightModelPedestrians;
+    }
+
+
+    public List<TrafficLightController> getTrafficLightControllerCar()
+    {
         return trafficLightControllerCars;
     }
 
-    public List<TrafficLightController> getTrafficLightControllerPedestrian() {
+
+    public List<TrafficLightController> getTrafficLightControllerPedestrian()
+    {
         return trafficLightControllerPedestrians;
     }
-
-
-
 }
 
 

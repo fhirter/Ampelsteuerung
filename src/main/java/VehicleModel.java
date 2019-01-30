@@ -5,11 +5,7 @@ public class VehicleModel extends Observable {
     boolean bicycle = false;
 
 
-
-    public VehicleModel(){
-
-
+    public VehicleModel()
+    {
     }
-
-
 }

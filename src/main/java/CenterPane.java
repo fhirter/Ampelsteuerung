@@ -4,7 +4,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -30,7 +29,6 @@ public class CenterPane extends AnchorPane implements Initializable
     {
         this.crossroadModel = crossroad; // center does not need own model
 
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("drivewayCenter.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -41,13 +39,8 @@ public class CenterPane extends AnchorPane implements Initializable
         }
 
         // positioning
-
         setLayoutX(ref.getX() + offset.getX());
         setLayoutY(ref.getY() + offset.getY());
-       /* setRotate(0);
-        setScaleX(1);
-        setScaleY(1);
-        */
     }
 
 
@@ -63,8 +56,6 @@ public class CenterPane extends AnchorPane implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-      //  allgorithmusAndTypeFromCrossroad = crossroadModel.getAllgorithmusAndTypeFromCrossroad();
-
         if(crossroadModel.getNumberOfDriveways() == 3)
         {
             pedestrianWay.setVisible(true);
