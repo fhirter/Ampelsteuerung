@@ -83,11 +83,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         setnumberOfCrossing.setItems(observableList);
         setnumberOfCrossing.setValue("4");
 
-        checkboxvelostripes.setSelected(crossroadModel.getVelostripes());       // init Werte aus dem Model holen
-        checkboxbusway.setSelected(false);
-        checkboxtramway.setSelected(false);
-        checkboxpedestrainStripes.setSelected(crossroadModel.getPedestrianStripes());
-
     }
     @FXML
     public void mnuExitApplication(ActionEvent actionEvent)
@@ -136,9 +131,13 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     public void startButtonConfig(ActionEvent actionEvent)
     {
         try {
-           crossroadModel.setPedestrianStripes(checkboxpedestrainStripes.isSelected());
-           crossroadModel.setVelostripes(checkboxvelostripes.isSelected());
-           crossroadModel.setNumberOfDriveways(Integer.parseInt((String)setnumberOfCrossing.getValue()));
+
+            for (int i = 0; i < crossroadModel.getDrivewayRoutes().size() ; i++) {
+                crossroadModel.getDrivewayRoutes().get(i).setPedestrianStripes(checkboxpedestrainStripes.isSelected());
+                crossroadModel.getDrivewayRoutes().get(i).setVelostripes(checkboxvelostripes.isSelected());
+
+            }
+
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
@@ -149,9 +148,12 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     @Override
     public void update()
     {
-        checkboxpedestrainStripes.setSelected(crossroadModel.getPedestrianStripes());
-        checkboxvelostripes.setSelected(crossroadModel.getVelostripes());
-        setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
+
+        for (int i = 0; i < crossroadModel.getDrivewayRoutes().size(); i++) {
+            checkboxpedestrainStripes.setSelected(crossroadModel.getDrivewayRoutes().get(i).getPedestrianStripes());
+            checkboxvelostripes.setSelected(crossroadModel.getDrivewayRoutes().get(i).getVelostripes());
+            setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
+        }
     }
 
 

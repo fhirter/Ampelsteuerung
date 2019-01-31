@@ -98,6 +98,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
     {
         TrafficLightState newState = model.getState();
         changeColor(newState);
+
     }
 
 
@@ -179,4 +180,5 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
             }
         }
     }
+
 }

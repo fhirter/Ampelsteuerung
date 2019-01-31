@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
+import java.security.AllPermission;
 import java.util.ResourceBundle;
 
 public class DrivewayRouteController extends AnchorPane implements Initializable, Observer
@@ -40,8 +41,13 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
+
+        bicycleSripes.setVisible(false);
+        pedestrianStripes.setVisible(false);
+        model.setPedestrianStripes(false);
+        model.setVelostripes(false);
+
     }
 
 
@@ -51,12 +57,19 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
 
         if(model.getVelostripes() == true)
         {
+            bicycleSripes.setVisible(true);
+        }
+        else{
             bicycleSripes.setVisible(false);
         }
 
         if(model.getPedestrianStripes()== true)
         {
+            pedestrianStripes.setVisible(true);
+        }
+        else {
             pedestrianStripes.setVisible(false);
         }
+
     }
 }

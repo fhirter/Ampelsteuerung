@@ -20,6 +20,7 @@ public class DrivewayRoute extends Observable
     private boolean pedestrianStripes;
     private boolean velostripes;
 
+
     private List<TrafficLight> trafficLightModelCars = new LinkedList<>();
     private List<TrafficLight> trafficLightModelPedestrians = new LinkedList<>();
     private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
@@ -28,10 +29,8 @@ public class DrivewayRoute extends Observable
     private final Point2D refTrafficLights = new Point2D(0,0);
 
 
-    public DrivewayRoute(boolean pedestrianStripes, boolean velostripes)
+    public DrivewayRoute()
     {
-        this.pedestrianStripes = pedestrianStripes;
-        this.velostripes = velostripes;
 
         TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
         TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(130,145), 90);
@@ -39,11 +38,12 @@ public class DrivewayRoute extends Observable
         trafficLightModelCars.add(trafficLightCar);
         trafficLightControllerCars.add(trafficLightControllerCar);
 
+
         TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
-        TrafficLightController trafficLightControllerPedestrianLeft = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(170,-65), 0);
+        TrafficLightController trafficLightControllerPedestrianLeft = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(170, -65), 0);
         trafficLightCar.addObserver(trafficLightControllerPedestrianLeft);
         trafficLightControllerPedestrians.add(trafficLightControllerPedestrianLeft);
-        TrafficLightController trafficLightControllerPedestrianRight = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(240,155), 180);
+        TrafficLightController trafficLightControllerPedestrianRight = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(240, 155), 180);
         trafficLightCar.addObserver(trafficLightControllerPedestrianRight);
         trafficLightModelPedestrians.add(trafficLightPedestrian);
         trafficLightControllerPedestrians.add(trafficLightControllerPedestrianRight);
@@ -60,6 +60,18 @@ public class DrivewayRoute extends Observable
     {
         return velostripes;
     }
+
+
+    public void setPedestrianStripes(boolean pedestrianStripes) {
+        this.pedestrianStripes = pedestrianStripes;
+        notifyObservers();
+    }
+
+    public void setVelostripes(boolean velostripes) {
+        this.velostripes = velostripes;
+        notifyObservers();
+    }
+
 
 
     public List<TrafficLight> getTrafficLightModelCar()

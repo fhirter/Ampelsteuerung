@@ -23,7 +23,7 @@ public class TrafficLight extends Observable
     {
         this.type = type;
         actState = newState = TrafficLightState.RED;
-        notifyObservers();
+
     }
 
 

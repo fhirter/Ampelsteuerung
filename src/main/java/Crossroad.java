@@ -12,56 +12,53 @@ public class Crossroad extends Observable {
             "Algorithm D",
             "Algorithm E"};
 
-    private boolean pedestrianStripes;
-    private boolean velostripes;
+
     private Integer numberOfDriveways;
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
     private List<DrivewayRouteController> drivewayRouteControllers = new LinkedList<>();
     private static Point2D ref = Main.getRef();
 
-    public Crossroad(boolean pedestrianStripes, boolean velostripes, int numberOfDriveways)
+
+    public Crossroad(int numberOfDriveways)
     {
-        this.pedestrianStripes = pedestrianStripes;
-        this.velostripes = velostripes;
+
         this.numberOfDriveways = numberOfDriveways;
         double xPoint = 0;
         double yPoint = 0;
         int rotateRoute = 0;
 
         /* Loop to create all driveways */
-        for (int i = 0; i < numberOfDriveways; i++)
-        {
-            switch(i)
-            {
+        for (int i = 0; i < numberOfDriveways; i++) {
+            switch (i) {
                 case 0:
                     /* West */
-                    xPoint =0;
+                    xPoint = 0;
                     yPoint = 0;
                     break;
 
                 case 1:
                     /* North */
-                    xPoint =550;
+                    xPoint = 550;
                     yPoint = -300;
                     break;
 
                 case 2:
                     /* East */
-                    xPoint =850;
+                    xPoint = 850;
                     yPoint = 250;
                     break;
 
                 case 3:
                     /* South */
-                    xPoint =300;
+                    xPoint = 300;
                     yPoint = 550;
                     break;
             }
 
             /* create model from the driveway. Model from trafficLights are created into constructor from drivewayRoute */
-            DrivewayRoute drivewayRoute = new DrivewayRoute(pedestrianStripes,velostripes);
+            DrivewayRoute drivewayRoute = new DrivewayRoute();
             /* create controller */
-            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute, ref, new Point2D(xPoint,yPoint), rotateRoute);
+            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute, ref, new Point2D(xPoint, yPoint), rotateRoute);
             /* add controller to observer from the createt model */
             drivewayRoute.addObserver(drivewayRouteController);
 
@@ -86,25 +83,6 @@ public class Crossroad extends Observable {
 
     public Integer getNumberOfDriveways() {
         return numberOfDriveways;
-    }
-
-    public boolean getPedestrianStripes() {
-
-        return pedestrianStripes;
-    }
-
-    public boolean getVelostripes() {
-        return velostripes;
-    }
-
-    public void setPedestrianStripes(boolean pedestrianStripes) {
-        this.pedestrianStripes = pedestrianStripes;
-        notifyObservers();
-    }
-
-    public void setVelostripes(boolean velostripes) {
-        this.velostripes = velostripes;
-        notifyObservers();
     }
 
     public void setNumberOfDriveways(int numberOfDriveways) {

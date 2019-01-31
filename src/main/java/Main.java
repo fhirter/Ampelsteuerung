@@ -52,9 +52,10 @@ public class Main extends Application
     {
         primaryStage.setTitle("Ampelsteuerung");
 
-        Crossroad crossroad = new Crossroad(false,false,4);
+        Crossroad crossroad = new Crossroad(4);
         CrossroadController crossroadController = new CrossroadController(crossroad);
         crossroad.addObserver(crossroadController);
+
 
         /* GreenPlanet */
         GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(0,-300));
@@ -85,6 +86,7 @@ public class Main extends Application
         crossroad.getDrivewayRoutes().get(1).getTrafficLightModelPedestrian().get(0).setYellowFlash();
         crossroad.getDrivewayRoutes().get(2).getTrafficLightModelPedestrian().get(0).setGreen();
         crossroad.getDrivewayRoutes().get(3).getTrafficLightModelPedestrian().get(0).setSIMULATION();
+
     }
 }
 
