@@ -1,9 +1,7 @@
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -65,6 +63,7 @@ public class Main extends Application
         Point2D offset = new Point2D(300,0);      //offset point
         CenterPane centerPane = new CenterPane(crossroad, ref, offset);
         crossroadController.getChildren().add(centerPane);        //add
+        crossroad.setCenterPaneModel(centerPane);
 
         List<DrivewayRouteController> drivewayControllerList = crossroad.getDrivewayRouteControllers();
         for (int i = 0; i < drivewayControllerList.size() ; i++) {
@@ -81,11 +80,11 @@ public class Main extends Application
         crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).setRed();
         crossroad.getDrivewayRoutes().get(1).getTrafficLightModelCar().get(0).setGreen();
         crossroad.getDrivewayRoutes().get(2).getTrafficLightModelCar().get(0).setYellowFlash();
-        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelCar().get(0).setSIMULATION();
+//        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelCar().get(0).setSIMULATION();
         crossroad.getDrivewayRoutes().get(0).getTrafficLightModelPedestrian().get(0).setRed();
         crossroad.getDrivewayRoutes().get(1).getTrafficLightModelPedestrian().get(0).setYellowFlash();
         crossroad.getDrivewayRoutes().get(2).getTrafficLightModelPedestrian().get(0).setGreen();
-        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelPedestrian().get(0).setSIMULATION();
+//        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelPedestrian().get(0).setSIMULATION();
 
     }
 }

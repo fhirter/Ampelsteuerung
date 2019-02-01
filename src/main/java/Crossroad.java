@@ -12,23 +12,23 @@ public class Crossroad extends Observable {
             "Algorithm D",
             "Algorithm E"};
 
-
+    private final String[] possibleNumberOfDriveways = {"4", "3"};
     private Integer numberOfDriveways;
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
     private List<DrivewayRouteController> drivewayRouteControllers = new LinkedList<>();
     private static Point2D ref = Main.getRef();
+    private CenterPane centerPaneModel;
 
 
     public Crossroad(int numberOfDriveways)
     {
-
         this.numberOfDriveways = numberOfDriveways;
         double xPoint = 0;
         double yPoint = 0;
         int rotateRoute = 0;
 
         /* Loop to create all driveways */
-        for (int i = 0; i < numberOfDriveways; i++) {
+        for (int i = 0; i < this.numberOfDriveways; i++) {
             switch (i) {
                 case 0:
                     /* West */
@@ -73,25 +73,45 @@ public class Crossroad extends Observable {
         }
     }
 
-    public List<DrivewayRouteController> getDrivewayRouteControllers() {
+
+    public List<DrivewayRouteController> getDrivewayRouteControllers()
+    {
         return drivewayRouteControllers;
     }
 
-    public String[] getAlgorithms() {
+
+    public String[] getAlgorithms()
+    {
         return algorithms;
     }
 
-    public Integer getNumberOfDriveways() {
-        return numberOfDriveways;
+
+    public String[] getNumberOfDriveways()
+    {
+        return possibleNumberOfDriveways;
     }
 
-    public void setNumberOfDriveways(int numberOfDriveways) {
-        this.numberOfDriveways = numberOfDriveways;
-        notifyObservers();
-    }
 
-    public List<DrivewayRoute> getDrivewayRoutes() {
+    public List<DrivewayRoute> getDrivewayRoutes()
+    {
         return drivewayRoutes;
+    }
+
+
+    public void setCenterPaneModel(CenterPane centerPaneModel)
+    {
+        this.centerPaneModel = centerPaneModel;
+    }
+
+
+    public void setNumberOfDriveways(String numberOfDriveways)
+    {
+        centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
+        if(numberOfDriveways == "3") {
+            drivewayRoutes.get(3).setVisibility(false);
+        }else{
+            drivewayRoutes.get(3).setVisibility(true);
+        }
     }
 }
 

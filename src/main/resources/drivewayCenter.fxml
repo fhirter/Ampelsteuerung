@@ -8,10 +8,10 @@
 <?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.shape.Rectangle?>
 
-<fx:root type="AnchorPane" fx:id="drivewayCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="253.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="drivewayCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="253.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8e8f90" height="255.0" layoutX="-2.0" layoutY="-2.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.0" width="255.0" />
-      <Pane fx:id="pedestrianWay" layoutX="-1.7000000476837158" layoutY="199.10000610351562">
+      <Pane fx:id="pedestrianWay" layoutX="-1.7000000476837158" layoutY="199.10000610351562" visible="false">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86898d" height="50.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.0" width="253.0" />
             <Line endX="250.0" layoutX="2.0" layoutY="1.0" />
@@ -39,13 +39,13 @@
             <Group layoutX="200.0" rotate="90.0">
                <children>
                   <Arc fill="#86898d" layoutX="50.0" length="90.0" radiusX="50.0" radiusY="50.0" startAngle="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
-                  <QuadCurve controlY="50.0" fill="#ffffff00" layoutX="-1.0" startX="50.0" startY="51.0" stroke="BLACK" strokeType="INSIDE" />
+                  <QuadCurve controlY="50.0" fill="#ffffff00" layoutY="-1.0" startX="50.0" startY="50.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
             </Group>
             <Group rotate="-180.0">
                <children>
                   <Arc fill="#86898d" layoutX="50.0" length="90.0" radiusX="50.0" radiusY="50.0" startAngle="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
-                  <QuadCurve controlY="50.0" fill="#ffffff00" startX="50.0" startY="50.0" stroke="BLACK" strokeType="INSIDE" />
+                  <QuadCurve controlY="50.0" fill="#ffffff00" layoutY="-1.0" startX="50.0" startY="50.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
             </Group>
          </children>

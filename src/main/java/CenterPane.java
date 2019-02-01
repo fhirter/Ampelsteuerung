@@ -17,6 +17,7 @@ public class CenterPane extends AnchorPane implements Initializable
     private Crossroad crossroadModel;
     private HashMap<String, String> allgorithmusAndTypeFromCrossroad;
 
+
     /**
      * CenterPane(): Constructor
      *
@@ -56,11 +57,32 @@ public class CenterPane extends AnchorPane implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        if(crossroadModel.getNumberOfDriveways() == 3)
+        if(crossroadModel.getNumberOfDriveways().toString() == "3")
         {
             pedestrianWay.setVisible(true);
             fourthRoute.setVisible(false);
-        }else if(crossroadModel.getNumberOfDriveways() == 4)
+        }else if(crossroadModel.getNumberOfDriveways().toString() == "4")
+        {
+            pedestrianWay.setVisible(false);
+            fourthRoute.setVisible(true);
+        }
+    }
+
+
+    /**
+     * update the count (tree or four) of number from the crossroad
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    01.02.2019
+     */
+    public void updateNumberOfCrossroad(String numberOfCrossroad)
+    {
+        if(numberOfCrossroad == "3")
+        {
+            pedestrianWay.setVisible(true);
+            fourthRoute.setVisible(false);
+        }else if(numberOfCrossroad == "4")
         {
             pedestrianWay.setVisible(false);
             fourthRoute.setVisible(true);

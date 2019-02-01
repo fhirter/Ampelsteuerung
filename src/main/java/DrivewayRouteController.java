@@ -6,13 +6,13 @@ import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
-import java.security.AllPermission;
 import java.util.ResourceBundle;
 
 public class DrivewayRouteController extends AnchorPane implements Initializable, Observer
 {
     @FXML   private AnchorPane bicycleSripes;
     @FXML   private Group pedestrianStripes;
+    @FXML   private AnchorPane drivewayRoute;
 
     private DrivewayRoute model;
     private int Rotate;
@@ -71,5 +71,12 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
             pedestrianStripes.setVisible(false);
         }
 
+        if(model.getVisibility() == true)
+        {
+            drivewayRoute.setVisible(true);
+        }
+        else {
+            drivewayRoute.setVisible(false);
+        }
     }
 }

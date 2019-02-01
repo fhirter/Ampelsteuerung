@@ -25,19 +25,17 @@ public class DrivewayRoute extends Observable
     private List<TrafficLight> trafficLightModelPedestrians = new LinkedList<>();
     private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
     private List<TrafficLightController> trafficLightControllerPedestrians = new LinkedList<>();
-
     private final Point2D refTrafficLights = new Point2D(0,0);
+    private boolean visibility = true;
 
 
     public DrivewayRoute()
     {
-
         TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
         TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(130,145), 90);
         trafficLightCar.addObserver(trafficLightControllerCar);
         trafficLightModelCars.add(trafficLightCar);
         trafficLightControllerCars.add(trafficLightControllerCar);
-
 
         TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
         TrafficLightController trafficLightControllerPedestrianLeft = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(170, -65), 0);
@@ -47,6 +45,12 @@ public class DrivewayRoute extends Observable
         trafficLightCar.addObserver(trafficLightControllerPedestrianRight);
         trafficLightModelPedestrians.add(trafficLightPedestrian);
         trafficLightControllerPedestrians.add(trafficLightControllerPedestrianRight);
+    }
+
+    public void setVisibility(boolean visibility)
+    {
+        this.visibility = visibility;
+        notifyObservers();
     }
 
 
@@ -67,11 +71,11 @@ public class DrivewayRoute extends Observable
         notifyObservers();
     }
 
+
     public void setVelostripes(boolean velostripes) {
         this.velostripes = velostripes;
         notifyObservers();
     }
-
 
 
     public List<TrafficLight> getTrafficLightModelCar()
@@ -95,6 +99,11 @@ public class DrivewayRoute extends Observable
     public List<TrafficLightController> getTrafficLightControllerPedestrian()
     {
         return trafficLightControllerPedestrians;
+    }
+
+    public boolean getVisibility()
+    {
+        return this.visibility;
     }
 }
 
