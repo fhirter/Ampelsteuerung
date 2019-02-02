@@ -13,22 +13,20 @@ public class Crossroad extends Observable {
             "Algorithm E"};
 
     private final String[] possibleNumberOfDriveways = {"4", "3"};
-    private Integer numberOfDriveways;
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
     private List<DrivewayRouteController> drivewayRouteControllers = new LinkedList<>();
     private static Point2D ref = Main.getRef();
     private CenterPane centerPaneModel;
 
 
-    public Crossroad(int numberOfDriveways)
+    public Crossroad()
     {
-        this.numberOfDriveways = numberOfDriveways;
         double xPoint = 0;
         double yPoint = 0;
         int rotateRoute = 0;
 
         /* Loop to create all driveways */
-        for (int i = 0; i < this.numberOfDriveways; i++) {
+        for (int i = 0; i < 4; i++) {
             switch (i) {
                 case 0:
                     /* West */
