@@ -1,6 +1,7 @@
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -10,22 +11,23 @@ public class VehicleModel extends Observable
     private final Point2D northStartPoint = new Point2D(615, 100);
     private final Point2D eastStartPoint = new Point2D(950, 440);
     private final Point2D southStartPoint = new Point2D(635, 800);
-    MovedElements movedElements;
+    MovedElement movedElement;
     private Point2D startCoordinates = new Point2D(0,0);
-    private StartAndEndpoint startPoint;
-    private StartAndEndpoint endPoint;
+    private FixPoint startPoint;
+    private FixPoint endPoint;
     private int startRotate;
     private int rotate;
     private double xPosition, yPosition;
     private Timer timerChangeState = new Timer();
     private int routePositionCounter = 0;
+    private int speed;
 
 
-    public VehicleModel(MovedElements movedElements, StartAndEndpoint startPoint, StartAndEndpoint endPoint)
+    public VehicleModel(MovedElement movedElement, FixPoint startPoint)
     {
-        this.movedElements = movedElements;
+        this.movedElement = movedElement;
         this.startPoint = startPoint;
-        this.endPoint = endPoint;
+        this.endPoint = getRandomEndpoint();
 
         switch(startPoint)
         {
@@ -54,9 +56,33 @@ public class VehicleModel extends Observable
                 break;
             }
         }
+
+        switch(movedElement)
+        {
+            case Bicycle:
+            {
+                speed = 80;
+                break;
+            }
+            default:
+            {
+                speed = 50;
+                break;
+            }
+        }
+
         this.xPosition = startCoordinates.getX();
         this.yPosition = startCoordinates.getY();
         rotate = startRotate;
+    }
+
+
+    public FixPoint getRandomEndpoint()
+    {
+        int rndNumber = 0;
+        Random random = new Random();
+        rndNumber = random.nextInt(FixPoint.values().length);
+        return FixPoint.values()[rndNumber];
     }
 
 
@@ -74,13 +100,13 @@ public class VehicleModel extends Observable
                                       }
                                   },
                 0 /* ms delay */,
-                50 /* ms period */);
+                speed /* ms period */);
     }
 
 
-    public MovedElements getTypeOfMovedElements()
+    public MovedElement getTypeOfMovedElements()
     {
-        return this.movedElements;
+        return this.movedElement;
     }
 
 
@@ -136,10 +162,10 @@ public class VehicleModel extends Observable
         }
         else if((routePositionCounter >58) && (routePositionCounter <77))
         {
-            if(endPoint == StartAndEndpoint.west)
+            if(endPoint == FixPoint.west)
             {
                 turn(-7, 3, 5);
-            } else if(endPoint == StartAndEndpoint.east)
+            } else if(endPoint == FixPoint.east)
             {
                 turn(6, 4, -5);
             } else
@@ -149,10 +175,10 @@ public class VehicleModel extends Observable
         }
         else if(routePositionCounter >77)
         {
-            if(endPoint == StartAndEndpoint.west)
+            if(endPoint == FixPoint.west)
             {
                 calcNextPositionEastToWest();
-            } else if(endPoint == StartAndEndpoint.east)
+            } else if(endPoint == FixPoint.east)
             {
                 calcNextPositionWestToEast();
             } else
@@ -172,10 +198,10 @@ public class VehicleModel extends Observable
         }
         else if((routePositionCounter >58) && (routePositionCounter <77))
         {
-            if(endPoint == StartAndEndpoint.north)
+            if(endPoint == FixPoint.north)
             {
                 turn(3, -7, -5);
-            } else if(endPoint == StartAndEndpoint.south)
+            } else if(endPoint == FixPoint.south)
             {
                 turn(1, 8, 5);
             } else
@@ -185,10 +211,10 @@ public class VehicleModel extends Observable
         }
         else if(routePositionCounter >77)
         {
-            if(endPoint == StartAndEndpoint.north)
+            if(endPoint == FixPoint.north)
             {
                 calcNextPositionSouthToNord();
-            } else if(endPoint == StartAndEndpoint.south)
+            } else if(endPoint == FixPoint.south)
             {
                 calcNextPositionNorthToSouth();
             } else
@@ -208,10 +234,10 @@ public class VehicleModel extends Observable
         }
         else if((routePositionCounter >58) && (routePositionCounter <77))
         {
-            if(endPoint == StartAndEndpoint.west)
+            if(endPoint == FixPoint.west)
             {
                 turn(-4, -4, -5);
-            } else if(endPoint == StartAndEndpoint.east)
+            } else if(endPoint == FixPoint.east)
             {
                 turn(7, -2, 5);
             } else
@@ -221,10 +247,10 @@ public class VehicleModel extends Observable
         }
         else if(routePositionCounter >77)
         {
-            if(endPoint == StartAndEndpoint.west)
+            if(endPoint == FixPoint.west)
             {
                 calcNextPositionEastToWest();
-            } else if(endPoint == StartAndEndpoint.east)
+            } else if(endPoint == FixPoint.east)
             {
                 calcNextPositionWestToEast();
             } else
@@ -244,10 +270,10 @@ public class VehicleModel extends Observable
         }
         else if((routePositionCounter >58) && (routePositionCounter <77))
         {
-            if(endPoint == StartAndEndpoint.north)
+            if(endPoint == FixPoint.north)
             {
                 turn(-1, -6, 5);
-            } else if(endPoint == StartAndEndpoint.south)
+            } else if(endPoint == FixPoint.south)
             {
                 turn(-3, 7, -5);
             } else
@@ -257,10 +283,10 @@ public class VehicleModel extends Observable
         }
         else if(routePositionCounter >77)
         {
-            if(endPoint == StartAndEndpoint.north)
+            if(endPoint == FixPoint.north)
             {
                 calcNextPositionSouthToNord();
-            } else if(endPoint == StartAndEndpoint.south)
+            } else if(endPoint == FixPoint.south)
             {
                 calcNextPositionNorthToSouth();
             } else
@@ -303,9 +329,12 @@ public class VehicleModel extends Observable
         if((xPosition > 1100) || (yPosition > 1020) || (xPosition < 180) || (yPosition < -80))
         {
             routePositionCounter = 0;
+            rotate = startRotate;
             xPosition = startCoordinates.getX();
             yPosition = startCoordinates.getY();
-            rotate = startRotate;
+            this.endPoint = getRandomEndpoint();
+            while(this.startPoint == this.endPoint){
+                this.endPoint = getRandomEndpoint();}
             //timerChangeState.cancel();
         }
         return new Point2D(xPosition, yPosition);

@@ -69,6 +69,9 @@ public class DrivewayRoute extends Observable
     public void setPedestrianStripes(boolean pedestrianStripes) {
         this.pedestrianStripes = pedestrianStripes;
         notifyObservers();
+
+        trafficLightControllerPedestrians.get(0).setVisible(pedestrianStripes);
+        trafficLightControllerPedestrians.get(1).setVisible(pedestrianStripes);
     }
 
 
