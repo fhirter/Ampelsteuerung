@@ -17,7 +17,15 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
     private DrivewayRoute model;
     private int Rotate;
 
-
+    /**
+     * DrivewayRouteController: Constructor
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     * @arg     drivewayRoute (Object form model class), ref (Referenze for all Objects) offset( Place for DrivewayRoute) Rotate (Ankle°)
+     */
     public DrivewayRouteController(DrivewayRoute drivewayRoute, Point2D ref, Point2D offset, int Rotate)
     {
         this.model= drivewayRoute;
@@ -38,7 +46,15 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
         setScaleX(1);
         setScaleY(1);
     }
-
+    /**
+     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the drivewayRoute
+     *
+     * Is automatic called when fxmlLoader.load() ist called.
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    10.02.2019
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,7 +66,15 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
 
     }
 
-
+    /**
+     * update(): Obstacle where is registred into DrivewayRoute
+     *
+     * Is automatic called when something into trafficLightModel is changed.
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date    10.02.2019
+     */
 
     @Override
     public void update() {

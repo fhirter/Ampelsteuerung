@@ -15,7 +15,15 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Class GreenPlanetController Class for the Erviroment
+ *
+ *
+ *
+ * @version 1.0
+ * @autor   Class NIN
+ * @date   02.10.2019
+ */
 public class GreenPlanetController extends AnchorPane implements Initializable
 {
     @FXML   private ImageView imageTree1;
@@ -38,7 +46,14 @@ public class GreenPlanetController extends AnchorPane implements Initializable
 
     private Crossroad crossroadModel;
 
-
+    /**
+     * GreenPlanetController: Constructor
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date    10.02.2019
+     * @arg     crossroad (Object form Crossroad), ref (Referenze for all Objects) offset( Place for greenPlanet))
+     */
     public GreenPlanetController(Crossroad crossroad, Point2D ref, Point2D offset)
     {
         this.crossroadModel = crossroad;
@@ -57,7 +72,15 @@ public class GreenPlanetController extends AnchorPane implements Initializable
         setLayoutY(ref.getY() + offset.getY());
     }
 
-
+    /**
+     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the greenPlanet
+     *
+     * Is automatic called when fxmlLoader.load() ist called.
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    10.02.2019
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -74,7 +97,15 @@ public class GreenPlanetController extends AnchorPane implements Initializable
         setAndDrawImage(nameBusch1, imageBusch5, 330, 600,0.8);
     }
 
-
+    /**
+     * GreenPlanetController: set the Erviroment
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
     public void setAndDrawImage(String pictureName, ImageView image, int posX, int posY, double scale)
     {
         Image imageStream = null;

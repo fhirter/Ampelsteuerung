@@ -140,6 +140,15 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         }
     }
 
+    /**
+     * update(): Obstacle where is registred into Crossroad
+     *
+     * Is automatic called when something into trafficLightModel is changed.
+     *
+     * @version 1.0
+     * @autor   Class NIN
+     * @date    02.10.2019
+     */
 
     @Override
     public void update()

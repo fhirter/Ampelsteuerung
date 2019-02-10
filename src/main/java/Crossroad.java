@@ -18,6 +18,15 @@ public class Crossroad extends Observable {
     private static Point2D ref = Main.getRef();
     private CenterPane centerPaneModel;
 
+    /**
+     * Crossroad: Constructor
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
 
     public Crossroad()
     {
@@ -72,36 +81,84 @@ public class Crossroad extends Observable {
     }
 
 
+    /**
+     * Crossroad: get the DrivewayRouteController
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
     public List<DrivewayRouteController> getDrivewayRouteControllers()
     {
         return drivewayRouteControllers;
     }
 
-
+    /**
+     * CrossRoad: get the algorithms
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
     public String[] getAlgorithms()
     {
         return algorithms;
     }
 
-
+    /**
+     * Crossroad: get the number of Drivewasy
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
     public String[] getNumberOfDriveways()
     {
         return possibleNumberOfDriveways;
     }
 
-
+    /**
+     * Crossroad: get the Object DrivewayRoute
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
     public List<DrivewayRoute> getDrivewayRoutes()
     {
         return drivewayRoutes;
     }
 
-
+    /**
+     * Crossroad: set the Center of Crossroad
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     * @arg centerPaneModel (Object of the Center)
+     */
     public void setCenterPaneModel(CenterPane centerPaneModel)
     {
         this.centerPaneModel = centerPaneModel;
     }
 
-
+    /**
+     * Crossroad: set number of Driveways
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     * @arg centerPaneModel (Object of the Center)
+     */
     public void setNumberOfDriveways(String numberOfDriveways)
     {
         centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
