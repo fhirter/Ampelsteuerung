@@ -86,7 +86,10 @@ public class VehicleModel extends Observable
     }
 
 
-    public void startGameLoop()
+    public void startGameLoop()     // FH: so hat jedes einzelne bewegende Objekt seinen eigenen GameLoop, das ist nicht sehr performant.
+            // besser: die berechnung der Position findet anhand der Zeit statt.
+            // die Klasse MovedElements startet einen Timer und übergibt allen bewegenden Objekten die seit dem letzten Frame verstrichene Zeit
+            // notifyObservers() bei jeder änderung der Position und Rotation aufrufen
     {
         timerChangeState.schedule(new TimerTask() {
                                       @Override

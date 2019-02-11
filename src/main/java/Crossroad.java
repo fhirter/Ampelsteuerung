@@ -1,6 +1,7 @@
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +35,13 @@ public class Crossroad extends Observable {
         double yPoint = 0;
         int rotateRoute = 0;
 
+        // FH
+        List<Point2D> points = new LinkedList<>();
+        points.add(new Point2D(0,0));
+        points.add(new Point2D(550,-300));
+        points.add(new Point2D(850,250));
+        points.add(new Point2D(300,550));
+
         /* Loop to create all driveways */
         for (int i = 0; i < 4; i++) {
             switch (i) {
@@ -65,10 +73,12 @@ public class Crossroad extends Observable {
             /* create model from the driveway. Model from trafficLights are created into constructor from drivewayRoute */
             DrivewayRoute drivewayRoute = new DrivewayRoute();
             /* create controller */
-            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute, ref, new Point2D(xPoint, yPoint), rotateRoute);
+            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute, ref,points.get(i), rotateRoute);
             /* add controller to observer from the createt model */
             drivewayRoute.addObserver(drivewayRouteController);
 
+            // FH: drivewayRouteController in CrossroadController erstellen
+            //
             drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerCar().get(0));
             drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerPedestrian().get(0));
             drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerPedestrian().get(1));
@@ -92,6 +102,7 @@ public class Crossroad extends Observable {
      */
     public List<DrivewayRouteController> getDrivewayRouteControllers()
     {
+        // FH: drivewayRoutes zurückgeben zum Zuweisen der Controller
         return drivewayRouteControllers;
     }
 
@@ -118,7 +129,7 @@ public class Crossroad extends Observable {
      * @date    02.08.2018
      *
      */
-    public String[] getNumberOfDriveways()
+    public String[] getNumberOfDriveways() // FH: besser: int getMaxDrivewayCount() und int getMinDrivewayCount()
     {
         return possibleNumberOfDriveways;
     }

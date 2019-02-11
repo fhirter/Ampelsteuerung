@@ -1,1 +1,1 @@
-public enum MovedElement {Car, Bus, Bicycle};
+public enum MovedElement {Car, Bus, Bicycle}

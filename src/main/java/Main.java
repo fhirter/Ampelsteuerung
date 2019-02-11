@@ -77,8 +77,8 @@ public class Main extends Application
 
         /* Generate and start MovedElements */
         MovedElements movedElements = new MovedElements(crossroadController, 5);
-
-
+        GameLoop gameLoop = new GameLoop(movedElements);
+        gameLoop.start();
 
         // todo: Zum testen ob die Amplen funktionieren. Muss noch geloescht werden
         crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).setRed();

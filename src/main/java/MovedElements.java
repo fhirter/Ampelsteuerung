@@ -1,9 +1,12 @@
+import javafx.animation.AnimationTimer;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class MovedElements
 {
+
     private CrossroadController crossroadController;
     private List<VehicleModel> vehicleModelList = new LinkedList<>();
     private int counterTypeOfMovedElements = 0;
@@ -31,7 +34,7 @@ public class MovedElements
     }
 
 
-    private MovedElement getAllTypesOfMovedElement()
+    private MovedElement getAllTypesOfMovedElement() // FH: ???????????
     {
         counterTypeOfMovedElements ++;
         if(counterTypeOfMovedElements >= MovedElement.values().length){
@@ -56,4 +59,6 @@ public class MovedElements
             vehicleModelList.get(i).startGameLoop();
         }
     }
+
+
 }
