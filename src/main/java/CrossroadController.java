@@ -195,6 +195,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         }
     }
 
+
     /**
      * update(): Obstacle where is registred into Crossroad
      *
@@ -204,7 +205,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
      * @autor   Class NIN
      * @date    02.10.2019
      */
-
     @Override
     public void update()
     {
@@ -216,19 +216,19 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         }
     }
 
-/*
- * CrossroadController: get the DrivewayRouteController
- *
- *
- * @version 1.0
- * @autor   NIN Class
- * @date    02.08.2018
- *
-*/
-public List<DrivewayRouteController> getDrivewayRouteControllers() {
-    return drivewayRouteControllers;
-}
-
+    /*
+     * CrossroadController: get the DrivewayRouteController
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+    */
+    public List<DrivewayRouteController> getDrivewayRouteControllers()
+    {
+        return drivewayRouteControllers;
+    }
 }
 
 

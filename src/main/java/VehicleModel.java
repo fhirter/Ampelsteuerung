@@ -1,45 +1,17 @@
-import javafx.application.Platform;
-import javafx.geometry.Point2D;
-
 import java.util.*;
 
 public class VehicleModel extends Observable
 {
-    /*
-    private final Point2D westStartPoint = new Point2D(300, 465);
-    private final Point2D northStartPoint = new Point2D(615, 100);
-    private final Point2D eastStartPoint = new Point2D(950, 440);
-    private final Point2D southStartPoint = new Point2D(635, 800);
-    */
-
     private final Map<FixPoint, Position> startPoints = new HashMap<>();
-
-
     MovedElement movedElement;
-    private Point2D startCoordinates = new Point2D(0,0);
     private FixPoint startPoint;
     private FixPoint endPoint;
-    private int startRotate;
     private int rotate;
-    private double xPosition, yPosition;
-    private Timer timerChangeState = new Timer();
+    private int xPosition, yPosition;
     private int routePositionCounter = 0;
-    private int speed;
-
-    // FH: x und y Koordinaten und Winkel zusammenfassen
     private Position position;
-
-    private class Position {
-        int x, y, angle;
-
-        public Position(int x, int y, int angle) {
-            this.x = x;
-            this.y = y;
-            this.angle = angle;
-        }
-
-
-    }
+    private double timestepForRedraw;
+    private float secondsElapsedMultiplized;
 
     public VehicleModel(MovedElement movedElement, FixPoint startPoint)
     {
@@ -48,65 +20,27 @@ public class VehicleModel extends Observable
         this.endPoint = getRandomEndpoint();
 
         startPoints.put(FixPoint.west, new Position(300, 465, 90));
-        startPoints.put(FixPoint.north,new Position(615, 100, 180));
+        startPoints.put(FixPoint.north, new Position(615, 100, 180));
         startPoints.put(FixPoint.east, new Position(950, 440, 270));
         startPoints.put(FixPoint.south, new Position(635, 800,0));
+        position = new Position(startPoints.get(startPoint).x, startPoints.get(startPoint).y, startPoints.get(startPoint).angle);
+        this.xPosition = position.x;
+        this.yPosition = position.y;
+        this.rotate = position.angle;
 
-        position = startPoints.get(startPoint);
-
-     /*   switch(startPoint)
-        {
-            case north:
-            {
-                startCoordinates = northStartPoint;
-                startRotate = 180;
-                break;
-            }
-            case west:
-            {
-                startCoordinates = westStartPoint;
-                startRotate = 90;
-                break;
-            }
-            case east:
-            {
-                startCoordinates = eastStartPoint;
-                startRotate = 270;
-                break;
-            }
-            case south:
-            {
-                startCoordinates = southStartPoint;
-                startRotate = 0;
-                break;
-            }
-        }
-
-*/
         switch(movedElement)
         {
             case Bicycle:
             {
-                speed = 80;
+                timestepForRedraw = 0.05;
                 break;
             }
             default:
             {
-                speed = 50;
+                timestepForRedraw = 0.03;
                 break;
             }
         }
-
-        /*
-        this.xPosition = startCoordinates.getX();
-        this.yPosition = startCoordinates.getY();
-
-        rotate = startRotate;
-*/
-
-        this.xPosition = position.x;
-        this.yPosition = position.y;
-        rotate = position.angle;
     }
 
 
@@ -119,42 +53,15 @@ public class VehicleModel extends Observable
     }
 
 
-    public void startGameLoop()     // FH: so hat jedes einzelne bewegende Objekt seinen eigenen GameLoop, das ist nicht sehr performant.
-            // besser: die berechnung der Position findet anhand der Zeit statt.
-            // die Klasse MovedElements startet einen Timer und übergibt allen bewegenden Objekten die seit dem letzten Frame verstrichene Zeit
-            // notifyObservers() bei jeder änderung der Position und Rotation aufrufen
-    {
-        timerChangeState.schedule(new TimerTask() {
-                                      @Override
-                                      public void run() {
-                                          Platform.runLater(new Runnable() {
-                                              @Override
-                                              public void run() {
-                                                  notifyObservers();
-                                              }
-                                          });
-                                      }
-                                  },
-                0 /* ms delay */,
-                speed /* ms period */);
-    }
-
-
     public MovedElement getTypeOfMovedElements()
     {
         return this.movedElement;
     }
 
 
-    public int getStartRotation()
+    public Position getStartPosition()
     {
-        return this.rotate;
-    }
-
-
-    public Point2D getStartPosition()
-    {
-        return startCoordinates;
+        return startPoints.get(startPoint);
     }
 
 
@@ -334,13 +241,7 @@ public class VehicleModel extends Observable
     }
 
 
-    public int getNewRotation()
-    {
-        return this.rotate;
-    }
-
-
-    public Point2D getNewPosition()
+    public Position getNewPosition()
     {
         switch(startPoint)
         {
@@ -365,14 +266,30 @@ public class VehicleModel extends Observable
         if((xPosition > 1100) || (yPosition > 1020) || (xPosition < 180) || (yPosition < -80))
         {
             routePositionCounter = 0;
-            rotate = startRotate;
-            xPosition = startCoordinates.getX();
-            yPosition = startCoordinates.getY();
+            xPosition = startPoints.get(startPoint).x;
+            yPosition = startPoints.get(startPoint).y;
+            rotate = startPoints.get(startPoint).angle;
             this.endPoint = getRandomEndpoint();
-            while(this.startPoint == this.endPoint){
-                this.endPoint = getRandomEndpoint();}
-            //timerChangeState.cancel();
+            while(startPoint == this.endPoint)
+            {
+                this.endPoint = getRandomEndpoint();
+            }
         }
-        return new Point2D(xPosition, yPosition);
+
+        position.x = xPosition;
+        position.y = yPosition;
+        position.angle = rotate;
+        return position;
+    }
+
+    public void setNewPosition(float secondsElapsedCapped)
+    {
+        secondsElapsedMultiplized += secondsElapsedCapped;
+
+        if(secondsElapsedMultiplized >= timestepForRedraw)
+        {
+            secondsElapsedMultiplized = 0;
+            notifyObservers();
+        }
     }
 }

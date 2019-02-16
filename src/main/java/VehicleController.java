@@ -1,7 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +19,7 @@ public class VehicleController extends AnchorPane implements Initializable, Obse
 
     private MovedElement movedElement;
     private VehicleModel vehicleModel;
+    private Position position;
 
     public VehicleController(VehicleModel vehicleModel)
     {
@@ -43,10 +43,10 @@ public class VehicleController extends AnchorPane implements Initializable, Obse
         busImage.setVisible(false);
         bicycleImage.setVisible(false);
 
-        setRotate(vehicleModel.getStartRotation());
-        Point2D point2d = vehicleModel.getStartPosition();
-        setLayoutX(point2d.getX());
-        setLayoutY(point2d.getY());
+        position = vehicleModel.getStartPosition();
+        setLayoutX(position.x);
+        setLayoutY(position.y);
+        setRotate(position.angle);
 
         movedElement = vehicleModel.getTypeOfMovedElements();
         switch(movedElement)
@@ -79,11 +79,10 @@ public class VehicleController extends AnchorPane implements Initializable, Obse
     @Override
     public void update()
     {
-        Point2D point2d = vehicleModel.getNewPosition();
-        int rotation = vehicleModel.getNewRotation();
+        position = vehicleModel.getNewPosition();
 
-        setLayoutX(point2d.getX());
-        setLayoutY(point2d.getY());
-        setRotate(rotation);
+        setLayoutX(position.x);
+        setLayoutY(position.y);
+        setRotate(position.angle);
     }
 }

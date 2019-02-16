@@ -14,9 +14,7 @@ public class MovedElements
     public MovedElements(CrossroadController crossroadController, int countOfMovedElements)
     {
         this.crossroadController = crossroadController;
-
         generateMovedElements(countOfMovedElements);
-        startGameLoop();
     }
 
 
@@ -34,7 +32,7 @@ public class MovedElements
     }
 
 
-    private MovedElement getAllTypesOfMovedElement() // FH: ???????????
+    private MovedElement getAllTypesOfMovedElement()
     {
         counterTypeOfMovedElements ++;
         if(counterTypeOfMovedElements >= MovedElement.values().length){
@@ -52,13 +50,11 @@ public class MovedElements
     }
 
 
-    public void startGameLoop()
+    public void calculatePositions(float secondsElapsedCapped)
     {
         for (int i = 0; i < vehicleModelList.size(); i++)
         {
-            vehicleModelList.get(i).startGameLoop();
+            vehicleModelList.get(i).setNewPosition(secondsElapsedCapped);
         }
     }
-
-
 }

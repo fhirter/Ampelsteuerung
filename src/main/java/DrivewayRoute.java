@@ -1,11 +1,6 @@
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * Class DrivewayRoute: Data model for the crossroad
@@ -14,7 +9,6 @@ import java.util.Map;
  * @autor   Class NIN
  * @date   14.11.2018
  */
-
 public class DrivewayRoute extends Observable
 {
     private boolean pedestrianStripes;
@@ -24,6 +18,7 @@ public class DrivewayRoute extends Observable
     private List<TrafficLight> trafficLightModelCars = new LinkedList<>();
     private List<TrafficLight> trafficLightModelPedestrians = new LinkedList<>();
     private boolean visibility = true;
+
 
     /**
      * DrivewayRoute: Constructor
@@ -36,12 +31,10 @@ public class DrivewayRoute extends Observable
      */
     public DrivewayRoute()
     {
-
         TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
         trafficLightModelCars.add(trafficLightCar);
         TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
         trafficLightModelPedestrians.add(trafficLightPedestrian);
-
     }
 
 
@@ -59,6 +52,8 @@ public class DrivewayRoute extends Observable
         this.visibility = visibility;
         notifyObservers();
     }
+
+
     /**
      * DrivewayRoute: get state of PedestrianStripe
      *
@@ -68,11 +63,11 @@ public class DrivewayRoute extends Observable
      * @date    02.08.2018
      *
      */
-
     public boolean getPedestrianStripes()
     {
         return pedestrianStripes;
     }
+
 
     /**
      * DrivewayRoute: get state of Velostripes
@@ -88,6 +83,7 @@ public class DrivewayRoute extends Observable
         return velostripes;
     }
 
+
     /**
      * DrivewayRoute: get Visiable of DrivewayRoute
      *
@@ -97,7 +93,6 @@ public class DrivewayRoute extends Observable
      * @date    02.08.2018
      *
      */
-
     public boolean getVisibility()
     {
         return this.visibility;
@@ -112,7 +107,8 @@ public class DrivewayRoute extends Observable
      * @date    02.08.2018
      * @arg      pedestrianStripe of DrivewayRoute
      */
-    public void setPedestrianStripes(boolean pedestrianStripes) {
+    public void setPedestrianStripes(boolean pedestrianStripes)
+    {
         this.pedestrianStripes = pedestrianStripes;
         notifyObservers();
     }
@@ -127,7 +123,8 @@ public class DrivewayRoute extends Observable
      * @arg      pedestrianStripe of VeloStripes
      */
 
-    public void setVelostripes(boolean velostripes) {
+    public void setVelostripes(boolean velostripes)
+    {
         this.velostripes = velostripes;
         notifyObservers();
     }
@@ -159,8 +156,6 @@ public class DrivewayRoute extends Observable
     {
         return trafficLightModelPedestrians;
     }
-
-
 }
 
 

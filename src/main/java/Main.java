@@ -5,9 +5,6 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-import static java.lang.Thread.sleep;
-
-
 /**
  * Class Main: Mainmethode for the TEKO project "Ampelsteuerung".
  *
@@ -21,7 +18,8 @@ public class Main extends Application
     private static final Point2D ref = new Point2D(200,330);
     private CrossroadController crossroadController;
 
-    public static Point2D getRef() {
+    public static Point2D getRef()
+    {
         return ref;
     }
 
@@ -57,8 +55,6 @@ public class Main extends Application
         Crossroad crossroad = new Crossroad();
         crossroadController = new CrossroadController(crossroad);
 
-
-
         /* GreenPlanet */
         GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(0,-300));
         crossroadController.getChildren().add(greenPlanetController);
@@ -70,8 +66,10 @@ public class Main extends Application
         crossroad.setCenterPaneModel(centerPane);
 
         List<DrivewayRouteController> drivewayControllerList = crossroadController.getDrivewayRouteControllers();
-        for (int i = 0; i < drivewayControllerList.size() ; i++) {
-            crossroadController.getChildren().add(drivewayControllerList.get(i));}
+        for (int i = 0; i < drivewayControllerList.size() ; i++)
+        {
+            crossroadController.getChildren().add(drivewayControllerList.get(i));
+        }
 
 
         primaryStage.setScene(new Scene(crossroadController, 1100, 900));
@@ -93,9 +91,6 @@ public class Main extends Application
         crossroad.getDrivewayRoutes().get(1).getTrafficLightModelPedestrian().get(0).setYellowFlash();
         crossroad.getDrivewayRoutes().get(2).getTrafficLightModelPedestrian().get(0).setGreen();
         crossroad.getDrivewayRoutes().get(3).getTrafficLightModelPedestrian().get(0).setSIMULATION();
-
     }
-
-
 }
 

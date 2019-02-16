@@ -65,8 +65,9 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
         trafficLightControllerPedestrians.add(trafficLightControllerPedestrianRight);
         trafficLightControllerPedestrians.get(0).setVisible(false);
         trafficLightControllerPedestrians.get(1).setVisible(false);
-
     }
+
+
     /**
      * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the drivewayRoute
      *
@@ -76,16 +77,15 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
      * @autor   NIN Class
      * @date    10.02.2019
      */
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public void initialize(URL location, ResourceBundle resources)
+    {
         bicycleSripes.setVisible(false);
         pedestrianStripes.setVisible(false);
         model.setPedestrianStripes(false);
         model.setVelostripes(false);
-
     }
+
 
     /**
      * update(): Obstacle where is registred into DrivewayRoute
@@ -96,7 +96,6 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
      * @autor   Class NIN
      * @date    10.02.2019
      */
-
     @Override
     public void update() {
 
@@ -114,7 +113,8 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
             trafficLightControllerPedestrians.get(0).setVisible(true);
             trafficLightControllerPedestrians.get(1).setVisible(true);
         }
-        else {
+        else
+        {
             pedestrianStripes.setVisible(false);
             trafficLightControllerPedestrians.get(0).setVisible(false);
             trafficLightControllerPedestrians.get(1).setVisible(false);
@@ -124,7 +124,8 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
         {
             drivewayRoute.setVisible(true);
         }
-        else {
+        else
+        {
             drivewayRoute.setVisible(false);
         }
     }
