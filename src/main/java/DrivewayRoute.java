@@ -23,9 +23,6 @@ public class DrivewayRoute extends Observable
 
     private List<TrafficLight> trafficLightModelCars = new LinkedList<>();
     private List<TrafficLight> trafficLightModelPedestrians = new LinkedList<>();
-    private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
-    private List<TrafficLightController> trafficLightControllerPedestrians = new LinkedList<>();
-    private final Point2D refTrafficLights = new Point2D(0,0);
     private boolean visibility = true;
 
     /**
@@ -39,20 +36,12 @@ public class DrivewayRoute extends Observable
      */
     public DrivewayRoute()
     {
-        TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
-        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightCar, refTrafficLights, new Point2D(130,145), 90);
-        trafficLightCar.addObserver(trafficLightControllerCar);
-        trafficLightModelCars.add(trafficLightCar);
-        trafficLightControllerCars.add(trafficLightControllerCar);
 
+        TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
+        trafficLightModelCars.add(trafficLightCar);
         TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
-        TrafficLightController trafficLightControllerPedestrianLeft = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(170, -65), 0);
-        trafficLightCar.addObserver(trafficLightControllerPedestrianLeft);
-        trafficLightControllerPedestrians.add(trafficLightControllerPedestrianLeft);
-        TrafficLightController trafficLightControllerPedestrianRight = new TrafficLightController(trafficLightPedestrian, refTrafficLights, new Point2D(240, 155), 180);
-        trafficLightCar.addObserver(trafficLightControllerPedestrianRight);
         trafficLightModelPedestrians.add(trafficLightPedestrian);
-        trafficLightControllerPedestrians.add(trafficLightControllerPedestrianRight);
+
     }
 
 
@@ -126,9 +115,6 @@ public class DrivewayRoute extends Observable
     public void setPedestrianStripes(boolean pedestrianStripes) {
         this.pedestrianStripes = pedestrianStripes;
         notifyObservers();
-
-        trafficLightControllerPedestrians.get(0).setVisible(pedestrianStripes);
-        trafficLightControllerPedestrians.get(1).setVisible(pedestrianStripes);
     }
 
     /**
@@ -174,33 +160,6 @@ public class DrivewayRoute extends Observable
         return trafficLightModelPedestrians;
     }
 
-    /**
-     * DrivewayRoute: get the TrafficLightControllerCar of DrivewayRoute
-     *
-     *
-     * @version 1.0
-     * @autor   NIN Class
-     * @date    02.08.2018
-     *
-     */
-    public List<TrafficLightController> getTrafficLightControllerCar()
-    {
-        return trafficLightControllerCars;
-    }
-
-    /**
-     * DrivewayRoute: get the TrafficLightControllerPedestrian of DrivewayRoute
-     *
-     *
-     * @version 1.0
-     * @autor   NIN Class
-     * @date    02.08.2018
-     *
-     */
-    public List<TrafficLightController> getTrafficLightControllerPedestrian()
-    {
-        return trafficLightControllerPedestrians;
-    }
 
 }
 

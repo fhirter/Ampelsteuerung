@@ -24,6 +24,6 @@ public class GameLoop extends AnimationTimer {
         float secondsElapsedCapped = Math.min(secondsElapsed, maximumStep);
         previousTime = now;
 
-        movedElements.calculatePositions(secondsElapsedCapped);
+       // movedElements.calculatePositions(secondsElapsedCapped);
     }
 }

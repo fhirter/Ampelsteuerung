@@ -57,6 +57,8 @@ public class Main extends Application
         Crossroad crossroad = new Crossroad();
         crossroadController = new CrossroadController(crossroad);
 
+
+
         /* GreenPlanet */
         GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(0,-300));
         crossroadController.getChildren().add(greenPlanetController);
@@ -67,12 +69,14 @@ public class Main extends Application
         crossroadController.getChildren().add(centerPane);        //add
         crossroad.setCenterPaneModel(centerPane);
 
-        List<DrivewayRouteController> drivewayControllerList = crossroad.getDrivewayRouteControllers();
+        List<DrivewayRouteController> drivewayControllerList = crossroadController.getDrivewayRouteControllers();
         for (int i = 0; i < drivewayControllerList.size() ; i++) {
-            crossroadController.getChildren().add(drivewayControllerList.get(i));
-        }
+            crossroadController.getChildren().add(drivewayControllerList.get(i));}
+
 
         primaryStage.setScene(new Scene(crossroadController, 1100, 900));
+
+
         primaryStage.show();
 
         /* Generate and start MovedElements */
@@ -80,8 +84,8 @@ public class Main extends Application
         GameLoop gameLoop = new GameLoop(movedElements);
         gameLoop.start();
 
-        // todo: Zum testen ob die Amplen funktionieren. Muss noch geloescht werden
-        crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).setRed();
+        //todo: Zum testen ob die Amplen funktionieren. Muss noch geloescht werden
+        crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).setSIMULATION();
         crossroad.getDrivewayRoutes().get(1).getTrafficLightModelCar().get(0).setGreen();
         crossroad.getDrivewayRoutes().get(2).getTrafficLightModelCar().get(0).setYellowFlash();
         crossroad.getDrivewayRoutes().get(3).getTrafficLightModelCar().get(0).setSIMULATION();
@@ -89,6 +93,9 @@ public class Main extends Application
         crossroad.getDrivewayRoutes().get(1).getTrafficLightModelPedestrian().get(0).setYellowFlash();
         crossroad.getDrivewayRoutes().get(2).getTrafficLightModelPedestrian().get(0).setGreen();
         crossroad.getDrivewayRoutes().get(3).getTrafficLightModelPedestrian().get(0).setSIMULATION();
+
     }
+
+
 }
 

@@ -15,7 +15,6 @@ public class Crossroad extends Observable {
 
     private final String[] possibleNumberOfDriveways = {"4", "3"};
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
-    private List<DrivewayRouteController> drivewayRouteControllers = new LinkedList<>();
     private static Point2D ref = Main.getRef();
     private CenterPane centerPaneModel;
 
@@ -35,75 +34,12 @@ public class Crossroad extends Observable {
         double yPoint = 0;
         int rotateRoute = 0;
 
-        // FH
-        List<Point2D> points = new LinkedList<>();
-        points.add(new Point2D(0,0));
-        points.add(new Point2D(550,-300));
-        points.add(new Point2D(850,250));
-        points.add(new Point2D(300,550));
-
         /* Loop to create all driveways */
         for (int i = 0; i < 4; i++) {
-            switch (i) {
-                case 0:
-                    /* West */
-                    xPoint = 0;
-                    yPoint = 0;
-                    break;
-
-                case 1:
-                    /* North */
-                    xPoint = 550;
-                    yPoint = -300;
-                    break;
-
-                case 2:
-                    /* East */
-                    xPoint = 850;
-                    yPoint = 250;
-                    break;
-
-                case 3:
-                    /* South */
-                    xPoint = 300;
-                    yPoint = 550;
-                    break;
-            }
-
-            /* create model from the driveway. Model from trafficLights are created into constructor from drivewayRoute */
             DrivewayRoute drivewayRoute = new DrivewayRoute();
-            /* create controller */
-            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(drivewayRoute, ref,points.get(i), rotateRoute);
-            /* add controller to observer from the createt model */
-            drivewayRoute.addObserver(drivewayRouteController);
-
-            // FH: drivewayRouteController in CrossroadController erstellen
-            //
-            drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerCar().get(0));
-            drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerPedestrian().get(0));
-            drivewayRouteController.getChildren().add(drivewayRoute.getTrafficLightControllerPedestrian().get(1));
-
-            /* add driveway with trafficLight into the list from the "main" crossrad */
             drivewayRoutes.add(drivewayRoute);
-            drivewayRouteControllers.add(drivewayRouteController);
             rotateRoute += 90;
         }
-    }
-
-
-    /**
-     * Crossroad: get the DrivewayRouteController
-     *
-     *
-     * @version 1.0
-     * @autor   NIN Class
-     * @date    02.08.2018
-     *
-     */
-    public List<DrivewayRouteController> getDrivewayRouteControllers()
-    {
-        // FH: drivewayRoutes zurückgeben zum Zuweisen der Controller
-        return drivewayRouteControllers;
     }
 
     /**
