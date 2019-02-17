@@ -32,7 +32,7 @@ public class VehicleModel extends Observable
         {
             case Bicycle:
             {
-                timestepForRedraw = 0.05;
+                timestepForRedraw = 0.04;
                 break;
             }
             default:
