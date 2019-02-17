@@ -1,7 +1,3 @@
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.geometry.Point2D;
-
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,10 +9,10 @@ public class Crossroad extends Observable {
             "Algorithm D",
             "Algorithm E"};
 
-    private final String[] possibleNumberOfDriveways = {"4", "3"};
+    private Integer numberOfDriveways = 4;
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
-    private static Point2D ref = Main.getRef();
     private CenterPane centerPaneModel;
+    private Crossroad crossroad;
 
     /**
      * Crossroad: Constructor
@@ -55,9 +51,8 @@ public class Crossroad extends Observable {
     {
         return algorithms;
     }
-
     /**
-     * Crossroad: get the number of Drivewasy
+     * Crossroad: get Max of DrivewayRoutes
      *
      *
      * @version 1.0
@@ -65,9 +60,8 @@ public class Crossroad extends Observable {
      * @date    02.08.2018
      *
      */
-    public String[] getNumberOfDriveways() // FH: besser: int getMaxDrivewayCount() und int getMinDrivewayCount()
-    {
-        return possibleNumberOfDriveways;
+    public Integer getNumberOfDriveways() {
+        return numberOfDriveways;
     }
 
     /**
@@ -106,15 +100,11 @@ public class Crossroad extends Observable {
      * @date    02.08.2018
      * @arg centerPaneModel (Object of the Center)
      */
-    public void setNumberOfDriveways(String numberOfDriveways)
-    {
+    public void setNumberOfDriveways(Integer numberOfDriveways){
+        this.numberOfDriveways = numberOfDriveways;
         centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
-        if(numberOfDriveways == "3") {
-            drivewayRoutes.get(3).setVisibility(false);
-        }else{
-            drivewayRoutes.get(3).setVisibility(true);
-        }
     }
+
 }
 
 

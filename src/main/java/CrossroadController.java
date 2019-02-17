@@ -132,9 +132,10 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         setchoiceOfAlgorithm.setItems(observableList);
         setchoiceOfAlgorithm.setValue("Algorithm A");
 
-        observableList = observableArrayList(crossroadModel.getNumberOfDriveways());
+        observableList = observableArrayList("3","4");
         setnumberOfCrossing.setItems(observableList);
         setnumberOfCrossing.setValue("4");
+
     }
 
 
@@ -188,7 +189,18 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
                 crossroadModel.getDrivewayRoutes().get(i).setPedestrianStripes(checkboxpedestrainStripes.isSelected());
                 crossroadModel.getDrivewayRoutes().get(i).setVelostripes(checkboxvelostripes.isSelected());
             }
-            crossroadModel.setNumberOfDriveways(setnumberOfCrossing.getValue().toString());
+
+            crossroadModel.setNumberOfDriveways(Integer.valueOf(setnumberOfCrossing.getValue().toString()));
+
+            if(crossroadModel.getNumberOfDriveways() == 3)
+                {
+                crossroadModel.getDrivewayRoutes().get(3).setVisibility(false);
+                }
+            else
+                {
+                crossroadModel.getDrivewayRoutes().get(3).setVisibility(true);
+                }
+
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
@@ -214,9 +226,10 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
             checkboxvelostripes.setSelected(crossroadModel.getDrivewayRoutes().get(i).getVelostripes());
             setnumberOfCrossing.setValue(crossroadModel.getNumberOfDriveways());
         }
+
     }
 
-    /*
+    /**
      * CrossroadController: get the DrivewayRouteController
      *
      *

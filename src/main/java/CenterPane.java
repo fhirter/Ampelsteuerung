@@ -76,13 +76,13 @@ public class CenterPane extends AnchorPane implements Initializable
      * @autor   Schweizer Patrick
      * @date    01.02.2019
      */
-    public void updateNumberOfCrossroad(String numberOfCrossroad)
+    public void updateNumberOfCrossroad(Integer numberOfCrossroad)
     {
-        if(numberOfCrossroad == "3")
+        if(numberOfCrossroad == 3)
         {
             pedestrianWay.setVisible(true);
             fourthRoute.setVisible(false);
-        }else if(numberOfCrossroad == "4")
+        }else if(numberOfCrossroad == 4)
         {
             pedestrianWay.setVisible(false);
             fourthRoute.setVisible(true);
