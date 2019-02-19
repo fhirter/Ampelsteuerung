@@ -21,7 +21,7 @@
             </ImageView>
          </children>
       </Group>
-      <ImageView fx:id="bicycleImage" fitHeight="150.0" fitWidth="200.0" layoutX="83.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bicycleImage" fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Dokumente/Bilder/bicycle.png" />
          </image>

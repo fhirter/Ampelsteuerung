@@ -78,7 +78,7 @@ public class Main extends Application
         primaryStage.show();
 
         /* Generate and start MovedElements */
-        MovedElements movedElements = new MovedElements(crossroadController, 5);
+        MovedElements movedElements = new MovedElements(crossroadController, 10);
         GameLoop gameLoop = new GameLoop(movedElements);
         gameLoop.start();
 

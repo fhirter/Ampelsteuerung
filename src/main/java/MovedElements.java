@@ -22,6 +22,7 @@ public class MovedElements
     {
         for(int i = 0; i < count; i++)
         {
+            //todo: Auskommentiert
             VehicleModel vehicleModel = new VehicleModel(getAllTypesOfMovedElement(), getRandomStartpoint());
             VehicleController vehicleController = new VehicleController(vehicleModel);
             vehicleModel.addObserver(vehicleController);
