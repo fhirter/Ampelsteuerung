@@ -1,3 +1,5 @@
+import javafx.geometry.Point2D;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,11 +10,32 @@ public class Crossroad extends Observable {
             "Algorithm C",
             "Algorithm D",
             "Algorithm E"};
+    private final Point2D referencePoint;
 
     private Integer numberOfDriveways = 4;
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
-    private CenterPane centerPaneModel;
-    private Crossroad crossroad;
+
+    private Area turningArea;
+
+    private class Area {
+        private int size;
+        private Point2D center;
+
+
+        public Area(int size, Point2D center){
+            this.size = size;
+            this.center = center;
+        }; // just use default values
+
+        public boolean isInside(Position position) {
+            if(position.x > (center.getX()-size/2) && position.x < (center.getX()+size/2) ) {
+                if(position.y > (center.getY()-size/2) && position.y < (center.getY()+size/2)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     /**
      * Crossroad: Constructor
@@ -22,19 +45,19 @@ public class Crossroad extends Observable {
      * @autor   NIN Class
      * @date    02.08.2018
      *
+     * @param ref
      */
 
-    public Crossroad()
+    public Crossroad(Point2D ref)
     {
-        double xPoint = 0;
-        double yPoint = 0;
-        int rotateRoute = 0;
+        this.referencePoint = ref;
+        turningArea = new Area(180, referencePoint);
+
 
         /* Loop to create all driveways */
         for (int i = 0; i < 4; i++) {
             DrivewayRoute drivewayRoute = new DrivewayRoute();
             drivewayRoutes.add(drivewayRoute);
-            rotateRoute += 90;
         }
     }
 
@@ -79,20 +102,6 @@ public class Crossroad extends Observable {
     }
 
     /**
-     * Crossroad: set the Center of Crossroad
-     *
-     *
-     * @version 1.0
-     * @autor   NIN Class
-     * @date    02.08.2018
-     * @arg centerPaneModel (Object of the Center)
-     */
-    public void setCenterPaneModel(CenterPane centerPaneModel)
-    {
-        this.centerPaneModel = centerPaneModel;
-    }
-
-    /**
      * Crossroad: set number of Driveways
      *
      * @version 1.0
@@ -102,7 +111,13 @@ public class Crossroad extends Observable {
      */
     public void setNumberOfDriveways(Integer numberOfDriveways){
         this.numberOfDriveways = numberOfDriveways;
-        centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
+    }
+
+    public boolean canITurn(Position position) {
+        if(turningArea.isInside(position)) {
+            return true;
+        }
+        return false;
     }
 
 }

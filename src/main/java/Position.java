@@ -8,6 +8,13 @@ public class Position
         this.y = y;
         this.angle = angle;
     }
+
+    // copy constructor
+    public Position(Position position) {
+        this.x = position.x;
+        this.y = position.y;
+        this.angle = position.angle;
+    }
 /*
     public void setX(int x)
     {

@@ -54,42 +54,20 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         int rotateRoute = 0;
 
 
-        List<Point2D> points = new LinkedList<>();
-        points.add(new Point2D(0,0));
-        points.add(new Point2D(550,-300));
-        points.add(new Point2D(850,250));
-        points.add(new Point2D(300,550));
+        List<Point2D> offsets = new LinkedList<>();
+        int centerHeight = 255;
+        int roadWidth = 300;
+        int roadHeight = 250;
+        offsets.add(new Point2D(-centerHeight/2- roadWidth,-roadHeight /2));     // todo: get effective size
+        offsets.add(new Point2D(centerHeight/2, -centerHeight /2-roadWidth));
+        offsets.add(new Point2D(centerHeight/2+roadWidth,roadHeight /2));
+        offsets.add(new Point2D(-centerHeight/2,centerHeight/2+roadWidth));
 
         /* Loop to create all driveways */
         for (int i = 0; i < 4; i++) {
-            switch (i) {
-                case 0:
-                    /* West */
-                    xPoint = 0;
-                    yPoint = 0;
-                    break;
-
-                case 1:
-                    /* North */
-                    xPoint = 550;
-                    yPoint = -300;
-                    break;
-
-                case 2:
-                    /* East */
-                    xPoint = 850;
-                    yPoint = 250;
-                    break;
-
-                case 3:
-                    /* South */
-                    xPoint = 300;
-                    yPoint = 550;
-                    break;
-            }
 
             /* create controller */
-            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(crossroadModel.getDrivewayRoutes().get(i), ref,points.get(i), rotateRoute);
+            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(crossroadModel.getDrivewayRoutes().get(i), ref,offsets.get(i), rotateRoute);
             crossroadModel.getDrivewayRoutes().get(i).addObserver(drivewayRouteController);
             drivewayRouteControllers.add(drivewayRouteController);
             drivewayRouteController.getChildren().add(drivewayRouteController.getTrafficLightControllerCar().get(0));

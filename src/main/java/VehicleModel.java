@@ -2,294 +2,154 @@ import java.util.*;
 
 public class VehicleModel extends Observable
 {
-    private final Map<FixPoint, Position> startPoints = new HashMap<>();
-    MovedElement movedElement;
-    private FixPoint startPoint;
-    private FixPoint endPoint;
-    private int rotate;
-    private int xPosition, yPosition;
-    private int routePositionCounter = 0;
+    private final Map<Direction, Position> startPoints = new HashMap<>();
+    private final Crossroad crossroad;
+    private VehicleType elementType;
+    private Direction start;
+    private Direction destination;
+    private Direction currentDirection;
+
     private Position position;
-    private double timestepForRedraw;
-    private float secondsElapsedMultiplized;
 
-    public VehicleModel(MovedElement movedElement, FixPoint startPoint)
+    private int speed;  // pixels/second
+    private int step;
+
+    public VehicleModel(Crossroad crossroad, VehicleType elementType, Direction start)
     {
-        this.movedElement = movedElement;
-        this.startPoint = startPoint;
-        this.endPoint = getRandomEndpoint();
+        this.crossroad = crossroad;
+        this.elementType = elementType;
+        this.start = start;
 
-        startPoints.put(FixPoint.west, new Position(300, 465, 90));
-        startPoints.put(FixPoint.north, new Position(615, 100, 180));
-        startPoints.put(FixPoint.east, new Position(950, 440, 270));
-        startPoints.put(FixPoint.south, new Position(635, 800,0));
-        position = new Position(startPoints.get(startPoint).x, startPoints.get(startPoint).y, startPoints.get(startPoint).angle);
-        this.xPosition = position.x;
-        this.yPosition = position.y;
-        this.rotate = position.angle;
+        setRandomDestination();
 
-        switch(movedElement)
+        startPoints.put(Direction.WEST, new Position(300, 465, 90));
+        startPoints.put(Direction.NORTH, new Position(615, 100, 180));
+        startPoints.put(Direction.EAST, new Position(950, 440, 270));
+        startPoints.put(Direction.SOUTH, new Position(635, 800,0));
+
+        currentDirection = start.getOpposite();
+
+        position = new Position(startPoints.get(start));
+
+        switch(elementType)
         {
             case Bicycle:
             {
-                timestepForRedraw = 0.04;
+                speed = 200;
                 break;
             }
             default:
             {
-                timestepForRedraw = 0.03;
+                speed = 300;
                 break;
             }
         }
     }
 
 
-    public FixPoint getRandomEndpoint()
+    public void setRandomDestination()
     {
-        int rndNumber = 0;
-        Random random = new Random();
-        rndNumber = random.nextInt(FixPoint.values().length);
-        return FixPoint.values()[rndNumber];
+        int rndNumber;
+
+        // destination shouldn't be equal to start
+        do
+        {
+            Random random = new Random();
+            rndNumber = random.nextInt(Direction.values().length);
+            destination = Direction.values()[rndNumber];
+        } while (start == destination);
     }
 
+    private void drive() {
+        if(currentDirection == destination) {
+            driveStraight();
+        } else if(crossroad.canITurn(position) == true) {
+            turn();
+        } else {
+            driveStraight();
+        }
+    }
 
-    public MovedElement getTypeOfMovedElements()
+    private void driveStraight() {
+        switch (currentDirection) {
+            case SOUTH:
+                position.y += step;
+                break;
+            case NORTH:
+                position.y -= step;
+               break;
+            case EAST:
+                position.x += step;
+                break;
+            case WEST:
+                position.x -= step;
+                break;
+        }
+    }
+
+    public VehicleType getType()
     {
-        return this.movedElement;
+        return this.elementType;
     }
 
 
     public Position getStartPosition()
     {
-        return startPoints.get(startPoint);
+        return startPoints.get(start);
     }
 
 
-    public void calcNextPositionWestToEast()
+    public void turn()
     {
-        xPosition += 5;
+       if(currentDirection == Direction.WEST && destination == Direction.NORTH) {
+           turnRight();
+       }
+
+        if(currentDirection == Direction.SOUTH && destination == Direction.WEST) {
+            turnRight();
+        }
+
+        if(currentDirection == Direction.EAST && destination == Direction.SOUTH) {
+            turnRight();
+        }
+
+        if(currentDirection == Direction.NORTH && destination == Direction.EAST) {
+            turnRight();
+        }
+
+        if(position.angle == destination.getAngle()) {  // transition complete
+            currentDirection = destination;
+        }
+
+
+    }
+
+    private void turnRight() {
+        position.angle += 1;
     }
 
 
-    public void calcNextPositionEastToWest()
+    public Position getPosition()
     {
-        xPosition -= 5;
-    }
-
-
-    public void calcNextPositionNorthToSouth()
-    {
-        yPosition += 5;
-    }
-
-
-    public void calcNextPositionSouthToNord()
-    {
-        yPosition -= 5;
-    }
-
-
-    public void turn(int signXPosition, int signYPosition, int signRotate)
-    {
-        xPosition += signXPosition;
-        yPosition += signYPosition;
-        rotate += signRotate;
-    }
-
-
-    public void calcRouteFromNorth()
-    {
-        if(routePositionCounter <58)
-        {
-            calcNextPositionNorthToSouth();
-        }
-        else if((routePositionCounter >58) && (routePositionCounter <77))
-        {
-            if(endPoint == FixPoint.west)
-            {
-                turn(-7, 3, 5);
-            } else if(endPoint == FixPoint.east)
-            {
-                turn(6, 4, -5);
-            } else
-            {
-                calcNextPositionNorthToSouth();
-            }
-        }
-        else if(routePositionCounter >77)
-        {
-            if(endPoint == FixPoint.west)
-            {
-                calcNextPositionEastToWest();
-            } else if(endPoint == FixPoint.east)
-            {
-                calcNextPositionWestToEast();
-            } else
-            {
-                calcNextPositionNorthToSouth();
-            }
-        }
-        routePositionCounter++;
-    }
-
-
-    public void calcRouteFromWest()
-    {
-        if(routePositionCounter <58)
-        {
-            calcNextPositionWestToEast();
-        }
-        else if((routePositionCounter >58) && (routePositionCounter <77))
-        {
-            if(endPoint == FixPoint.north)
-            {
-                turn(3, -7, -5);
-            } else if(endPoint == FixPoint.south)
-            {
-                turn(1, 8, 5);
-            } else
-            {
-                calcNextPositionWestToEast();
-            }
-        }
-        else if(routePositionCounter >77)
-        {
-            if(endPoint == FixPoint.north)
-            {
-                calcNextPositionSouthToNord();
-            } else if(endPoint == FixPoint.south)
-            {
-                calcNextPositionNorthToSouth();
-            } else
-            {
-                calcNextPositionWestToEast();
-            }
-        }
-        routePositionCounter++;
-    }
-
-
-    public void calcRouteFromSouth()
-    {
-        if(routePositionCounter <58)
-        {
-            calcNextPositionSouthToNord();
-        }
-        else if((routePositionCounter >58) && (routePositionCounter <77))
-        {
-            if(endPoint == FixPoint.west)
-            {
-                turn(-4, -4, -5);
-            } else if(endPoint == FixPoint.east)
-            {
-                turn(7, -2, 5);
-            } else
-            {
-                calcNextPositionSouthToNord();
-            }
-        }
-        else if(routePositionCounter >77)
-        {
-            if(endPoint == FixPoint.west)
-            {
-                calcNextPositionEastToWest();
-            } else if(endPoint == FixPoint.east)
-            {
-                calcNextPositionWestToEast();
-            } else
-            {
-                calcNextPositionSouthToNord();
-            }
-        }
-        routePositionCounter++;
-    }
-
-
-    public void calcRouteFromEast()
-    {
-        if(routePositionCounter <58)
-        {
-            calcNextPositionEastToWest();
-        }
-        else if((routePositionCounter >58) && (routePositionCounter <77))
-        {
-            if(endPoint == FixPoint.north)
-            {
-                turn(-1, -6, 5);
-            } else if(endPoint == FixPoint.south)
-            {
-                turn(-3, 7, -5);
-            } else
-            {
-                calcNextPositionEastToWest();
-            }
-        }
-        else if(routePositionCounter >77)
-        {
-            if(endPoint == FixPoint.north)
-            {
-                calcNextPositionSouthToNord();
-            } else if(endPoint == FixPoint.south)
-            {
-                calcNextPositionNorthToSouth();
-            } else
-            {
-                calcNextPositionEastToWest();
-            }
-        }
-        routePositionCounter++;
-    }
-
-
-    public Position getNewPosition()
-    {
-        switch(startPoint)
-        {
-            case north: {
-                calcRouteFromNorth();
-                break;
-            }
-            case west: {
-                calcRouteFromWest();
-                break;
-            }
-            case east: {
-                calcRouteFromEast();
-                break;
-            }
-            case south: {
-                calcRouteFromSouth();
-                break;
-            }
-        }
-
-        if((xPosition > 1100) || (yPosition > 1020) || (xPosition < 180) || (yPosition < -80))
-        {
-            routePositionCounter = 0;
-            xPosition = startPoints.get(startPoint).x;
-            yPosition = startPoints.get(startPoint).y;
-            rotate = startPoints.get(startPoint).angle;
-            this.endPoint = getRandomEndpoint();
-            while(startPoint == this.endPoint)
-            {
-                this.endPoint = getRandomEndpoint();
-            }
-        }
-
-        position.x = xPosition;
-        position.y = yPosition;
-        position.angle = rotate;
         return position;
     }
 
     public void setNewPosition(float secondsElapsedCapped)
     {
-        secondsElapsedMultiplized += secondsElapsedCapped;
+        step = (int)(secondsElapsedCapped*speed);
 
-        if(secondsElapsedMultiplized >= timestepForRedraw)
+        drive();
+
+        if((position.x > 1100) || (position.y > 1020) || (position.x < 180) || (position.y < -80))
         {
-            secondsElapsedMultiplized = 0;
-            notifyObservers();
+            resetRoute();
         }
+
+        notifyObservers();
+    }
+
+    private void resetRoute() {
+        position = startPoints.get(start);
+        setRandomDestination();
     }
 }

@@ -4,6 +4,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.transform.Rotate;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -46,10 +48,11 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
             e.printStackTrace();
         }
 
-
         // positioning
         setLayoutX(ref.getX() + offset.getX());
         setLayoutY(ref.getY() + offset.getY());
+
+       // getTransforms().add(new Rotate(Rotate,ref.getX(),ref.getY()));
         setRotate(Rotate);
         setScaleX(1);
         setScaleY(1);

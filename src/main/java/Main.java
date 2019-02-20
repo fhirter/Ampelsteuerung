@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class Main extends Application
 {
-    private static final Point2D ref = new Point2D(200,330);
+    private static final Point2D ref = new Point2D(650,450);
     private CrossroadController crossroadController;
 
     public static Point2D getRef()
@@ -52,7 +53,7 @@ public class Main extends Application
     {
         primaryStage.setTitle("Ampelsteuerung");
 
-        Crossroad crossroad = new Crossroad();
+        Crossroad crossroad = new Crossroad(ref);
         crossroadController = new CrossroadController(crossroad);
 
         /* GreenPlanet */
@@ -60,10 +61,9 @@ public class Main extends Application
         crossroadController.getChildren().add(greenPlanetController);
 
         /* Center */
-        Point2D offset = new Point2D(300,0);      //offset point
+        Point2D offset = new Point2D(0,0);      //offset point
         CenterPane centerPane = new CenterPane(crossroad, ref, offset);
         crossroadController.getChildren().add(centerPane);        //add
-        crossroad.setCenterPaneModel(centerPane);
 
         List<DrivewayRouteController> drivewayControllerList = crossroadController.getDrivewayRouteControllers();
         for (int i = 0; i < drivewayControllerList.size() ; i++)
@@ -71,15 +71,23 @@ public class Main extends Application
             crossroadController.getChildren().add(drivewayControllerList.get(i));
         }
 
+        // turning area
+        int size = 180;
+        Rectangle r = new Rectangle(size,size);
+        r.setX(ref.getX()-size/2);
+        r.setY(ref.getY()-size/2);
 
-        primaryStage.setScene(new Scene(crossroadController, 1100, 900));
+
+        crossroadController.getChildren().add(r);
+
+        primaryStage.setScene(new Scene(crossroadController, 1100, 700));
 
 
         primaryStage.show();
 
-        /* Generate and start MovedElements */
-        MovedElements movedElements = new MovedElements(crossroadController, 5);
-        GameLoop gameLoop = new GameLoop(movedElements);
+        /* Generate and start Vehicles */
+        Vehicles vehicles = new Vehicles(crossroad, crossroadController, 5);
+        GameLoop gameLoop = new GameLoop(vehicles);
         gameLoop.start();
 
         //todo: Zum testen ob die Amplen funktionieren. Muss noch geloescht werden
