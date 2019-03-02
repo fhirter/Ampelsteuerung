@@ -33,6 +33,15 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     @FXML    private CheckBox checkboxpedestrainStripes;
     @FXML    private ChoiceBox setchoiceOfAlgorithm;
     @FXML    private ChoiceBox setnumberOfCrossing;
+    @FXML    private RadioButton nordSetRed;
+    @FXML    private RadioButton nordSetGreen;
+    @FXML    private RadioButton westSetRed;
+    @FXML    private RadioButton westSetGreen;
+    @FXML    private RadioButton southSetRed;
+    @FXML    private RadioButton southSetGreen;
+    @FXML    private RadioButton eastSetRed;
+    @FXML    private RadioButton eastSetGreen;
+
     private List<DrivewayRouteController> drivewayRouteControllers = new LinkedList<>();
 
     private Crossroad crossroadModel;
@@ -186,6 +195,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         try {
             for (int i = 0; i < crossroadModel.getDrivewayRoutes().size() ; i++)
             {
+
                 crossroadModel.getDrivewayRoutes().get(i).setPedestrianStripes(checkboxpedestrainStripes.isSelected());
                 crossroadModel.getDrivewayRoutes().get(i).setVelostripes(checkboxvelostripes.isSelected());
             }
@@ -193,17 +203,55 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
             crossroadModel.setNumberOfDriveways(Integer.valueOf(setnumberOfCrossing.getValue().toString()));
 
             if(crossroadModel.getNumberOfDriveways() == 3)
-                {
+            {
                 crossroadModel.getDrivewayRoutes().get(3).setVisibility(false);
-                }
+            }
             else
-                {
+            {
                 crossroadModel.getDrivewayRoutes().get(3).setVisibility(true);
-                }
+            }
 
         }catch (NullPointerException e)
         {
             System.err.println("Error: Allgorithmus oder Kreuzungstyp wurde nicht angewaehlt.");
+        }
+    }
+
+
+    /**
+     * changeTrafficLightState: Change the state from the trafficLights
+     *
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.03.2019
+     * @arg     ActionEvent actionEvent: ActionEvent from FXML
+     */
+    @FXML
+    public void changeTrafficLightState(ActionEvent actionEvent)
+    {
+        if(nordSetRed.isSelected()){
+            crossroadModel.setStateFromTrafficLight(FixPoint.north, TrafficLightState.RED);
+        }else{
+            crossroadModel.setStateFromTrafficLight(FixPoint.north, TrafficLightState.GREEN);
+        }
+
+        if(westSetRed.isSelected()){
+            crossroadModel.setStateFromTrafficLight(FixPoint.west, TrafficLightState.RED);
+        }else{
+            crossroadModel.setStateFromTrafficLight(FixPoint.west, TrafficLightState.GREEN);
+        }
+
+        if(southSetRed.isSelected()){
+            crossroadModel.setStateFromTrafficLight(FixPoint.south, TrafficLightState.RED);
+        }else{
+            crossroadModel.setStateFromTrafficLight(FixPoint.south, TrafficLightState.GREEN);
+        }
+
+        if(eastSetRed.isSelected()){
+            crossroadModel.setStateFromTrafficLight(FixPoint.east, TrafficLightState.RED);
+        }else{
+            crossroadModel.setStateFromTrafficLight(FixPoint.east, TrafficLightState.GREEN);
         }
     }
 

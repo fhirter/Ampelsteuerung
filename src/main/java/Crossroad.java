@@ -105,6 +105,49 @@ public class Crossroad extends Observable {
         centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
     }
 
+    /**
+     * setStateFromTrafficLight: set number of Driveways
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.03.2019
+     * @arg     fixpoint (orientation from the trafficLight (CAR))
+     * @arg     trafficLightState (State from the trafficLight)
+     */
+    public void setStateFromTrafficLight(FixPoint fixpoint, TrafficLightState trafficLightState)
+    {
+        if(FixPoint.north == fixpoint){
+            if(TrafficLightState.RED == trafficLightState){
+                drivewayRoutes.get(1).getTrafficLightModelCar().get(0).setRed();
+            }else{
+                drivewayRoutes.get(1).getTrafficLightModelCar().get(0).setGreen();
+            }
+        }
+
+        if(FixPoint.west == fixpoint){
+            if(TrafficLightState.RED == trafficLightState){
+                drivewayRoutes.get(0).getTrafficLightModelCar().get(0).setRed();
+            }else{
+                drivewayRoutes.get(0).getTrafficLightModelCar().get(0).setGreen();
+            }
+        }
+
+        if(FixPoint.south == fixpoint){
+            if(TrafficLightState.RED == trafficLightState){
+                drivewayRoutes.get(3).getTrafficLightModelCar().get(0).setRed();
+            }else{
+                drivewayRoutes.get(3).getTrafficLightModelCar().get(0).setGreen();
+            }
+        }
+
+        if(FixPoint.east == fixpoint){
+            if(TrafficLightState.RED == trafficLightState){
+                drivewayRoutes.get(2).getTrafficLightModelCar().get(0).setRed();
+            }else{
+                drivewayRoutes.get(2).getTrafficLightModelCar().get(0).setGreen();
+            }
+        }
+    }
 }
 
 

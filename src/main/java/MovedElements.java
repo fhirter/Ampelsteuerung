@@ -6,13 +6,14 @@ import java.util.Random;
 
 public class MovedElements
 {
-
     private CrossroadController crossroadController;
+    private Crossroad crossroad;
     private List<VehicleModel> vehicleModelList = new LinkedList<>();
     private int counterTypeOfMovedElements = 0;
 
-    public MovedElements(CrossroadController crossroadController, int countOfMovedElements)
+    public MovedElements(Crossroad crossroad, CrossroadController crossroadController, int countOfMovedElements)
     {
+        this.crossroad = crossroad;
         this.crossroadController = crossroadController;
         generateMovedElements(countOfMovedElements);
     }
@@ -22,8 +23,7 @@ public class MovedElements
     {
         for(int i = 0; i < count; i++)
         {
-            //todo: Auskommentiert
-            VehicleModel vehicleModel = new VehicleModel(getAllTypesOfMovedElement(), getRandomStartpoint());
+            VehicleModel vehicleModel = new VehicleModel(crossroad, getAllTypesOfMovedElement(), getRandomStartpoint());
             VehicleController vehicleController = new VehicleController(vehicleModel);
             vehicleModel.addObserver(vehicleController);
 
