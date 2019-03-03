@@ -41,11 +41,14 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     @FXML    private RadioButton southSetGreen;
     @FXML    private RadioButton eastSetRed;
     @FXML    private RadioButton eastSetGreen;
+    @FXML    private Slider sldCountOfMovedElements;
+    @FXML    private Label lblCountOfMovedElements;
 
     private List<DrivewayRouteController> drivewayRouteControllers = new LinkedList<>();
 
     private Crossroad crossroadModel;
     private static Point2D ref = Main.getRef();
+    private int countOfMovedElements;
 
     /**
      * CrossroadController(): Constructor
@@ -144,7 +147,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         observableList = observableArrayList("3","4");
         setnumberOfCrossing.setItems(observableList);
         setnumberOfCrossing.setValue("4");
-
     }
 
 
@@ -179,6 +181,13 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         }
     }
 
+    @FXML
+    public void sliderCountOfMovedElements()
+    {
+        this.countOfMovedElements = (int)sldCountOfMovedElements.getValue();
+        lblCountOfMovedElements.setText("Count = " + String.valueOf(countOfMovedElements));
+    }
+
 
     /**
      * startButtonConfig: Starts a new draw from a crossroad with the desired settings
@@ -211,7 +220,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
                 crossroadModel.getDrivewayRoutes().get(3).setVisibility(true);
             }
 
-            crossroadModel.setMovedElements(this);
+            crossroadModel.startMovedElements(this, countOfMovedElements);
 
         }catch (NullPointerException e)
         {

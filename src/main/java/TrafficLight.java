@@ -82,9 +82,12 @@ public class TrafficLight extends Observable
      */
     public void setRed()
     {
-        newState = TrafficLightState.RED;
-        startTimerForChangeState(newState);
-        notifyObservers();
+        if(TrafficLightState.RED != getState())
+        {
+            newState = TrafficLightState.RED;
+            startTimerForChangeState(newState);
+            notifyObservers();
+        }
     }
 
 
@@ -98,9 +101,12 @@ public class TrafficLight extends Observable
      */
     public void setGreen()
     {
-        newState = TrafficLightState.GREEN;
-        startTimerForChangeState(newState);
-        notifyObservers();
+        if(TrafficLightState.GREEN != getState())
+        {
+            newState = TrafficLightState.GREEN;
+            startTimerForChangeState(newState);
+            notifyObservers();
+        }
     }
 
 
@@ -114,9 +120,12 @@ public class TrafficLight extends Observable
      */
     public void setYellowFlash()
     {
-        newState = TrafficLightState.YELLOW_FLASH;
-        startTimerForChangeState(newState);
-        notifyObservers();
+        if(TrafficLightState.YELLOW_FLASH != getState())
+        {
+            newState = TrafficLightState.YELLOW_FLASH;
+            startTimerForChangeState(newState);
+            notifyObservers();
+        }
     }
 
 

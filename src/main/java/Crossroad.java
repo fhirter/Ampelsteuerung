@@ -1,9 +1,9 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Crossroad extends Observable {
 
-    private MovedElements movedElements = new MovedElements(this);
     private final String[] algorithms = {"Algorithm A",
             "Algorithm B",
             "Algorithm C",
@@ -14,6 +14,12 @@ public class Crossroad extends Observable {
     private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
     private CenterPane centerPaneModel;
     private Crossroad crossroad;
+    private CrossroadController crossroadController;
+    private List<VehicleModel> vehicleModelList = new LinkedList<>();
+    private List<VehicleController> vehicleControllerList = new LinkedList<>();
+    private int counterTypeOfMovedElements = 0;
+    private int countOfMovedElements = 0;
+
 
     /**
      * Crossroad: Constructor
@@ -37,6 +43,9 @@ public class Crossroad extends Observable {
             drivewayRoutes.add(drivewayRoute);
             rotateRoute += 90;
         }
+
+        GameLoop gameLoop = new GameLoop(this);
+        gameLoop.start();
     }
 
     /**
@@ -107,13 +116,6 @@ public class Crossroad extends Observable {
     }
 
 
-    public void setMovedElements(CrossroadController crossroadController)
-    {
-        /* Generate and start MovedElements */
-        movedElements.startNewConfiguration(crossroadController, 10);
-    }
-
-
     /**
      * setStateFromTrafficLight: set number of Driveways
      *
@@ -155,6 +157,70 @@ public class Crossroad extends Observable {
             }else{
                 drivewayRoutes.get(2).getTrafficLightModelCar().get(0).setGreen();
             }
+        }
+    }
+
+
+    public void startMovedElements(CrossroadController crossroadController, int countOfMovedElements)
+    {
+        /* Generate and start MovedElements */
+        this.crossroadController = crossroadController;
+        this.countOfMovedElements = countOfMovedElements;
+        generateMovedElements(countOfMovedElements);
+    }
+
+
+    public void generateMovedElements(int count)
+    {
+        if(vehicleModelList.size() != 0)
+        {
+            vehicleModelList.clear();
+            for (int i = crossroadController.getChildren().size()-1; i > 0; i--)
+            {
+                if(vehicleControllerList.indexOf(crossroadController.getChildren().get(i)) != -1)
+                {
+                    crossroadController.getChildren().remove(i);
+                }
+            }
+            vehicleControllerList.clear();
+        }
+
+        for(int i = 0; i < count; i++)
+        {
+            VehicleModel vehicleModel = new VehicleModel(this, getAllTypesOfMovedElement(), getRandomStartpoint(), numberOfDriveways);
+            VehicleController vehicleController = new VehicleController(vehicleModel);
+            vehicleControllerList.add(vehicleController);
+            vehicleModel.addObserver(vehicleController);
+
+            crossroadController.getChildren().add(vehicleController);
+            vehicleModelList.add(vehicleModel);
+        }
+    }
+
+
+    private MovedElement getAllTypesOfMovedElement()
+    {
+        counterTypeOfMovedElements ++;
+        if(counterTypeOfMovedElements >= MovedElement.values().length){
+            counterTypeOfMovedElements = 0;}
+        return MovedElement.values()[counterTypeOfMovedElements];
+    }
+
+
+    public FixPoint getRandomStartpoint()
+    {
+        int rndNumber = 0;
+        Random random = new Random();
+        rndNumber = random.nextInt(numberOfDriveways);
+        return FixPoint.values()[rndNumber];
+    }
+
+
+    public void calculatePositions(float secondsElapsedCapped)
+    {
+        for (int i = 0; i < vehicleModelList.size(); i++)
+        {
+            vehicleModelList.get(i).setNewPosition(secondsElapsedCapped);
         }
     }
 }
