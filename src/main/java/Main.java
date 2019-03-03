@@ -71,15 +71,11 @@ public class Main extends Application
             crossroadController.getChildren().add(drivewayControllerList.get(i));
         }
 
+        /* Create a new Scene and show priamaryStage */
         primaryStage.setScene(new Scene(crossroadController, 1100, 900));
         primaryStage.show();
 
-        /* Generate and start MovedElements */
-        MovedElements movedElements = new MovedElements(crossroad, crossroadController, 10);
-        GameLoop gameLoop = new GameLoop(movedElements);
-        gameLoop.start();
-
-        //todo: Zum testen ob die Amplen funktionieren. Muss noch geloescht werden
+        /* Set all trafficLight to default red */
         crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).setRed();
         crossroad.getDrivewayRoutes().get(1).getTrafficLightModelCar().get(0).setRed();
         crossroad.getDrivewayRoutes().get(2).getTrafficLightModelCar().get(0).setRed();

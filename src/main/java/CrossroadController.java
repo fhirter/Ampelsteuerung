@@ -97,7 +97,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
                     break;
             }
 
-            /* create controller */
+            /* create driveWayRouteController */
             DrivewayRouteController drivewayRouteController = new DrivewayRouteController(crossroadModel.getDrivewayRoutes().get(i), ref,points.get(i), rotateRoute);
             crossroadModel.getDrivewayRoutes().get(i).addObserver(drivewayRouteController);
             drivewayRouteControllers.add(drivewayRouteController);
@@ -210,6 +210,8 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
             {
                 crossroadModel.getDrivewayRoutes().get(3).setVisibility(true);
             }
+
+            crossroadModel.setMovedElements(this);
 
         }catch (NullPointerException e)
         {

@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Crossroad extends Observable {
 
+    private MovedElements movedElements = new MovedElements(this);
     private final String[] algorithms = {"Algorithm A",
             "Algorithm B",
             "Algorithm C",
@@ -104,6 +105,14 @@ public class Crossroad extends Observable {
         this.numberOfDriveways = numberOfDriveways;
         centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
     }
+
+
+    public void setMovedElements(CrossroadController crossroadController)
+    {
+        /* Generate and start MovedElements */
+        movedElements.startNewConfiguration(crossroadController, 10);
+    }
+
 
     /**
      * setStateFromTrafficLight: set number of Driveways

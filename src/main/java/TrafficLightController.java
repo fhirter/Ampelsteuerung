@@ -41,7 +41,6 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
     {
         this.model = model;
 
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
         loader.setController(this);
         loader.setRoot(this);

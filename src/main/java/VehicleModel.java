@@ -15,15 +15,16 @@ public class VehicleModel extends Observable
     private Position position;
     private float speed;
     private TrafficLightState trafficLightState;
+    private int numberOfCrossroad;
 
 
-    public VehicleModel(Crossroad crossroad, MovedElement movedElement, FixPoint startPoint)
+    public VehicleModel(Crossroad crossroad, MovedElement movedElement, FixPoint startPoint, int numberOfCrossroad)
     {
         this.crossroad = crossroad;
         this.movedElement = movedElement;
         this.startPoint = startPoint;
+        this.numberOfCrossroad = numberOfCrossroad;
         this.endPoint = getRandomEndpoint();
-
 
         startPoints.put(FixPoint.west, new Position(300, 465, 90));
         startPoints.put(FixPoint.north, new Position(615, 100, 180));
@@ -54,7 +55,7 @@ public class VehicleModel extends Observable
     {
         int rndNumber = 0;
         Random random = new Random();
-        rndNumber = random.nextInt(FixPoint.values().length);
+        rndNumber = random.nextInt(numberOfCrossroad);
         return FixPoint.values()[rndNumber];
     }
 
