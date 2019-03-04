@@ -1,6 +1,4 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Crossroad extends Observable {
 
@@ -11,7 +9,8 @@ public class Crossroad extends Observable {
             "Algorithm E"};
 
     private Integer numberOfDriveways = 4;
-    private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
+    private List<DrivewayRoute> drivewayRoutesDepreceated = new LinkedList<>();
+    private Map<Direction,DrivewayRoute> drivewayRoutes = new HashMap<>();
     private CenterPane centerPaneModel;
     private Crossroad crossroad;
     private CrossroadController crossroadController;
@@ -19,6 +18,8 @@ public class Crossroad extends Observable {
     private List<VehicleController> vehicleControllerList = new LinkedList<>();
     private int counterTypeOfMovedElements = 0;
     private int countOfMovedElements = 0;
+
+    private final Map<Direction, Position> startPositions = new HashMap<>();
 
 
     /**
@@ -40,12 +41,18 @@ public class Crossroad extends Observable {
         /* Loop to create all driveways */
         for (int i = 0; i < 4; i++) {
             DrivewayRoute drivewayRoute = new DrivewayRoute();
-            drivewayRoutes.add(drivewayRoute);
+            drivewayRoutesDepreceated.add(drivewayRoute);
+            drivewayRoutes.put(Direction.values()[i], drivewayRoute);
             rotateRoute += 90;
         }
 
         GameLoop gameLoop = new GameLoop(this);
         gameLoop.start();
+
+        startPositions.put(Direction.WEST, new Position(300, 465, 90));
+        startPositions.put(Direction.NORTH, new Position(615, 100, 180));
+        startPositions.put(Direction.EAST, new Position(950, 450, 270));
+        startPositions.put(Direction.SOUTH, new Position(635, 800,0));
     }
 
     /**
@@ -85,8 +92,13 @@ public class Crossroad extends Observable {
      */
     public List<DrivewayRoute> getDrivewayRoutes()
     {
-        return drivewayRoutes;
+        return drivewayRoutesDepreceated;
     }
+
+    public DrivewayRoute getDrivewayRoute(Direction direction) {
+        return drivewayRoutes.get(direction);
+    }
+
 
     /**
      * Crossroad: set the Center of Crossroad
@@ -125,37 +137,37 @@ public class Crossroad extends Observable {
      * @arg     fixpoint (orientation from the trafficLight (CAR))
      * @arg     trafficLightState (State from the trafficLight)
      */
-    public void setStateFromTrafficLight(FixPoint fixpoint, TrafficLightState trafficLightState)
+    public void setStateFromTrafficLight(Direction fixpoint, TrafficLightState trafficLightState)
     {
-        if(FixPoint.north == fixpoint){
+        if(Direction.NORTH == fixpoint){
             if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutes.get(1).getTrafficLightModelCar().get(0).setRed();
+                drivewayRoutesDepreceated.get(1).getTrafficLightModelCar().get(0).setRed();
             }else{
-                drivewayRoutes.get(1).getTrafficLightModelCar().get(0).setGreen();
+                drivewayRoutesDepreceated.get(1).getTrafficLightModelCar().get(0).setGreen();
             }
         }
 
-        if(FixPoint.west == fixpoint){
+        if(Direction.WEST == fixpoint){
             if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutes.get(0).getTrafficLightModelCar().get(0).setRed();
+                drivewayRoutesDepreceated.get(0).getTrafficLightModelCar().get(0).setRed();
             }else{
-                drivewayRoutes.get(0).getTrafficLightModelCar().get(0).setGreen();
+                drivewayRoutesDepreceated.get(0).getTrafficLightModelCar().get(0).setGreen();
             }
         }
 
-        if(FixPoint.south == fixpoint){
+        if(Direction.SOUTH == fixpoint){
             if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutes.get(3).getTrafficLightModelCar().get(0).setRed();
+                drivewayRoutesDepreceated.get(3).getTrafficLightModelCar().get(0).setRed();
             }else{
-                drivewayRoutes.get(3).getTrafficLightModelCar().get(0).setGreen();
+                drivewayRoutesDepreceated.get(3).getTrafficLightModelCar().get(0).setGreen();
             }
         }
 
-        if(FixPoint.east == fixpoint){
+        if(Direction.EAST == fixpoint){
             if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutes.get(2).getTrafficLightModelCar().get(0).setRed();
+                drivewayRoutesDepreceated.get(2).getTrafficLightModelCar().get(0).setRed();
             }else{
-                drivewayRoutes.get(2).getTrafficLightModelCar().get(0).setGreen();
+                drivewayRoutesDepreceated.get(2).getTrafficLightModelCar().get(0).setGreen();
             }
         }
     }
@@ -187,7 +199,7 @@ public class Crossroad extends Observable {
 
         for(int i = 0; i < count; i++)
         {
-            VehicleModel vehicleModel = new VehicleModel(this, getAllTypesOfMovedElement(), getRandomStartpoint(), numberOfDriveways);
+            VehicleModel vehicleModel = new VehicleModel(this, getAllTypesOfMovedElement(), getRandomStartpoint());
             VehicleController vehicleController = new VehicleController(vehicleModel);
             vehicleControllerList.add(vehicleController);
             vehicleModel.addObserver(vehicleController);
@@ -198,21 +210,21 @@ public class Crossroad extends Observable {
     }
 
 
-    private MovedElement getAllTypesOfMovedElement()
+    private vehicleType getAllTypesOfMovedElement()
     {
         counterTypeOfMovedElements ++;
-        if(counterTypeOfMovedElements >= MovedElement.values().length){
+        if(counterTypeOfMovedElements >= vehicleType.values().length){
             counterTypeOfMovedElements = 0;}
-        return MovedElement.values()[counterTypeOfMovedElements];
+        return vehicleType.values()[counterTypeOfMovedElements];
     }
 
 
-    public FixPoint getRandomStartpoint()
+    public Direction getRandomStartpoint()
     {
         int rndNumber = 0;
         Random random = new Random();
         rndNumber = random.nextInt(numberOfDriveways);
-        return FixPoint.values()[rndNumber];
+        return Direction.values()[rndNumber];
     }
 
 
@@ -223,6 +235,20 @@ public class Crossroad extends Observable {
             vehicleModelList.get(i).setNewPosition(secondsElapsedCapped);
         }
     }
+
+    public Position getStartPosition(Direction start) {
+        return startPositions.get(start);
+    }
+
+    public boolean isDestinationValid(Direction destination) {
+        if(numberOfDriveways == 3 && destination == Direction.SOUTH) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 }
 
 

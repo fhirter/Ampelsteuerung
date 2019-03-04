@@ -17,7 +17,7 @@ public class VehicleController extends AnchorPane implements Initializable, Obse
     @FXML private ImageView bicycleImage;
     @FXML private Group movedElementsGroup;
 
-    private MovedElement movedElement;
+    private vehicleType vehicleType;
     private VehicleModel vehicleModel;
     private Position position;
 
@@ -43,13 +43,13 @@ public class VehicleController extends AnchorPane implements Initializable, Obse
         busImage.setVisible(false);
         bicycleImage.setVisible(false);
 
-        position = vehicleModel.getStartPosition();
+        position = vehicleModel.getPosition();
         setLayoutX(position.x);
         setLayoutY(position.y);
         setRotate(position.angle);
 
-        movedElement = vehicleModel.getTypeOfMovedElements();
-        switch(movedElement)
+        vehicleType = vehicleModel.getVehicleType();
+        switch(vehicleType)
         {
             case Car:
             {
@@ -79,7 +79,7 @@ public class VehicleController extends AnchorPane implements Initializable, Obse
     @Override
     public void update()
     {
-        position = vehicleModel.getNewPosition();
+        position = vehicleModel.getPosition();
 
         setLayoutX(position.x);
         setLayoutY(position.y);

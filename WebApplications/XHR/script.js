@@ -1,5 +1,5 @@
 
-'use strict'
+'use strict';
 
 	document.querySelector('#allProjects').addEventListener("click", function(event){
 			event.preventDefault();

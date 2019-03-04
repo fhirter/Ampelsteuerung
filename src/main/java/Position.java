@@ -8,4 +8,8 @@ public class Position
         this.y = y;
         this.angle = angle;
     }
+
+    public Position(Position position) {
+
+    }
 }

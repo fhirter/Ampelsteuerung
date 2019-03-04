@@ -1,5 +1,5 @@
 
-'use strict'
+'use strict';
 
 document.querySelector('#projektID').addEventListener("click", updateProjectIDDatalist);
 document.querySelector('#projektID').addEventListener("change", listProjectWithSelectedProjectnameOnTableCrossroadSettings);

@@ -167,13 +167,12 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
      * @arg     ActionEvent actionEvent: ActionEvent from FXML
      */
     @FXML
-    public void mnuOpenAboutWindow(ActionEvent actionEvent) throws Exception
-    {
+    public void mnuOpenAboutWindow(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
             stage.setTitle("Projektinformationen");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("aboutStage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
@@ -242,27 +241,27 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     public void changeTrafficLightState(ActionEvent actionEvent)
     {
         if(nordSetRed.isSelected()){
-            crossroadModel.setStateFromTrafficLight(FixPoint.north, TrafficLightState.RED);
+            crossroadModel.setStateFromTrafficLight(Direction.NORTH, TrafficLightState.RED);
         }else{
-            crossroadModel.setStateFromTrafficLight(FixPoint.north, TrafficLightState.GREEN);
+            crossroadModel.setStateFromTrafficLight(Direction.NORTH, TrafficLightState.GREEN);
         }
 
         if(westSetRed.isSelected()){
-            crossroadModel.setStateFromTrafficLight(FixPoint.west, TrafficLightState.RED);
+            crossroadModel.setStateFromTrafficLight(Direction.WEST, TrafficLightState.RED);
         }else{
-            crossroadModel.setStateFromTrafficLight(FixPoint.west, TrafficLightState.GREEN);
+            crossroadModel.setStateFromTrafficLight(Direction.WEST, TrafficLightState.GREEN);
         }
 
         if(southSetRed.isSelected()){
-            crossroadModel.setStateFromTrafficLight(FixPoint.south, TrafficLightState.RED);
+            crossroadModel.setStateFromTrafficLight(Direction.SOUTH, TrafficLightState.RED);
         }else{
-            crossroadModel.setStateFromTrafficLight(FixPoint.south, TrafficLightState.GREEN);
+            crossroadModel.setStateFromTrafficLight(Direction.SOUTH, TrafficLightState.GREEN);
         }
 
         if(eastSetRed.isSelected()){
-            crossroadModel.setStateFromTrafficLight(FixPoint.east, TrafficLightState.RED);
+            crossroadModel.setStateFromTrafficLight(Direction.EAST, TrafficLightState.RED);
         }else{
-            crossroadModel.setStateFromTrafficLight(FixPoint.east, TrafficLightState.GREEN);
+            crossroadModel.setStateFromTrafficLight(Direction.EAST, TrafficLightState.GREEN);
         }
     }
 

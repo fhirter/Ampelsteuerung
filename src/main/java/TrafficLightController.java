@@ -118,13 +118,13 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
         if(type == TrafficLightType.CAR)
         {
             symbolPedestrian.setVisible(false);
-            groupScaleFactor.setScaleX((double)scaleFactorCAR);
-            groupScaleFactor.setScaleY((double)scaleFactorCAR);
+            groupScaleFactor.setScaleX(scaleFactorCAR);
+            groupScaleFactor.setScaleY(scaleFactorCAR);
         }else if(type == TrafficLightType.PEDESTRIAN)
         {
             symbolPedestrian.setVisible(true);
-            groupScaleFactor.setScaleX((double)scaleFactorPEDESTRIAN);
-            groupScaleFactor.setScaleY((double)scaleFactorPEDESTRIAN);
+            groupScaleFactor.setScaleX(scaleFactorPEDESTRIAN);
+            groupScaleFactor.setScaleY(scaleFactorPEDESTRIAN);
         }
     }
 

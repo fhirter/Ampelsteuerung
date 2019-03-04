@@ -48,8 +48,7 @@ public class Main extends Application
      * @arg     Stage primaryStage: Object from Stage
      */
     @Override
-    public void start(Stage primaryStage) throws Exception
-    {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("Ampelsteuerung");
 
         Crossroad crossroad = new Crossroad();

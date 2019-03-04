@@ -1,0 +1,1 @@
+public enum vehicleType {Car, Bus, Bicycle}
