@@ -101,32 +101,24 @@ public class VehicleModel extends Observable
 
     public void turn()
     {
-       if(currentDirection == Direction.WEST && destination == Direction.NORTH) {
-           turnRight();
+        int sign;
+
+       if(currentDirection.getAngle() < destination.getAngle()) {
+           sign = 1;
+       } else {
+           sign = -1;
        }
 
-        if(currentDirection == Direction.SOUTH && destination == Direction.WEST) {
-            turnRight();
-        }
+        position.angle += sign*1;
+        position.x += (int) Math.cos(position.angle);
+        position.y += (int) Math.sin(position.angle);
 
-        if(currentDirection == Direction.EAST && destination == Direction.SOUTH) {
-            turnRight();
-        }
-
-        if(currentDirection == Direction.NORTH && destination == Direction.EAST) {
-            turnRight();
-        }
-
-        if(position.angle == destination.getAngle()) {  // transition complete
-            currentDirection = destination;
-        }
-
+       if(destination.getAngle() == position.angle) {
+           currentDirection = destination;
+       }
 
     }
 
-    private void turnRight() {
-        position.angle += 1;
-    }
 
 
     public Position getPosition()

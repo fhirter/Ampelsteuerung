@@ -3,7 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 
 import java.io.IOException;
@@ -12,17 +12,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DrivewayRouteController extends AnchorPane implements Initializable, Observer
+public class DrivewayRouteController extends Group implements Initializable, Observer
 {
-    @FXML   private AnchorPane bicycleSripes;
+    @FXML   private Group bicycleSripes;
     @FXML   private Group pedestrianStripes;
-    @FXML   private AnchorPane drivewayRoute;
+    @FXML   private Group drivewayRoute;
     private final Point2D refTrafficLights = new Point2D(0,0);
     private DrivewayRoute model;
     private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
     private List<TrafficLightController> trafficLightControllerPedestrians = new LinkedList<>();
-
-
 
     /**
      * DrivewayRouteController: Constructor
@@ -31,13 +29,11 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
      * @version 1.0
      * @autor   NIN Class
      * @date    02.08.2018
-     * @arg     drivewayRoute (Object form model class), ref (Referenze for all Objects) offset( Place for DrivewayRoute) Rotate (Ankle°)
+     * @arg     drivewayRoute (Object form model class), ref (Referenze for all Objects) offset( Place for DrivewayRoute) angle (Ankle°)
      */
-    public DrivewayRouteController(DrivewayRoute drivewayRoute, Point2D ref, Point2D offset, int Rotate)
+    public DrivewayRouteController(DrivewayRoute drivewayRoute, Point2D ref, Point2D offset, int angle)
     {
         this.model= drivewayRoute;
-
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("drivewayRoute.fxml"));
         loader.setController(this);
@@ -52,17 +48,29 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
         setLayoutX(ref.getX() + offset.getX());
         setLayoutY(ref.getY() + offset.getY());
 
-       // getTransforms().add(new Rotate(Rotate,ref.getX(),ref.getY()));
-        setRotate(Rotate);
+        Rotate rotate = new Rotate();
+
+        //Setting the angle for the rotation
+        rotate.setAngle(20);
+
+        //Setting pivot points for the rotation
+        rotate.setPivotX(150);
+        rotate.setPivotY(225);
+
+
+        //getTransforms().add(new Rotate(angle,ref.getX(),ref.getY()));
+        setRotate(angle);
         setScaleX(1);
         setScaleY(1);
 
         TrafficLightController trafficLightControllerCar = new TrafficLightController(drivewayRoute.getTrafficLightModelCar().get(0),refTrafficLights, new Point2D(130,145), 90);
         TrafficLightController trafficLightControllerPedestrianLeft = new TrafficLightController(drivewayRoute.getTrafficLightModelPedestrian().get(0),refTrafficLights, new Point2D(170, -65), 0);
         TrafficLightController trafficLightControllerPedestrianRight = new TrafficLightController(drivewayRoute.getTrafficLightModelPedestrian().get(0),refTrafficLights, new Point2D(240, 155), 180);
+
         drivewayRoute.getTrafficLightModelCar().get(0).addObserver(trafficLightControllerCar);
         drivewayRoute.getTrafficLightModelPedestrian().get(0).addObserver(trafficLightControllerPedestrianLeft);
         drivewayRoute.getTrafficLightModelPedestrian().get(0).addObserver(trafficLightControllerPedestrianRight);
+
         trafficLightControllerCars.add(trafficLightControllerCar);
         trafficLightControllerPedestrians.add(trafficLightControllerPedestrianLeft);
         trafficLightControllerPedestrians.add(trafficLightControllerPedestrianRight);
@@ -83,10 +91,10 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        bicycleSripes.setVisible(false);
-        pedestrianStripes.setVisible(false);
-        model.setPedestrianStripes(false);
-        model.setVelostripes(false);
+        bicycleSripes.setVisible(true);
+        pedestrianStripes.setVisible(true);
+        model.setPedestrianStripes(true);
+        model.setVelostripes(true);
     }
 
 

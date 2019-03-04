@@ -57,7 +57,7 @@ public class Main extends Application
         crossroadController = new CrossroadController(crossroad);
 
         /* GreenPlanet */
-        GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(0,-300));
+        GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(-425,-425));
         crossroadController.getChildren().add(greenPlanetController);
 
         /* Center */
