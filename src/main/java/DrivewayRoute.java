@@ -13,10 +13,6 @@ public class DrivewayRoute extends Observable
 {
     private boolean pedestrianStripes;
     private boolean velostripes;
-
-
-    private List<TrafficLight> trafficLightModelCars = new LinkedList<>();
-    private List<TrafficLight> trafficLightModelPedestrians = new LinkedList<>();
     private boolean visibility = true;
 
 
@@ -31,10 +27,7 @@ public class DrivewayRoute extends Observable
      */
     public DrivewayRoute()
     {
-        TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
-        trafficLightModelCars.add(trafficLightCar);
-        TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
-        trafficLightModelPedestrians.add(trafficLightPedestrian);
+
     }
 
 
@@ -129,33 +122,7 @@ public class DrivewayRoute extends Observable
         notifyObservers();
     }
 
-    /**
-     * DrivewayRoute: get the TrafficLightCar of DrivewayRoute
-     *
-     *
-     * @version 1.0
-     * @autor   NIN Class
-     * @date    02.08.2018
-     *
-     */
-    public List<TrafficLight> getTrafficLightModelCar()
-    {
-        return trafficLightModelCars;
-    }
 
-    /**
-     * DrivewayRoute: get the TrafficLightPedestrian of DrivewayRoute
-     *
-     *
-     * @version 1.0
-     * @autor   NIN Class
-     * @date    02.08.2018
-     *
-     */
-    public List<TrafficLight> getTrafficLightModelPedestrian()
-    {
-        return trafficLightModelPedestrians;
-    }
 }
 
 

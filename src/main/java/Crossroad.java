@@ -9,8 +9,8 @@ public class Crossroad extends Observable {
             "Algorithm E"};
 
     private Integer numberOfDriveways = 4;
-    private List<DrivewayRoute> drivewayRoutesDepreceated = new LinkedList<>();
     private Map<Direction,DrivewayRoute> drivewayRoutes = new HashMap<>();
+    private Map<Direction,Map<TrafficLightType, TrafficLight>> trafficLightsDirection = new HashMap<>();
     private CenterPane centerPaneModel;
     private Crossroad crossroad;
     private CrossroadController crossroadController;
@@ -41,10 +41,20 @@ public class Crossroad extends Observable {
         /* Loop to create all driveways */
         for (int i = 0; i < 4; i++) {
             DrivewayRoute drivewayRoute = new DrivewayRoute();
-            drivewayRoutesDepreceated.add(drivewayRoute);
-            drivewayRoutes.put(Direction.values()[i], drivewayRoute);
+            Direction directionValue = Direction.values()[i];
+            drivewayRoutes.put(directionValue, drivewayRoute);
             rotateRoute += 90;
+
+            TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
+            TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
+            Map<TrafficLightType, TrafficLight> trafficLights = new HashMap<>();
+            trafficLights.put(TrafficLightType.CAR, trafficLightCar);
+            trafficLights.put(TrafficLightType.PEDESTRIAN, trafficLightPedestrian);
+            trafficLightsDirection.put(directionValue, trafficLights);
+
         }
+
+
 
         GameLoop gameLoop = new GameLoop(this);
         gameLoop.start();
@@ -90,11 +100,6 @@ public class Crossroad extends Observable {
      * @date    02.08.2018
      *
      */
-    public List<DrivewayRoute> getDrivewayRoutes()
-    {
-        return drivewayRoutesDepreceated;
-    }
-
     public DrivewayRoute getDrivewayRoute(Direction direction) {
         return drivewayRoutes.get(direction);
     }
@@ -139,37 +144,8 @@ public class Crossroad extends Observable {
      */
     public void setStateFromTrafficLight(Direction fixpoint, TrafficLightState trafficLightState)
     {
-        if(Direction.NORTH == fixpoint){
-            if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutesDepreceated.get(1).getTrafficLightModelCar().get(0).setRed();
-            }else{
-                drivewayRoutesDepreceated.get(1).getTrafficLightModelCar().get(0).setGreen();
-            }
-        }
 
-        if(Direction.WEST == fixpoint){
-            if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutesDepreceated.get(0).getTrafficLightModelCar().get(0).setRed();
-            }else{
-                drivewayRoutesDepreceated.get(0).getTrafficLightModelCar().get(0).setGreen();
-            }
-        }
-
-        if(Direction.SOUTH == fixpoint){
-            if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutesDepreceated.get(3).getTrafficLightModelCar().get(0).setRed();
-            }else{
-                drivewayRoutesDepreceated.get(3).getTrafficLightModelCar().get(0).setGreen();
-            }
-        }
-
-        if(Direction.EAST == fixpoint){
-            if(TrafficLightState.RED == trafficLightState){
-                drivewayRoutesDepreceated.get(2).getTrafficLightModelCar().get(0).setRed();
-            }else{
-                drivewayRoutesDepreceated.get(2).getTrafficLightModelCar().get(0).setGreen();
-            }
-        }
+                trafficLightsDirection.get(fixpoint).get(TrafficLightType.CAR).setState(trafficLightState);
     }
 
 

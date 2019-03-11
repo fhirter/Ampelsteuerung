@@ -423,4 +423,8 @@ public class TrafficLight extends Observable
             }
         }
     }
+
+    public void setState(TrafficLightState trafficLightState) {
+
+    }
 }
