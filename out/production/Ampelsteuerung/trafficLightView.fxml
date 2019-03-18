@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<fx:root fx:id="trafficLight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="57.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+        <Group fx:id="groupScaleFactor" layoutX="-14.0" layoutY="-12.0">
+            <children>
+                <Group fx:id="guiGroup">
+                    <children>
+                        <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#000000f8" height="157.0" layoutX="15.0" layoutY="15.0" stroke="BLACK" width="55.0" />
+                        <Circle fx:id="redLightTraffic" layoutX="43.0" layoutY="44.0" radius="20.0" stroke="BLACK" strokeType="INSIDE">
+                            <fill>
+                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.9883720930232558">
+                                    <stops>
+                                        <Stop color="RED" />
+                                        <Stop color="RED" offset="0.17624521072796934" />
+                                        <Stop color="RED" offset="1.0" />
+                                    </stops>
+                                </RadialGradient>
+                            </fill>
+                        </Circle>
+                        <Circle fx:id="yellowLightTraffic" fill="#ababab" layoutX="43.0" layoutY="93.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fx:id="greenLightTraffic" fill="#ababab" layoutX="43.0" layoutY="143.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                    </children>
+                </Group>
+                <Group fx:id="symbolPedestrian" nodeOrientation="LEFT_TO_RIGHT" opacity="0.5" visible="false">
+                    <children>
+                        <Group layoutX="26.0" layoutY="36.0">
+                            <children>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                                <Circle layoutX="17.0" layoutY="-4.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="7.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="24.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="12.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="19.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                            </children>
+                        </Group>
+                        <Group layoutX="26.0" layoutY="85.0">
+                            <children>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                                <Circle layoutX="17.0" layoutY="-4.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="7.0" rotate="11.3" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="24.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" layoutY="11.0" rotate="28.6" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="19.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                            </children>
+                        </Group>
+                        <Group layoutX="26.0" layoutY="135.0" nodeOrientation="LEFT_TO_RIGHT">
+                            <children>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+                                <Circle layoutX="17.0" layoutY="-4.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="7.0" rotate="39.8" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="24.0" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="11.0" layoutY="11.0" rotate="23.6" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" layoutX="22.0" layoutY="11.0" rotate="-33.7" stroke="BLACK" strokeType="INSIDE" width="3.0" />
+                            </children>
+                        </Group>
+                    </children>
+                </Group>
+            </children>
+        </Group>
+   </children>
+</fx:root>
