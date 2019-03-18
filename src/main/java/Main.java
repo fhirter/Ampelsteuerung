@@ -3,7 +3,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * Class Main: Mainmethode for the TEKO project "Ampelsteuerung".
