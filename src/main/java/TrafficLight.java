@@ -57,6 +57,19 @@ public class TrafficLight extends Observable
     }
 
 
+    public void setState(TrafficLightState trafficLightState)
+    {
+        if(TrafficLightState.RED == trafficLightState)
+        {
+            switchToGreen();
+        }
+        else
+        {
+            switchToRed();
+        }
+    }
+
+
     /**
      * getInProgress(): Returns if the trafficLight is in progress
      *
@@ -422,9 +435,5 @@ public class TrafficLight extends Observable
                 break;
             }
         }
-    }
-
-    public void setState(TrafficLightState trafficLightState) {
-
     }
 }

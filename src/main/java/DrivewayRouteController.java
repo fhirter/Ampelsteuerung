@@ -17,8 +17,9 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
     @FXML   private AnchorPane drivewayRoute;
     private final Point2D refTrafficLights = new Point2D(0,0);
     private DrivewayRoute model;
-    private List<TrafficLightController> trafficLightControllerCars = new LinkedList<>();
-    private List<TrafficLightController> trafficLightControllerPedestrians = new LinkedList<>();
+    private TrafficLightController trafficLightControllerCar;
+    private TrafficLightController trafficLightControllerPedestrianLeft;
+    private TrafficLightController trafficLightControllerPedestrianRight;
 
 
 
@@ -34,8 +35,6 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
     public DrivewayRouteController(DrivewayRoute drivewayRoute, Point2D ref, Point2D offset, int Rotate)
     {
         this.model= drivewayRoute;
-
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("drivewayRoute.fxml"));
         loader.setController(this);
@@ -54,17 +53,21 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
         setScaleX(1);
         setScaleY(1);
 
-        TrafficLightController trafficLightControllerCar = new TrafficLightController(drivewayRoute.getTrafficLightModelCar().get(0),refTrafficLights, new Point2D(130,145), 90);
-        TrafficLightController trafficLightControllerPedestrianLeft = new TrafficLightController(drivewayRoute.getTrafficLightModelPedestrian().get(0),refTrafficLights, new Point2D(170, -65), 0);
-        TrafficLightController trafficLightControllerPedestrianRight = new TrafficLightController(drivewayRoute.getTrafficLightModelPedestrian().get(0),refTrafficLights, new Point2D(240, 155), 180);
-        drivewayRoute.getTrafficLightModelCar().get(0).addObserver(trafficLightControllerCar);
-        drivewayRoute.getTrafficLightModelPedestrian().get(0).addObserver(trafficLightControllerPedestrianLeft);
-        drivewayRoute.getTrafficLightModelPedestrian().get(0).addObserver(trafficLightControllerPedestrianRight);
-        trafficLightControllerCars.add(trafficLightControllerCar);
-        trafficLightControllerPedestrians.add(trafficLightControllerPedestrianLeft);
-        trafficLightControllerPedestrians.add(trafficLightControllerPedestrianRight);
-        trafficLightControllerPedestrians.get(0).setVisible(false);
-        trafficLightControllerPedestrians.get(1).setVisible(false);
+        trafficLightControllerCar = createTrafficLightController(drivewayRoute.getTrafficLightModelCar(), new Position(130, 145, 90));
+        trafficLightControllerPedestrianLeft = createTrafficLightController(drivewayRoute.getTrafficLightModelPedestrian(), new Position(170, -65, 0));
+        trafficLightControllerPedestrianRight = createTrafficLightController(drivewayRoute.getTrafficLightModelPedestrian(), new Position( 240, 155, 180));
+
+        trafficLightControllerPedestrianLeft.setVisible(false);
+        trafficLightControllerPedestrianRight.setVisible(false);
+    }
+
+
+    private TrafficLightController createTrafficLightController(TrafficLight trafficLightModelCar, Position position)
+    {
+        TrafficLightController trafficLightControllerCar = new TrafficLightController(trafficLightModelCar, refTrafficLights, position);
+        getChildren().add(trafficLightControllerCar);
+        trafficLightModelCar.addObserver(trafficLightControllerCar);
+        return trafficLightControllerCar;
     }
 
 
@@ -99,63 +102,26 @@ public class DrivewayRouteController extends AnchorPane implements Initializable
     @Override
     public void update() {
 
-        if(model.getVelostripes() == true)
-        {
+        if (model.getVelostripes() == true) {
             bicycleSripes.setVisible(true);
-        }
-        else{
+        } else {
             bicycleSripes.setVisible(false);
         }
 
-        if(model.getPedestrianStripes()== true)
-        {
+        if (model.getPedestrianStripes() == true) {
             pedestrianStripes.setVisible(true);
-            trafficLightControllerPedestrians.get(0).setVisible(true);
-            trafficLightControllerPedestrians.get(1).setVisible(true);
-        }
-        else
-        {
+            trafficLightControllerPedestrianLeft.setVisible(true);
+            trafficLightControllerPedestrianRight.setVisible(true);
+        } else {
             pedestrianStripes.setVisible(false);
-            trafficLightControllerPedestrians.get(0).setVisible(false);
-            trafficLightControllerPedestrians.get(1).setVisible(false);
+            trafficLightControllerPedestrianLeft.setVisible(false);
+            trafficLightControllerPedestrianRight.setVisible(false);
         }
 
-        if(model.getVisibility() == true)
-        {
+        if (model.getVisibility() == true) {
             drivewayRoute.setVisible(true);
-        }
-        else
-        {
+        } else {
             drivewayRoute.setVisible(false);
         }
-    }
-/**
- * DrivewayRoute: get the TrafficLightControllerCar of DrivewayRoute
- *
- *
- * @version 1.0
- * @autor   NIN Class
- * @date    02.08.2018
- *
- */
-
-
-    public List<TrafficLightController> getTrafficLightControllerCar()
-    {
-        return trafficLightControllerCars;
-    }
-
-    /**
-     * DrivewayRouteController: get the TrafficLightControllerPedestrian of DrivewayRoute
-     *
-     *
-     * @version 1.0
-     * @autor   NIN Class
-     * @date    02.08.2018
-     */
-
-    public List<TrafficLightController> getTrafficLightControllerPedestrian()
-    {
-        return trafficLightControllerPedestrians;
     }
 }

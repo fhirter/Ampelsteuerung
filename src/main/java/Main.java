@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class Main: Mainmethode for the TEKO project "Ampelsteuerung".

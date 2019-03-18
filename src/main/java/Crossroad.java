@@ -10,7 +10,6 @@ public class Crossroad extends Observable {
 
     private Integer numberOfDriveways = 4;
     private Map<Direction,DrivewayRoute> drivewayRoutes = new HashMap<>();
-    private Map<Direction,Map<TrafficLightType, TrafficLight>> trafficLightsDirection = new HashMap<>();
     private CenterPane centerPaneModel;
     private Crossroad crossroad;
     private CrossroadController crossroadController;
@@ -39,22 +38,11 @@ public class Crossroad extends Observable {
         int rotateRoute = 0;
 
         /* Loop to create all driveways */
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < Direction.values().length; i++) {
             DrivewayRoute drivewayRoute = new DrivewayRoute();
-            Direction directionValue = Direction.values()[i];
-            drivewayRoutes.put(directionValue, drivewayRoute);
+            drivewayRoutes.put(Direction.values()[i], drivewayRoute);
             rotateRoute += 90;
-
-            TrafficLight trafficLightCar = new TrafficLight(TrafficLightType.CAR);
-            TrafficLight trafficLightPedestrian = new TrafficLight(TrafficLightType.PEDESTRIAN);
-            Map<TrafficLightType, TrafficLight> trafficLights = new HashMap<>();
-            trafficLights.put(TrafficLightType.CAR, trafficLightCar);
-            trafficLights.put(TrafficLightType.PEDESTRIAN, trafficLightPedestrian);
-            trafficLightsDirection.put(directionValue, trafficLights);
-
         }
-
-
 
         GameLoop gameLoop = new GameLoop(this);
         gameLoop.start();
@@ -144,8 +132,7 @@ public class Crossroad extends Observable {
      */
     public void setStateFromTrafficLight(Direction fixpoint, TrafficLightState trafficLightState)
     {
-
-                trafficLightsDirection.get(fixpoint).get(TrafficLightType.CAR).setState(trafficLightState);
+        drivewayRoutes.get(fixpoint).getTrafficLightModelCar().setState(trafficLightState);
     }
 
 
@@ -223,8 +210,6 @@ public class Crossroad extends Observable {
             return true;
         }
     }
-
-
 }
 
 
