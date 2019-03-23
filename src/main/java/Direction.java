@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public enum Direction {
-    WEST, EAST, NORTH, SOUTH;
+    WEST, NORTH, EAST, SOUTH;
 
     private Direction opposite;
 

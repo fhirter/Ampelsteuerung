@@ -1,3 +1,5 @@
+import javax.print.attribute.standard.Destination;
+
 public class VehicleModel extends Observable
 {
     private Crossroad crossroad;
@@ -47,7 +49,8 @@ public class VehicleModel extends Observable
         return position;
     }
 
-    public void calcRouteFromNorth(float secondsElapsedCapped)
+
+    public void calcRouteFromNorth1(float secondsElapsedCapped)
     {
         float distance = secondsElapsedCapped * speed/(float)0.016;
 
@@ -110,6 +113,69 @@ public class VehicleModel extends Observable
                 }
             } else {
                 position.y += (int) distance;
+            }
+        }
+    }
+
+
+
+    public void calcRouteFromNorth(float secondsElapsedCapped)
+    {
+        float movedWay = secondsElapsedCapped * speed/(float)0.016;
+
+        /* Check state from trafficLight */
+        if((position.y >= 180) && (position.y <= 190))
+        {
+            TrafficLightState trafficLightState = crossroad.getDrivewayRoute(Direction.NORTH).getTrafficLightModelCar().getState();
+            if(trafficLightState == TrafficLightState.RED)
+            {
+                return;
+            }
+        }
+
+        /* Definition from the point to begin of turn */
+        if((position.y >= 380) && (isTurningInProgress == false))
+        {
+            isTurningInProgress = true;
+        }
+
+        /* programming the routes */
+        if(isTurningInProgress == false)
+        {
+            position.y += (int)movedWay;
+        }
+        else
+        {
+            if (destination == Direction.WEST) {
+                if (position.angle != 270) {
+                    //turn over short side
+                    /* Formel
+                        x = xcenter + cos (angle) * rad;
+                        y = ycenter + sin (angle) * rad;
+                    */
+                    calcTurnAngle += 0.05;
+                    position.x = (int) ((615 - 90) + Math.cos(calcTurnAngle) * 90);
+                    position.y = (int) (380 + Math.sin(calcTurnAngle) * 90);
+                    position.angle += 2;
+                } else if (position.angle == 270) {
+                    position.x -= (int) movedWay;
+                }
+            } else if (destination == Direction.EAST) {
+                if (position.angle != 90) {
+                    //turn over long side
+                    /* Formel
+                        x = xcenter + cos (angle) * rad;
+                        y = ycenter + sin (angle) * rad;
+                    */
+                    calcTurnAngle += 0.02;
+                    position.x = (int) ((615 + 85) - Math.cos(calcTurnAngle) * 85);
+                    position.y = (int) ((380) + Math.sin(calcTurnAngle) * 85);
+                    position.angle -= 1;
+                } else if (position.angle == 90) {
+                    position.x += (int) movedWay;
+                }
+            } else {
+                position.y += (int) movedWay;
             }
         }
     }
@@ -336,9 +402,6 @@ public class VehicleModel extends Observable
     }
 
 
-
-
-
     public void setNewPosition(float secondsElapsedCapped)
     {
         switch(start)
@@ -365,8 +428,6 @@ public class VehicleModel extends Observable
         {
             isTurningInProgress = false;
             calcTurnAngle = 0;
-
-
             position = crossroad.getStartPosition(start);
 
             findValidDestination();

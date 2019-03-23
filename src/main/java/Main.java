@@ -76,7 +76,7 @@ public class Main extends Application
         primaryStage.show();
 
         /* Set all trafficLight to default red */
-        crossroad.getDrivewayRoute(Direction.NORTH).getTrafficLightModelCar().setGreen();
+        crossroad.getDrivewayRoute(Direction.NORTH).getTrafficLightModelCar().setRed();
         crossroad.getDrivewayRoute(Direction.EAST).getTrafficLightModelCar().setRed();
         crossroad.getDrivewayRoute(Direction.WEST).getTrafficLightModelCar().setRed();
         crossroad.getDrivewayRoute(Direction.SOUTH).getTrafficLightModelCar().setRed();

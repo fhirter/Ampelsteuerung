@@ -67,8 +67,8 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         int rotateRoute = 0;
 
         points.put(Direction.WEST, new Point2D(0,0));
-        points.put(Direction.EAST, new Point2D(550,-300));
-        points.put(Direction.NORTH, new Point2D(850,250));
+        points.put(Direction.NORTH, new Point2D(550,-300));
+        points.put(Direction.EAST, new Point2D(850,250));
         points.put(Direction.SOUTH, new Point2D(300,550));
 
         /* Loop to create all driveways */
