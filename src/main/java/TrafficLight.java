@@ -61,11 +61,11 @@ public class TrafficLight extends Observable
     {
         if(TrafficLightState.RED == trafficLightState)
         {
-            switchToGreen();
+            setGreen();
         }
         else
         {
-            switchToRed();
+            setRed();
         }
     }
 

@@ -51,17 +51,16 @@ public class VehicleModel extends Observable
     {
         float distance = secondsElapsedCapped * speed/(float)0.016;
 
-        DrivewayRoute drivewayRoute = crossroad.getDrivewayRoute(Direction.NORTH);
-        drivewayRoute.getStopArea();
-
-        TrafficLight trafficLight = drivewayRoute.getTrafficLightModelCar().get(0);
+//       DrivewayRoute drivewayRoute = crossroad.getDrivewayRoute(Direction.NORTH);
+//       drivewayRoute.getStopArea();
+//       TrafficLight trafficLight = drivewayRoute.getTrafficLightModelCar();
 
         /* Check state from trafficLight */
         if((position.y >= 180) && (position.y <= 190))
         {
 
-            TrafficLightState trafficLightState = trafficLight.getState();
-
+//            TrafficLightState trafficLightState = trafficLight.getState();
+            TrafficLightState trafficLightState = crossroad.getDrivewayRoute(Direction.NORTH).getTrafficLightModelCar().getState();
             if(trafficLightState == TrafficLightState.RED)
             {
                 return;
@@ -123,7 +122,7 @@ public class VehicleModel extends Observable
         /* Check state from trafficLight */
         if((position.x >= 350) && (position.x <= 360))
         {
-            TrafficLightState trafficLightState = crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).getState();
+            TrafficLightState trafficLightState = crossroad.getDrivewayRoute(Direction.WEST).getTrafficLightModelCar().getState();
             if(trafficLightState == TrafficLightState.RED)
             {
                 return;
@@ -195,7 +194,7 @@ public class VehicleModel extends Observable
         /* Check state from trafficLight */
         if((position.y >= 720) && (position.y <= 730))
         {
-            TrafficLightState trafficLightState = crossroad.getDrivewayRoutes().get(3).getTrafficLightModelCar().get(0).getState();
+            TrafficLightState trafficLightState = crossroad.getDrivewayRoute(Direction.SOUTH).getTrafficLightModelCar().getState();
             if(trafficLightState == TrafficLightState.RED)
             {
                 return;
@@ -271,7 +270,7 @@ public class VehicleModel extends Observable
         /* Check state from trafficLight */
         if((position.x >= 890) && (position.x <= 900))
         {
-            TrafficLightState trafficLightState = crossroad.getDrivewayRoutes().get(2).getTrafficLightModelCar().get(0).getState();
+            TrafficLightState trafficLightState = crossroad.getDrivewayRoute(Direction.EAST).getTrafficLightModelCar().getState();
             if(trafficLightState == TrafficLightState.RED)
             {
                 return;

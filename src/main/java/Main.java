@@ -76,14 +76,14 @@ public class Main extends Application
         primaryStage.show();
 
         /* Set all trafficLight to default red */
-        crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(1).getTrafficLightModelCar().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(2).getTrafficLightModelCar().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelCar().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(0).getTrafficLightModelPedestrian().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(1).getTrafficLightModelPedestrian().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(2).getTrafficLightModelPedestrian().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelPedestrian().get(0).setRed();
+        crossroad.getDrivewayRoute(Direction.NORTH).getTrafficLightModelCar().setGreen();
+        crossroad.getDrivewayRoute(Direction.EAST).getTrafficLightModelCar().setRed();
+        crossroad.getDrivewayRoute(Direction.WEST).getTrafficLightModelCar().setRed();
+        crossroad.getDrivewayRoute(Direction.SOUTH).getTrafficLightModelCar().setRed();
+        crossroad.getDrivewayRoute(Direction.NORTH).getTrafficLightModelPedestrian().setRed();
+        crossroad.getDrivewayRoute(Direction.EAST).getTrafficLightModelPedestrian().setRed();
+        crossroad.getDrivewayRoute(Direction.WEST).getTrafficLightModelPedestrian().setRed();
+        crossroad.getDrivewayRoute(Direction.SOUTH).getTrafficLightModelPedestrian().setRed();
     }
 }
 

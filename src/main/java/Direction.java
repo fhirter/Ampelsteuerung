@@ -5,7 +5,8 @@ public enum Direction {
 
     private Direction opposite;
 
-    static {
+    static
+    {
         NORTH.opposite = SOUTH;
         SOUTH.opposite = NORTH;
         EAST.opposite = WEST;
