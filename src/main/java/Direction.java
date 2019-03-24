@@ -5,7 +5,7 @@ public enum Direction {
 
     private Direction opposite;
 
-    static
+/*    static
     {
         NORTH.opposite = SOUTH;
         SOUTH.opposite = NORTH;
@@ -16,7 +16,7 @@ public enum Direction {
     public Direction getOppositeDirection() {
         return opposite;
     }
-
+*/
     public static Direction getRandomDirection()
     {
         Random random = new Random();

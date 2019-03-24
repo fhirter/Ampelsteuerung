@@ -48,7 +48,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
 
     private Crossroad crossroadModel;
     private static Point2D ref = Main.getRef();
-    private int countOfMovedElements;
+    private int countOfMovedElements = 1;
     private final Map<Direction, Point2D> points = new HashMap<>();
 
     /**

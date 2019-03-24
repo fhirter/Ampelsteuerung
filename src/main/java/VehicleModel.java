@@ -428,7 +428,10 @@ public class VehicleModel extends Observable
         {
             isTurningInProgress = false;
             calcTurnAngle = 0;
-            position = crossroad.getStartPosition(start);
+            Position restoreStartPosition = new Position(crossroad.getStartPosition(start));
+            position.x = restoreStartPosition.x;
+            position.y = restoreStartPosition.y;
+            position.angle = restoreStartPosition.angle;
 
             findValidDestination();
         }
