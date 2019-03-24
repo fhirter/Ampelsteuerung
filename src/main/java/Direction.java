@@ -3,20 +3,6 @@ import java.util.Random;
 public enum Direction {
     WEST, NORTH, EAST, SOUTH;
 
-    private Direction opposite;
-
-/*    static
-    {
-        NORTH.opposite = SOUTH;
-        SOUTH.opposite = NORTH;
-        EAST.opposite = WEST;
-        WEST.opposite = EAST;
-    }
-
-    public Direction getOppositeDirection() {
-        return opposite;
-    }
-*/
     public static Direction getRandomDirection()
     {
         Random random = new Random();

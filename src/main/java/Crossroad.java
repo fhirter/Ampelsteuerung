@@ -15,7 +15,7 @@ public class Crossroad extends Observable {
     private CrossroadController crossroadController;
     private List<VehicleModel> vehicleModelList = new LinkedList<>();
     private List<VehicleController> vehicleControllerList = new LinkedList<>();
-    private int counterTypeOfMovedElements = 0;
+    private int counterTypeOfVehicles = 0;
     private int countOfMovedElements = 0;
 
     private final Map<Direction, Position> startPositions = new HashMap<>();
@@ -33,15 +33,10 @@ public class Crossroad extends Observable {
 
     public Crossroad()
     {
-        double xPoint = 0;
-        double yPoint = 0;
-        int rotateRoute = 0;
-
         /* Loop to create all driveways */
         for (int i = 0; i < Direction.values().length; i++) {
             DrivewayRoute drivewayRoute = new DrivewayRoute();
             drivewayRoutes.put(Direction.values()[i], drivewayRoute);
-            rotateRoute += 90;
         }
 
         GameLoop gameLoop = new GameLoop(this);
@@ -136,16 +131,16 @@ public class Crossroad extends Observable {
     }
 
 
-    public void startMovedElements(CrossroadController crossroadController, int countOfMovedElements)
+    public void startMovedElements(CrossroadController crossroadController, int amountOfVehicles)
     {
         /* Generate and start MovedElements */
         this.crossroadController = crossroadController;
-        this.countOfMovedElements = countOfMovedElements;
-        generateMovedElements(countOfMovedElements);
+        this.countOfMovedElements = amountOfVehicles;
+        generateVehicles(amountOfVehicles);
     }
 
 
-    public void generateMovedElements(int count)
+    public void generateVehicles(int count)
     {
         if(vehicleModelList.size() != 0)
         {
@@ -162,7 +157,7 @@ public class Crossroad extends Observable {
 
         for(int i = 0; i < count; i++)
         {
-            VehicleModel vehicleModel = new VehicleModel(this, getAllTypesOfMovedElement(), getRandomStartpoint());
+            VehicleModel vehicleModel = new VehicleModel(this, getAllTypesOfVehicles(), getRandomStartpoint());
             VehicleController vehicleController = new VehicleController(vehicleModel);
             vehicleControllerList.add(vehicleController);
             vehicleModel.addObserver(vehicleController);
@@ -173,12 +168,12 @@ public class Crossroad extends Observable {
     }
 
 
-    private vehicleType getAllTypesOfMovedElement()
+    private vehicleType getAllTypesOfVehicles()
     {
-        counterTypeOfMovedElements ++;
-        if(counterTypeOfMovedElements >= vehicleType.values().length){
-            counterTypeOfMovedElements = 0;}
-        return vehicleType.values()[counterTypeOfMovedElements];
+        counterTypeOfVehicles++;
+        if(counterTypeOfVehicles >= vehicleType.values().length){
+            counterTypeOfVehicles = 0;}
+        return vehicleType.values()[counterTypeOfVehicles];
     }
 
 

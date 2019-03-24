@@ -26,20 +26,6 @@ public class Main extends Application
 
 
     /**
-     * crossroadStart: Start with a new Object from the crossroad.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    02.12.2018
-     */
-    public void crossroadStart()
-    {
-        launch(null);
-    }
-
-
-    /**
      * start(Stage primaryStage): Turns all lights on.
      *
      *
@@ -56,7 +42,7 @@ public class Main extends Application
         crossroadController = new CrossroadController(crossroad);
 
         /* GreenPlanet */
-        GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(0,-300));
+        GreenPlanetController greenPlanetController = new GreenPlanetController(ref,new Point2D(0,-300));
         crossroadController.getChildren().add(greenPlanetController);
 
         /* Center */

@@ -1,7 +1,3 @@
-import java.util.LinkedList;
-import java.util.List;
-
-
 /**
  * Class DrivewayRoute: Data model for the crossroad
  *

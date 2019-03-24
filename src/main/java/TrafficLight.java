@@ -69,22 +69,6 @@ public class TrafficLight extends Observable
         }
     }
 
-
-    /**
-     * getInProgress(): Returns if the trafficLight is in progress
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
-     * @return  boolean: State if an change of lights in progress (true or false)
-     */
-    public boolean getInProgress()
-    {
-        return inProgress;
-    }
-
-
     /**
      * setRed(): Change the color from the trafficLight to RED.
      *

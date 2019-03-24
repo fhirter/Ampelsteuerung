@@ -15,8 +15,6 @@ public class CenterPane extends AnchorPane implements Initializable
     @FXML   private Pane fourthRoute;
 
     private Crossroad crossroadModel;
-    private HashMap<String, String> allgorithmusAndTypeFromCrossroad;
-
 
     /**
      * CenterPane(): Constructor

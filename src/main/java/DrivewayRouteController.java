@@ -6,8 +6,6 @@ import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class DrivewayRouteController extends AnchorPane implements Initializable, Observer

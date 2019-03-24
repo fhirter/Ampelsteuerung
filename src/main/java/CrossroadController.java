@@ -62,8 +62,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     public CrossroadController(Crossroad model)
     {
         this.crossroadModel = model;
-        double xPoint = 0;
-        double yPoint = 0;
         int rotateRoute = 0;
 
         points.put(Direction.WEST, new Point2D(0,0));
@@ -79,8 +77,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
             DrivewayRouteController drivewayRouteController = new DrivewayRouteController(crossroadModel.getDrivewayRoute(direction), ref,points.get(direction), rotateRoute);
             crossroadModel.getDrivewayRoute(direction).addObserver(drivewayRouteController);
             drivewayRouteControllers.add(drivewayRouteController);
-
-            /* add controller to observer from the createt model */
             rotateRoute += 90;
         }
 
