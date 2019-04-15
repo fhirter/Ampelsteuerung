@@ -15,8 +15,6 @@ public class CenterPane extends AnchorPane implements Initializable
     @FXML   private Pane fourthRoute;
 
     private Crossroad crossroadModel;
-    private HashMap<String, String> allgorithmusAndTypeFromCrossroad;
-
 
     /**
      * CenterPane(): Constructor
@@ -59,7 +57,15 @@ public class CenterPane extends AnchorPane implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
+        if(crossroadModel.getNumberOfDriveways().toString() == "3")
+        {
+            pedestrianWay.setVisible(true);
+            fourthRoute.setVisible(false);
+        }else if(crossroadModel.getNumberOfDriveways().toString() == "4")
+        {
+            pedestrianWay.setVisible(false);
+            fourthRoute.setVisible(true);
+        }
     }
 
 

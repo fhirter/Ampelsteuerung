@@ -5,6 +5,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class Main: Mainmethode for the TEKO project "Ampelsteuerung".
@@ -22,20 +23,6 @@ public class Main extends Application
     public static Point2D getRef()
     {
         return ref;
-    }
-
-
-    /**
-     * crossroadStart: Start with a new Object from the crossroad.
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    02.12.2018
-     */
-    public void crossroadStart()
-    {
-        launch(null);
     }
 
 

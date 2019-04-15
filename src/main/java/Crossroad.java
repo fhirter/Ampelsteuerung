@@ -12,13 +12,12 @@ public class Crossroad extends Observable {
 
     private Integer numberOfDriveways = 4;
     private Map<Direction,DrivewayRoute> drivewayRoutes = new HashMap<>();
-    private Map<Direction,Map<TrafficLightType, TrafficLight>> trafficLightsDirection = new HashMap<>();
     private CenterPane centerPaneModel;
     private Crossroad crossroad;
     private CrossroadController crossroadController;
     private List<VehicleModel> vehicleModelList = new LinkedList<>();
     private List<VehicleController> vehicleControllerList = new LinkedList<>();
-    private int counterTypeOfMovedElements = 0;
+    private int counterTypeOfVehicles = 0;
     private int countOfMovedElements = 0;
 
     private final Map<Direction, Position> startPositions = new HashMap<>();
@@ -154,15 +153,102 @@ public class Crossroad extends Observable {
      */
     public void setNumberOfDriveways(Integer numberOfDriveways){
         this.numberOfDriveways = numberOfDriveways;
+        centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
     }
 
+
+    /**
+     * setStateFromTrafficLight: set number of Driveways
+     *
+     * @version 1.0
+     * @autor   Schweizer Patrick
+     * @date    02.03.2019
+     * @arg     fixpoint (orientation from the trafficLight (CAR))
+     * @arg     trafficLightState (State from the trafficLight)
+     */
+    public void setStateFromTrafficLight(Direction fixpoint, TrafficLightState trafficLightState)
+    {
+        drivewayRoutes.get(fixpoint).getTrafficLightModelCar().setState(trafficLightState);
+    }
+
+
+    public void startMovedElements(CrossroadController crossroadController, int amountOfVehicles)
+    {
+        /* Generate and start MovedElements */
+        this.crossroadController = crossroadController;
+        this.countOfMovedElements = amountOfVehicles;
+        generateVehicles(amountOfVehicles);
+    }
+
+
+    public void generateVehicles(int count)
+    {
+        if(vehicleModelList.size() != 0)
+        {
+            vehicleModelList.clear();
+            for (int i = crossroadController.getChildren().size()-1; i > 0; i--)
+            {
+                if(vehicleControllerList.indexOf(crossroadController.getChildren().get(i)) != -1)
+                {
+                    crossroadController.getChildren().remove(i);
+                }
+            }
+            vehicleControllerList.clear();
     public boolean canITurn(Position position) {
         if(turningArea.isInside(position)) {
             return true;
         }
-        return false;
+
+        for(int i = 0; i < count; i++)
+        {
+            VehicleModel vehicleModel = new VehicleModel(this, getAllTypesOfVehicles(), getRandomStartpoint());
+            VehicleController vehicleController = new VehicleController(vehicleModel);
+            vehicleControllerList.add(vehicleController);
+            vehicleModel.addObserver(vehicleController);
+
+            crossroadController.getChildren().add(vehicleController);
+            vehicleModelList.add(vehicleModel);
+        }
     }
 
+
+    private vehicleType getAllTypesOfVehicles()
+    {
+        counterTypeOfVehicles++;
+        if(counterTypeOfVehicles >= vehicleType.values().length){
+            counterTypeOfVehicles = 0;}
+        return vehicleType.values()[counterTypeOfVehicles];
+    }
+
+
+    public Direction getRandomStartpoint()
+    {
+        int rndNumber = 0;
+        Random random = new Random();
+        rndNumber = random.nextInt(numberOfDriveways);
+        return Direction.values()[rndNumber];
+    }
+
+
+    public void calculatePositions(float secondsElapsedCapped)
+    {
+        for (int i = 0; i < vehicleModelList.size(); i++)
+        {
+            vehicleModelList.get(i).setNewPosition(secondsElapsedCapped);
+        }
+    }
+
+    public Position getStartPosition(Direction start) {
+        return startPositions.get(start);
+    }
+
+    public boolean isDestinationValid(Direction destination) {
+        if(numberOfDriveways == 3 && destination == Direction.SOUTH) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 

@@ -46,6 +46,23 @@ public class VehicleModel extends Observable
         }
     }
 
+    public vehicleType getVehicleType()
+    {
+        return vehicleType;
+    }
+
+
+    public Position getPosition()
+    {
+        return position;
+    }
+
+
+
+
+    public void calcRouteFromNorth(float secondsElapsedCapped)
+    {
+        float movedWay = secondsElapsedCapped * speed/(float)0.016;
 
     public void setRandomDestination()
     {

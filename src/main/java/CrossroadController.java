@@ -49,7 +49,8 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
 
     private Crossroad crossroadModel;
     private static Point2D ref = Main.getRef();
-    private int countOfMovedElements;
+    private int countOfMovedElements = 1;
+    private final Map<Direction, Point2D> points = new HashMap<>();
 
     /**
      * CrossroadController(): Constructor
@@ -61,8 +62,6 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
      */
     public CrossroadController(Crossroad model) {
         this.crossroadModel = model;
-        double xPoint = 0;
-        double yPoint = 0;
         int rotateRoute = 0;
 
 
@@ -79,20 +78,19 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         offsets.add(new Point2D(-roadHeight-centerHeight/2, 0));
         offsets.add(new Point2D(0, 0));
         offsets.add(new Point2D(0, 0));
+        points.put(Direction.WEST, new Point2D(0,0));
+        points.put(Direction.NORTH, new Point2D(550,-300));
+        points.put(Direction.EAST, new Point2D(850,250));
+        points.put(Direction.SOUTH, new Point2D(300,550));
 
         /* Loop to create all driveways */
-        for (int i = 0; i < 4; i++) {
-
-            /* create controller */
-            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(crossroadModel.getDrivewayRoutes().get(i), ref, offsets.get(i), rotateRoute);
-            crossroadModel.getDrivewayRoutes().get(i).addObserver(drivewayRouteController);
+        for (int i = 0; i < Direction.values().length; i++)
+        {
+            /* create driveWayRouteController */
+            Direction direction = Direction.values()[i];
+            DrivewayRouteController drivewayRouteController = new DrivewayRouteController(crossroadModel.getDrivewayRoute(direction), ref,points.get(direction), rotateRoute);
+            crossroadModel.getDrivewayRoute(direction).addObserver(drivewayRouteController);
             drivewayRouteControllers.add(drivewayRouteController);
-
-            drivewayRouteController.getChildren().add(drivewayRouteController.getTrafficLightControllerCar().get(0));
-            drivewayRouteController.getChildren().add(drivewayRouteController.getTrafficLightControllerPedestrian().get(0));
-            drivewayRouteController.getChildren().add(drivewayRouteController.getTrafficLightControllerPedestrian().get(1));
-
-            /* add controller to observer from the createt model */
             rotateRoute += 90;
         }
 

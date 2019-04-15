@@ -37,7 +37,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
      * @date    27.11.2018
      * @arg     TrafficLight trafficLight: (Object form model class)
      */
-    public TrafficLightController(TrafficLight model,Point2D refTrafficLights, Point2D offset, int Rotate)
+    public TrafficLightController(TrafficLight model,Point2D refTrafficLights, Position position)
     {
         this.model = model;
 
@@ -50,9 +50,9 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
             e.printStackTrace();
         }
 
-        setLayoutX(refTrafficLights.getX() + offset.getX());
-        setLayoutY(refTrafficLights.getY() + offset.getY());
-        setRotate(Rotate);
+        setLayoutX(refTrafficLights.getX() + position.x);
+        setLayoutY(refTrafficLights.getY() + position.y);
+        setRotate(position.angle);
 
         if (model.getType() == TrafficLightType.CAR)
         {

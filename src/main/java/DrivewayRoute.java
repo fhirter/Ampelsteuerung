@@ -1,7 +1,3 @@
-import java.util.LinkedList;
-import java.util.List;
-
-
 /**
  * Class DrivewayRoute: Data model for the crossroad
  *
@@ -13,6 +9,10 @@ public class DrivewayRoute extends Observable
 {
     private boolean pedestrianStripes;
     private boolean velostripes;
+
+
+    private TrafficLight trafficLightModelCars;
+    private TrafficLight trafficLightModelPedestrians;
     private boolean visibility = true;
 
 
@@ -27,7 +27,8 @@ public class DrivewayRoute extends Observable
      */
     public DrivewayRoute()
     {
-
+        trafficLightModelCars = new TrafficLight(TrafficLightType.CAR);
+        trafficLightModelPedestrians = new TrafficLight(TrafficLightType.PEDESTRIAN);
     }
 
 
@@ -122,7 +123,33 @@ public class DrivewayRoute extends Observable
         notifyObservers();
     }
 
+    /**
+     * DrivewayRoute: get the TrafficLightCar of DrivewayRoute
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
+    public TrafficLight getTrafficLightModelCar()
+    {
+        return trafficLightModelCars;
+    }
 
+    /**
+     * DrivewayRoute: get the TrafficLightPedestrian of DrivewayRoute
+     *
+     *
+     * @version 1.0
+     * @autor   NIN Class
+     * @date    02.08.2018
+     *
+     */
+    public TrafficLight getTrafficLightModelPedestrian()
+    {
+        return trafficLightModelPedestrians;
+    }
 }
 
 
