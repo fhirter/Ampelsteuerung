@@ -1,25 +1,27 @@
-import java.util.Random;
-
 public enum Direction {
     WEST, EAST, NORTH, SOUTH;
-
     private Direction opposite;
+    private int angle;
 
     static {
+        WEST.opposite = EAST;
+        EAST.opposite = WEST;
         NORTH.opposite = SOUTH;
         SOUTH.opposite = NORTH;
-        EAST.opposite = WEST;
-        WEST.opposite = EAST;
     }
 
-    public Direction getOppositeDirection() {
+    static {
+        WEST.angle = 270;
+        EAST.angle = 90;
+        NORTH.angle = 0;
+        SOUTH.angle = 180;
+    }
+
+    public Direction getOpposite() {
         return opposite;
     }
 
-    public static Direction getRandomDirection()
-    {
-        Random random = new Random();
-        int rndNumber = random.nextInt(Direction.values().length);
-        return Direction.values()[rndNumber];
+    public int getAngle() {
+        return angle;
     }
-}
+};

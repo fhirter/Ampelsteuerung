@@ -2,13 +2,13 @@ import javafx.animation.AnimationTimer;
 
 public class GameLoop extends AnimationTimer
 {
-    private final Crossroad crossroad;
+    private final Vehicles vehicles;
     private long previousTime = 0;
     private float maximumStep = (float)0.016;
 
-    public GameLoop(Crossroad crossroad)
+    public GameLoop(Vehicles vehicles)
     {
-        this.crossroad = crossroad;
+        this.vehicles = vehicles;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class GameLoop extends AnimationTimer
         float secondsElapsedCapped = Math.min(secondsElapsed, maximumStep);
         previousTime = now;
 
-        this.crossroad.calculatePositions(secondsElapsedCapped);
+        vehicles.calculatePositions(secondsElapsedCapped);
     }
 }

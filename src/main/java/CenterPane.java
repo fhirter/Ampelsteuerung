@@ -39,9 +39,11 @@ public class CenterPane extends AnchorPane implements Initializable
             e.printStackTrace();
         }
 
+        offset = new Point2D(-255/2,-255/2);  // todo: get effective height
+
         // positioning
         setLayoutX(ref.getX() + offset.getX());
-        setLayoutY(ref.getY() + offset.getY());
+       setLayoutY(ref.getY() + offset.getY());
     }
 
 
@@ -61,23 +63,4 @@ public class CenterPane extends AnchorPane implements Initializable
     }
 
 
-    /**
-     * update the count (tree or four) of number from the crossroad
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    01.02.2019
-     */
-    public void updateNumberOfCrossroad(Integer numberOfCrossroad)
-    {
-        if(numberOfCrossroad == 3)
-        {
-            pedestrianWay.setVisible(true);
-            fourthRoute.setVisible(false);
-        }else if(numberOfCrossroad == 4)
-        {
-            pedestrianWay.setVisible(false);
-            fourthRoute.setVisible(true);
-        }
-    }
 }

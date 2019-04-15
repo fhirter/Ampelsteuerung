@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Crossroad extends Observable {
 
@@ -7,6 +8,7 @@ public class Crossroad extends Observable {
             "Algorithm C",
             "Algorithm D",
             "Algorithm E"};
+    private final Point2D referencePoint;
 
     private Integer numberOfDriveways = 4;
     private Map<Direction,DrivewayRoute> drivewayRoutes = new HashMap<>();
@@ -21,6 +23,29 @@ public class Crossroad extends Observable {
 
     private final Map<Direction, Position> startPositions = new HashMap<>();
 
+    private List<DrivewayRoute> drivewayRoutes = new LinkedList<>();
+
+    private Area turningArea;
+
+    private class Area {
+        private int size;
+        private Point2D center;
+
+
+        public Area(int size, Point2D center){
+            this.size = size;
+            this.center = center;
+        }; // just use default values
+
+        public boolean isInside(Position position) {
+            if(position.x > (center.getX()-size/2) && position.x < (center.getX()+size/2) ) {
+                if(position.y > (center.getY()-size/2) && position.y < (center.getY()+size/2)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     /**
      * Crossroad: Constructor
@@ -32,11 +57,11 @@ public class Crossroad extends Observable {
      *
      */
 
-    public Crossroad()
+    public Crossroad(Point2D ref)
     {
-        double xPoint = 0;
-        double yPoint = 0;
-        int rotateRoute = 0;
+        this.referencePoint = ref;
+        turningArea = new Area(180, referencePoint);
+
 
         /* Loop to create all driveways */
         for (int i = 0; i < 4; i++) {
@@ -129,101 +154,14 @@ public class Crossroad extends Observable {
      */
     public void setNumberOfDriveways(Integer numberOfDriveways){
         this.numberOfDriveways = numberOfDriveways;
-        centerPaneModel.updateNumberOfCrossroad(numberOfDriveways);
     }
 
-
-    /**
-     * setStateFromTrafficLight: set number of Driveways
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    02.03.2019
-     * @arg     fixpoint (orientation from the trafficLight (CAR))
-     * @arg     trafficLightState (State from the trafficLight)
-     */
-    public void setStateFromTrafficLight(Direction fixpoint, TrafficLightState trafficLightState)
-    {
-
-                trafficLightsDirection.get(fixpoint).get(TrafficLightType.CAR).setState(trafficLightState);
-    }
-
-
-    public void startMovedElements(CrossroadController crossroadController, int countOfMovedElements)
-    {
-        /* Generate and start MovedElements */
-        this.crossroadController = crossroadController;
-        this.countOfMovedElements = countOfMovedElements;
-        generateMovedElements(countOfMovedElements);
-    }
-
-
-    public void generateMovedElements(int count)
-    {
-        if(vehicleModelList.size() != 0)
-        {
-            vehicleModelList.clear();
-            for (int i = crossroadController.getChildren().size()-1; i > 0; i--)
-            {
-                if(vehicleControllerList.indexOf(crossroadController.getChildren().get(i)) != -1)
-                {
-                    crossroadController.getChildren().remove(i);
-                }
-            }
-            vehicleControllerList.clear();
-        }
-
-        for(int i = 0; i < count; i++)
-        {
-            VehicleModel vehicleModel = new VehicleModel(this, getAllTypesOfMovedElement(), getRandomStartpoint());
-            VehicleController vehicleController = new VehicleController(vehicleModel);
-            vehicleControllerList.add(vehicleController);
-            vehicleModel.addObserver(vehicleController);
-
-            crossroadController.getChildren().add(vehicleController);
-            vehicleModelList.add(vehicleModel);
-        }
-    }
-
-
-    private vehicleType getAllTypesOfMovedElement()
-    {
-        counterTypeOfMovedElements ++;
-        if(counterTypeOfMovedElements >= vehicleType.values().length){
-            counterTypeOfMovedElements = 0;}
-        return vehicleType.values()[counterTypeOfMovedElements];
-    }
-
-
-    public Direction getRandomStartpoint()
-    {
-        int rndNumber = 0;
-        Random random = new Random();
-        rndNumber = random.nextInt(numberOfDriveways);
-        return Direction.values()[rndNumber];
-    }
-
-
-    public void calculatePositions(float secondsElapsedCapped)
-    {
-        for (int i = 0; i < vehicleModelList.size(); i++)
-        {
-            vehicleModelList.get(i).setNewPosition(secondsElapsedCapped);
-        }
-    }
-
-    public Position getStartPosition(Direction start) {
-        return startPositions.get(start);
-    }
-
-    public boolean isDestinationValid(Direction destination) {
-        if(numberOfDriveways == 3 && destination == Direction.SOUTH) {
-            return false;
-        } else {
+    public boolean canITurn(Position position) {
+        if(turningArea.isInside(position)) {
             return true;
         }
+        return false;
     }
-
 
 }
 
