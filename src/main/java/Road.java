@@ -1,11 +1,11 @@
 /**
- * Class DrivewayRoute: Data model for the crossroad
+ * Class Road: Data model for the crossroad
  *
  * @version 1.0
  * @autor   Class NIN
  * @date   14.11.2018
  */
-public class DrivewayRoute extends Observable
+public class Road extends Observable
 {
     private boolean pedestrianStripes;
     private boolean velostripes;
@@ -17,7 +17,7 @@ public class DrivewayRoute extends Observable
 
 
     /**
-     * DrivewayRoute: Constructor
+     * Road: Constructor
      *
      *
      * @version 1.0
@@ -25,7 +25,7 @@ public class DrivewayRoute extends Observable
      * @date    02.08.2018
      *
      */
-    public DrivewayRoute()
+    public Road()
     {
         trafficLightModelCars = new TrafficLight(TrafficLightType.CAR);
         trafficLightModelPedestrians = new TrafficLight(TrafficLightType.PEDESTRIAN);
@@ -33,13 +33,13 @@ public class DrivewayRoute extends Observable
 
 
     /**
-     * DrivewayRoute: set Driveway Route Visiable
+     * Road: set Driveway Route Visiable
      *
      *
      * @version 1.0
      * @autor   NIN Class
      * @date    02.08.2018
-     * @arg      visibility of DrivewayRoute
+     * @arg      visibility of Road
      */
     public void setVisibility(boolean visibility)
     {
@@ -49,7 +49,7 @@ public class DrivewayRoute extends Observable
 
 
     /**
-     * DrivewayRoute: get state of PedestrianStripe
+     * Road: get state of PedestrianStripe
      *
      *
      * @version 1.0
@@ -64,7 +64,7 @@ public class DrivewayRoute extends Observable
 
 
     /**
-     * DrivewayRoute: get state of Velostripes
+     * Road: get state of Velostripes
      *
      *
      * @version 1.0
@@ -79,7 +79,7 @@ public class DrivewayRoute extends Observable
 
 
     /**
-     * DrivewayRoute: get Visiable of DrivewayRoute
+     * Road: get Visiable of Road
      *
      *
      * @version 1.0
@@ -93,13 +93,13 @@ public class DrivewayRoute extends Observable
     }
 
     /**
-     * DrivewayRoute: set PedestrianStripe
+     * Road: set PedestrianStripe
      *
      *
      * @version 1.0
      * @autor   NIN Class
      * @date    02.08.2018
-     * @arg      pedestrianStripe of DrivewayRoute
+     * @arg      pedestrianStripe of Road
      */
     public void setPedestrianStripes(boolean pedestrianStripes)
     {
@@ -108,7 +108,7 @@ public class DrivewayRoute extends Observable
     }
 
     /**
-     * DrivewayRoute: set VeloStripes
+     * Road: set VeloStripes
      *
      *
      * @version 1.0
@@ -124,7 +124,7 @@ public class DrivewayRoute extends Observable
     }
 
     /**
-     * DrivewayRoute: get the TrafficLightCar of DrivewayRoute
+     * Road: get the TrafficLightCar of Road
      *
      *
      * @version 1.0
@@ -138,7 +138,7 @@ public class DrivewayRoute extends Observable
     }
 
     /**
-     * DrivewayRoute: get the TrafficLightPedestrian of DrivewayRoute
+     * Road: get the TrafficLightPedestrian of Road
      *
      *
      * @version 1.0

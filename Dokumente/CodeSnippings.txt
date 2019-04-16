@@ -1,6 +1,6 @@
 
     /**
-     * createTrafficLights(): Creates on the DrivewayRoute the appopriate trafficlights
+     * createTrafficLights(): Creates on the Road the appopriate trafficlights
      *
      *
      * @version 1.0
@@ -115,14 +115,14 @@
 
 
 
-    VehicleController vehicleController = new VehicleController(new VehicleModel(), ref, new Point2D(0,0), 0);
+    VehicleController vehicleController = new VehicleController(new Vehicle(), ref, new Point2D(0,0), 0);
     crossroadController.getChildren().add(vehicleController);
 
 
 
 
     /* Driveway Route East */
-    DrivewayRoute drivewayRouteEast = new DrivewayRoute(false,false);
+    Road drivewayRouteEast = new Road(false,false);
     DrivewayRouteController drivewayRouteControllerEast = new DrivewayRouteController(drivewayRouteEast, ref, new Point2D(200,200));
     crossroadController.getChildren().add(drivewayRouteControllerEast);
 

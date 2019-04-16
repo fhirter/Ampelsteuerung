@@ -1,88 +1,39 @@
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.transform.Rotate;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-
-public class VehicleController extends AnchorPane implements Initializable, Observer
+public class VehicleController extends ImageView implements Observer
 {
-    @FXML private ImageView carImage;
-    @FXML private ImageView busImage;
-    @FXML private ImageView bicycleImage;
-    @FXML private Group movedElementsGroup;
-
-    private VehicleType vehicleType;
-    private VehicleModel vehicleModel;
+    private Vehicle vehicle;
     private Position position;
 
-    public VehicleController(VehicleModel vehicleModel)
+    private  Rotate rotate;
+
+    public VehicleController(Vehicle vehicle)
     {
-        this.vehicleModel = vehicleModel;
+        this.vehicle = vehicle;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("vehicle.fxml"));
-        loader.setController(this);
-        loader.setRoot(this);
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+        setImage(new Image("images/car.png"));
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        carImage.setVisible(false);
-        busImage.setVisible(false);
-        bicycleImage.setVisible(false);
-
-        position = vehicleModel.getStartPosition();
+        position = vehicle.getStartPosition();
         setLayoutX(position.x);
         setLayoutY(position.y);
-        setRotate(position.angle);
 
-        vehicleType = vehicleModel.getType();
-        switch(vehicleType)
-        {
-            case Car:
-            {
-                carImage.setVisible(true);
-                setScaleX(0.8);
-                setScaleY(0.8);
-                break;
-            }
-            case Bus:
-            {
-                busImage.setVisible(true);
-                setScaleX(0.8);
-                setScaleY(0.8);
-                break;
-            }
-            case Bicycle:
-            {
-                bicycleImage.setVisible(true);
-                setScaleX(0.4);
-                setScaleY(0.4);
-                break;
-            }
-        }
+        rotate = new Rotate(position.getAngle(),500,0);
+
+        getTransforms().add(rotate);
+     //   setRotate(position.angle);
     }
 
 
     @Override
     public void update()
     {
-        position = vehicleModel.getPosition();
+        position = vehicle.getPosition();
 
         setLayoutX(position.x);
         setLayoutY(position.y);
-        setRotate(position.angle);
+
+        rotate.setAngle(position.angle);
     }
 }

@@ -1,3 +1,7 @@
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
+
 public enum Direction {
     WEST, EAST, NORTH, SOUTH;
     private Direction opposite;
@@ -24,4 +28,6 @@ public enum Direction {
     public int getAngle() {
         return angle;
     }
+
+
 };

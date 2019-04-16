@@ -7,7 +7,7 @@ public class Vehicles
 
     private final Crossroad crossroad;
     private CrossroadController crossroadController;
-    private List<VehicleModel> vehicles = new LinkedList<>();
+    private List<Vehicle> vehicles = new LinkedList<>();
     private int counterTypeOfMovedElements = 0;
 
     public Vehicles(Crossroad crossroad, CrossroadController crossroadController, int vehicleCount)
@@ -22,7 +22,7 @@ public class Vehicles
     {
         for(int i = 0; i < count; i++)
         {
-            VehicleModel vehicle = new VehicleModel(crossroad, getAllTypesOfMovedElement(), getRandomStartpoint());
+            Vehicle vehicle = new Vehicle(crossroad, getRandomStartpoint());
             VehicleController vehicleController = new VehicleController(vehicle);
             vehicle.addObserver(vehicleController);
 
@@ -30,16 +30,6 @@ public class Vehicles
             vehicles.add(vehicle);
         }
     }
-
-
-    private VehicleType getAllTypesOfMovedElement()
-    {
-        counterTypeOfMovedElements ++;
-        if(counterTypeOfMovedElements >= VehicleType.values().length){
-            counterTypeOfMovedElements = 0;}
-        return VehicleType.values()[counterTypeOfMovedElements];
-    }
-
 
     public Direction getRandomStartpoint()
     {
@@ -55,6 +45,14 @@ public class Vehicles
         for (int i = 0; i < vehicles.size(); i++)
         {
             vehicles.get(i).setNewPosition(secondsElapsedCapped);
+        }
+    }
+
+    public boolean isDestinationValid(Direction destination) {
+        if(crossroad.getRoadCount() == 3 && destination == Direction.SOUTH) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

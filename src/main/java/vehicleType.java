@@ -1,1 +1,1 @@
-public enum vehicleType {Car, Bus, Bicycle}
+public enum VehicleType {Car, Bus, Bicycle}

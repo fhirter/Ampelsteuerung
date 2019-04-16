@@ -1,23 +1,25 @@
 import java.util.*;
 
-public class VehicleModel extends Observable
+public class Vehicle extends Observable
 {
     private final Map<Direction, Position> startPoints = new HashMap<>();
     private final Crossroad crossroad;
-    private VehicleType elementType;
+
     private Direction start;
     private Direction destination;
     private Direction currentDirection;
 
     private Position position;
 
+    private int lateral;
+    private int forward;
+
     private int speed;  // pixels/second
     private int step;
 
-    public VehicleModel(Crossroad crossroad, VehicleType elementType, Direction start)
+    public Vehicle(Crossroad crossroad, Direction start)
     {
         this.crossroad = crossroad;
-        this.elementType = elementType;
         this.start = start;
 
         setRandomDestination();
@@ -31,26 +33,8 @@ public class VehicleModel extends Observable
 
         position = new Position(startPoints.get(start));
 
-        switch(elementType)
-        {
-            case Bicycle:
-            {
-                speed = 200;
-                break;
-            }
-            default:
-            {
-                speed = 300;
-                break;
-            }
-        }
+        speed = 300;
     }
-
-    public vehicleType getVehicleType()
-    {
-        return vehicleType;
-    }
-
 
     public Position getPosition()
     {
@@ -58,14 +42,7 @@ public class VehicleModel extends Observable
     }
 
 
-
-
-    public void calcRouteFromNorth(float secondsElapsedCapped)
-    {
-        float movedWay = secondsElapsedCapped * speed/(float)0.016;
-
-    public void setRandomDestination()
-    {
+    public void setRandomDestination() {
         int rndNumber;
 
         // destination shouldn't be equal to start
@@ -103,13 +80,6 @@ public class VehicleModel extends Observable
                 break;
         }
     }
-
-    public VehicleType getType()
-    {
-        return this.elementType;
-    }
-
-
     public Position getStartPosition()
     {
         return startPoints.get(start);
@@ -127,20 +97,13 @@ public class VehicleModel extends Observable
        }
 
         position.angle += sign*1;
-        position.x += (int) Math.cos(position.angle);
-        position.y += (int) Math.sin(position.angle);
+        position.x += (int) Math.cos(position.angle)*step;
+        position.y += (int) Math.sin(position.angle)*step;
 
        if(destination.getAngle() == position.angle) {
            currentDirection = destination;
        }
 
-    }
-
-
-
-    public Position getPosition()
-    {
-        return position;
     }
 
     public void setNewPosition(float secondsElapsedCapped)

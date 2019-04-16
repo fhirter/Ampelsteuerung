@@ -33,11 +33,11 @@ public class GreenPlanetController extends AnchorPane implements Initializable
     @FXML   private ImageView imageBusch5;
 
     final String path = "..\\Ampelsteuerung\\Dokumente\\Bilder\\";
-    final String nameTree1 = "Baum1.png";
-    final String nameTree2 = "Baum2.png";
-    final String nameTree3 = "Baum3.png";
-    final String nameBusch1 = "Busch1.png";
-    final String nameBusch2 = "Busch2.png";
+    final String nameTree1 = "images/Baum1.png";
+    final String nameTree2 = "images/Baum2.png";
+    final String nameTree3 = "images/Baum3.png";
+    final String nameBusch1 = "images/Busch1.png";
+    final String nameBusch2 = "images/Busch2.png";
 
 
     /**

@@ -4,24 +4,20 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Class Main: Mainmethode for the TEKO project "Ampelsteuerung".
  *
- *
  * @version 1.0
- * @autor   Class NIN
- * @date    04.11.2018
+ * @autor Class NIN
+ * @date 04.11.2018
  */
-public class Main extends Application
-{
-    private static final Point2D ref = new Point2D(650,450);
+public class Main extends Application {
+    private static final Point2D ref = new Point2D(650, 450);
     private CrossroadController crossroadController;
 
-    public static Point2D getRef()
-    {
+    public static Point2D getRef() {
         return ref;
     }
 
@@ -29,46 +25,39 @@ public class Main extends Application
     /**
      * start(Stage primaryStage): Turns all lights on.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    20.11.2018
-     * @arg     Stage primaryStage: Object from Stage
+     * @autor Schweizer Patrick
+     * @date 20.11.2018
+     * @arg Stage primaryStage: Object from Stage
      */
     @Override
-    public void start(Stage primaryStage) throws Exception
-    {
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ampelsteuerung");
 
         Crossroad crossroad = new Crossroad(ref);
         crossroadController = new CrossroadController(crossroad);
 
-        /* GreenPlanet */
-        GreenPlanetController greenPlanetController = new GreenPlanetController(crossroad, ref,new Point2D(-425,-425));
-        crossroadController.getChildren().add(greenPlanetController);
-
         /* Center */
-        Point2D offset = new Point2D(0,0);      //offset point
-        CenterPane centerPane = new CenterPane(crossroad, ref, offset);
-        crossroadController.getChildren().add(centerPane);        //add
+        CenterPane centerPane = new CenterPane(crossroad, ref);
+        crossroadController.getChildren().add(centerPane);
 
-        List<DrivewayRouteController> drivewayControllerList = crossroadController.getDrivewayRouteControllers();
-        for (int i = 0; i < drivewayControllerList.size() ; i++)
-        {
+        List<RoadController> drivewayControllerList = crossroadController.getDrivewayRouteControllers();
+        for (int i = 0; i < drivewayControllerList.size(); i++) {
             crossroadController.getChildren().add(drivewayControllerList.get(i));
         }
 
         // turning area
-        int size = 180;
-        Rectangle r = new Rectangle(size,size);
-        r.setX(ref.getX()-size/2);
-        r.setY(ref.getY()-size/2);
+//        int size = 180;
+//        Rectangle r = new Rectangle(size,size);
+//        r.setX(ref.getX()-size/2);
+//        r.setY(ref.getY()-size/2);
 
 
-        crossroadController.getChildren().add(r);
+//        crossroadController.getChildren().add(r);
 
-        primaryStage.setScene(new Scene(crossroadController, 1100, 700));
-
+        final Scene scene = new Scene(crossroadController, 1100, 900);
+        scene.getStylesheets().add("style.css");
+        primaryStage.setScene(scene);
 
         primaryStage.show();
 
@@ -76,16 +65,6 @@ public class Main extends Application
         Vehicles vehicles = new Vehicles(crossroad, crossroadController, 5);
         GameLoop gameLoop = new GameLoop(vehicles);
         gameLoop.start();
-
-        //todo: Zum testen ob die Amplen funktionieren. Muss noch geloescht werden
-        crossroad.getDrivewayRoutes().get(0).getTrafficLightModelCar().get(0).setSIMULATION();
-        crossroad.getDrivewayRoutes().get(1).getTrafficLightModelCar().get(0).setGreen();
-        crossroad.getDrivewayRoutes().get(2).getTrafficLightModelCar().get(0).setYellowFlash();
-        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelCar().get(0).setSIMULATION();
-        crossroad.getDrivewayRoutes().get(0).getTrafficLightModelPedestrian().get(0).setRed();
-        crossroad.getDrivewayRoutes().get(1).getTrafficLightModelPedestrian().get(0).setYellowFlash();
-        crossroad.getDrivewayRoutes().get(2).getTrafficLightModelPedestrian().get(0).setGreen();
-        crossroad.getDrivewayRoutes().get(3).getTrafficLightModelPedestrian().get(0).setSIMULATION();
     }
 }
 
