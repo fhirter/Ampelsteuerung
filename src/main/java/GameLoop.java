@@ -4,7 +4,7 @@ public class GameLoop extends AnimationTimer
 {
     private final Vehicles vehicles;
     private long previousTime = 0;
-    private float maximumStep = (float)0.016;
+    private double maximumStep = 0.016;
 
     public GameLoop(Vehicles vehicles)
     {
@@ -20,8 +20,8 @@ public class GameLoop extends AnimationTimer
             return;
         }
 
-        float secondsElapsed = (now - previousTime) / 1e9f;
-        float secondsElapsedCapped = Math.min(secondsElapsed, maximumStep);
+        double secondsElapsed = ((double)now - previousTime) / 1e9f;
+        double secondsElapsedCapped = Math.min(secondsElapsed, maximumStep);
         previousTime = now;
 
         vehicles.calculatePositions(secondsElapsedCapped);

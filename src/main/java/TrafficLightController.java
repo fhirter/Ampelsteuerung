@@ -50,8 +50,8 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
             e.printStackTrace();
         }
 
-        setLayoutX(refTrafficLights.getX() + position.x);
-        setLayoutY(refTrafficLights.getY() + position.y);
+        setLayoutX(refTrafficLights.getX() + position.getX());
+        setLayoutY(refTrafficLights.getY() + position.getY());
         setRotate(position.angle);
 
         if (model.getType() == TrafficLightType.CAR)

@@ -16,10 +16,10 @@ public class VehicleController extends ImageView implements Observer
         setImage(new Image("images/car.png"));
 
         position = vehicle.getStartPosition();
-        setLayoutX(position.x);
-        setLayoutY(position.y);
+        setLayoutX(position.getX());
+        setLayoutY(position.getY());
 
-        rotate = new Rotate(position.getAngle(),500,0);
+        rotate = new Rotate(position.getAngle(),(vehicle.getLength()-vehicle.getWheelbase())/2,vehicle.getWidth()/2);
 
         getTransforms().add(rotate);
      //   setRotate(position.angle);
@@ -31,8 +31,8 @@ public class VehicleController extends ImageView implements Observer
     {
         position = vehicle.getPosition();
 
-        setLayoutX(position.x);
-        setLayoutY(position.y);
+        setLayoutX(position.getX());
+        setLayoutY(position.getY());
 
         rotate.setAngle(position.angle);
     }

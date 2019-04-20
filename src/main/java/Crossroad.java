@@ -3,6 +3,8 @@ import javafx.geometry.Point2D;
 import java.util.*;
 
 public class Crossroad extends Observable {
+
+
     private final Point2D referencePoint;
 
     private Integer roadCount = 4;
@@ -12,9 +14,12 @@ public class Crossroad extends Observable {
     private int roadLength = 300;
 
     private Map<Direction, Road> roads = new HashMap<>();
-    private final Map<Direction, Position> startPositions = new HashMap<>();
 
     private Area turningArea;
+
+    public Point2D getReferencePoint() {
+        return referencePoint;
+    }
 
     public void setPedestrianStripes(boolean selected) {
         Iterator<Road> it = roads.values().iterator();
@@ -41,8 +46,8 @@ public class Crossroad extends Observable {
         }; // just use default values
 
         public boolean isInside(Position position) {
-            if(position.x > (center.getX()-size/2) && position.x < (center.getX()+size/2) ) {
-                if(position.y > (center.getY()-size/2) && position.y < (center.getY()+size/2)) {
+            if(position.getX() > (center.getX()-size/2) && position.getX() < (center.getX()+size/2) ) {
+                if(position.getY() > (center.getY()-size/2) && position.getY() < (center.getY()+size/2)) {
                     return true;
                 }
             }
@@ -78,11 +83,6 @@ public class Crossroad extends Observable {
             //trafficLightsDirection.put(direction, trafficLights);
 
         }
-
-        startPositions.put(Direction.WEST, new Position(300, 465, 90));
-        startPositions.put(Direction.NORTH, new Position(615, 100, 180));
-        startPositions.put(Direction.EAST, new Position(950, 450, 270));
-        startPositions.put(Direction.SOUTH, new Position(635, 800,0));
     }
 
     public int getRoadWidth() {

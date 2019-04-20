@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.DoubleBinaryOperator;
 
 public class Vehicles
 {
@@ -22,7 +23,7 @@ public class Vehicles
     {
         for(int i = 0; i < count; i++)
         {
-            Vehicle vehicle = new Vehicle(crossroad, getRandomStartpoint());
+            Vehicle vehicle = new Vehicle(crossroad);
             VehicleController vehicleController = new VehicleController(vehicle);
             vehicle.addObserver(vehicleController);
 
@@ -31,16 +32,10 @@ public class Vehicles
         }
     }
 
-    public Direction getRandomStartpoint()
-    {
-        int rndNumber = 0;
-        Random random = new Random();
-        rndNumber = random.nextInt(Direction.values().length);
-        return Direction.values()[rndNumber];
-    }
 
 
-    public void calculatePositions(float secondsElapsedCapped)
+
+    public void calculatePositions(Double secondsElapsedCapped)
     {
         for (int i = 0; i < vehicles.size(); i++)
         {

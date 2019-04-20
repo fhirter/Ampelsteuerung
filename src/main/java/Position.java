@@ -1,39 +1,30 @@
-import java.awt.geom.Point2D;
+import javafx.geometry.Point2D;
 
 public class Position extends Point2D
 {
-    double x, y, angle;
+    double angle;
 
-    public Position(int x, int y, int angle) {
-        this.x = x;
-        this.y = y;
+    public Position(double x, double y, double angle) {
+        super(x,y);
+        this.angle = angle;
+    }
+
+    public Position(Point2D point, double angle) {
+        super(point.getX(),point.getY());
         this.angle = angle;
     }
 
     // copy constructor
     public Position(Position position) {
-        this.x = position.x;
-        this.y = position.y;
+        super(position.getX(),position.getY());
         this.angle = position.angle;
-    }
-
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    @Override
-    public double getY() {
-        return y;
-    }
-
-    @Override
-    public void setLocation(double x, double y) {
-        this.x = x;
-        this.y = y;
     }
 
     public double getAngle() {
         return angle;
+    }
+
+    public Position add(double x, double y, double angle) {
+        return new Position( super.add(x,y),getAngle()+ angle); //todo: implement 360° overflow
     }
 }

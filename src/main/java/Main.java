@@ -62,7 +62,7 @@ public class Main extends Application {
         primaryStage.show();
 
         /* Generate and start Vehicles */
-        Vehicles vehicles = new Vehicles(crossroad, crossroadController, 5);
+        Vehicles vehicles = new Vehicles(crossroad, crossroadController, 1);
         GameLoop gameLoop = new GameLoop(vehicles);
         gameLoop.start();
     }
