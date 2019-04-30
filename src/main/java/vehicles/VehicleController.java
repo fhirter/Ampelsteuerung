@@ -16,7 +16,7 @@ public class VehicleController extends ImageView implements Observer {
     {
         this.vehicle = vehicle;
 
-        setImage(new Image("images/car.png"));
+        setImage(new Image("/images/car.png"));
 
         position = vehicle.getStartPosition();
         setLayoutX(position.getX());

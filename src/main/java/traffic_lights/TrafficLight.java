@@ -6,8 +6,7 @@ import util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TrafficLight extends Observable
-{
+public class TrafficLight extends Observable implements TrafficLightInterface {
     private TrafficLightType type;
     private TrafficLightState actState, newState;
     private boolean inProgress = false;
@@ -39,6 +38,7 @@ public class TrafficLight extends Observable
      * @date    18.11.2018
      * @return  traffic_lights.TrafficLightType: Type from the trafficLight
      */
+    @Override
     public TrafficLightType getType()
     {
         return this.type;
@@ -55,12 +55,14 @@ public class TrafficLight extends Observable
      * @date    18.11.2018
      * @return  state: State from the trafficLight
      */
+    @Override
     public TrafficLightState getState()
     {
         return actState;
     }
 
 
+    @Override
     public void setState(TrafficLightState trafficLightState)
     {
         if(TrafficLightState.RED == trafficLightState)
@@ -81,6 +83,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setRed()
     {
         if(TrafficLightState.RED != getState())
@@ -100,6 +103,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setGreen()
     {
         if(TrafficLightState.GREEN != getState())
@@ -119,6 +123,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setYellowFlash()
     {
         if(TrafficLightState.YELLOW_FLASH != getState())
@@ -138,6 +143,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setDark()
     {
         newState = TrafficLightState.DARK;

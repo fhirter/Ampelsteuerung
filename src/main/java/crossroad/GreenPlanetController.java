@@ -54,7 +54,7 @@ public class GreenPlanetController extends AnchorPane implements Initializable
     {
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("greenPlanet.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/greenPlanet.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         try {

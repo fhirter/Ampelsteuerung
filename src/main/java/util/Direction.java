@@ -1,3 +1,5 @@
+package util;
+
 public enum Direction {
     WEST, EAST, NORTH, SOUTH;
     private Direction opposite;

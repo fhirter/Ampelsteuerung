@@ -40,7 +40,7 @@ public class RoadController extends Group implements Initializable, Observer
     {
         this.model= road;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("road.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/road.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         try {

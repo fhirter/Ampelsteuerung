@@ -1,3 +1,5 @@
+package util;
+
 import javafx.geometry.Point2D;
 
 public class Position extends Point2D
@@ -26,5 +28,9 @@ public class Position extends Point2D
 
     public Position add(double x, double y, double angle) {
         return new Position( super.add(x,y),getAngle()+ angle); //todo: implement 360° overflow
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
     }
 }

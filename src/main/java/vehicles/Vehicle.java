@@ -13,7 +13,7 @@ import java.util.Random;
 
 import static util.Direction.*;
 
-public class Vehicle extends Observable {
+public class Vehicle extends Observable implements Driveable {
     private final Map<Direction, Position> startPoints = new HashMap<>();
     private final Crossroad crossroad;
 
@@ -60,6 +60,7 @@ public class Vehicle extends Observable {
         speed = 100;
     }
 
+    @Override
     public Position getPosition() {
         return position;
     }
@@ -68,10 +69,12 @@ public class Vehicle extends Observable {
         return wheelbase;
     }
 
+    @Override
     public int getLength() {
         return length;
     }
 
+    @Override
     public int getWidth() {
         return width;
     }
@@ -92,22 +95,6 @@ public class Vehicle extends Observable {
             rndNumber = random.nextInt(values().length);
             destination = values()[rndNumber];
         } while (start == destination);
-    }
-
-    private void drive() {
-        if (currentDirection == destination) {
-            driveStraight();
-        } else if (crossroad.canITurn(position) == true) {
-            turn();
-        } else {
-            driveStraight();
-        }
-    }
-
-    private void driveStraight() {
-        forward = step;
-        lateral = 0.0;
-        mapDirection();
     }
 
     private void mapDirection() {
@@ -132,6 +119,7 @@ public class Vehicle extends Observable {
     }
 
 
+    @Override
     public void turn() {
         //http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
         int sign = 0;
