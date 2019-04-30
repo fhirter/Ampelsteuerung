@@ -1,3 +1,5 @@
+package crossroad;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 /**
- * Class GreenPlanetController Class for the Erviroment
+ * Class crossroad.GreenPlanetController Class for the Erviroment
  *
  *
  *
@@ -41,12 +43,12 @@ public class GreenPlanetController extends AnchorPane implements Initializable
 
 
     /**
-     * GreenPlanetController: Constructor
+     * crossroad.GreenPlanetController: Constructor
      *
      * @version 1.0
      * @autor   Class NIN
      * @date    10.02.2019
-     * @arg     crossroad (Object form Crossroad), ref (Referenze for all Objects) offset( Place for greenPlanet))
+     * @arg     crossroad (Object form crossroad.Crossroad), ref (Referenze for all Objects) offset( Place for greenPlanet))
      */
     public GreenPlanetController(Point2D ref, Point2D offset)
     {
@@ -92,7 +94,7 @@ public class GreenPlanetController extends AnchorPane implements Initializable
     }
 
     /**
-     * GreenPlanetController: set the Erviroment
+     * crossroad.GreenPlanetController: set the Erviroment
      *
      *
      * @version 1.0

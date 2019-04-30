@@ -1,9 +1,12 @@
+package vehicles;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
+import util.Observer;
+import util.Position;
 
-public class VehicleController extends ImageView implements Observer
-{
+public class VehicleController extends ImageView implements Observer {
     private Vehicle vehicle;
     private Position position;
 
@@ -34,6 +37,6 @@ public class VehicleController extends ImageView implements Observer
         setLayoutX(position.getX());
         setLayoutY(position.getY());
 
-        rotate.setAngle(position.angle);
+        rotate.setAngle(position.getAngle());
     }
 }

@@ -1,6 +1,17 @@
-import javafx.geometry.Point2D;
+package crossroad;
 
-import java.util.*;
+import javafx.geometry.Point2D;
+import traffic_lights.TrafficLight;
+import traffic_lights.TrafficLightState;
+import traffic_lights.TrafficLightType;
+import util.Direction;
+import util.Observable;
+import util.Position;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 
 public class Crossroad extends Observable {
 
@@ -56,7 +67,7 @@ public class Crossroad extends Observable {
     }
 
     /**
-     * Crossroad: Constructor
+     * crossroad.Crossroad: Constructor
      *
      *
      * @version 1.0

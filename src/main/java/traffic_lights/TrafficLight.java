@@ -1,4 +1,8 @@
+package traffic_lights;
+
 import javafx.application.Platform;
+import util.Observable;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,13 +15,13 @@ public class TrafficLight extends Observable
 
 
     /**
-     * TrafficLight(): Konstruktor. Define the type from the trafficLight
+     * traffic_lights.TrafficLight(): Konstruktor. Define the type from the trafficLight
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    26.11.2018
-     * @arg     TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
+     * @arg     traffic_lights.TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
      */
     public TrafficLight(TrafficLightType type)
     {
@@ -33,7 +37,7 @@ public class TrafficLight extends Observable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @return  TrafficLightType: Type from the trafficLight
+     * @return  traffic_lights.TrafficLightType: Type from the trafficLight
      */
     public TrafficLightType getType()
     {
@@ -44,7 +48,7 @@ public class TrafficLight extends Observable
     /**
      * getState(): Returns the actState (color) from the trafficLight
      *
-     * Additional: Called from TrafficLightController after notifyObservers()!
+     * Additional: Called from traffic_lights.TrafficLightController after notifyObservers()!
      *
      * @version 1.0
      * @autor   Schweizer Patrick
@@ -165,7 +169,7 @@ public class TrafficLight extends Observable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    08.12.2018
-     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
+     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
      */
     private void startTimerForChangeState(TrafficLightState newState)
     {
@@ -200,7 +204,7 @@ public class TrafficLight extends Observable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    08.12.2018
-     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
+     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
      */
     private void changeTimerBasedState(TrafficLightState newState)
     {

@@ -1,4 +1,7 @@
+package animation;
+
 import javafx.animation.AnimationTimer;
+import vehicles.Vehicles;
 
 public class GameLoop extends AnimationTimer
 {

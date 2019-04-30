@@ -1,14 +1,19 @@
+package crossroad;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import traffic_lights.TrafficLightState;
+import util.Direction;
+import util.Observer;
+import util.Position;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +23,7 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 
 /**
- * Class CrossroadController: Class for handling the PrimaryStage
+ * Class crossroad.CrossroadController: Class for handling the PrimaryStage
  *
  * @version 1.0
  * @autor Class NIN
@@ -46,16 +51,16 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     private List<RoadController> drivewayRouteControllers = new LinkedList<>();
 
     private Crossroad crossroad;
-    private static Point2D ref = Main.getRef();
+
     private int countOfMovedElements = 1;
 
     /**
-     * CrossroadController(): Constructor
+     * crossroad.CrossroadController(): Constructor
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    27.11.2018
-     * @arg     Crossroad model: (Object form model class)
+     * @arg     crossroad.Crossroad model: (Object form model class)
      */
     public CrossroadController(Crossroad model) {
         this.crossroad = model;
@@ -77,7 +82,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
         for (int i = 0; i < directions.length; i++) {
             /* create driveWayRouteController */
             direction = directions[i];
-            RoadController drivewayRouteController = new RoadController(crossroad.getRoad(direction), ref, offsets.get(direction));
+            RoadController drivewayRouteController = new RoadController(crossroad.getRoad(direction), crossroad.getReferencePoint(), offsets.get(direction));
             crossroad.getRoad(direction).addObserver(drivewayRouteController);
             drivewayRouteControllers.add(drivewayRouteController);
         }
@@ -219,7 +224,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
 
 
     /**
-     * update(): Obstacle where is registred into Crossroad
+     * update(): Obstacle where is registred into crossroad.Crossroad
      * <p>
      * Is automatic called when something into trafficLightModel is changed.
      *
@@ -236,7 +241,7 @@ public class CrossroadController extends BorderPane implements Initializable, Ob
     }
 
     /**
-     * CrossroadController: get the DrivewayRouteController
+     * crossroad.CrossroadController: get the DrivewayRouteController
      *
      * @version 1.0
      * @autor NIN Class

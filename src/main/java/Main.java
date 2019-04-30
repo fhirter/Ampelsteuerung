@@ -1,8 +1,13 @@
+import animation.GameLoop;
+import crossroad.CenterPane;
+import crossroad.Crossroad;
+import crossroad.CrossroadController;
+import crossroad.RoadController;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import vehicles.Vehicles;
 
 import java.util.List;
 
@@ -61,7 +66,7 @@ public class Main extends Application {
 
         primaryStage.show();
 
-        /* Generate and start Vehicles */
+        /* Generate and start vehicles.Vehicles */
         Vehicles vehicles = new Vehicles(crossroad, crossroadController, 1);
         GameLoop gameLoop = new GameLoop(vehicles);
         gameLoop.start();

@@ -1,6 +1,17 @@
-import javafx.geometry.Point2D;
+package vehicles;
 
-import java.util.*;
+import crossroad.Crossroad;
+import javafx.geometry.Point2D;
+import javafx.scene.transform.Rotate;
+import util.Direction;
+import util.Observable;
+import util.Position;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import static util.Direction.*;
 
 public class Vehicle extends Observable {
     private final Map<Direction, Position> startPoints = new HashMap<>();
@@ -30,17 +41,17 @@ public class Vehicle extends Observable {
         setRandomDestination();
 
         //debug
-        start = Direction.WEST;
-        destination = Direction.SOUTH;
+        start = NORTH;
+        destination = EAST;
 
         System.out.println("start:" + start + ", destination: " + destination);
 
         final Point2D ref = crossroad.getReferencePoint();
 
-        startPoints.put(Direction.WEST, new Position(300, 465, 0));
-        startPoints.put(Direction.NORTH, new Position(ref.getX()-40, ref.getY()-400, 90));
-        startPoints.put(Direction.EAST, new Position(950, 440, 180));
-        startPoints.put(Direction.SOUTH, new Position(635, 800, 270));
+        startPoints.put(WEST, new Position(300, 465, 0));
+        startPoints.put(NORTH, new Position(ref.getX()-40, ref.getY()-400, 90));
+        startPoints.put(EAST, new Position(950, 440, 180));
+        startPoints.put(SOUTH, new Position(635, 800, 270));
 
         currentDirection = start.getOpposite();
 
@@ -68,8 +79,8 @@ public class Vehicle extends Observable {
     public void setRandomStart() {
         int rndNumber = 0;
         Random random = new Random();
-        rndNumber = random.nextInt(Direction.values().length);
-        start = Direction.values()[rndNumber];
+        rndNumber = random.nextInt(values().length);
+        start = values()[rndNumber];
     }
 
     public void setRandomDestination() {
@@ -78,8 +89,8 @@ public class Vehicle extends Observable {
         // destination shouldn't be equal to start
         do {
             Random random = new Random();
-            rndNumber = random.nextInt(Direction.values().length);
-            destination = Direction.values()[rndNumber];
+            rndNumber = random.nextInt(values().length);
+            destination = values()[rndNumber];
         } while (start == destination);
     }
 
@@ -145,29 +156,38 @@ public class Vehicle extends Observable {
 //        ).add(position);
 
 
-        double newAngle = sign*angle+Math.toRadians(position.getAngle());  // rad
+        double da = sign*angle;//+Math.toRadians(position.getAngle());  // rad
+
+        double sehne = 2*radius*Math.sin(da/2);
+
 
         // polarcoordinates to cartesian
-        double dx = 2*radius*Math.sin(newAngle/2)*Math.cos(newAngle);
-        double dy = 2*radius*Math.sin(newAngle/2)*Math.sin(newAngle);
+        double dx = 2*radius*Math.sin(da/2)*Math.cos(da);
+        double dy = 2*radius*Math.sin(da/2)*Math.sin(da);
+
+
+        // todo: here fix this!
+        Point2D point = new Point2D(dx, dy);
+        Rotate rotate = new Rotate(position.getAngle(),0,0);
+        Point2D newpoint = rotate.deltaTransform(point);
 
         //Point2D newPos = rotationCenter.add(new Point2D(dx,dy));
-//        position.angle += newAngle;
-        position = position.add(dx,dy,Math.toDegrees(newAngle));
+//        position.angle += da;
+        position = position.add(newpoint.getX(),newpoint.getY(),Math.toDegrees(da));
 
 //        mapDirection();
 
         double destinationAngle = destination.getAngle();
         double eta = 2.0;
 
-        if(position.angle > 360) {
-            position.angle -= 360;
+        if(position.getAngle() > 360) {
+            position.setAngle(position.getAngle() - 360);
         }
-        if(position.angle < 0 ) {
-            position.angle += 360;
+        if(position.getAngle() < 0 ) {
+            position.setAngle(position.getAngle() + 360);
         }
 
-        if (destinationAngle+eta > position.angle  && destinationAngle-eta < position.angle) {
+        if (destinationAngle+eta > position.getAngle()  && destinationAngle-eta < position.getAngle()) {
             currentDirection = destination;
         }
 
@@ -176,31 +196,31 @@ public class Vehicle extends Observable {
     private int getSign() throws Exception {
         switch (currentDirection) {
             case SOUTH:
-                if(destination == Direction.WEST)
+                if(destination == WEST)
                     return 1;
-                if(destination == Direction.EAST)
+                if(destination == EAST)
                     return -1;
                 break;
             case EAST:
-                if(destination == Direction.SOUTH) {
+                if(destination == SOUTH) {
                     return 1;
                 }
-                if(destination == Direction.NORTH) {
+                if(destination == NORTH) {
                     return -1;
                 }
                 break;
             case WEST:
-                if(destination == Direction.NORTH) {
+                if(destination == NORTH) {
                     return 1;
                 }
-                if(destination == Direction.SOUTH) {
+                if(destination == SOUTH) {
                     return -1;
                 }
                 break;
             case NORTH:
-                if(destination == Direction.EAST)
+                if(destination == EAST)
                     return 1;
-                if(destination == Direction.WEST)
+                if(destination == WEST)
                     return -1;
                 break;
         }

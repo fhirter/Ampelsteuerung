@@ -1,3 +1,5 @@
+package crossroad;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -5,6 +7,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
+import traffic_lights.TrafficLight;
+import traffic_lights.TrafficLightController;
+import util.Observer;
+import util.Position;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +34,7 @@ public class RoadController extends Group implements Initializable, Observer
      * @version 1.0
      * @autor   NIN Class
      * @date    02.08.2018
-     * @arg     road (Object form model class), ref (Referenze for all Objects) offset( Place for Road) Rotate (Ankle°)
+     * @arg     road (Object form model class), ref (Referenze for all Objects) offset( Place for crossroad.Road) Rotate (Ankle°)
      */
     public RoadController(Road road, Point2D ref, Position offset)
     {
@@ -54,8 +60,8 @@ public class RoadController extends Group implements Initializable, Observer
         setScaleY(1);
 
         trafficLightControllerCar = createTrafficLightController(road.getTrafficLightModelCar(), new Position(130, 145, 90));
-     //   trafficLightControllerPedestrianLeft = createTrafficLightController(road.getTrafficLightModelPedestrian(), new Position(170, -65, 0));
-       // trafficLightControllerPedestrianRight = createTrafficLightController(road.getTrafficLightModelPedestrian(), new Position( 240, 155, 180));
+     //   trafficLightControllerPedestrianLeft = createTrafficLightController(road.getTrafficLightModelPedestrian(), new util.Position(170, -65, 0));
+       // trafficLightControllerPedestrianRight = createTrafficLightController(road.getTrafficLightModelPedestrian(), new util.Position( 240, 155, 180));
 
 //        trafficLightControllerPedestrianLeft.setVisible(false);
 //        trafficLightControllerPedestrianRight.setVisible(false);
@@ -91,7 +97,7 @@ public class RoadController extends Group implements Initializable, Observer
 
 
     /**
-     * update(): Obstacle where is registred into Road
+     * update(): Obstacle where is registred into crossroad.Road
      *
      * Is automatic called when something into trafficLightModel is changed.
      *

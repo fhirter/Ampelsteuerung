@@ -1,7 +1,11 @@
+package vehicles;
+
+import crossroad.Crossroad;
+import crossroad.CrossroadController;
+import util.Direction;
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-import java.util.function.DoubleBinaryOperator;
 
 public class Vehicles
 {

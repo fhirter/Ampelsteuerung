@@ -1,3 +1,5 @@
+package crossroad;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +22,7 @@ public class CenterPane extends AnchorPane implements Initializable
     private Crossroad crossroadModel;
 
     /**
-     * CenterPane(): Constructor
+     * crossroad.CenterPane(): Constructor
      *
      * @version 1.0
      * @autor   Schweizer Patrick
@@ -49,7 +51,7 @@ public class CenterPane extends AnchorPane implements Initializable
 
 
     /**
-     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the CenterPane
+     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the crossroad.CenterPane
      *
      * Is automatic called when fxmlLoader.load() ist called.
      *

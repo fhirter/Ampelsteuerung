@@ -1,5 +1,11 @@
+package crossroad;
+
+import traffic_lights.TrafficLight;
+import traffic_lights.TrafficLightType;
+import util.Observable;
+
 /**
- * Class Road: Data model for the crossroad
+ * Class crossroad.Road: Data model for the crossroad
  *
  * @version 1.0
  * @autor   Class NIN
@@ -17,7 +23,7 @@ public class Road extends Observable
 
 
     /**
-     * Road: Constructor
+     * crossroad.Road: Constructor
      *
      *
      * @version 1.0
@@ -33,13 +39,13 @@ public class Road extends Observable
 
 
     /**
-     * Road: set Driveway Route Visiable
+     * crossroad.Road: set Driveway Route Visiable
      *
      *
      * @version 1.0
      * @autor   NIN Class
      * @date    02.08.2018
-     * @arg      visibility of Road
+     * @arg      visibility of crossroad.Road
      */
     public void setVisibility(boolean visibility)
     {
@@ -49,7 +55,7 @@ public class Road extends Observable
 
 
     /**
-     * Road: get state of PedestrianStripe
+     * crossroad.Road: get state of PedestrianStripe
      *
      *
      * @version 1.0
@@ -64,7 +70,7 @@ public class Road extends Observable
 
 
     /**
-     * Road: get state of Velostripes
+     * crossroad.Road: get state of Velostripes
      *
      *
      * @version 1.0
@@ -79,7 +85,7 @@ public class Road extends Observable
 
 
     /**
-     * Road: get Visiable of Road
+     * crossroad.Road: get Visiable of crossroad.Road
      *
      *
      * @version 1.0
@@ -93,13 +99,13 @@ public class Road extends Observable
     }
 
     /**
-     * Road: set PedestrianStripe
+     * crossroad.Road: set PedestrianStripe
      *
      *
      * @version 1.0
      * @autor   NIN Class
      * @date    02.08.2018
-     * @arg      pedestrianStripe of Road
+     * @arg      pedestrianStripe of crossroad.Road
      */
     public void setPedestrianStripes(boolean pedestrianStripes)
     {
@@ -108,7 +114,7 @@ public class Road extends Observable
     }
 
     /**
-     * Road: set VeloStripes
+     * crossroad.Road: set VeloStripes
      *
      *
      * @version 1.0
@@ -124,7 +130,7 @@ public class Road extends Observable
     }
 
     /**
-     * Road: get the TrafficLightCar of Road
+     * crossroad.Road: get the TrafficLightCar of crossroad.Road
      *
      *
      * @version 1.0
@@ -138,7 +144,7 @@ public class Road extends Observable
     }
 
     /**
-     * Road: get the TrafficLightPedestrian of Road
+     * crossroad.Road: get the TrafficLightPedestrian of crossroad.Road
      *
      *
      * @version 1.0
