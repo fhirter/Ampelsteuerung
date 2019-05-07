@@ -1,19 +1,19 @@
 
     /**
-     * createTrafficLights(): Creates on the DrivewayRoute the appopriate trafficlights
+     * createTrafficLights(): Creates on the crossroad.Road the appopriate trafficlights
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    30.12.2018
-     * @arg     TrafficLight: (Index from TrafficLight)
-     * @return  Node: Index from the TrafficLight Node. Can be needed in xxxx.getChild().add(Node);
+     * @arg     traffic_lights.TrafficLight: (Index from traffic_lights.TrafficLight)
+     * @return  Node: Index from the traffic_lights.TrafficLight Node. Can be needed in xxxx.getChild().add(Node);
      */
-    public Node createTrafficLight(TrafficLight trafficLight) throws java.io.IOException
+    public Node createTrafficLight(traffic_lights.TrafficLight trafficLight) throws java.io.IOException
     {
         Node nodeTrafficLight;
 
-        TrafficLightController trafficLightController = new TrafficLightController(trafficLight);
+        traffic_lights.TrafficLightController trafficLightController = new traffic_lights.TrafficLightController(trafficLight);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
         fxmlLoader.setController(trafficLightController);
         nodeTrafficLight = fxmlLoader.load();
@@ -40,7 +40,7 @@
         Node nodeGreenPlanet = null;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("greenPlanet.fxml"));
-        GreenPlanetController greenPlanetController = new GreenPlanetController();
+        crossroad.GreenPlanetController greenPlanetController = new crossroad.GreenPlanetController();
         fxmlLoader.setController(greenPlanetController);
         nodeGreenPlanet = fxmlLoader.load();
 
@@ -115,20 +115,20 @@
 
 
 
-    VehicleController vehicleController = new VehicleController(new VehicleModel(), ref, new Point2D(0,0), 0);
+    vehicles.VehicleController vehicleController = new vehicles.VehicleController(new vehicles.Vehicle(), ref, new Point2D(0,0), 0);
     crossroadController.getChildren().add(vehicleController);
 
 
 
 
     /* Driveway Route East */
-    DrivewayRoute drivewayRouteEast = new DrivewayRoute(false,false);
+    crossroad.Road drivewayRouteEast = new crossroad.Road(false,false);
     DrivewayRouteController drivewayRouteControllerEast = new DrivewayRouteController(drivewayRouteEast, ref, new Point2D(200,200));
     crossroadController.getChildren().add(drivewayRouteControllerEast);
 
 
-    /* TrafficLight */
-    TrafficLight trafficLight = new TrafficLight(TrafficLightType.CAR);
-    TrafficLightController trafficLightController = new TrafficLightController(trafficLight, ref, new Point2D(0,0));
+    /* traffic_lights.TrafficLight */
+    traffic_lights.TrafficLight trafficLight = new traffic_lights.TrafficLight(traffic_lights.TrafficLightType.CAR);
+    traffic_lights.TrafficLightController trafficLightController = new traffic_lights.TrafficLightController(trafficLight, ref, new Point2D(0,0));
     crossroadController.getChildren().add(trafficLightController);
     trafficLight.setYellowFlash();

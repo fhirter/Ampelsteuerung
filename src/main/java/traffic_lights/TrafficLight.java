@@ -1,9 +1,12 @@
+package traffic_lights;
+
 import javafx.application.Platform;
+import util.Observable;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TrafficLight extends Observable
-{
+public class TrafficLight extends Observable implements TrafficLightInterface {
     private TrafficLightType type;
     private TrafficLightState actState, newState;
     private boolean inProgress = false;
@@ -11,13 +14,13 @@ public class TrafficLight extends Observable
 
 
     /**
-     * TrafficLight(): Konstruktor. Define the type from the trafficLight
+     * traffic_lights.TrafficLight(): Konstruktor. Define the type from the trafficLight
      *
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    26.11.2018
-     * @arg     TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
+     * @arg     traffic_lights.TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
      */
     public TrafficLight(TrafficLightType type)
     {
@@ -33,8 +36,9 @@ public class TrafficLight extends Observable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
-     * @return  TrafficLightType: Type from the trafficLight
+     * @return  traffic_lights.TrafficLightType: Type from the trafficLight
      */
+    @Override
     public TrafficLightType getType()
     {
         return this.type;
@@ -44,19 +48,21 @@ public class TrafficLight extends Observable
     /**
      * getState(): Returns the actState (color) from the trafficLight
      *
-     * Additional: Called from TrafficLightController after notifyObservers()!
+     * Additional: Called from traffic_lights.TrafficLightController after notifyObservers()!
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      * @return  state: State from the trafficLight
      */
+    @Override
     public TrafficLightState getState()
     {
         return actState;
     }
 
 
+    @Override
     public void setState(TrafficLightState trafficLightState)
     {
         if(TrafficLightState.RED == trafficLightState)
@@ -77,6 +83,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setRed()
     {
         if(TrafficLightState.RED != getState())
@@ -96,6 +103,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setGreen()
     {
         if(TrafficLightState.GREEN != getState())
@@ -115,6 +123,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setYellowFlash()
     {
         if(TrafficLightState.YELLOW_FLASH != getState())
@@ -134,6 +143,7 @@ public class TrafficLight extends Observable
      * @autor   Schweizer Patrick
      * @date    18.11.2018
      */
+    @Override
     public void setDark()
     {
         newState = TrafficLightState.DARK;
@@ -165,7 +175,7 @@ public class TrafficLight extends Observable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    08.12.2018
-     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
+     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
      */
     private void startTimerForChangeState(TrafficLightState newState)
     {
@@ -200,7 +210,7 @@ public class TrafficLight extends Observable
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    08.12.2018
-     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
+     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
      */
     private void changeTimerBasedState(TrafficLightState newState)
     {

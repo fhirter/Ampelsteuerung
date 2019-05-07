@@ -1,3 +1,5 @@
+package traffic_lights;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -6,6 +8,9 @@ import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import util.Observer;
+import util.Position;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,18 +35,18 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
 
 
     /**
-     * TrafficLightController(): Constructor
+     * traffic_lights.TrafficLightController(): Constructor
      *
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    27.11.2018
-     * @arg     TrafficLight trafficLight: (Object form model class)
+     * @arg     traffic_lights.TrafficLight trafficLight: (Object form model class)
      */
     public TrafficLightController(TrafficLight model,Point2D refTrafficLights, Position position)
     {
         this.model = model;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("trafficLightView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trafficLightView.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         try {
@@ -50,9 +55,9 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
             e.printStackTrace();
         }
 
-        setLayoutX(refTrafficLights.getX() + position.x);
-        setLayoutY(refTrafficLights.getY() + position.y);
-        setRotate(position.angle);
+        setLayoutX(refTrafficLights.getX() + position.getX());
+        setLayoutY(refTrafficLights.getY() + position.getY());
+        setRotate(position.getAngle());
 
         if (model.getType() == TrafficLightType.CAR)
         {
@@ -85,7 +90,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
 
 
     /**
-     * update(): Obstacle where is registred into TrafficLight
+     * update(): Obstacle where is registred into traffic_lights.TrafficLight
      *
      * Is automatic called when something into trafficLightModel is changed.
      *
@@ -111,7 +116,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    08.12.2018
-     * @arg     TrafficLightType type: (value: enum TrafficLightType)
+     * @arg     traffic_lights.TrafficLightType type: (value: enum traffic_lights.TrafficLightType)
      */
     public void setTypeAndScale(TrafficLightType type)
     {
@@ -137,7 +142,7 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
      * @version 1.0
      * @autor   Schweizer Patrick
      * @date    08.12.2018
-     * @arg     TrafficLightState newState: (value: enum TrafficLightState)
+     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
      */
     public void changeColor(TrafficLightState newState)
     {

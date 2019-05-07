@@ -1,12 +1,14 @@
+package util;
+
 import java.util.LinkedList;
 import java.util.List;
 
-abstract class Observable {
+public abstract class Observable {
 
     List<Observer> oberservers = new LinkedList<>();
 
 
-    protected void addObserver(Observer observer){
+    public void addObserver(Observer observer){
         oberservers.add(observer);
     }
 

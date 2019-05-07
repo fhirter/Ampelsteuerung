@@ -1,4 +1,0 @@
-interface Observer {
-
-    void update();
-}

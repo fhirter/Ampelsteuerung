@@ -1,3 +1,5 @@
+package crossroad;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 /**
- * Class GreenPlanetController Class for the Erviroment
+ * Class crossroad.GreenPlanetController Class for the Erviroment
  *
  *
  *
@@ -33,26 +35,26 @@ public class GreenPlanetController extends AnchorPane implements Initializable
     @FXML   private ImageView imageBusch5;
 
     final String path = "..\\Ampelsteuerung\\Dokumente\\Bilder\\";
-    final String nameTree1 = "Baum1.png";
-    final String nameTree2 = "Baum2.png";
-    final String nameTree3 = "Baum3.png";
-    final String nameBusch1 = "Busch1.png";
-    final String nameBusch2 = "Busch2.png";
+    final String nameTree1 = "images/Baum1.png";
+    final String nameTree2 = "images/Baum2.png";
+    final String nameTree3 = "images/Baum3.png";
+    final String nameBusch1 = "images/Busch1.png";
+    final String nameBusch2 = "images/Busch2.png";
 
 
     /**
-     * GreenPlanetController: Constructor
+     * crossroad.GreenPlanetController: Constructor
      *
      * @version 1.0
      * @autor   Class NIN
      * @date    10.02.2019
-     * @arg     crossroad (Object form Crossroad), ref (Referenze for all Objects) offset( Place for greenPlanet))
+     * @arg     crossroad (Object form crossroad.Crossroad), ref (Referenze for all Objects) offset( Place for greenPlanet))
      */
     public GreenPlanetController(Point2D ref, Point2D offset)
     {
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("greenPlanet.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/greenPlanet.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         try {
@@ -92,7 +94,7 @@ public class GreenPlanetController extends AnchorPane implements Initializable
     }
 
     /**
-     * GreenPlanetController: set the Erviroment
+     * crossroad.GreenPlanetController: set the Erviroment
      *
      *
      * @version 1.0

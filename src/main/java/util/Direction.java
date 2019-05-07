@@ -1,3 +1,5 @@
+package util;
+
 public enum Direction {
     WEST, EAST, NORTH, SOUTH;
     private Direction opposite;
@@ -11,17 +13,19 @@ public enum Direction {
     }
 
     static {
-        WEST.angle = 270;
-        EAST.angle = 90;
-        NORTH.angle = 0;
-        SOUTH.angle = 180;
+        WEST.angle = 180;
+        EAST.angle = 0;
+        NORTH.angle = 270;
+        SOUTH.angle = 90;
     }
 
     public Direction getOpposite() {
         return opposite;
     }
 
-    public int getAngle() {
+    public double getAngle() {
         return angle;
     }
+
+
 };

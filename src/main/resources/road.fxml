@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.Group?>
+
+<fx:root type="Group" fx:id="road" xmlns="http://javafx.com/javafx/8.0.121"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <Group>
+        <!-- road -->
+        <Rectangle styleClass="road" height="150.0" width="300.0" layoutY="50"/>
+        <!-- stop line -->
+        <Rectangle styleClass="stopLine" height="46.0"  width="10.0" layoutX="150.0" layoutY="130"/>
+
+        <!-- Center Line -->
+        <Line styleClass="centerLine" endX="300.0" layoutY="125" />
+
+        <!--  Boardwalk -->
+        <Rectangle styleClass="boardwalk" height="50.0" width="300.0"/>
+        <Rectangle styleClass="boardwalk" height="50.0" width="300.0" layoutY="200.0" />
+    </Group>
+
+    <Line fx:id="pedestrianStripes" styleClass="crosswalk" endY="150.0" layoutX="230.0" layoutY="50" />
+
+    <Group  fx:id="bicycleLane">
+        <Line styleClass="bicycleLane" endX="160.0" layoutY="70" />
+        <Line  styleClass="bicycleLane" endX="160.0" layoutY="180" />
+    </Group>
+
+</fx:root>

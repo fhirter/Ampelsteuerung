@@ -1,22 +1,28 @@
+package crossroad;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
+import traffic_lights.TrafficLight;
+import traffic_lights.TrafficLightController;
+import util.Observer;
+import util.Position;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DrivewayRouteController extends Group implements Initializable, Observer
+public class RoadController extends Group implements Initializable, Observer
 {
-    @FXML   private Group bicycleSripes;
-    @FXML   private Group pedestrianStripes;
+    @FXML   private Group bicycleLane;
+    @FXML   private Line pedestrianStripes;
     @FXML   private Group drivewayRoute;
     private final Point2D refTrafficLights = new Point2D(0,0);
-    private DrivewayRoute model;
+    private Road model;
     private TrafficLightController trafficLightControllerCar;
     private TrafficLightController trafficLightControllerPedestrianLeft;
     private TrafficLightController trafficLightControllerPedestrianRight;
@@ -28,15 +34,13 @@ public class DrivewayRouteController extends Group implements Initializable, Obs
      * @version 1.0
      * @autor   NIN Class
      * @date    02.08.2018
-     * @arg     drivewayRoute (Object form model class), ref (Referenze for all Objects) offset( Place for DrivewayRoute) Rotate (Ankle°)
+     * @arg     road (Object form model class), ref (Referenze for all Objects) offset( Place for crossroad.Road) Rotate (Ankle°)
      */
-    public DrivewayRouteController(DrivewayRoute drivewayRoute, Point2D ref, Point2D offset, int Rotate)
+    public RoadController(Road road, Point2D ref, Position offset)
     {
-        this.model= drivewayRoute;
+        this.model= road;
 
-
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("drivewayRoute.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/road.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         try {
@@ -47,18 +51,20 @@ public class DrivewayRouteController extends Group implements Initializable, Obs
 
 
         // positioning
+        getTransforms().add(new Rotate(offset.getAngle(),0, 0));
+       // setRotate(offset.getAngle());
         setLayoutX(ref.getX() + offset.getX());
         setLayoutY(ref.getY() + offset.getY());
-        setRotate(Rotate);
+
         setScaleX(1);
         setScaleY(1);
 
-        trafficLightControllerCar = createTrafficLightController(drivewayRoute.getTrafficLightModelCar(), new Position(130, 145, 90));
-        trafficLightControllerPedestrianLeft = createTrafficLightController(drivewayRoute.getTrafficLightModelPedestrian(), new Position(170, -65, 0));
-        trafficLightControllerPedestrianRight = createTrafficLightController(drivewayRoute.getTrafficLightModelPedestrian(), new Position( 240, 155, 180));
+        trafficLightControllerCar = createTrafficLightController(road.getTrafficLightModelCar(), new Position(130, 145, 90));
+     //   trafficLightControllerPedestrianLeft = createTrafficLightController(road.getTrafficLightModelPedestrian(), new util.Position(170, -65, 0));
+       // trafficLightControllerPedestrianRight = createTrafficLightController(road.getTrafficLightModelPedestrian(), new util.Position( 240, 155, 180));
 
-        trafficLightControllerPedestrianLeft.setVisible(false);
-        trafficLightControllerPedestrianRight.setVisible(false);
+//        trafficLightControllerPedestrianLeft.setVisible(false);
+//        trafficLightControllerPedestrianRight.setVisible(false);
     }
 
 
@@ -83,15 +89,15 @@ public class DrivewayRouteController extends Group implements Initializable, Obs
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        bicycleSripes.setVisible(false);
-        pedestrianStripes.setVisible(false);
-        model.setPedestrianStripes(false);
-        model.setVelostripes(false);
+//        bicycleSripes.setVisible(false);
+//        pedestrianStripes.setVisible(false);
+//        model.setPedestrianStripes(false);
+//        model.setVelostripes(false);
     }
 
 
     /**
-     * update(): Obstacle where is registred into DrivewayRoute
+     * update(): Obstacle where is registred into crossroad.Road
      *
      * Is automatic called when something into trafficLightModel is changed.
      *
@@ -103,15 +109,15 @@ public class DrivewayRouteController extends Group implements Initializable, Obs
     public void update() {
 
         if (model.getVelostripes() == true) {
-            bicycleSripes.setVisible(true);
+            bicycleLane.setVisible(true);
         } else {
-            bicycleSripes.setVisible(false);
+            bicycleLane.setVisible(false);
         }
 
         if (model.getPedestrianStripes() == true) {
             pedestrianStripes.setVisible(true);
-            trafficLightControllerPedestrianLeft.setVisible(true);
-            trafficLightControllerPedestrianRight.setVisible(true);
+            trafficLightControllerPedestrianLeft.setVisible(false);
+            trafficLightControllerPedestrianRight.setVisible(false);
         } else {
             pedestrianStripes.setVisible(false);
             trafficLightControllerPedestrianLeft.setVisible(false);
