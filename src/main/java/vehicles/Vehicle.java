@@ -3,6 +3,7 @@ package vehicles;
 import crossroad.Crossroad;
 import javafx.geometry.Point2D;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
 import util.Direction;
 import util.Observable;
 import util.Position;
@@ -29,10 +30,11 @@ public class Vehicle extends Observable implements Driveable {
     private int speed;  // pixels/second
     private Double step;
     private int wheelbase = 60;
-    private int steeringAngle = 40;  // degree
+    private int steeringAngle = 10;  // degree
 
     private int length = 80;
     private int width = 40;
+    private Point2D pivot;
 
     public Vehicle(Crossroad crossroad) {
         this.crossroad = crossroad;
@@ -79,6 +81,24 @@ public class Vehicle extends Observable implements Driveable {
         return width;
     }
 
+    @Override
+    public void drive() {
+        if (currentDirection == destination) {
+            driveStraight();
+        } else if (crossroad.canITurn(position) == true) {
+            turn();
+        } else {
+            driveStraight();
+        }
+    }
+
+    @Override
+    public void driveStraight() {
+        forward = step;
+        lateral = 0.0;
+        mapDirection();
+    }
+
     public void setRandomStart() {
         int rndNumber = 0;
         Random random = new Random();
@@ -122,66 +142,48 @@ public class Vehicle extends Observable implements Driveable {
     @Override
     public void turn() {
         //http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
-        int sign = 0;
-        try {
-            sign = getSign();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-//
-//        double steering = Math.sin(Math.toRadians(steeringAngle))*step;
-//        position.angle += sign * Math.toDegrees(Math.atan(steering / wheelbase));
-//        lateral = Math.cos(Math.toRadians(position.angle)) * step;
-//        forward = Math.sin(Math.toRadians(position.angle)) * step;
+        int sign = getSign();
 
         double radius = wheelbase/Math.sin(Math.toRadians(steeringAngle));
-        double angle = step/radius; //rad
-//        Point2D rotationCenter = new Point2D(
-//                Math.sin(Math.toRadians(position.angle))*radius,
-//                Math.cos(Math.toRadians(position.angle))*radius
-//
-//        ).add(position);
-
-
-        double da = sign*angle;//+Math.toRadians(position.getAngle());  // rad
-
-        double sehne = 2*radius*Math.sin(da/2);
-
+        double dAngle = sign*step/radius; // rad
 
         // polarcoordinates to cartesian
-        double dx = 2*radius*Math.sin(da/2)*Math.cos(da);
-        double dy = 2*radius*Math.sin(da/2)*Math.sin(da);
+     //   double dx = 2*radius*Math.sin(dAngle/2)*Math.cos(dAngle);
+      //  double dy = 2*radius*Math.sin(dAngle/2)*Math.sin(dAngle);
 
+        if(pivot == null) {
+          //  pivot = new Point2D(position.getX()+radius,position.getY());
+            pivot = new Point2D(position.getX()+6000, position.getY());
+        }
 
-        // todo: here fix this!
-        Point2D point = new Point2D(dx, dy);
-        Rotate rotate = new Rotate(position.getAngle(),0,0);
-        Point2D newpoint = rotate.deltaTransform(point);
+        Rotate rotate = new Rotate(dAngle,pivot.getX(),pivot.getY());
+        Point2D newpoint = rotate.transform(position);
 
-        //Point2D newPos = rotationCenter.add(new Point2D(dx,dy));
-//        position.angle += da;
-        position = position.add(newpoint.getX(),newpoint.getY(),Math.toDegrees(da));
+        position = new Position(newpoint.getX(),newpoint.getY(),position.getAngle()+Math.toDegrees(dAngle));
 
 //        mapDirection();
+        handleOverflow();
 
         double destinationAngle = destination.getAngle();
-        double eta = 2.0;
+        double eta = 1.0;
+        if (destinationAngle+eta > position.getAngle()  && destinationAngle-eta < position.getAngle()) {
+            currentDirection = destination;
+            pivot = null;
+        }
 
+    }
+
+    private void handleOverflow() {
+        // overflow handling
         if(position.getAngle() > 360) {
             position.setAngle(position.getAngle() - 360);
         }
         if(position.getAngle() < 0 ) {
             position.setAngle(position.getAngle() + 360);
         }
-
-        if (destinationAngle+eta > position.getAngle()  && destinationAngle-eta < position.getAngle()) {
-            currentDirection = destination;
-        }
-
     }
 
-    private int getSign() throws Exception {
+    private int getSign() {
         switch (currentDirection) {
             case SOUTH:
                 if(destination == WEST)
@@ -221,7 +223,7 @@ public class Vehicle extends Observable implements Driveable {
         drive();
 
         if ((position.getX() > 1100) || (position.getY() > 1020) || (position.getX() < 180) || (position.getY() < -80)) {
-            resetRoute();
+     //       resetRoute();
         }
 
         notifyObservers();
