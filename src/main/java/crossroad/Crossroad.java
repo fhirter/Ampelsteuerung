@@ -3,7 +3,6 @@ package crossroad;
 import javafx.geometry.Point2D;
 import traffic_lights.TrafficLight;
 import traffic_lights.TrafficLightState;
-import traffic_lights.TrafficLightType;
 import util.Direction;
 import util.Observable;
 import util.Position;
@@ -11,7 +10,10 @@ import vehicles.Vehicle;
 
 import java.util.*;
 
-
+/**
+ *
+ *
+ */
 public class Crossroad extends Observable {
     private final Point2D referencePoint = new Point2D(650, 450);
     private Integer roadCount = 4;
@@ -26,6 +28,11 @@ public class Crossroad extends Observable {
 
     private int vehicleCount = 1;
 
+    public void addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle);
+        notifyObservers();
+    }
+
     private class Area {
         private int size;
         private Point2D center;
@@ -35,8 +42,6 @@ public class Crossroad extends Observable {
             this.size = size;
             this.center = center;
         }
-
-        ; // just use default values
 
         public boolean isInside(Position position) {
             if (position.getX() > (center.getX() - size / 2) && position.getX() < (center.getX() + size / 2)) {
@@ -63,15 +68,10 @@ public class Crossroad extends Observable {
             Road road = new Road();
             roads.put(directions[i], road);
 
-            Map<TrafficLightType, TrafficLight> trafficLights = new HashMap<>();
+            List<TrafficLight> trafficLights = new LinkedList<>();
 
-            trafficLights.put(TrafficLightType.CAR, new TrafficLight(TrafficLightType.CAR));
-            trafficLights.put(TrafficLightType.PEDESTRIAN, new TrafficLight(TrafficLightType.PEDESTRIAN));
-            //trafficLightsDirection.put(direction, trafficLights);
-
+            trafficLights.add(new TrafficLight());
         }
-
-        generateVehicles(vehicleCount);
     }
 
     public Point2D getReferencePoint() {
@@ -86,14 +86,14 @@ public class Crossroad extends Observable {
     public void setPedestrianStripes(boolean selected) {
         Iterator<Road> it = roads.values().iterator();
         while (it.hasNext()) {
-            it.next().setPedestrianStripes(selected);
+            it.next().setHasPedestrianStripes(selected);
         }
     }
 
     public void setVelostripes(boolean selected) {
         Iterator<Road> it = roads.values().iterator();
         while (it.hasNext()) {
-            it.next().setVelostripes(selected);
+            it.next().setHasBicycleLane(selected);
         }
     }
 
@@ -105,11 +105,6 @@ public class Crossroad extends Observable {
         return roadLength;
     }
 
-    /**
-     * @version 1.0
-     * @autor NIN Class
-     * @date 02.08.2018
-     */
     public Integer getRoadCount() {
         return roadCount;
     }
@@ -128,15 +123,6 @@ public class Crossroad extends Observable {
 
     public boolean canITurn(Position position) {
         return turningArea.isInside(position);
-    }
-
-    public void generateVehicles(int count) {
-        for (int i = 0; i < count; i++) {
-            Vehicle vehicle = new Vehicle(this);
-            vehicles.add(vehicle);
-
-
-        }
     }
 
     public void calculatePositions(Double secondsElapsedCapped) {

@@ -22,11 +22,11 @@
         <Rectangle styleClass="boardwalk" height="50.0" width="300.0" layoutY="200.0" />
     </Group>
 
-    <Line fx:id="pedestrianStripes" styleClass="crosswalk" endY="150.0" layoutX="230.0" layoutY="50" />
+    <Line fx:id="hasPedestrianStripes" styleClass="crosswalk" endY="150.0" layoutX="230.0" layoutY="50" />
 
-    <Group  fx:id="bicycleLane">
-        <Line styleClass="bicycleLane" endX="160.0" layoutY="70" />
-        <Line  styleClass="bicycleLane" endX="160.0" layoutY="180" />
+    <Group  fx:id="hasBicycleLane">
+        <Line styleClass="hasBicycleLane" endX="160.0" layoutY="70" />
+        <Line  styleClass="hasBicycleLane" endX="160.0" layoutY="180" />
     </Group>
 
 </fx:root>

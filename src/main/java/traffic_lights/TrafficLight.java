@@ -6,71 +6,31 @@ import util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ *
+ * @autor Schweizer Patrick
+ */
+
 public class TrafficLight extends Observable implements TrafficLightInterface {
-    private TrafficLightType type;
     private TrafficLightState actState, newState;
     private boolean inProgress = false;
     private Timer timerChangeState;
 
-
-    /**
-     * traffic_lights.TrafficLight(): Konstruktor. Define the type from the trafficLight
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    26.11.2018
-     * @arg     traffic_lights.TrafficLightType type: Type from the trafficLight (CAR, PEDESTRIAN, BUS, BYCICLE; ...)
-     */
-    public TrafficLight(TrafficLightType type)
-    {
-        this.type = type;
+    public TrafficLight() {
         actState = newState = TrafficLightState.RED;
     }
 
-
-    /**
-     * getType(): Returns the type for the trafficLight. (CAR or PEDESTRIAN)
-     *
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @return  traffic_lights.TrafficLightType: Type from the trafficLight
-     */
     @Override
-    public TrafficLightType getType()
-    {
-        return this.type;
-    }
-
-
-    /**
-     * getState(): Returns the actState (color) from the trafficLight
-     *
-     * Additional: Called from traffic_lights.TrafficLightController after notifyObservers()!
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
-     * @return  state: State from the trafficLight
-     */
-    @Override
-    public TrafficLightState getState()
-    {
+    public TrafficLightState getState() {
         return actState;
     }
 
 
     @Override
-    public void setState(TrafficLightState trafficLightState)
-    {
-        if(TrafficLightState.RED == trafficLightState)
-        {
+    public void setState(TrafficLightState trafficLightState) {
+        if (TrafficLightState.RED == trafficLightState) {
             setRed();
-        }
-        else
-        {
+        } else {
             setGreen();
         }
     }
@@ -78,16 +38,13 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * setRed(): Change the color from the trafficLight to RED.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
+
+     * @date 18.11.2018
      */
     @Override
-    public void setRed()
-    {
-        if(TrafficLightState.RED != getState())
-        {
+    public void setRed() {
+        if (TrafficLightState.RED != getState()) {
             newState = TrafficLightState.RED;
             startTimerForChangeState(newState);
             notifyObservers();
@@ -98,16 +55,13 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * setGreen(): Change the color from the trafficLight to GREEN.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
+     * @autor Schweizer Patrick
+     * @date 18.11.2018
      */
     @Override
-    public void setGreen()
-    {
-        if(TrafficLightState.GREEN != getState())
-        {
+    public void setGreen() {
+        if (TrafficLightState.GREEN != getState()) {
             newState = TrafficLightState.GREEN;
             startTimerForChangeState(newState);
             notifyObservers();
@@ -116,18 +70,15 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
 
 
     /**
-     * setYellowFlash(): Flash the yellow color from the trafficLight
-     *
+     * setYellowFlash(): Flash the standby color from the trafficLight
      *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
+     * @autor Schweizer Patrick
+     * @date 18.11.2018
      */
     @Override
-    public void setYellowFlash()
-    {
-        if(TrafficLightState.YELLOW_FLASH != getState())
-        {
+    public void setYellowFlash() {
+        if (TrafficLightState.YELLOW_FLASH != getState()) {
             newState = TrafficLightState.YELLOW_FLASH;
             startTimerForChangeState(newState);
             notifyObservers();
@@ -138,14 +89,12 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * setDark(): Change the color from the trafficLight to DARK.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
+     * @autor Schweizer Patrick
+     * @date 18.11.2018
      */
     @Override
-    public void setDark()
-    {
+    public void setDark() {
         newState = TrafficLightState.DARK;
         startTimerForChangeState(newState);
         notifyObservers();
@@ -155,13 +104,11 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * setSIMULATION(): Makes a free run light.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    18.11.2018
+     * @autor Schweizer Patrick
+     * @date 18.11.2018
      */
-    public void setSIMULATION()
-    {
+    public void setSIMULATION() {
         newState = TrafficLightState.SIMULATION;
         startTimerForChangeState(newState);
         notifyObservers();
@@ -171,16 +118,13 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * startTimerForChangeState(): Starts the timer for time-based change from the state
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
-     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
+     * @autor Schweizer Patrick
+     * @date 08.12.2018
+     * @arg traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
      */
-    private void startTimerForChangeState(TrafficLightState newState)
-    {
-        if(inProgress == true)
-        {
+    private void startTimerForChangeState(TrafficLightState newState) {
+        if (inProgress == true) {
             timerChangeState.cancel();
             inProgress = false;
         }
@@ -206,38 +150,30 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * changeTimerBasedState(): Automatic called every 1Sec after start timerChangeState
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
-     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
+     * @autor Schweizer Patrick
+     * @date 08.12.2018
+     * @arg traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
      */
-    private void changeTimerBasedState(TrafficLightState newState)
-    {
-        switch(newState)
-        {
-            case RED:
-            {
+    private void changeTimerBasedState(TrafficLightState newState) {
+        switch (newState) {
+            case RED: {
                 switchToRed();
                 break;
             }
-            case GREEN:
-            {
+            case GREEN: {
                 switchToGreen();
                 break;
             }
-            case YELLOW_FLASH:
-            {
+            case YELLOW_FLASH: {
                 switchToYellowFlash();
                 break;
             }
-            case DARK:
-            {
+            case DARK: {
                 switchToDark();
                 break;
             }
-            case SIMULATION:
-            {
+            case SIMULATION: {
                 switchToSIMULATION();
                 break;
             }
@@ -249,35 +185,28 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * switchToRed(): State-Machine from the lights to switch to the RED state.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
+     * @autor Schweizer Patrick
+     * @date 08.12.2018
      */
-    private void switchToRed()
-    {
-        switch (actState)
-        {
-            case GREEN:
-            {
+    private void switchToRed() {
+        switch (actState) {
+            case GREEN: {
                 actState = TrafficLightState.YELLOW;
                 break;
             }
-            case YELLOW:
-            {
+            case YELLOW: {
                 actState = TrafficLightState.RED;
                 break;
             }
-            default:
-            {
+            default: {
                 actState = TrafficLightState.RED;
                 break;
             }
         }
 
         /* Stop timer */
-        if(actState == TrafficLightState.RED)
-        {
+        if (actState == TrafficLightState.RED) {
             inProgress = false;
             timerChangeState.cancel();
         }
@@ -288,35 +217,28 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * switchToGreen(): State-Machine from the lights to switch to the GREEN state.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
+     * @autor Schweizer Patrick
+     * @date 08.12.2018
      */
-    private void switchToGreen()
-    {
-        switch (actState)
-        {
-            case RED:
-            {
+    private void switchToGreen() {
+        switch (actState) {
+            case RED: {
                 actState = TrafficLightState.YELLOW_RED;
                 break;
             }
-            case YELLOW_RED:
-            {
+            case YELLOW_RED: {
                 actState = TrafficLightState.GREEN;
                 break;
             }
-            default:
-            {
+            default: {
                 actState = TrafficLightState.RED;
                 break;
             }
         }
 
         /* Stop timer */
-        if(actState == TrafficLightState.GREEN)
-        {
+        if (actState == TrafficLightState.GREEN) {
             inProgress = false;
             timerChangeState.cancel();
         }
@@ -327,27 +249,21 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * switchToYellowFlash(): State-Machine from the lights to flash the YELLOW light.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
+     * @autor Schweizer Patrick
+     * @date 08.12.2018
      */
-    private void switchToYellowFlash()
-    {
-        switch (actState)
-        {
-            case YELLOW:
-            {
+    private void switchToYellowFlash() {
+        switch (actState) {
+            case YELLOW: {
                 actState = TrafficLightState.DARK;
                 break;
             }
-            case DARK:
-            {
+            case DARK: {
                 actState = TrafficLightState.YELLOW;
                 break;
             }
-            default:
-            {
+            default: {
                 actState = TrafficLightState.YELLOW;
                 break;
             }
@@ -359,25 +275,20 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * switchToDark(): State-Machine from the lights to switch to the DARK state.
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
+     * @autor Schweizer Patrick
+     * @date 08.12.2018
      */
-    private void switchToDark()
-    {
-        switch (actState)
-        {
-            case ALLOn:
-            {
+    private void switchToDark() {
+        switch (actState) {
+            case ALLOn: {
                 actState = TrafficLightState.DARK;
                 /* Stop timer */
                 inProgress = false;
                 timerChangeState.cancel();
                 break;
             }
-            default:
-            {
+            default: {
                 actState = TrafficLightState.ALLOn;
                 break;
             }
@@ -389,42 +300,33 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     /**
      * switchToSIMULATION(): State-Machine from the lights for SIMULATION (running lights).
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
+     * @autor Schweizer Patrick
+     * @date 08.12.2018
      */
-    private void switchToSIMULATION()
-    {
-        switch (actState)
-        {
-            case GREEN:
-            {
+    private void switchToSIMULATION() {
+        switch (actState) {
+            case GREEN: {
                 actState = TrafficLightState.YELLOW;
                 break;
             }
-            case YELLOW:
-            {
+            case YELLOW: {
                 actState = TrafficLightState.YELLOW_RED;
                 break;
             }
-            case YELLOW_RED:
-            {
+            case YELLOW_RED: {
                 actState = TrafficLightState.RED;
                 break;
             }
-            case RED:
-            {
+            case RED: {
                 actState = TrafficLightState.DARK;
                 break;
             }
-            case DARK:
-            {
+            case DARK: {
                 actState = TrafficLightState.ALLOn;
                 break;
             }
-            case ALLOn:
-            {
+            case ALLOn: {
                 actState = TrafficLightState.GREEN;
                 break;
             }

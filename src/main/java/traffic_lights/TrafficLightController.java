@@ -15,36 +15,28 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *
+ *
+ * @author Schweizer Patrick
+ */
 
-public class TrafficLightController extends AnchorPane implements Observer, Initializable
-{
-    @FXML   private Circle redLightTraffic;
-    @FXML   private Circle yellowLightTraffic;
-    @FXML   private Circle greenLightTraffic;
-    @FXML   private Group symbolPedestrian;
-    @FXML   private Group groupScaleFactor;
+public class TrafficLightController extends AnchorPane implements Observer, Initializable {
+    @FXML
+    private Circle redLightTraffic;
+    @FXML
+    private Circle yellowLightTraffic;
+    @FXML
+    private Circle greenLightTraffic;
+    @FXML
+    private Group symbolPedestrian;
+    @FXML
+    private Group groupScaleFactor;
 
-    final double scaleFactorCAR = 0.8;
-    final double scaleFactorPEDESTRIAN = 0.6;
-    final Paint redColor = Paint.valueOf("#ff0000");
-    final Paint darkColor = Paint.valueOf("#ababab");
-    final Paint yellowColor = Paint.valueOf("#e8ff1f");
-    final Paint greenColor = Paint.valueOf("#05d721");
+    private TrafficLight trafficLight;
 
-    private TrafficLight model;
-
-
-    /**
-     * traffic_lights.TrafficLightController(): Constructor
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    27.11.2018
-     * @arg     traffic_lights.TrafficLight trafficLight: (Object form model class)
-     */
-    public TrafficLightController(TrafficLight model,Point2D refTrafficLights, Position position)
-    {
-        this.model = model;
+    public TrafficLightController(TrafficLight trafficLight, Point2D refTrafficLights, Position position) {
+        this.trafficLight = trafficLight;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/trafficLightView.fxml"));
         loader.setController(this);
@@ -59,128 +51,73 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
         setLayoutY(refTrafficLights.getY() + position.getY());
         setRotate(position.getAngle());
 
-        if (model.getType() == TrafficLightType.CAR)
-        {
-            setScaleX(scaleFactorCAR);
-            setScaleY(scaleFactorCAR);
-        }
-        else
-        {
-            setScaleX(scaleFactorPEDESTRIAN);
-            setScaleY(scaleFactorPEDESTRIAN);
-        }
+        double scaleFactor = 0.8;
+        setScaleX(scaleFactor);
+        setScaleY(scaleFactor);
+
     }
 
-
-    /**
-     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the trafficLight
-     *
-     * Is automatic called when fxmlLoader.load() ist called.
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    27.11.2018
-     */
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        setTypeAndScale(model.getType());
+    public void initialize(URL location, ResourceBundle resources) {
         changeColor(TrafficLightState.RED);
     }
 
-
-    /**
-     * update(): Obstacle where is registred into traffic_lights.TrafficLight
-     *
-     * Is automatic called when something into trafficLightModel is changed.
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
-     */
     @Override
-    public void update()
-    {
-        TrafficLightState newState = model.getState();
+    public void update() {
+        TrafficLightState newState = trafficLight.getState();
         changeColor(newState);
 
     }
 
-
     /**
-     * setTypeAndScale(): Change the type and scale factor from the trafficLight (CAR, PEDESTRIAN, BUS, etc).
+     * Redraw the color of the trafficLight
+     * <p>
+     * Depending the state of the trafficLight the color of the lights are changed.
      *
-     * Sets the graphical group for pedestrian visible or unvisible.
-     * Change depended of the type the scale factor from the trafficLight.
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
-     * @arg     traffic_lights.TrafficLightType type: (value: enum traffic_lights.TrafficLightType)
+     * @param
      */
-    public void setTypeAndScale(TrafficLightType type)
-    {
-        if(type == TrafficLightType.CAR)
-        {
-            symbolPedestrian.setVisible(false);
-            groupScaleFactor.setScaleX(scaleFactorCAR);
-            groupScaleFactor.setScaleY(scaleFactorCAR);
-        }else if(type == TrafficLightType.PEDESTRIAN)
-        {
-            symbolPedestrian.setVisible(true);
-            groupScaleFactor.setScaleX(scaleFactorPEDESTRIAN);
-            groupScaleFactor.setScaleY(scaleFactorPEDESTRIAN);
-        }
-    }
+    public void changeColor(TrafficLightState newState) {
+        final double scaleFactor = 0.8;
+        final Paint stop = Paint.valueOf("#ff0000");
+        final Paint off = Paint.valueOf("#ababab");
+        final Paint standby = Paint.valueOf("#e8ff1f");
+        final Paint go = Paint.valueOf("#05d721");
 
-
-    /**
-     * changeColor(): Redraw the color from the trafficLight
-     *
-     * Depending the state from the trafficLight the color from the lights are changed.
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    08.12.2018
-     * @arg     traffic_lights.TrafficLightState newState: (value: enum traffic_lights.TrafficLightState)
-     */
-    public void changeColor(TrafficLightState newState)
-    {
-        switch(newState) {
+        switch (newState) {
             case RED: {
-                redLightTraffic.setFill(redColor);
-                yellowLightTraffic.setFill(darkColor);
-                greenLightTraffic.setFill(darkColor);
+                redLightTraffic.setFill(stop);
+                yellowLightTraffic.setFill(off);
+                greenLightTraffic.setFill(off);
                 break;
             }
             case YELLOW_RED: {
-                redLightTraffic.setFill(redColor);
-                yellowLightTraffic.setFill(yellowColor);
-                greenLightTraffic.setFill(darkColor);
+                redLightTraffic.setFill(stop);
+                yellowLightTraffic.setFill(standby);
+                greenLightTraffic.setFill(off);
                 break;
             }
             case YELLOW: {
-                redLightTraffic.setFill(darkColor);
-                yellowLightTraffic.setFill(yellowColor);
-                greenLightTraffic.setFill(darkColor);
+                redLightTraffic.setFill(off);
+                yellowLightTraffic.setFill(standby);
+                greenLightTraffic.setFill(off);
                 break;
             }
             case GREEN: {
-                redLightTraffic.setFill(darkColor);
-                yellowLightTraffic.setFill(darkColor);
-                greenLightTraffic.setFill(greenColor);
+                redLightTraffic.setFill(off);
+                yellowLightTraffic.setFill(off);
+                greenLightTraffic.setFill(go);
                 break;
             }
             case DARK: {
-                redLightTraffic.setFill(darkColor);
-                yellowLightTraffic.setFill(darkColor);
-                greenLightTraffic.setFill(darkColor);
+                redLightTraffic.setFill(off);
+                yellowLightTraffic.setFill(off);
+                greenLightTraffic.setFill(off);
                 break;
             }
             case ALLOn: {
-                redLightTraffic.setFill(redColor);
-                yellowLightTraffic.setFill(yellowColor);
-                greenLightTraffic.setFill(greenColor);
+                redLightTraffic.setFill(stop);
+                yellowLightTraffic.setFill(standby);
+                greenLightTraffic.setFill(go);
                 break;
             }
         }

@@ -8,13 +8,13 @@ public abstract class Observable {
     List<Observer> oberservers = new LinkedList<>();
 
 
-    public void addObserver(Observer observer){
+    public void addObserver(Observer observer) {
         oberservers.add(observer);
     }
 
-    protected void notifyObservers(){
+    protected void notifyObservers() {
         for (Observer i : oberservers) {
-         i.update();
+            i.update();
         }
     }
 

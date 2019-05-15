@@ -6,14 +6,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import traffic_lights.TrafficLightState;
 import util.Direction;
+import util.Observer;
 import util.Position;
 import vehicles.Vehicle;
 import vehicles.VehicleController;
@@ -32,49 +37,47 @@ import static javafx.collections.FXCollections.observableArrayList;
  * @autor Class NIN
  * @date 30.11.2018
  */
-public class CrossroadController extends BorderPane implements Initializable
-{
-    @FXML    private CheckBox checkboxvelostripes;
-    @FXML    private CheckBox checkboxpedestrainStripes;
+public class CrossroadController extends BorderPane implements Observer {
+    @FXML
+    private CheckBox checkboxvelostripes;
+    @FXML
+    private CheckBox checkboxpedestrainStripes;
 
-    @FXML    private RadioButton nordSetRed;
-    @FXML    private RadioButton nordSetGreen;
-    @FXML    private RadioButton westSetRed;
-    @FXML    private RadioButton westSetGreen;
-    @FXML    private RadioButton southSetRed;
-    @FXML    private RadioButton southSetGreen;
-    @FXML    private RadioButton eastSetRed;
-    @FXML    private RadioButton eastSetGreen;
-    @FXML    private Slider sldCountOfMovedElements;
-    @FXML    private Label lblCountOfMovedElements;
+    @FXML private RadioButton nordSetRed;
+    @FXML private RadioButton nordSetGreen;
+    @FXML private RadioButton westSetRed;
+    @FXML private RadioButton westSetGreen;
+    @FXML private RadioButton southSetRed;
+    @FXML private RadioButton southSetGreen;
+    @FXML private RadioButton eastSetRed;
+    @FXML private RadioButton eastSetGreen;
 
     private List<RoadController> roadControllers = new LinkedList<>();
 
     private Crossroad crossroad;
 
-    private int countOfMovedElements = 1;
-
     /**
      * crossroad.CrossroadController(): Constructor
      *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    27.11.2018
-     * @arg     crossroad.Crossroad model: (Object form model class)
+     * @autor Schweizer Patrick
+     * @date 27.11.2018
+     * @arg crossroad.Crossroad crossroad: (Object form crossroad class)
      */
-    public CrossroadController(Crossroad model) {
-        this.crossroad = model;
+    public CrossroadController(Crossroad crossroad) {
+        this.crossroad = crossroad;
+        crossroad.addObserver(this);
 
         Map<Direction, Position> offsets = new HashMap<>();
 
-        int  roadWidth = crossroad.getRoadWidth();
-        int roadLength = crossroad.getRoadLength();
+        int roadWidth = this.crossroad.getRoadWidth();
+        int roadLength = this.crossroad.getRoadLength();
         int centerSize = roadWidth;
 
-        offsets.put(Direction.WEST, new Position(-roadLength-centerSize/2, -roadWidth/2,0));     // todo: get effective size
-        offsets.put(Direction.NORTH, new Position(roadWidth/2, -roadLength-centerSize/2,90));
-        offsets.put(Direction.EAST, new Position(roadLength+centerSize/2, roadWidth/2,180));
-        offsets.put(Direction.SOUTH, new Position(-roadWidth/2, roadLength+centerSize/2,270));
+        offsets.put(Direction.WEST, new Position(-roadLength - centerSize / 2, -roadWidth / 2, 0));     // todo: get effective size
+        offsets.put(Direction.NORTH, new Position(roadWidth / 2, -roadLength - centerSize / 2, 90));
+        offsets.put(Direction.EAST, new Position(roadLength + centerSize / 2, roadWidth / 2, 180));
+        offsets.put(Direction.SOUTH, new Position(-roadWidth / 2, roadLength + centerSize / 2, 270));
 
         /* Loop to create all driveways */
         Direction[] directions = Direction.values();
@@ -82,8 +85,8 @@ public class CrossroadController extends BorderPane implements Initializable
         for (int i = 0; i < directions.length; i++) {
             /* create driveWayRouteController */
             direction = directions[i];
-            RoadController roadController = new RoadController(crossroad.getRoad(direction), crossroad.getReferencePoint(), offsets.get(direction));
-            crossroad.getRoad(direction).addObserver(roadController);
+            RoadController roadController = new RoadController(this.crossroad.getRoad(direction), this.crossroad.getReferencePoint(), offsets.get(direction));
+
             roadControllers.add(roadController);
             getChildren().add(roadController);
         }
@@ -112,49 +115,20 @@ public class CrossroadController extends BorderPane implements Initializable
         }
 
 
-        Point2D offset = new Point2D(-250/2,-250/2);  // todo: get effective height
-        center.setLayoutX(crossroad.getReferencePoint().getX() + offset.getX());
-        center.setLayoutY(crossroad.getReferencePoint().getY() + offset.getY());
-
-        List<Vehicle> vehicles = crossroad.getVehicles();
-        for(Vehicle vehicle:vehicles) {
-            VehicleController vehicleController = new VehicleController(vehicle);
-            vehicle.addObserver(vehicleController);
-            getChildren().add(vehicleController);
-        }
+        Point2D offset = new Point2D(-250 / 2, -250 / 2);  // todo: get effective height
+        center.setLayoutX(this.crossroad.getReferencePoint().getX() + offset.getX());
+        center.setLayoutY(this.crossroad.getReferencePoint().getY() + offset.getY());
     }
-
-
-    /**
-     * initialize(URL location, ResourceBundle resources): Initialize during startUp all settings from the PrimaryStateController
-     *
-     * Is automatic called when fxmlLoader.load() ist called.
-     *
-     * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    10.12.2018
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> observableList;
-
-        observableList = observableArrayList("3", "4");
-    }
-
 
     @FXML
     public void mnuExitApplication(ActionEvent actionEvent) {
         System.exit(0);
     }
 
-
     /**
      * mnuOpenAboutWindow: Open a new Gui with project informations
      *
-     * @version 1.0
-     * @autor Schweizer Patrick
-     * @date 11.12.2018
-     * @arg ActionEvent actionEvent: ActionEvent from FXML
+     * @param actionEvent: ActionEvent from FXML
      */
     @FXML
     public void mnuOpenAboutWindow(ActionEvent actionEvent) {
@@ -170,75 +144,37 @@ public class CrossroadController extends BorderPane implements Initializable
         }
     }
 
-    @FXML
-    public void sliderCountOfMovedElements()
-    {
-        this.countOfMovedElements = (int)sldCountOfMovedElements.getValue();
-        lblCountOfMovedElements.setText("Count = " + String.valueOf(countOfMovedElements));
-    }
-
-
-    /**
-     * startButtonConfig: Starts a new draw from a crossroad with the desired settings
-     *
-     * @version 1.0
-     * @autor Schweizer Patrick
-     * @date 11.12.2018
-     * @arg ActionEvent actionEvent: ActionEvent from FXML
-     */
-    @FXML
-    public void startButtonConfig(ActionEvent actionEvent) {
-        try {
-            for (int i = 0; i < crossroad.getRoadCount(); i++) {
-                crossroad.setPedestrianStripes(checkboxpedestrainStripes.isSelected());
-                crossroad.setVelostripes(checkboxvelostripes.isSelected());
-            }
-
-            if (crossroad.getRoadCount() == 3) {
-                crossroad.getRoad(Direction.SOUTH).setVisibility(false);
-            } else {
-                crossroad.getRoad(Direction.SOUTH).setVisibility(true);
-            }
-
-        } catch (NullPointerException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-
     /**
      * changeTrafficLightState: Change the state from the trafficLights
      *
-     *
      * @version 1.0
-     * @autor   Schweizer Patrick
-     * @date    02.03.2019
-     * @arg     ActionEvent actionEvent: ActionEvent from FXML
+     * @autor Schweizer Patrick
+     * @date 02.03.2019
+     * @arg ActionEvent actionEvent: ActionEvent from FXML
      */
     @FXML
-    public void changeTrafficLightState(ActionEvent actionEvent)
-    {
-        if(nordSetRed.isSelected()){
+    public void changeTrafficLightState(ActionEvent actionEvent) {
+        if (nordSetRed.isSelected()) {
             crossroad.setTrafficLightState(Direction.NORTH, TrafficLightState.RED);
-        }else{
+        } else {
             crossroad.setTrafficLightState(Direction.NORTH, TrafficLightState.GREEN);
         }
 
-        if(westSetRed.isSelected()){
+        if (westSetRed.isSelected()) {
             crossroad.setTrafficLightState(Direction.WEST, TrafficLightState.RED);
-        }else{
+        } else {
             crossroad.setTrafficLightState(Direction.WEST, TrafficLightState.GREEN);
         }
 
-        if(southSetRed.isSelected()){
+        if (southSetRed.isSelected()) {
             crossroad.setTrafficLightState(Direction.SOUTH, TrafficLightState.RED);
-        }else{
+        } else {
             crossroad.setTrafficLightState(Direction.SOUTH, TrafficLightState.GREEN);
         }
 
-        if(eastSetRed.isSelected()){
+        if (eastSetRed.isSelected()) {
             crossroad.setTrafficLightState(Direction.EAST, TrafficLightState.RED);
-        }else{
+        } else {
             crossroad.setTrafficLightState(Direction.EAST, TrafficLightState.GREEN);
         }
     }
@@ -252,6 +188,17 @@ public class CrossroadController extends BorderPane implements Initializable
      */
     public List<RoadController> getRoadControllers() {
         return roadControllers;
+    }
+
+    @Override
+    public void update() {
+        List<Vehicle> vehicles = crossroad.getVehicles();
+        ObservableList<Node> children = getChildren();
+        children.removeAll();
+
+        for (Vehicle vehicle : vehicles) {
+            children.add(new VehicleController(vehicle));
+        }
     }
 }
 
