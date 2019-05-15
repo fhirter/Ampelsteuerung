@@ -5,24 +5,18 @@ import util.Observable;
 
 /**
  *
- * @autor Class NIN
- * @date 14.11.2018
+ * @autor Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
+ * @since  14.11.2018
  */
 public class Road extends Observable {
     private boolean hasPedestrianStripes;
     private boolean hasBicycleLane;
-
 
     private TrafficLight trafficLight;
     private boolean isVisible = true;
 
     public Road() {
         trafficLight = new TrafficLight();
-    }
-
-    public void setVisibility(boolean visible) {
-        this.isVisible = visible;
-        notifyObservers();
     }
 
     public boolean hasPedestrianStripes() {
@@ -47,7 +41,7 @@ public class Road extends Observable {
         notifyObservers();
     }
 
-    public TrafficLight getTrafficLightModelCar() {
+    public TrafficLight getTrafficLight() {
         return trafficLight;
     }
 }

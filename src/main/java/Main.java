@@ -9,7 +9,7 @@ import vehicles.Vehicle;
 
 /**
  * @version 1.0
- * @autor Class NIN
+ * @autor Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  * @date 04.11.2018
  */
 public class Main extends Application {

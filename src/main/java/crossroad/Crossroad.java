@@ -10,27 +10,74 @@ import vehicles.Vehicle;
 
 import java.util.*;
 
+
 /**
  *
  *
+ *
+ * @author Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  */
 public class Crossroad extends Observable {
     private final Point2D referencePoint = new Point2D(650, 450);
-    private Integer roadCount = 4;
-    private int roadWidth = 250;
-    private int roadLength = 300;
-
+    private final int roadWidth = 250;
+    private final int roadLength = 300;
+    private final Area turningArea = new Area(180, referencePoint);
     private Map<Direction, Road> roads = new HashMap<>();
-
-    private Area turningArea = new Area(180, referencePoint);
-
     private List<Vehicle> vehicles = new LinkedList<>();
 
-    private int vehicleCount = 1;
+    public Crossroad() {
+        generateRoads();
+    }
 
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
         notifyObservers();
+    }
+
+    public Point2D getReferencePoint() {
+        return referencePoint;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public int getRoadWidth() {
+        return roadWidth;
+    }
+
+    public int getRoadLength() {
+        return roadLength;
+    }
+
+    public Road getRoad(Direction direction) {
+        return roads.get(direction);
+    }
+
+    public void setTrafficLightState(Direction direction, TrafficLightState state) {
+        roads.get(direction).getTrafficLight().setState(state);
+    }
+
+    public boolean canITurn(Position position) {
+        return turningArea.isInside(position);
+    }
+
+    private void generateRoads() {
+        Direction[] directions = Direction.values();
+        for (int i = 0; i < directions.length; i++) {
+            Road road = new Road();
+            roads.put(directions[i], road);
+
+            List<TrafficLight> trafficLights = new LinkedList<>();
+
+            trafficLights.add(new TrafficLight());
+        }
+    }
+
+    public void calculatePositions(Double secondsElapsedCapped) {
+        for (int i = 0; i < vehicles.size(); i++) {
+            vehicles.get(i).setNewPosition(secondsElapsedCapped);
+        }
     }
 
     private class Area {
@@ -50,84 +97,6 @@ public class Crossroad extends Observable {
                 }
             }
             return false;
-        }
-    }
-
-    /**
-     * crossroad.Crossroad: Constructor
-     *
-     * @version 1.0
-     * @autor NIN Class
-     * @date 02.08.2018
-     */
-
-    public Crossroad() {
-        // Loop to create all roads
-        Direction[] directions = Direction.values();
-        for (int i = 0; i < directions.length; i++) {
-            Road road = new Road();
-            roads.put(directions[i], road);
-
-            List<TrafficLight> trafficLights = new LinkedList<>();
-
-            trafficLights.add(new TrafficLight());
-        }
-    }
-
-    public Point2D getReferencePoint() {
-        return referencePoint;
-    }
-
-
-    public List<Vehicle> getVehicles() {
-        return vehicles;
-    }
-
-    public void setPedestrianStripes(boolean selected) {
-        Iterator<Road> it = roads.values().iterator();
-        while (it.hasNext()) {
-            it.next().setHasPedestrianStripes(selected);
-        }
-    }
-
-    public void setVelostripes(boolean selected) {
-        Iterator<Road> it = roads.values().iterator();
-        while (it.hasNext()) {
-            it.next().setHasBicycleLane(selected);
-        }
-    }
-
-    public int getRoadWidth() {
-        return roadWidth;
-    }
-
-    public int getRoadLength() {
-        return roadLength;
-    }
-
-    public Integer getRoadCount() {
-        return roadCount;
-    }
-
-    public Road getRoad(Direction direction) {
-        return roads.get(direction);
-    }
-
-    public void setRoadCount(Integer numberOfDriveways) {
-        this.roadCount = numberOfDriveways;
-    }
-
-    public void setTrafficLightState(Direction direction, TrafficLightState state) {
-        roads.get(direction).getTrafficLightModelCar().setState(state);
-    }
-
-    public boolean canITurn(Position position) {
-        return turningArea.isInside(position);
-    }
-
-    public void calculatePositions(Double secondsElapsedCapped) {
-        for (int i = 0; i < vehicles.size(); i++) {
-            vehicles.get(i).setNewPosition(secondsElapsedCapped);
         }
     }
 }

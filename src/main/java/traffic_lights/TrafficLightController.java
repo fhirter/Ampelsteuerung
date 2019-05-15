@@ -21,19 +21,14 @@ import java.util.ResourceBundle;
  * @author Schweizer Patrick
  */
 
-public class TrafficLightController extends AnchorPane implements Observer, Initializable {
-    @FXML
-    private Circle redLightTraffic;
-    @FXML
-    private Circle yellowLightTraffic;
-    @FXML
-    private Circle greenLightTraffic;
-    @FXML
-    private Group symbolPedestrian;
-    @FXML
-    private Group groupScaleFactor;
+public class TrafficLightController extends AnchorPane implements Observer {
+    @FXML private Circle redLightTraffic;
+    @FXML private Circle yellowLightTraffic;
+    @FXML private Circle greenLightTraffic;
+    @FXML private Group symbolPedestrian;
+    @FXML private Group groupScaleFactor;
 
-    private TrafficLight trafficLight;
+    private final TrafficLight trafficLight;
 
     public TrafficLightController(TrafficLight trafficLight, Point2D refTrafficLights, Position position) {
         this.trafficLight = trafficLight;
@@ -55,18 +50,14 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
         setScaleX(scaleFactor);
         setScaleY(scaleFactor);
 
-    }
+        changeColor(trafficLight.getState());
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        changeColor(TrafficLightState.RED);
     }
 
     @Override
     public void update() {
         TrafficLightState newState = trafficLight.getState();
         changeColor(newState);
-
     }
 
     /**
@@ -74,10 +65,11 @@ public class TrafficLightController extends AnchorPane implements Observer, Init
      * <p>
      * Depending the state of the trafficLight the color of the lights are changed.
      *
+     * todo: rewrite state machine
+     *
      * @param
      */
     public void changeColor(TrafficLightState newState) {
-        final double scaleFactor = 0.8;
         final Paint stop = Paint.valueOf("#ff0000");
         final Paint off = Paint.valueOf("#ababab");
         final Paint standby = Paint.valueOf("#e8ff1f");

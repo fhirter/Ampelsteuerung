@@ -115,6 +115,11 @@ public class Vehicle extends Observable implements Driveable {
         } while (start == destination);
     }
 
+    public Position getStartPosition() {
+        return startPoints.get(start);
+    }
+
+
     private void mapDirection() {
         switch (currentDirection) {
             case SOUTH:
@@ -132,12 +137,6 @@ public class Vehicle extends Observable implements Driveable {
         }
     }
 
-    public Position getStartPosition() {
-        return startPoints.get(start);
-    }
-
-
-    @Override
     public void turn() {
         //http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
         int sign = getSign();

@@ -4,15 +4,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -24,7 +21,6 @@ import vehicles.Vehicle;
 import vehicles.VehicleController;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 import static javafx.collections.FXCollections.observableArrayList;
@@ -33,15 +29,12 @@ import static javafx.collections.FXCollections.observableArrayList;
 /**
  * Class crossroad.CrossroadController: Class for handling the PrimaryStage
  *
- * @version 1.0
- * @autor Class NIN
- * @date 30.11.2018
+ * @autor Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
+ * @since  30.11.2018
  */
 public class CrossroadController extends BorderPane implements Observer {
-    @FXML
-    private CheckBox checkboxvelostripes;
-    @FXML
-    private CheckBox checkboxpedestrainStripes;
+    @FXML private CheckBox checkboxvelostripes;
+    @FXML private CheckBox checkboxpedestrainStripes;
 
     @FXML private RadioButton nordSetRed;
     @FXML private RadioButton nordSetGreen;
@@ -54,43 +47,32 @@ public class CrossroadController extends BorderPane implements Observer {
 
     private List<RoadController> roadControllers = new LinkedList<>();
 
-    private Crossroad crossroad;
+    private final Crossroad crossroad;
+    private final Map<Direction, Position> directionPositionMap = new HashMap<>();
 
-    /**
-     * crossroad.CrossroadController(): Constructor
-     *
-     * @version 1.0
-     * @autor Schweizer Patrick
-     * @date 27.11.2018
-     * @arg crossroad.Crossroad crossroad: (Object form crossroad class)
-     */
     public CrossroadController(Crossroad crossroad) {
         this.crossroad = crossroad;
         crossroad.addObserver(this);
 
-        Map<Direction, Position> offsets = new HashMap<>();
+        initializeDirectionPositionMap();
+        initializeRoadControllers();
+        loadPrimaryStage();
+        loadCenter();
 
-        int roadWidth = this.crossroad.getRoadWidth();
-        int roadLength = this.crossroad.getRoadLength();
+    }
+
+    private void initializeDirectionPositionMap() {
+        int roadWidth = crossroad.getRoadWidth();
+        int roadLength = crossroad.getRoadLength();
         int centerSize = roadWidth;
 
-        offsets.put(Direction.WEST, new Position(-roadLength - centerSize / 2, -roadWidth / 2, 0));     // todo: get effective size
-        offsets.put(Direction.NORTH, new Position(roadWidth / 2, -roadLength - centerSize / 2, 90));
-        offsets.put(Direction.EAST, new Position(roadLength + centerSize / 2, roadWidth / 2, 180));
-        offsets.put(Direction.SOUTH, new Position(-roadWidth / 2, roadLength + centerSize / 2, 270));
+        directionPositionMap.put(Direction.WEST, new Position(-roadLength - centerSize / 2, -roadWidth / 2, 0));     // todo: get effective size
+        directionPositionMap.put(Direction.NORTH, new Position(roadWidth / 2, -roadLength - centerSize / 2, 90));
+        directionPositionMap.put(Direction.EAST, new Position(roadLength + centerSize / 2, roadWidth / 2, 180));
+        directionPositionMap.put(Direction.SOUTH, new Position(-roadWidth / 2, roadLength + centerSize / 2, 270));
+    }
 
-        /* Loop to create all driveways */
-        Direction[] directions = Direction.values();
-        Direction direction;
-        for (int i = 0; i < directions.length; i++) {
-            /* create driveWayRouteController */
-            direction = directions[i];
-            RoadController roadController = new RoadController(this.crossroad.getRoad(direction), this.crossroad.getReferencePoint(), offsets.get(direction));
-
-            roadControllers.add(roadController);
-            getChildren().add(roadController);
-        }
-
+    private void loadPrimaryStage() {
         FXMLLoader primaryStageLoader = new FXMLLoader(getClass().getResource("/primaryStage.fxml"));
         primaryStageLoader.setRoot(this);
         primaryStageLoader.setController(this);
@@ -100,8 +82,9 @@ public class CrossroadController extends BorderPane implements Observer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        // Load Center
+    private void loadCenter() {
         AnchorPane center = new AnchorPane();
         getChildren().add(center);
 
@@ -114,10 +97,21 @@ public class CrossroadController extends BorderPane implements Observer {
             e.printStackTrace();
         }
 
-
         Point2D offset = new Point2D(-250 / 2, -250 / 2);  // todo: get effective height
         center.setLayoutX(this.crossroad.getReferencePoint().getX() + offset.getX());
         center.setLayoutY(this.crossroad.getReferencePoint().getY() + offset.getY());
+    }
+
+    private void initializeRoadControllers() {
+        Direction[] directions = Direction.values();
+        Direction direction;
+        for (int i = 0; i < directions.length; i++) {
+            direction = directions[i];
+            RoadController roadController = new RoadController(this.crossroad.getRoad(direction), this.crossroad.getReferencePoint(), directionPositionMap.get(direction));
+
+            roadControllers.add(roadController);
+            getChildren().add(roadController);      // add to GUI
+        }
     }
 
     @FXML
@@ -125,11 +119,6 @@ public class CrossroadController extends BorderPane implements Observer {
         System.exit(0);
     }
 
-    /**
-     * mnuOpenAboutWindow: Open a new Gui with project informations
-     *
-     * @param actionEvent: ActionEvent from FXML
-     */
     @FXML
     public void mnuOpenAboutWindow(ActionEvent actionEvent) {
         try {
@@ -145,12 +134,9 @@ public class CrossroadController extends BorderPane implements Observer {
     }
 
     /**
-     * changeTrafficLightState: Change the state from the trafficLights
+     * changeTrafficLightState: Change the state of the trafficLights
      *
-     * @version 1.0
-     * @autor Schweizer Patrick
-     * @date 02.03.2019
-     * @arg ActionEvent actionEvent: ActionEvent from FXML
+     * @param actionEvent ActionEvent from FXML
      */
     @FXML
     public void changeTrafficLightState(ActionEvent actionEvent) {
@@ -177,17 +163,6 @@ public class CrossroadController extends BorderPane implements Observer {
         } else {
             crossroad.setTrafficLightState(Direction.EAST, TrafficLightState.GREEN);
         }
-    }
-
-    /**
-     * crossroad.CrossroadController: get the DrivewayRouteController
-     *
-     * @version 1.0
-     * @autor NIN Class
-     * @date 02.08.2018
-     */
-    public List<RoadController> getRoadControllers() {
-        return roadControllers;
     }
 
     @Override
