@@ -13,8 +13,6 @@ import java.util.*;
 
 /**
  *
- *
- *
  * @author Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  */
 public class Crossroad extends Observable {

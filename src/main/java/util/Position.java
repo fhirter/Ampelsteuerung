@@ -26,7 +26,14 @@ public class Position extends Point2D {
     }
 
     public Position add(double x, double y, double angle) {
-        return new Position(super.add(x, y), getAngle() + angle); //todo: implement 360° overflow
+        double newAngle = getAngle()+angle;
+        while(newAngle > 360) {
+            newAngle -= 360;
+        }
+        while(newAngle < 0) {
+            newAngle += 360;
+        }
+        return new Position(super.add(x, y), newAngle);
     }
 
     public void setAngle(double angle) {

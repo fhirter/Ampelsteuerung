@@ -10,60 +10,21 @@ import java.util.TimerTask;
 
 
 /**
- * todo: debug
+ *
  * @autor Schweizer Patrick, Hirter Fabian
  */
 
 public class TrafficLight extends Observable implements TrafficLightInterface {
     private TrafficLightState currentState, nextState, endState;
-    private boolean inProgress = false;
     private Timer stateChangeTimer;
+    Map<TrafficLightState, TrafficLightState> stateMap = new HashMap<>();
+
+    final int delay = 500;
 
     public TrafficLight() {
-        currentState = TrafficLightState.RED;
-    }
+        currentState = nextState = endState = TrafficLightState.RED;
 
-    @Override
-    public TrafficLightState getState() {
-        return currentState;
-    }
-
-    public void setState(TrafficLightState state) {
-        this.endState = state;
-        switchTo(state);
-    }
-
-    /**
-     * startTimerForStateChange(): Starts the timer for time-based change of the state
-     *
-     * @since  08.12.2018
-     */
-    private void startTimerForStateChange() {
-        if (inProgress == true) {
-            stateChangeTimer.cancel();
-            inProgress = false;
-        }
         stateChangeTimer = new Timer();
-        stateChangeTimer.schedule(new TimerTask() {
-                                      @Override
-                                      public void run() {
-                                          Platform.runLater(new Runnable() {
-                                              @Override
-                                              public void run() {
-                                                  inProgress = true;
-                                                  switchTo(nextState);
-                                                  notifyObservers();
-                                              }
-                                          });
-                                      }
-                                  },
-                0 /* ms delay */,
-                500 /* ms period */);
-        notifyObservers();
-    }
-
-    public void switchTo(TrafficLightState nextState) {
-        Map<TrafficLightState,TrafficLightState> stateMap = new HashMap<>();
 
         // normal operation
         stateMap.put(TrafficLightState.GREEN, TrafficLightState.YELLOW);
@@ -74,39 +35,48 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
         // yellow flashing
         stateMap.put(TrafficLightState.YELLOW_FLASH, TrafficLightState.DARK);
         stateMap.put(TrafficLightState.DARK, TrafficLightState.YELLOW_FLASH);
-
-        if(currentState != nextState) {
-            this.nextState = stateMap.get(currentState);
-            startTimerForStateChange();
-        } else {
-            inProgress = false;
-            stateChangeTimer.cancel();
-        }
-
     }
 
-    private void setEndState(TrafficLightState endState) {
-        this.endState = endState;
+    @Override
+    public TrafficLightState getState() {
+        return currentState;
+    }
+
+    public void setState(TrafficLightState state) {
+        if(endState != state) {
+            endState = state;
+            scheduleStateChangeTimer();
+        }
     }
 
     /**
-     * switchToSIMULATION(): State-Machine for SIMULATION (running lights).
+     * scheduleStateChangeTimer(): Starts the timer for time-based change of the state
      *
      * @since 08.12.2018
      */
-    private void switchToSIMULATION() {
-        Map<TrafficLightState,TrafficLightState> simulationStateMap = new HashMap<>();
+    private void scheduleStateChangeTimer() {
+        if(endState != currentState) {
 
-        simulationStateMap.put(TrafficLightState.GREEN, TrafficLightState.YELLOW);
-        simulationStateMap.put(TrafficLightState.YELLOW, TrafficLightState.YELLOW_RED);
-        simulationStateMap.put(TrafficLightState.YELLOW_RED, TrafficLightState.RED);
-        simulationStateMap.put(TrafficLightState.RED, TrafficLightState.DARK);
-        simulationStateMap.put(TrafficLightState.DARK, TrafficLightState.ALLOn);
-        simulationStateMap.put(TrafficLightState.ALLOn, TrafficLightState.GREEN);
+            nextState = stateMap.get(currentState);
 
+            stateChangeTimer.schedule(new TimerTask() {
+                                          @Override
+                                          public void run() {
+                                              Platform.runLater(new Runnable() {
+                                                  @Override
+                                                  public void run() {
+                                                      currentState = nextState;
+                                                      notifyObservers();
 
-        nextState = simulationStateMap.get(currentState);
-        currentState = nextState;
-
+                                                      if (nextState != endState) {                // final state not yet reached so schedule again
+                                                          scheduleStateChangeTimer();
+                                                      }
+                                                  }
+                                              });
+                                          }
+                                      },
+                    delay
+            );
+        }
     }
 }
