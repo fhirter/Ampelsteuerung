@@ -75,7 +75,7 @@ public class Crossroad extends Observable {
 
     public void calculatePositions(Double secondsElapsedCapped) {
         for (int i = 0; i < vehicles.size(); i++) {
-            vehicles.get(i).setNewPosition(secondsElapsedCapped);
+            vehicles.get(i).drive(secondsElapsedCapped);
         }
     }
 

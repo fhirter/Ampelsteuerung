@@ -1,6 +1,5 @@
 package vehicles;
 
-import com.sun.javafx.scene.paint.GradientUtils;
 import crossroad.Crossroad;
 import javafx.geometry.Point2D;
 import javafx.scene.transform.Rotate;
@@ -26,26 +25,21 @@ public class Vehicle extends Observable implements Driveable {
 
     private Double lateral = 0.0;
     private Double forward = 0.0;
-
     private int speed = 100;  // pixels/second
     private int wheelbase = 70;
     private int steeringAngle = 0;  // degree
-
     private Double step;
-
     private int length = 80;
     private int width = 40;
     private Point2D pivot;
-
     public Vehicle(Crossroad crossroad) {
         this.crossroad = crossroad;
 
-        setRandomStart();
-        setRandomDestination();
+        start = getRandomDirection();
 
-        //debug
-//        start = SOUTH;
-//        destination = EAST;
+        do {
+            destination = getRandomDirection();
+        } while (start == destination);
 
         System.out.println("start:" + start + ", destination: " + destination);
 
@@ -61,9 +55,31 @@ public class Vehicle extends Observable implements Driveable {
         position = new Position(startPoints.get(start));
     }
 
+    public Vehicle(Crossroad crossroad, Direction start, Direction destination) {
+        this(crossroad);
+
+        // overwrite start and destination
+        this.start = start;
+        this.destination = destination;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     @Override
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public void setStart(Direction start) {
+        this.start = start;
+    }
+
+    @Override
+    public void setDestination(Direction destination) {
+        this.destination = destination;
     }
 
     public int getWheelbase() {
@@ -81,7 +97,9 @@ public class Vehicle extends Observable implements Driveable {
     }
 
     @Override
-    public void drive() {
+    public void drive(Double secondsElapsedCapped) {
+        step = secondsElapsedCapped * speed;  // [s*px/s] = [px]
+
         if (currentDirection == destination) {
             driveStraight();
         } else if (crossroad.canITurn(position) == true) {
@@ -89,6 +107,8 @@ public class Vehicle extends Observable implements Driveable {
         } else {
             driveStraight();
         }
+
+        notifyObservers();
     }
 
     @Override
@@ -98,23 +118,13 @@ public class Vehicle extends Observable implements Driveable {
         mapDirection();
     }
 
-    public void setRandomStart() {
+    public Direction getRandomDirection() {
         int rndNumber = 0;
         Random random = new Random();
         rndNumber = random.nextInt(values().length);
-        start = values()[rndNumber];
+        return values()[rndNumber];
     }
 
-    public void setRandomDestination() {
-        int rndNumber;
-
-        // destination shouldn't be equal to start
-        do {
-            Random random = new Random();
-            rndNumber = random.nextInt(values().length);
-            destination = values()[rndNumber];
-        } while (start == destination);
-    }
 
     public Position getStartPosition() {
         return startPoints.get(start);
@@ -176,7 +186,6 @@ public class Vehicle extends Observable implements Driveable {
 
         double destinationAngle = destination.getAngle();
         double eta = 1.0;
-        System.out.printf("current angle: "+position.getAngle());
         if (destinationAngle + eta > position.getAngle() && destinationAngle - eta < position.getAngle()) {
             currentDirection = destination;
             pivot = null;
@@ -239,22 +248,5 @@ public class Vehicle extends Observable implements Driveable {
                 break;
         }
         return 0;
-    }
-
-    public void setNewPosition(Double secondsElapsedCapped) {
-        step = secondsElapsedCapped * speed;  // [s*px/s] = [px]
-
-        drive();
-
-        if ((position.getX() > 1100) || (position.getY() > 1020) || (position.getX() < 180) || (position.getY() < -80)) {
-            //       resetRoute();
-        }
-
-        notifyObservers();
-    }
-
-    private void resetRoute() {
-        position = startPoints.get(start);
-        setRandomDestination();
     }
 }

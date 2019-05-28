@@ -1,16 +1,18 @@
 package vehicles;
 
+import util.Direction;
 import util.Position;
 
 public interface Driveable {
     Position getPosition();
 
+    void setStart(Direction start);
+    void setDestination(Direction destination);
+
     int getLength();
     int getWidth();
 
-    void drive();
-    void setNewPosition(Double secondsElapsedCapped);
-
+    void drive(Double secondsElapsedCapped);
     void driveStraight();
 
 }
