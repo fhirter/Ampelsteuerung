@@ -27,7 +27,7 @@ public class Main extends Application {
 
         crossroad = new Crossroad();
         final CrossroadController crossroadController = new CrossroadController(crossroad);
-        generateVehicles(1);
+        generateVehicles(10);
 
         final Scene scene = new Scene(crossroadController, 1100, 900);
         scene.getStylesheets().add("style.css");

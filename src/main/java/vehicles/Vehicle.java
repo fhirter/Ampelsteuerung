@@ -1,5 +1,6 @@
 package vehicles;
 
+import com.sun.javafx.scene.paint.GradientUtils;
 import crossroad.Crossroad;
 import javafx.geometry.Point2D;
 import javafx.scene.transform.Rotate;
@@ -26,9 +27,9 @@ public class Vehicle extends Observable implements Driveable {
     private Double lateral = 0.0;
     private Double forward = 0.0;
 
-    private int speed = 300;  // pixels/second
-    private int wheelbase = 500;
-    private int steeringAngle = 5;  // degree
+    private int speed = 100;  // pixels/second
+    private int wheelbase = 70;
+    private int steeringAngle = 0;  // degree
 
     private Double step;
 
@@ -43,17 +44,17 @@ public class Vehicle extends Observable implements Driveable {
         setRandomDestination();
 
         //debug
-        start = NORTH;
-        destination = EAST;
+//        start = SOUTH;
+//        destination = EAST;
 
         System.out.println("start:" + start + ", destination: " + destination);
 
         final Point2D ref = crossroad.getReferencePoint();
 
         startPoints.put(WEST, new Position(300, 465, 0));
-        startPoints.put(NORTH, new Position(ref.getX() - 40, ref.getY() - 400, 90));
+        startPoints.put(NORTH, new Position(ref.getX()-10, ref.getY() - 400, 90));
         startPoints.put(EAST, new Position(950, 440, 180));
-        startPoints.put(SOUTH, new Position(635, 800, 270));
+        startPoints.put(SOUTH, new Position(ref.getX()+10, ref.getY() + 400, 270));
 
         currentDirection = start.getOpposite();
 
@@ -139,40 +140,69 @@ public class Vehicle extends Observable implements Driveable {
 
     /**
      *
-     * todo: fix velocity, fix "sliding"
+     * http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
+     *
      *
      * @autor Hirter Fabian
      */
     public void turn() {
-        //http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
         int sign = getSign();
+
+        if(sign == -1) {
+            steeringAngle = 45;  // degree
+        }
+        if(sign == 1) {
+            steeringAngle = 60;
+        }
 
         double radius = wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
 
-        // ds = r*dphi = r*w*dt -> dphi = ds/r
-
         double dphi = sign * step / radius; // rad   [px/px]
-        dphi = dphi*50;
-
-        // polarcoordinates to cartesian
-        //   double dx = 2*radius*Math.sin(dphi/2)*Math.cos(dphi);
-        //  double dy = 2*radius*Math.sin(dphi/2)*Math.sin(dphi);
 
         if (pivot == null) {
-            //  pivot = new Point2D(position.getX()+radius,position.getY());
-            pivot = new Point2D(position.getX() + radius, position.getY());
+            setPivot(radius, sign);
         }
 
-        Rotate rotate = new Rotate(dphi, pivot.getX(), pivot.getY());
-        Point2D newpoint = rotate.transform(position);
+        Point2D shift = position.subtract(pivot);       // translate for pivot center to be on 0,0
 
+        double x = shift.getX();
+        double y = shift.getY();
+
+        double x1 = x*Math.cos(dphi) - y*Math.sin(dphi);        // then rotate
+        double y1 = x*Math.sin(dphi) + y*Math.cos(dphi);
+
+        Point2D newpoint = (new Point2D(x1,y1)).add(pivot);     // and shift back
         position = new Position(newpoint.getX(), newpoint.getY(), position.getAngle() + Math.toDegrees(dphi));
 
         double destinationAngle = destination.getAngle();
         double eta = 1.0;
+        System.out.printf("current angle: "+position.getAngle());
         if (destinationAngle + eta > position.getAngle() && destinationAngle - eta < position.getAngle()) {
             currentDirection = destination;
             pivot = null;
+        }
+    }
+
+    /**
+     *
+     * set rotation center according to current direction
+     *
+     * @param radius radius of rotation
+     */
+    private void setPivot(double radius, int sign) {
+        switch (currentDirection) {
+            case SOUTH:
+                pivot = new Point2D(position.getX() - sign*radius, position.getY());
+                break;
+            case EAST:
+                pivot = new Point2D(position.getX(), position.getY() + sign*radius);
+                break;
+            case WEST:
+                pivot = new Point2D(position.getX(), position.getY() - sign*radius);
+                break;
+            case NORTH:
+                pivot = new Point2D(position.getX() + sign*radius, position.getY());
+                break;
         }
     }
 

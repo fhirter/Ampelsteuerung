@@ -7,18 +7,16 @@ public class Position extends Point2D {
 
     public Position(double x, double y, double angle) {
         super(x, y);
-        this.angle = angle;
+        this.angle = handleAngleOverflow(angle);
     }
 
     public Position(Point2D point, double angle) {
-        super(point.getX(), point.getY());
-        this.angle = angle;
+        this(point.getX(), point.getY(),angle);
     }
 
     // copy constructor
     public Position(Position position) {
-        super(position.getX(), position.getY());
-        this.angle = position.angle;
+        this(position.getX(), position.getY(),position.getAngle());
     }
 
     public double getAngle() {
@@ -27,13 +25,18 @@ public class Position extends Point2D {
 
     public Position add(double x, double y, double angle) {
         double newAngle = getAngle()+angle;
-        while(newAngle > 360) {
-            newAngle -= 360;
-        }
-        while(newAngle < 0) {
-            newAngle += 360;
-        }
+
         return new Position(super.add(x, y), newAngle);
+    }
+
+    private double handleAngleOverflow(double angle) {
+        while(angle > 360) {
+            angle -= 360;
+        }
+        while(angle < 0) {
+            angle += 360;
+        }
+        return angle;
     }
 
     public void setAngle(double angle) {
