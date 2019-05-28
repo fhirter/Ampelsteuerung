@@ -30,12 +30,6 @@ public class Main extends Application {
         final CrossroadController crossroadController = new CrossroadController(crossroad);
 //        generateVehicles(1);
 
-        Vehicle fancyCar = new Vehicle(crossroad);
-        fancyCar.setStart(Direction.EAST);
-        fancyCar.setDestination(Direction.WEST);
-        fancyCar.setSpeed(250);
-        crossroad.addVehicle(fancyCar);
-
         final Scene scene = new Scene(crossroadController, 1100, 900);
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
