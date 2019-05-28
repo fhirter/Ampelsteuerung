@@ -137,29 +137,36 @@ public class Vehicle extends Observable implements Driveable {
         }
     }
 
+    /**
+     *
+     * todo: fix velocity, fix "sliding"
+     *
+     * @autor Hirter Fabian
+     */
     public void turn() {
         //http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
         int sign = getSign();
 
         double radius = wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
-        double dAngle = sign * step / radius; // rad
+
+        // ds = r*dphi = r*w*dt -> dphi = ds/r
+
+        double dphi = sign * step / radius; // rad   [px/px]
+        dphi = dphi*50;
 
         // polarcoordinates to cartesian
-        //   double dx = 2*radius*Math.sin(dAngle/2)*Math.cos(dAngle);
-        //  double dy = 2*radius*Math.sin(dAngle/2)*Math.sin(dAngle);
+        //   double dx = 2*radius*Math.sin(dphi/2)*Math.cos(dphi);
+        //  double dy = 2*radius*Math.sin(dphi/2)*Math.sin(dphi);
 
         if (pivot == null) {
             //  pivot = new Point2D(position.getX()+radius,position.getY());
             pivot = new Point2D(position.getX() + radius, position.getY());
         }
 
-        Rotate rotate = new Rotate(dAngle, pivot.getX(), pivot.getY());
+        Rotate rotate = new Rotate(dphi, pivot.getX(), pivot.getY());
         Point2D newpoint = rotate.transform(position);
 
-        position = new Position(newpoint.getX(), newpoint.getY(), position.getAngle() + Math.toDegrees(dAngle));
-
-//        mapDirection();
-        handleOverflow();
+        position = new Position(newpoint.getX(), newpoint.getY(), position.getAngle() + Math.toDegrees(dphi));
 
         double destinationAngle = destination.getAngle();
         double eta = 1.0;
@@ -167,18 +174,8 @@ public class Vehicle extends Observable implements Driveable {
             currentDirection = destination;
             pivot = null;
         }
-
     }
 
-    private void handleOverflow() {
-        // overflow handling
-        if (position.getAngle() > 360) {
-            position.setAngle(position.getAngle() - 360);
-        }
-        if (position.getAngle() < 0) {
-            position.setAngle(position.getAngle() + 360);
-        }
-    }
 
     private int getSign() {
         switch (currentDirection) {
@@ -215,7 +212,7 @@ public class Vehicle extends Observable implements Driveable {
     }
 
     public void setNewPosition(Double secondsElapsedCapped) {
-        step = secondsElapsedCapped * speed;
+        step = secondsElapsedCapped * speed;  // [s*px/s] = [px]
 
         drive();
 

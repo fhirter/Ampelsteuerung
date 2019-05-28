@@ -17,9 +17,9 @@ import java.util.TimerTask;
 public class TrafficLight extends Observable implements TrafficLightInterface {
     private TrafficLightState currentState, nextState, endState;
     private Timer stateChangeTimer;
-    Map<TrafficLightState, TrafficLightState> stateMap = new HashMap<>();
+    private Map<TrafficLightState, TrafficLightState> stateMap = new HashMap<>();
 
-    final int delay = 500;
+    final private int delay = 500;
 
     public TrafficLight() {
         currentState = nextState = endState = TrafficLightState.RED;
@@ -42,6 +42,7 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
         return currentState;
     }
 
+    @Override
     public void setState(TrafficLightState state) {
         if(endState != state) {
             endState = state;

@@ -20,6 +20,7 @@ public class Crossroad extends Observable {
     private final int roadWidth = 250;
     private final int roadLength = 300;
     private final Area turningArea = new Area(180, referencePoint);
+
     private Map<Direction, Road> roads = new HashMap<>();
     private List<Vehicle> vehicles = new LinkedList<>();
 
@@ -89,8 +90,14 @@ public class Crossroad extends Observable {
         }
 
         public boolean isInside(Position position) {
-            if (position.getX() > (center.getX() - size / 2) && position.getX() < (center.getX() + size / 2)) {
-                if (position.getY() > (center.getY() - size / 2) && position.getY() < (center.getY() + size / 2)) {
+            final double x = position.getX();
+            final double y = position.getY();
+
+            final double centerX = center.getX();
+            final double centerY = center.getY();
+
+            if (x > (centerX - size / 2) && x < (centerX + size / 2)) {
+                if (y > (centerY - size / 2) && y < (centerY + size / 2)) {
                     return true;
                 }
             }

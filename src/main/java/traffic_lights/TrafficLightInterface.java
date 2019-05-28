@@ -2,6 +2,5 @@ package traffic_lights;
 
 public interface TrafficLightInterface {
     TrafficLightState getState();
-
-
+    void setState(TrafficLightState state);
 }
