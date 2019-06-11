@@ -32,17 +32,15 @@ public class TrafficLightController extends AnchorPane implements Observer {
 
     private final TrafficLight trafficLight;
 
-    public TrafficLightController(TrafficLight trafficLight, Point2D refTrafficLights, Position position) {
+    public TrafficLightController(TrafficLight trafficLight, Point2D refTrafficLights, Position position) throws IOException {
         this.trafficLight = trafficLight;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/trafficLightView.fxml"));
         loader.setController(this);
         loader.setRoot(this);
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        loader.load();
+
 
         setLayoutX(refTrafficLights.getX() + position.getX());
         setLayoutY(refTrafficLights.getY() + position.getY());

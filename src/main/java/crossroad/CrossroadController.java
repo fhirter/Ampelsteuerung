@@ -50,7 +50,7 @@ public class CrossroadController extends BorderPane implements Observer {
     private final Crossroad crossroad;
     private final Map<Direction, Position> directionPositionMap = new HashMap<>();
 
-    public CrossroadController(Crossroad crossroad) {
+    public CrossroadController(Crossroad crossroad) throws IOException {
         this.crossroad = crossroad;
         crossroad.addObserver(this);
 
@@ -102,7 +102,7 @@ public class CrossroadController extends BorderPane implements Observer {
         center.setLayoutY(this.crossroad.getReferencePoint().getY() + offset.getY());
     }
 
-    private void initializeRoadControllers() {
+    private void initializeRoadControllers() throws IOException {
         Direction[] directions = Direction.values();
         Direction direction;
         for (int i = 0; i < directions.length; i++) {

@@ -3,6 +3,7 @@ package crossroad;
 import javafx.geometry.Point2D;
 import traffic_lights.TrafficLight;
 import traffic_lights.TrafficLightState;
+import util.Area;
 import util.Direction;
 import util.Observable;
 import util.Position;
@@ -10,8 +11,9 @@ import vehicles.Vehicle;
 
 import java.util.*;
 
-
 /**
+ * Crossroad Class. Holds 4 roads and any number of vehicles. Provides information if vehicles may change direction or should stop.
+ *
  *
  * @author Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  */
@@ -37,28 +39,37 @@ public class Crossroad extends Observable {
         return referencePoint;
     }
 
-    public List<Vehicle> getVehicles() {
+    List<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public int getRoadWidth() {
+    int getRoadWidth() {
         return roadWidth;
     }
 
-    public int getRoadLength() {
+    int getRoadLength() {
         return roadLength;
     }
 
-    public Road getRoad(Direction direction) {
+    Road getRoad(Direction direction) {
         return roads.get(direction);
     }
 
-    public void setTrafficLightState(Direction direction, TrafficLightState state) {
+    void setTrafficLightState(Direction direction, TrafficLightState state) {
         roads.get(direction).getTrafficLight().setState(state);
     }
 
     public boolean canITurn(Position position) {
         return turningArea.isInside(position);
+    }
+
+    public boolean canIDrive(Position position) {
+        for (Map.Entry<Direction, Road> entry : roads.entrySet()) {
+            if(entry.getValue().canIDrive(position)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void generateRoads() {
@@ -72,6 +83,7 @@ public class Crossroad extends Observable {
             trafficLights.add(new TrafficLight());
         }
     }
+    
 
     public void calculatePositions(Double secondsElapsedCapped) {
         for (int i = 0; i < vehicles.size(); i++) {
@@ -79,31 +91,6 @@ public class Crossroad extends Observable {
         }
     }
 
-    private class Area {
-        private int size;
-        private Point2D center;
-
-
-        public Area(int size, Point2D center) {
-            this.size = size;
-            this.center = center;
-        }
-
-        public boolean isInside(Position position) {
-            final double x = position.getX();
-            final double y = position.getY();
-
-            final double centerX = center.getX();
-            final double centerY = center.getY();
-
-            if (x > (centerX - size / 2) && x < (centerX + size / 2)) {
-                if (y > (centerY - size / 2) && y < (centerY + size / 2)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
 }
 
 

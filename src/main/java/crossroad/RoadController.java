@@ -27,7 +27,7 @@ public class RoadController extends Group implements Observer {
     private Road road;
     private TrafficLightController trafficLightController;
 
-    public RoadController(Road road, Point2D ref, Position offset) {
+    public RoadController(Road road, Point2D ref, Position offset) throws IOException {
         this.road = road;
         this.road.addObserver(this);
 
@@ -52,7 +52,7 @@ public class RoadController extends Group implements Observer {
     }
 
 
-    private void initializeTrafficLightController(TrafficLight trafficLight, Position position) {
+    private void initializeTrafficLightController(TrafficLight trafficLight, Position position) throws IOException {
         trafficLightController = new TrafficLightController(trafficLight, refTrafficLights, position);
         getChildren().add(trafficLightController);
         trafficLight.addObserver(trafficLightController);

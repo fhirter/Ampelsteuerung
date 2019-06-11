@@ -30,6 +30,11 @@ public class Main extends Application {
         final CrossroadController crossroadController = new CrossroadController(crossroad);
 //        generateVehicles(1);
 
+        Vehicle vehicle1 = new Vehicle(crossroad, Direction.EAST, Direction.SOUTH);
+        Vehicle vehicle2 = new Vehicle(crossroad, Direction.NORTH, Direction.WEST);
+        Vehicle vehicle3 = new Vehicle(crossroad, Direction.NORTH, Direction.WEST);
+
+
         final Scene scene = new Scene(crossroadController, 1100, 900);
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
@@ -43,7 +48,6 @@ public class Main extends Application {
     public void generateVehicles(int count) {
         for (int i = 0; i < count; i++) {
             Vehicle vehicle = new Vehicle(crossroad);
-            crossroad.addVehicle(vehicle);
         }
     }
 }

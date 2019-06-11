@@ -32,16 +32,26 @@ public class Vehicle extends Observable implements Driveable {
     private int length = 80;
     private int width = 40;
     private Point2D pivot;
+
     public Vehicle(Crossroad crossroad) {
         this.crossroad = crossroad;
-
-        start = getRandomDirection();
-
-        do {
-            destination = getRandomDirection();
-        } while (start == destination);
+        start = Direction.getRandomDirection();
+        destination = Direction.getRandomDirection(start);
 
         System.out.println("start:" + start + ", destination: " + destination);
+
+        init();
+    }
+
+    public Vehicle(Crossroad crossroad, Direction start, Direction destination) {
+        this.crossroad = crossroad;
+        this.start = start;
+        this.destination = destination;
+
+        init();
+    }
+
+    private void init() {
 
         final Point2D ref = crossroad.getReferencePoint();
 
@@ -53,18 +63,16 @@ public class Vehicle extends Observable implements Driveable {
         currentDirection = start.getOpposite();
 
         position = new Position(startPoints.get(start));
-    }
 
-    public Vehicle(Crossroad crossroad, Direction start, Direction destination) {
-        this(crossroad);
-
-        // overwrite start and destination
-        this.start = start;
-        this.destination = destination;
+        crossroad.addVehicle(this);
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+        if(speed > 0) {
+            this.speed = speed;
+        } else {
+            this.speed = 0;
+        }
     }
 
     @Override
@@ -118,12 +126,12 @@ public class Vehicle extends Observable implements Driveable {
         mapDirection();
     }
 
-    public Direction getRandomDirection() {
-        int rndNumber = 0;
-        Random random = new Random();
-        rndNumber = random.nextInt(values().length);
-        return values()[rndNumber];
-    }
+//    public Direction getRandomDirection() {
+//        int rndNumber = 0;
+//        Random random = new Random();
+//        rndNumber = random.nextInt(values().length);
+//        return values()[rndNumber];
+//    }
 
 
     public Position getStartPosition() {

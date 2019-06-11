@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Random;
+
 public enum Direction {
     WEST, EAST, NORTH, SOUTH;
     private Direction opposite;
@@ -27,5 +29,15 @@ public enum Direction {
         return angle;
     }
 
+    public static Direction getRandomDirection() {
+        return values()[(new Random()).nextInt(values().length)];
+    }
+    public static Direction getRandomDirection(Direction not) {
+        Direction direction;
+        do {
+            direction = Direction.getRandomDirection();
+        } while (not == direction);
 
+        return direction;
+    }
 };
