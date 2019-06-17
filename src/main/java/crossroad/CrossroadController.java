@@ -12,8 +12,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import traffic_lights.TrafficLightState;
+import util.Area;
 import util.Direction;
 import util.Observer;
 import util.Position;
@@ -25,9 +27,14 @@ import java.util.*;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
-
 /**
  * Class crossroad.CrossroadController: Class for handling the PrimaryStage
+ *
+ * View Order 100: Street
+ * View Order 90: Street Markings
+ * View Order 80: Boardwalk
+ * View Order 70: Areas
+ * View Order 60: Vehicles
  *
  * @autor Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  * @since  30.11.2018
@@ -35,6 +42,8 @@ import static javafx.collections.FXCollections.observableArrayList;
 public class CrossroadController extends BorderPane implements Observer {
     @FXML private CheckBox checkboxvelostripes;
     @FXML private CheckBox checkboxpedestrainStripes;
+
+    @FXML private Rectangle turningArea;
 
     @FXML private RadioButton nordSetRed;
     @FXML private RadioButton nordSetGreen;
@@ -49,6 +58,7 @@ public class CrossroadController extends BorderPane implements Observer {
 
     private final Crossroad crossroad;
     private final Map<Direction, Position> directionPositionMap = new HashMap<>();
+    private AnchorPane center;
 
     public CrossroadController(Crossroad crossroad) throws IOException {
         this.crossroad = crossroad;
@@ -56,9 +66,34 @@ public class CrossroadController extends BorderPane implements Observer {
 
         initializeDirectionPositionMap();
         initializeRoadControllers();
+
         loadPrimaryStage();
         loadCenter();
 
+        setTurningArea();
+
+        setViewOrders();
+    }
+
+    private void setTurningArea() {
+        Area turningArea = crossroad.getTurningArea();
+
+        final int height = turningArea.getHeight();
+        final int width = turningArea.getWidth();
+
+        this.turningArea.setLayoutX(turningArea.getCenter().getX()-width/2);
+        this.turningArea.setLayoutY(turningArea.getCenter().getY()-height/2);
+
+        this.turningArea.setHeight(height);
+        this.turningArea.setWidth(width);
+    }
+
+    private void setViewOrders() {
+        turningArea.setViewOrder(70);      // todo: get rid of view order magic number
+        for (int i = 0; i < roadControllers.size(); i++) {
+            roadControllers.get(i).setViewOrder(100);
+        }
+        center.setViewOrder(100);
     }
 
     private void initializeDirectionPositionMap() {
@@ -85,7 +120,7 @@ public class CrossroadController extends BorderPane implements Observer {
     }
 
     private void loadCenter() {
-        AnchorPane center = new AnchorPane();
+        center = new AnchorPane();
         getChildren().add(center);
 
         FXMLLoader centerLoader = new FXMLLoader(getClass().getResource("/drivewayCenter.fxml"));

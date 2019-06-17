@@ -3,13 +3,26 @@ package util;
 import javafx.geometry.Point2D;
 
 public class Area {
-    private int xWidth;
-    private int yWidth;
+    private int width;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Point2D getCenter() {
+        return center;
+    }
+
+    private int height;
     private Point2D center;
 
-    public Area(int xWidth, int length, Point2D center) {
-        this.xWidth = xWidth;
-        this.yWidth = length;
+    public Area(int width, int length, Point2D center) {
+        this.width = width;
+        this.height = length;
         this.center = center;
     }
 
@@ -25,8 +38,8 @@ public class Area {
         final double centerX = center.getX();
         final double centerY = center.getY();
 
-        if (x > (centerX - xWidth / 2) && x < (centerX + xWidth / 2)) {
-            if (y > (centerY - yWidth / 2) && y < (centerY + yWidth / 2)) {
+        if (x > (centerX - width / 2) && x < (centerX + width / 2)) {
+            if (y > (centerY - height / 2) && y < (centerY + height / 2)) {
                 return true;
             }
         }

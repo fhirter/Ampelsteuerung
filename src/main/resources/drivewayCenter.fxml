@@ -19,5 +19,6 @@
         <Arc styleClass="boardwalk" layoutX="0"     layoutY="250" startAngle="0.0"   length="90.0" radiusX="50.0" radiusY="50.0"  type="ROUND" />
         <Arc styleClass="boardwalk" layoutX="250.0" layoutY="250" startAngle="90.0"  length="90.0" radiusX="50.0" radiusY="50.0"  type="ROUND"/>
         <Rectangle styleClass="boardwalk" fx:id="pedestrianWay" height="50.0" width="250.0" layoutY="200" visible="false"/>
+
     </children>
 </fx:root>

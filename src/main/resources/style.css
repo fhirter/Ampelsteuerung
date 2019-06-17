@@ -38,3 +38,7 @@
     -fx-stroke-line-cap: butt;
 }
 
+.area {
+    -fx-fill: #ffb0be;
+}
+

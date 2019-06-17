@@ -5,9 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import traffic_lights.TrafficLight;
 import traffic_lights.TrafficLightController;
+import util.Area;
 import util.Observer;
 import util.Position;
 
@@ -24,8 +26,10 @@ public class RoadController extends Group implements Observer {
     @FXML private Group bicycleLane;
     @FXML private Line pedestrianStripes;
     @FXML private Group drivewayRoute;
-    private Road road;
-    private TrafficLightController trafficLightController;
+    @FXML private Rectangle stopLine;
+
+    private final Road road;
+    private final TrafficLightController trafficLightController;
 
     public RoadController(Road road, Point2D ref, Position offset) throws IOException {
         this.road = road;
@@ -48,14 +52,26 @@ public class RoadController extends Group implements Observer {
         setScaleX(1);
         setScaleY(1);
 
-        initializeTrafficLightController(road.getTrafficLight(), new Position(130, 145, 90));
-    }
-
-
-    private void initializeTrafficLightController(TrafficLight trafficLight, Position position) throws IOException {
-        trafficLightController = new TrafficLightController(trafficLight, refTrafficLights, position);
+        TrafficLight trafficLight = road.getTrafficLight();
+        trafficLightController = new TrafficLightController(trafficLight, refTrafficLights, new Position(130, 145, 90));
         getChildren().add(trafficLightController);
         trafficLight.addObserver(trafficLightController);
+
+        setStopArea();
+
+    }
+
+    private void setStopArea() {
+        Area stopArea = road.getStopArea();
+
+        final int height = stopArea.getHeight();
+        final int width = stopArea.getWidth();
+
+        this.stopLine.setLayoutX(stopArea.getCenter().getX()-width/2);
+        this.stopLine.setLayoutY(stopArea.getCenter().getY()-height/2);
+
+        this.stopLine.setHeight(height);
+        this.stopLine.setWidth(width);
     }
 
 

@@ -12,17 +12,19 @@ import util.Position;
  * @since  14.11.2018
  */
 public class Road extends Observable {
+    private final TrafficLight trafficLight;
+    private final Area stopArea;
     private boolean hasPedestrianStripes;
     private boolean hasBicycleLane;
-
-    private final TrafficLight trafficLight;
     private boolean isVisible = true;
-
-    private final Area stopArea;
 
     public Road() {
         trafficLight = new TrafficLight();
-        stopArea = new Area(100, new Point2D(100,100)); // todo: generate correct stop areas
+        stopArea = new Area(10, 46, new Point2D(130,150));
+    }
+
+    public Area getStopArea() {
+        return stopArea;
     }
 
     public boolean hasPedestrianStripes() {

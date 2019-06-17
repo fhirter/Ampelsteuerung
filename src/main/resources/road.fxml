@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.Group?>
@@ -12,7 +10,7 @@
         <!-- road -->
         <Rectangle styleClass="road" height="150.0" width="300.0" layoutY="50"/>
         <!-- stop line -->
-        <Rectangle styleClass="stopLine" height="46.0"  width="10.0" layoutX="150.0" layoutY="130"/>
+        <Rectangle fx:id="stopLine" styleClass="stopLine" />
 
         <!-- Center Line -->
         <Line styleClass="centerLine" endX="300.0" layoutY="125" />

@@ -72,6 +72,10 @@ public class Crossroad extends Observable {
         return false;
     }
 
+    public Area getTurningArea() {
+        return turningArea;
+    }
+
     private void generateRoads() {
         Direction[] directions = Direction.values();
         for (int i = 0; i < directions.length; i++) {
