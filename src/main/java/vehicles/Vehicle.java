@@ -2,20 +2,18 @@ package vehicles;
 
 import crossroad.Crossroad;
 import javafx.geometry.Point2D;
-import javafx.scene.transform.Rotate;
 import util.Direction;
 import util.Observable;
 import util.Position;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import static util.Direction.*;
 
 public class Vehicle extends Observable implements Driveable {
     private final Map<Direction, Position> startPoints = new HashMap<>();
-    private final Crossroad crossroad;
+    private Crossroad crossroad;
 
     private Direction start;
     private Direction destination;
@@ -33,25 +31,21 @@ public class Vehicle extends Observable implements Driveable {
     private int width = 40;
     private Point2D pivot;
 
-    public Vehicle(Crossroad crossroad) {
-        this.crossroad = crossroad;
+    public Vehicle() {
         start = Direction.getRandomDirection();
         destination = Direction.getRandomDirection(start);
 
         System.out.println("start:" + start + ", destination: " + destination);
 
-        init();
+        initPosition();
     }
 
-    public Vehicle(Crossroad crossroad, Direction start, Direction destination) {
-        this.crossroad = crossroad;
+    public Vehicle(Direction start, Direction destination) {
         this.start = start;
         this.destination = destination;
-
-        init();
     }
 
-    private void init() {
+    private void initPosition() {
 
         final Point2D ref = crossroad.getReferencePoint();
 
@@ -63,8 +57,11 @@ public class Vehicle extends Observable implements Driveable {
         currentDirection = start.getOpposite();
 
         position = new Position(startPoints.get(start));
+    }
 
-        crossroad.addVehicle(this);
+    public void setCrossroad(Crossroad crossroad) {
+        this.crossroad = crossroad;
+        initPosition();
     }
 
     public void setSpeed(int speed) {
@@ -110,7 +107,7 @@ public class Vehicle extends Observable implements Driveable {
 
         if (currentDirection == destination) {
             driveStraight();
-        } else if (crossroad.canITurn(position) == true) {
+        } else if (crossroad.canITurn(position)) {
             turn();
         } else {
             driveStraight();
@@ -257,4 +254,6 @@ public class Vehicle extends Observable implements Driveable {
         }
         return 0;
     }
+
+
 }

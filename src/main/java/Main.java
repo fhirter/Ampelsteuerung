@@ -14,10 +14,6 @@ import vehicles.Vehicle;
  * @date 04.11.2018
  */
 public class Main extends Application {
-
-
-    private Crossroad crossroad;
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -26,14 +22,16 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ampelsteuerung");
 
-        crossroad = new Crossroad();
+        final Crossroad crossroad = new Crossroad();
         final CrossroadController crossroadController = new CrossroadController(crossroad);
-//        generateVehicles(1);
 
-        Vehicle vehicle1 = new Vehicle(crossroad, Direction.EAST, Direction.SOUTH);
-        Vehicle vehicle2 = new Vehicle(crossroad, Direction.NORTH, Direction.WEST);
-        Vehicle vehicle3 = new Vehicle(crossroad, Direction.NORTH, Direction.WEST);
+        Vehicle vehicle1 = new Vehicle(Direction.EAST, Direction.SOUTH);
+        Vehicle vehicle2 = new Vehicle(Direction.NORTH, Direction.WEST);
+        Vehicle vehicle3 = new Vehicle(Direction.SOUTH, Direction.WEST);
 
+        crossroad.addVehicle(vehicle1);
+        crossroad.addVehicle(vehicle2);
+        crossroad.addVehicle(vehicle3);
 
         final Scene scene = new Scene(crossroadController, 1100, 900);
         scene.getStylesheets().add("style.css");
@@ -47,7 +45,7 @@ public class Main extends Application {
 
     public void generateVehicles(int count) {
         for (int i = 0; i < count; i++) {
-            Vehicle vehicle = new Vehicle(crossroad);
+            Vehicle vehicle = new Vehicle();
         }
     }
 }

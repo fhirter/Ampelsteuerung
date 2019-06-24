@@ -32,6 +32,7 @@ public class Crossroad extends Observable {
 
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
+        vehicle.setCrossroad(this);
         notifyObservers();
     }
 
@@ -81,10 +82,6 @@ public class Crossroad extends Observable {
         for (int i = 0; i < directions.length; i++) {
             Road road = new Road();
             roads.put(directions[i], road);
-
-            List<TrafficLight> trafficLights = new LinkedList<>();
-
-            trafficLights.add(new TrafficLight());
         }
     }
     

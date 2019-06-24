@@ -17,7 +17,7 @@ import java.util.TimerTask;
 public class TrafficLight extends Observable implements TrafficLightInterface {
     private TrafficLightState currentState, nextState, endState;
     private Timer stateChangeTimer;
-    private Map<TrafficLightState, TrafficLightState> stateMap = new HashMap<>();
+    private Map<TrafficLightState, TrafficLightState> nextStateMap = new HashMap<>();
 
     final private int delay = 500;
 
@@ -27,14 +27,14 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
         stateChangeTimer = new Timer();
 
         // normal operation
-        stateMap.put(TrafficLightState.GREEN, TrafficLightState.YELLOW);
-        stateMap.put(TrafficLightState.YELLOW, TrafficLightState.RED);
-        stateMap.put(TrafficLightState.RED, TrafficLightState.YELLOW_RED);
-        stateMap.put(TrafficLightState.YELLOW_RED, TrafficLightState.GREEN);
+        nextStateMap.put(TrafficLightState.GREEN, TrafficLightState.YELLOW);
+        nextStateMap.put(TrafficLightState.YELLOW, TrafficLightState.RED);
+        nextStateMap.put(TrafficLightState.RED, TrafficLightState.YELLOW_RED);
+        nextStateMap.put(TrafficLightState.YELLOW_RED, TrafficLightState.GREEN);
 
         // yellow flashing
-        stateMap.put(TrafficLightState.YELLOW_FLASH, TrafficLightState.DARK);
-        stateMap.put(TrafficLightState.DARK, TrafficLightState.YELLOW_FLASH);
+        nextStateMap.put(TrafficLightState.YELLOW_FLASH, TrafficLightState.DARK);
+        nextStateMap.put(TrafficLightState.DARK, TrafficLightState.YELLOW_FLASH);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class TrafficLight extends Observable implements TrafficLightInterface {
     private void scheduleStateChangeTimer() {
         if(endState != currentState) {
 
-            nextState = stateMap.get(currentState);
+            nextState = nextStateMap.get(currentState);
 
             stateChangeTimer.schedule(new TimerTask() {
                                           @Override
