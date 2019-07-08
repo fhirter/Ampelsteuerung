@@ -18,6 +18,8 @@ public class Main extends Application {
         launch(args);
     }
 
+    //test
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ampelsteuerung");
