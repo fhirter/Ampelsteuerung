@@ -1,6 +1,7 @@
 package vehicles;
 
 import crossroad.Crossroad;
+import crossroad.Road;
 import javafx.geometry.Point2D;
 import util.Direction;
 import util.Observable;
@@ -20,6 +21,7 @@ public class Vehicle extends Observable implements Driveable {
     private Direction currentDirection;
 
     private Position position;
+    private Road currentRoad;
 
     private Double lateral = 0.0;
     private Double forward = 0.0;
@@ -30,29 +32,24 @@ public class Vehicle extends Observable implements Driveable {
     private int length = 80;
     private int width = 40;
     private Point2D pivot;
-
-    public Vehicle() {
-        start = Direction.getRandomDirection();
-        destination = Direction.getRandomDirection(start);
-
-        System.out.println("start:" + start + ", destination: " + destination);
-
-        initPosition();
-    }
+    private Map<Direction, Map<Direction, Integer>> signMap;
 
     public Vehicle(Direction start, Direction destination) {
+        initSignMap();
+
         this.start = start;
         this.destination = destination;
+
+        System.out.println("start:" + start + ", destination: " + destination);
     }
 
     private void initPosition() {
+        currentRoad = crossroad.getRoad(start);
 
-        final Point2D ref = crossroad.getReferencePoint();
-
-        startPoints.put(WEST, new Position(300, 465, 0));
-        startPoints.put(NORTH, new Position(ref.getX()-10, ref.getY() - 400, 90));
-        startPoints.put(EAST, new Position(950, 440, 180));
-        startPoints.put(SOUTH, new Position(ref.getX()+10, ref.getY() + 400, 270));
+        startPoints.put(WEST, new Position(-400, 10, 0));
+        startPoints.put(NORTH, new Position(-10, -400, 90));
+        startPoints.put(EAST, new Position(400, -10, 180));
+        startPoints.put(SOUTH, new Position(10, 400, 270));
 
         currentDirection = start.getOpposite();
 
@@ -61,6 +58,7 @@ public class Vehicle extends Observable implements Driveable {
 
     public void setCrossroad(Crossroad crossroad) {
         this.crossroad = crossroad;
+
         initPosition();
     }
 
@@ -103,7 +101,13 @@ public class Vehicle extends Observable implements Driveable {
 
     @Override
     public void drive(Double secondsElapsedCapped) {
-        step = secondsElapsedCapped * speed;  // [s*px/s] = [px]
+
+        if(crossroad.canIDrive(position, currentRoad)) {
+            step = secondsElapsedCapped * speed;  // [s*px/s] = [px]
+        } else {
+            step = 0.0;
+            return;
+        }
 
         if (currentDirection == destination) {
             driveStraight();
@@ -172,30 +176,26 @@ public class Vehicle extends Observable implements Driveable {
 
         double radius = wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
 
-        double dphi = sign * step / radius; // rad   [px/px]
+        double dphi = Math.toDegrees(sign * step / radius); // [px/px]
 
         if (pivot == null) {
             setPivot(radius, sign);
         }
 
-        Point2D shift = position.subtract(pivot);       // translate for pivot center to be on 0,0
-
-        double x = shift.getX();
-        double y = shift.getY();
-
-        double x1 = x*Math.cos(dphi) - y*Math.sin(dphi);        // then rotate
-        double y1 = x*Math.sin(dphi) + y*Math.cos(dphi);
-
-        Point2D newpoint = (new Point2D(x1,y1)).add(pivot);     // and shift back
-        position = new Position(newpoint.getX(), newpoint.getY(), position.getAngle() + Math.toDegrees(dphi));
+        position = position.rotate(dphi, pivot);
 
         double destinationAngle = destination.getAngle();
         double eta = 1.0;
+
+        // turn completed
         if (destinationAngle + eta > position.getAngle() && destinationAngle - eta < position.getAngle()) {
             currentDirection = destination;
+            currentRoad = crossroad.getRoad(destination);
             pivot = null;
         }
     }
+
+
 
     /**
      *
@@ -222,37 +222,17 @@ public class Vehicle extends Observable implements Driveable {
 
 
     private int getSign() {
-        switch (currentDirection) {
-            case SOUTH:
-                if (destination == WEST)
-                    return 1;
-                if (destination == EAST)
-                    return -1;
-                break;
-            case EAST:
-                if (destination == SOUTH) {
-                    return 1;
-                }
-                if (destination == NORTH) {
-                    return -1;
-                }
-                break;
-            case WEST:
-                if (destination == NORTH) {
-                    return 1;
-                }
-                if (destination == SOUTH) {
-                    return -1;
-                }
-                break;
-            case NORTH:
-                if (destination == EAST)
-                    return 1;
-                if (destination == WEST)
-                    return -1;
-                break;
-        }
-        return 0;
+        Integer integer = signMap.get(currentDirection).get(destination);
+        return integer;
+    }
+
+    private void initSignMap() {
+        signMap = new HashMap<>();
+
+        signMap.put(SOUTH,new HashMap<>() {{put(WEST,1);put(EAST,-1);}});
+        signMap.put(EAST,new HashMap<>() {{put(SOUTH,1);put(NORTH,-1);}});
+        signMap.put(WEST,new HashMap<>() {{put(NORTH,1);put(SOUTH,-1);}});
+        signMap.put(NORTH,new HashMap<>() {{put(EAST,1);put(WEST,-1);}});
     }
 
 

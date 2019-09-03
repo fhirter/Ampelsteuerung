@@ -40,6 +40,8 @@ import static javafx.collections.FXCollections.observableArrayList;
  * @since  30.11.2018
  */
 public class CrossroadController extends BorderPane implements Observer {
+    private final Point2D referencePoint = new Point2D(650, 450);
+
     @FXML private CheckBox checkboxvelostripes;
     @FXML private CheckBox checkboxpedestrainStripes;
 
@@ -57,14 +59,13 @@ public class CrossroadController extends BorderPane implements Observer {
     private List<RoadController> roadControllers = new LinkedList<>();
 
     private final Crossroad crossroad;
-    private final Map<Direction, Position> directionPositionMap = new HashMap<>();
+
     private AnchorPane center;
 
     public CrossroadController(Crossroad crossroad) throws IOException {
         this.crossroad = crossroad;
         crossroad.addObserver(this);
 
-        initializeDirectionPositionMap();
         initializeRoadControllers();
 
         loadPrimaryStage();
@@ -81,31 +82,23 @@ public class CrossroadController extends BorderPane implements Observer {
         final int height = turningArea.getHeight();
         final int width = turningArea.getWidth();
 
-        this.turningArea.setLayoutX(turningArea.getCenter().getX()-width/2);
-        this.turningArea.setLayoutY(turningArea.getCenter().getY()-height/2);
+        this.turningArea.setLayoutX(referencePoint.getX()+turningArea.getCenter().getX()-width/2);
+        this.turningArea.setLayoutY(referencePoint.getY()+turningArea.getCenter().getY()-height/2);
 
         this.turningArea.setHeight(height);
         this.turningArea.setWidth(width);
     }
 
     private void setViewOrders() {
-        turningArea.setViewOrder(70);      // todo: get rid of view order magic number
+        turningArea.setViewOrder(100);      // todo: get rid of view order magic number
+
         for (int i = 0; i < roadControllers.size(); i++) {
-            roadControllers.get(i).setViewOrder(100);
+            roadControllers.get(i).setViewOrder(70);
         }
         center.setViewOrder(100);
     }
 
-    private void initializeDirectionPositionMap() {
-        int roadWidth = crossroad.getRoadWidth();
-        int roadLength = crossroad.getRoadLength();
-        int centerSize = roadWidth;
 
-        directionPositionMap.put(Direction.WEST, new Position(-roadLength - centerSize / 2, -roadWidth / 2, 0));     // todo: get effective size
-        directionPositionMap.put(Direction.NORTH, new Position(roadWidth / 2, -roadLength - centerSize / 2, 90));
-        directionPositionMap.put(Direction.EAST, new Position(roadLength + centerSize / 2, roadWidth / 2, 180));
-        directionPositionMap.put(Direction.SOUTH, new Position(-roadWidth / 2, roadLength + centerSize / 2, 270));
-    }
 
     private void loadPrimaryStage() {
         FXMLLoader primaryStageLoader = new FXMLLoader(getClass().getResource("/primaryStage.fxml"));
@@ -133,8 +126,8 @@ public class CrossroadController extends BorderPane implements Observer {
         }
 
         Point2D offset = new Point2D(-250 / 2, -250 / 2);  // todo: get effective height
-        center.setLayoutX(this.crossroad.getReferencePoint().getX() + offset.getX());
-        center.setLayoutY(this.crossroad.getReferencePoint().getY() + offset.getY());
+        center.setLayoutX(referencePoint.getX() + offset.getX());
+        center.setLayoutY(referencePoint.getY() + offset.getY());
     }
 
     private void initializeRoadControllers() throws IOException {
@@ -142,7 +135,9 @@ public class CrossroadController extends BorderPane implements Observer {
         Direction direction;
         for (int i = 0; i < directions.length; i++) {
             direction = directions[i];
-            RoadController roadController = new RoadController(this.crossroad.getRoad(direction), this.crossroad.getReferencePoint(), directionPositionMap.get(direction));
+            Road road = crossroad.getRoad(direction);
+
+            RoadController roadController = new RoadController(road, referencePoint);
 
             roadControllers.add(roadController);
             getChildren().add(roadController);      // add to GUI
@@ -202,12 +197,13 @@ public class CrossroadController extends BorderPane implements Observer {
 
     @Override
     public void update() {
+        // todo: don't reload all vehicles on every frame!
         List<Vehicle> vehicles = crossroad.getVehicles();
         ObservableList<Node> children = getChildren();
         children.removeAll();
 
         for (Vehicle vehicle : vehicles) {
-            children.add(new VehicleController(vehicle));
+            children.add(new VehicleController(vehicle, referencePoint));
         }
     }
 }

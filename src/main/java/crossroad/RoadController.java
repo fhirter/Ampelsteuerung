@@ -23,6 +23,7 @@ import java.io.IOException;
 
 public class RoadController extends Group implements Observer {
     private final Point2D refTrafficLights = new Point2D(0, 0);
+    private final Point2D referencePoint;
     @FXML private Group bicycleLane;
     @FXML private Line pedestrianStripes;
     @FXML private Group drivewayRoute;
@@ -31,9 +32,10 @@ public class RoadController extends Group implements Observer {
     private final Road road;
     private final TrafficLightController trafficLightController;
 
-    public RoadController(Road road, Point2D ref, Position offset) throws IOException {
+    public RoadController(Road road, Point2D referencePoint) throws IOException {
         this.road = road;
         this.road.addObserver(this);
+        this.referencePoint = referencePoint;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/road.fxml"));
         loader.setController(this);
@@ -44,14 +46,15 @@ public class RoadController extends Group implements Observer {
             e.printStackTrace();
         }
 
+        Position position = road.getPosition();
+
         // positioning
-        getTransforms().add(new Rotate(offset.getAngle(), 0, 0));
-        setLayoutX(ref.getX() + offset.getX());
-        setLayoutY(ref.getY() + offset.getY());
+        getTransforms().add(new Rotate(position.getAngle(), 0, 0));
 
-        setScaleX(1);
-        setScaleY(1);
+        setLayoutX(referencePoint.getX() + position.getX());
+        setLayoutY(referencePoint.getY() + position.getY());
 
+        // Traffic Light
         TrafficLight trafficLight = road.getTrafficLight();
         trafficLightController = new TrafficLightController(trafficLight, refTrafficLights, new Position(130, 145, 90));
         getChildren().add(trafficLightController);
@@ -66,30 +69,18 @@ public class RoadController extends Group implements Observer {
 
         final int height = stopArea.getHeight();
         final int width = stopArea.getWidth();
+        final Point2D offset = new Point2D(425,125);
 
-        this.stopLine.setLayoutX(stopArea.getCenter().getX()-width/2);
-        this.stopLine.setLayoutY(stopArea.getCenter().getY()-height/2);
+        stopLine.setLayoutX(stopArea.getCenter().getX()-width/2 + offset.getX());
+        stopLine.setLayoutY(stopArea.getCenter().getY()-height/2 + offset.getY());
 
-        this.stopLine.setHeight(height);
-        this.stopLine.setWidth(width);
+        stopLine.setHeight(height);
+        stopLine.setWidth(width);
     }
 
 
     @Override
     public void update() {
-
-        if (road.hasBicycleLane() == true) {
-            bicycleLane.setVisible(true);
-        } else {
-            bicycleLane.setVisible(false);
-        }
-
-        if (road.hasPedestrianStripes() == true) {
-            pedestrianStripes.setVisible(true);
-        } else {
-            pedestrianStripes.setVisible(false);
-        }
-
         if (road.isVisible() == true) {
             drivewayRoute.setVisible(true);
         } else {

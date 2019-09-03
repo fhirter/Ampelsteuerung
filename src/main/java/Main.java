@@ -18,8 +18,6 @@ public class Main extends Application {
         launch(args);
     }
 
-    //test
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ampelsteuerung");
@@ -27,13 +25,13 @@ public class Main extends Application {
         final Crossroad crossroad = new Crossroad();
         final CrossroadController crossroadController = new CrossroadController(crossroad);
 
-        Vehicle vehicle1 = new Vehicle(Direction.EAST, Direction.SOUTH);
-        Vehicle vehicle2 = new Vehicle(Direction.NORTH, Direction.WEST);
-        Vehicle vehicle3 = new Vehicle(Direction.SOUTH, Direction.WEST);
+        Vehicle vehicle1 = new Vehicle(Direction.EAST, Direction.WEST);
+      //  Vehicle vehicle2 = new Vehicle(Direction.NORTH, Direction.WEST);
+      //  Vehicle vehicle3 = new Vehicle(Direction.SOUTH, Direction.WEST);
 
         crossroad.addVehicle(vehicle1);
-        crossroad.addVehicle(vehicle2);
-        crossroad.addVehicle(vehicle3);
+        //crossroad.addVehicle(vehicle2);
+        //crossroad.addVehicle(vehicle3);
 
         final Scene scene = new Scene(crossroadController, 1100, 900);
         scene.getStylesheets().add("style.css");
@@ -43,12 +41,6 @@ public class Main extends Application {
 
         GameLoop gameLoop = new GameLoop(crossroad);
         gameLoop.start();
-    }
-
-    public void generateVehicles(int count) {
-        for (int i = 0; i < count; i++) {
-            Vehicle vehicle = new Vehicle();
-        }
     }
 }
 

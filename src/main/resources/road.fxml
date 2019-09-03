@@ -9,8 +9,7 @@
     <Group>
         <!-- road -->
         <Rectangle styleClass="road" height="150.0" width="300.0" layoutY="50"/>
-        <!-- stop line -->
-        <Rectangle fx:id="stopLine" styleClass="stopLine" />
+
 
         <!-- Center Line -->
         <Line styleClass="centerLine" endX="300.0" layoutY="125" />
@@ -18,6 +17,9 @@
         <!--  Boardwalk -->
         <Rectangle styleClass="boardwalk" height="50.0" width="300.0"/>
         <Rectangle styleClass="boardwalk" height="50.0" width="300.0" layoutY="200.0" />
+
+        <!-- stop line -->
+        <Rectangle fx:id="stopLine" styleClass="stopLine" />
     </Group>
 
     <Line fx:id="hasPedestrianStripes" styleClass="crosswalk" endY="150.0" layoutX="230.0" layoutY="50" />
