@@ -3,11 +3,17 @@ package vehicles;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
+import org.w3c.dom.css.Rect;
 import util.Observer;
 import util.Position;
 
-public class VehicleController extends ImageView implements Observer {
+import java.util.concurrent.ConcurrentLinkedDeque;
+
+public class VehicleController extends StackPane implements Observer {
     private final Point2D referencePoint;
     private final Vehicle vehicle;
     private Position position;
@@ -17,11 +23,22 @@ public class VehicleController extends ImageView implements Observer {
     public VehicleController(Vehicle vehicle, Point2D referencePoint) {
         this.vehicle = vehicle;
         this.referencePoint = referencePoint;
-        vehicle.addObserver(this);
-
-        setImage(new Image("/images/car.png"));
 
         initPosition();
+
+        vehicle.addObserver(this);
+
+        ImageView image = new ImageView("/images/car.png");
+        Rectangle rect = new Rectangle(position.getX(), position.getY(), vehicle.getLength(), vehicle.getWidth());
+        rect.setFill(Color.ALICEBLUE);
+
+        getChildren().addAll(rect,image);
+
+        setCollisionArea();
+    }
+
+    private void setCollisionArea() {
+
     }
 
     private void initPosition() {
@@ -49,5 +66,9 @@ public class VehicleController extends ImageView implements Observer {
 
         // setRotate(position.getAngle());
 
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 }

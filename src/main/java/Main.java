@@ -26,12 +26,12 @@ public class Main extends Application {
         final CrossroadController crossroadController = new CrossroadController(crossroad);
 
         Vehicle vehicle1 = new Vehicle(Direction.EAST, Direction.WEST);
-      //  Vehicle vehicle2 = new Vehicle(Direction.NORTH, Direction.WEST);
-      //  Vehicle vehicle3 = new Vehicle(Direction.SOUTH, Direction.WEST);
+        Vehicle vehicle2 = new Vehicle(Direction.NORTH, Direction.WEST);
+        Vehicle vehicle3 = new Vehicle(Direction.SOUTH, Direction.WEST);
 
         crossroad.addVehicle(vehicle1);
-        //crossroad.addVehicle(vehicle2);
-        //crossroad.addVehicle(vehicle3);
+        crossroad.addVehicle(vehicle2);
+        crossroad.addVehicle(vehicle3);
 
         final Scene scene = new Scene(crossroadController, 1100, 900);
         scene.getStylesheets().add("style.css");

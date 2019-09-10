@@ -197,10 +197,21 @@ public class CrossroadController extends BorderPane implements Observer {
 
     @Override
     public void update() {
-        // todo: don't reload all vehicles on every frame!
+        // called when new vehicle is added
         List<Vehicle> vehicles = crossroad.getVehicles();
         ObservableList<Node> children = getChildren();
-        children.removeAll();
+
+        // in case of perfomance issues, this could help:
+        // just add the last item in the vehicles list.
+        // maybe add a counter
+        // Vehicle vehicle0 = vehicles.get(vehicles.size()-1);
+
+        for(Node node : children) {
+            if(node instanceof VehicleController) {
+                VehicleController vehicleController = (VehicleController) node;
+                vehicles.remove(vehicleController.getVehicle());        // remove controllers from vehicles which are already in the list
+            }
+        }
 
         for (Vehicle vehicle : vehicles) {
             children.add(new VehicleController(vehicle, referencePoint));

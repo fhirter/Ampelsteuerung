@@ -40,6 +40,7 @@ public class Crossroad extends Observable {
     }
 
     public List<Vehicle> getVehicles() {
+        LinkedList<Vehicle> vehicles = new LinkedList<>(this.vehicles);
         return vehicles;
     }
 
