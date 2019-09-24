@@ -1,6 +1,6 @@
 import animation.GameLoop;
 import crossroad.Crossroad;
-import crossroad.CrossroadController;
+import crossroad.CrossroadPresenter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,7 +23,7 @@ public class Main extends Application {
         primaryStage.setTitle("Ampelsteuerung");
 
         final Crossroad crossroad = new Crossroad();
-        final CrossroadController crossroadController = new CrossroadController(crossroad);
+        final CrossroadPresenter crossroadPresenter = new CrossroadPresenter(crossroad);
 
         Vehicle vehicle1 = new Vehicle(Direction.EAST, Direction.WEST);
         Vehicle vehicle2 = new Vehicle(Direction.NORTH, Direction.WEST);
@@ -33,7 +33,7 @@ public class Main extends Application {
         crossroad.addVehicle(vehicle2);
         crossroad.addVehicle(vehicle3);
 
-        final Scene scene = new Scene(crossroadController, 1100, 900);
+        final Scene scene = new Scene(crossroadPresenter, 1100, 900);
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
 

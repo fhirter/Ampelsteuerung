@@ -4,7 +4,7 @@ import javafx.geometry.Point2D;
 import traffic_lights.TrafficLightState;
 import util.Area;
 import util.Direction;
-import util.Observable;
+import util.Subject;
 import util.Position;
 import vehicles.Vehicle;
 
@@ -16,7 +16,7 @@ import java.util.*;
  *
  * @author Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  */
-public class Crossroad extends Observable {
+public class Crossroad extends Subject {
 
 
     private final int roadWidth = 250;

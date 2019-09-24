@@ -13,14 +13,14 @@ import util.Position;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class VehicleController extends StackPane implements Observer {
+public class VehiclePresenter extends StackPane implements Observer {
     private final Point2D referencePoint;
     private final Vehicle vehicle;
     private Position position;
 
     private Rotate rotate;
 
-    public VehicleController(Vehicle vehicle, Point2D referencePoint) {
+    public VehiclePresenter(Vehicle vehicle, Point2D referencePoint) {
         this.vehicle = vehicle;
         this.referencePoint = referencePoint;
 
@@ -63,10 +63,8 @@ public class VehicleController extends StackPane implements Observer {
     @Override
     public void update() {
         setPosition();
-
-        // setRotate(position.getAngle());
-
     }
+
 
     public Vehicle getVehicle() {
         return vehicle;

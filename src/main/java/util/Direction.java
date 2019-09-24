@@ -40,4 +40,4 @@ public enum Direction {
 
         return direction;
     }
-};
+}

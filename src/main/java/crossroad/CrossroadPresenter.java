@@ -1,7 +1,9 @@
 package crossroad;
 
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -10,25 +12,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
 import traffic_lights.TrafficLightState;
 import util.Area;
 import util.Direction;
 import util.Observer;
-import util.Position;
+
 import vehicles.Vehicle;
-import vehicles.VehicleController;
+import vehicles.VehiclePresenter;
 
 import java.io.IOException;
 import java.util.*;
 
-import static javafx.collections.FXCollections.observableArrayList;
-
 /**
- * Class crossroad.CrossroadController: Class for handling the PrimaryStage
+ * Class crossroad.CrossroadPresenter: Class for handling the PrimaryStage
  *
  * View Order 100: Street
  * View Order 90: Street Markings
@@ -39,7 +41,7 @@ import static javafx.collections.FXCollections.observableArrayList;
  * @autor Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  * @since  30.11.2018
  */
-public class CrossroadController extends BorderPane implements Observer {
+public class CrossroadPresenter extends BorderPane implements Observer {
     private final Point2D referencePoint = new Point2D(650, 450);
 
     @FXML private CheckBox checkboxvelostripes;
@@ -47,22 +49,22 @@ public class CrossroadController extends BorderPane implements Observer {
 
     @FXML private Rectangle turningArea;
 
-    @FXML private RadioButton nordSetRed;
-    @FXML private RadioButton nordSetGreen;
-    @FXML private RadioButton westSetRed;
-    @FXML private RadioButton westSetGreen;
-    @FXML private RadioButton southSetRed;
-    @FXML private RadioButton southSetGreen;
-    @FXML private RadioButton eastSetRed;
-    @FXML private RadioButton eastSetGreen;
+    @FXML private RadioButton north_red;
+    @FXML private RadioButton north_green;
+    @FXML private RadioButton west_red;
+    @FXML private RadioButton west_green;
+    @FXML private RadioButton south_red;
+    @FXML private RadioButton south_green;
+    @FXML private RadioButton east_red;
+    @FXML private RadioButton east_green;
 
-    private List<RoadController> roadControllers = new LinkedList<>();
+    private List<RoadPresenter> roadPresenters = new LinkedList<>();
 
     private final Crossroad crossroad;
 
     private AnchorPane center;
 
-    public CrossroadController(Crossroad crossroad) throws IOException {
+    public CrossroadPresenter(Crossroad crossroad) throws IOException {
         this.crossroad = crossroad;
         crossroad.addObserver(this);
 
@@ -74,6 +76,8 @@ public class CrossroadController extends BorderPane implements Observer {
         setTurningArea();
 
         setViewOrders();
+
+        initEventListeners();
     }
 
     private void setTurningArea() {
@@ -92,8 +96,8 @@ public class CrossroadController extends BorderPane implements Observer {
     private void setViewOrders() {
         turningArea.setViewOrder(100);      // todo: get rid of view order magic number
 
-        for (int i = 0; i < roadControllers.size(); i++) {
-            roadControllers.get(i).setViewOrder(70);
+        for (int i = 0; i < roadPresenters.size(); i++) {
+            roadPresenters.get(i).setViewOrder(70);
         }
         center.setViewOrder(100);
     }
@@ -137,10 +141,10 @@ public class CrossroadController extends BorderPane implements Observer {
             direction = directions[i];
             Road road = crossroad.getRoad(direction);
 
-            RoadController roadController = new RoadController(road, referencePoint);
+            RoadPresenter roadPresenter = new RoadPresenter(road, referencePoint);
 
-            roadControllers.add(roadController);
-            getChildren().add(roadController);      // add to GUI
+            roadPresenters.add(roadPresenter);
+            getChildren().add(roadPresenter);      // add to GUI
         }
     }
 
@@ -163,36 +167,46 @@ public class CrossroadController extends BorderPane implements Observer {
         }
     }
 
+    private void initEventListeners() {
+        Map<String, Direction> idDirectionMap = new HashMap<>();
+        Map<String, TrafficLightState> idStateMap = new HashMap<>();
+
+        idDirectionMap.put("north", Direction.NORTH);
+        idDirectionMap.put("west", Direction.WEST);
+        idDirectionMap.put("south", Direction.SOUTH);
+        idDirectionMap.put("east", Direction.EAST);
+
+        idStateMap.put("red", TrafficLightState.RED);
+        idStateMap.put("green", TrafficLightState.GREEN);
+
+        EventHandler<ActionEvent> handler = new EventHandler<>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                RadioButton source = (RadioButton) actionEvent.getSource();
+
+                String[] id = source.getId().split("_");
+
+                changeTrafficLightState(idDirectionMap.get(id[0]), idStateMap.get(id[1]));
+            }
+        };
+
+        north_red.setOnAction(handler);
+        north_green.setOnAction(handler);
+        west_red.setOnAction(handler);
+        west_green.setOnAction(handler);
+        south_red.setOnAction(handler);
+        south_green.setOnAction(handler);
+        east_red.setOnAction(handler);
+        east_green.setOnAction(handler);
+    }
+
     /**
      * changeTrafficLightState: Change the state of the trafficLights
      *
-     * @param actionEvent ActionEvent from FXML
      */
-    @FXML
-    public void changeTrafficLightState(ActionEvent actionEvent) {
-        if (nordSetRed.isSelected()) {
-            crossroad.setTrafficLightState(Direction.NORTH, TrafficLightState.RED);
-        } else {
-            crossroad.setTrafficLightState(Direction.NORTH, TrafficLightState.GREEN);
-        }
 
-        if (westSetRed.isSelected()) {
-            crossroad.setTrafficLightState(Direction.WEST, TrafficLightState.RED);
-        } else {
-            crossroad.setTrafficLightState(Direction.WEST, TrafficLightState.GREEN);
-        }
-
-        if (southSetRed.isSelected()) {
-            crossroad.setTrafficLightState(Direction.SOUTH, TrafficLightState.RED);
-        } else {
-            crossroad.setTrafficLightState(Direction.SOUTH, TrafficLightState.GREEN);
-        }
-
-        if (eastSetRed.isSelected()) {
-            crossroad.setTrafficLightState(Direction.EAST, TrafficLightState.RED);
-        } else {
-            crossroad.setTrafficLightState(Direction.EAST, TrafficLightState.GREEN);
-        }
+    public void changeTrafficLightState(Direction direction, TrafficLightState state) {
+        crossroad.setTrafficLightState(direction, state);
     }
 
     @Override
@@ -207,14 +221,14 @@ public class CrossroadController extends BorderPane implements Observer {
         // Vehicle vehicle0 = vehicles.get(vehicles.size()-1);
 
         for(Node node : children) {
-            if(node instanceof VehicleController) {
-                VehicleController vehicleController = (VehicleController) node;
-                vehicles.remove(vehicleController.getVehicle());        // remove controllers from vehicles which are already in the list
+            if(node instanceof VehiclePresenter) {
+                VehiclePresenter vehiclePresenter = (VehiclePresenter) node;
+                vehicles.remove(vehiclePresenter.getVehicle());        // remove controllers from vehicles which are already in the list
             }
         }
 
         for (Vehicle vehicle : vehicles) {
-            children.add(new VehicleController(vehicle, referencePoint));
+            children.add(new VehiclePresenter(vehicle, referencePoint));
         }
     }
 }

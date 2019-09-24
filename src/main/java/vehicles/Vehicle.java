@@ -4,7 +4,7 @@ import crossroad.Crossroad;
 import crossroad.Road;
 import javafx.geometry.Point2D;
 import util.Direction;
-import util.Observable;
+import util.Subject;
 import util.Position;
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static util.Direction.*;
 
-public class Vehicle extends Observable implements Driveable {
+public class Vehicle extends Subject implements Driveable {
     private final Map<Direction, Position> startPoints = new HashMap<>();
     private Crossroad crossroad;
 
@@ -175,11 +175,10 @@ public class Vehicle extends Observable implements Driveable {
         }
 
         double radius = wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
-
         double dphi = Math.toDegrees(sign * step / radius); // [px/px]
 
         if (pivot == null) {
-            setPivot(radius, sign);
+            pivot = calculatePivot(radius, sign);
         }
 
         position = position.rotate(dphi, pivot);
@@ -203,21 +202,18 @@ public class Vehicle extends Observable implements Driveable {
      *
      * @param radius radius of rotation
      */
-    private void setPivot(double radius, int sign) {
+    private Point2D calculatePivot(double radius, int sign) {
         switch (currentDirection) {
             case SOUTH:
-                pivot = new Point2D(position.getX() - sign*radius, position.getY());
-                break;
+                return new Point2D(position.getX() - sign*radius, position.getY());
             case EAST:
-                pivot = new Point2D(position.getX(), position.getY() + sign*radius);
-                break;
+                return new Point2D(position.getX(), position.getY() + sign*radius);
             case WEST:
-                pivot = new Point2D(position.getX(), position.getY() - sign*radius);
-                break;
+                return new Point2D(position.getX(), position.getY() - sign*radius);
             case NORTH:
-                pivot = new Point2D(position.getX() + sign*radius, position.getY());
-                break;
+                return new Point2D(position.getX() + sign*radius, position.getY());
         }
+        return null;
     }
 
 

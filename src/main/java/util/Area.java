@@ -4,6 +4,18 @@ import javafx.geometry.Point2D;
 
 public class Area {
     private int width;
+    private int height;
+    private Point2D center;
+
+    public Area(int width, int length, Point2D center) {
+        this.width = width;
+        this.height = length;
+        this.center = center;
+    }
+
+    public Area(int size, Point2D center) {
+        this(size, size, center);
+    }
 
     public int getWidth() {
         return width;
@@ -15,20 +27,6 @@ public class Area {
 
     public Point2D getCenter() {
         return center;
-    }
-
-    private int height;
-    private Point2D center;
-
-    public Area(int width, int length, Point2D center) {
-        this.width = width;
-        this.height = length;
-        this.center = center;
-    }
-
-
-    public Area(int size, Point2D center) {
-        this(size, size, center);
     }
 
     public boolean isInside(Position position) {
