@@ -5,7 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import util.Direction;
-import vehicles.Vehicle;
+import vehicles.Car;
 
 
 /**
@@ -25,13 +25,13 @@ public class Main extends Application {
         final Crossroad crossroad = new Crossroad();
         final CrossroadPresenter crossroadPresenter = new CrossroadPresenter(crossroad);
 
-        Vehicle vehicle1 = new Vehicle(Direction.EAST, Direction.WEST);
-        Vehicle vehicle2 = new Vehicle(Direction.NORTH, Direction.WEST);
-        Vehicle vehicle3 = new Vehicle(Direction.SOUTH, Direction.WEST);
+        Car car1 = new Car(Direction.EAST, Direction.WEST);
+        Car car2 = new Car(Direction.NORTH, Direction.WEST);
+        Car car3 = new Car(Direction.SOUTH, Direction.WEST);
 
-        crossroad.addVehicle(vehicle1);
-        crossroad.addVehicle(vehicle2);
-        crossroad.addVehicle(vehicle3);
+        crossroad.addVehicle(car1);
+        crossroad.addVehicle(car2);
+        crossroad.addVehicle(car3);
 
         final Scene scene = new Scene(crossroadPresenter, 1100, 900);
         scene.getStylesheets().add("style.css");

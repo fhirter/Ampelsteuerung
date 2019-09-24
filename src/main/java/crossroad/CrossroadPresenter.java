@@ -23,6 +23,8 @@ import util.Area;
 import util.Direction;
 import util.Observer;
 
+import util.Subject;
+import vehicles.Car;
 import vehicles.Vehicle;
 import vehicles.VehiclePresenter;
 
@@ -212,23 +214,25 @@ public class CrossroadPresenter extends BorderPane implements Observer {
     @Override
     public void update() {
         // called when new vehicle is added
-        List<Vehicle> vehicles = crossroad.getVehicles();
+        List<Car> cars = crossroad.getCars();
         ObservableList<Node> children = getChildren();
 
         // in case of perfomance issues, this could help:
-        // just add the last item in the vehicles list.
+        // just add the last item in the cars list.
         // maybe add a counter
-        // Vehicle vehicle0 = vehicles.get(vehicles.size()-1);
+        // Car vehicle0 = cars.get(cars.size()-1);
 
         for(Node node : children) {
             if(node instanceof VehiclePresenter) {
                 VehiclePresenter vehiclePresenter = (VehiclePresenter) node;
-                vehicles.remove(vehiclePresenter.getVehicle());        // remove controllers from vehicles which are already in the list
+                cars.remove(vehiclePresenter.getVehicle());        // remove controllers from cars which are already in the list
             }
         }
 
-        for (Vehicle vehicle : vehicles) {
-            children.add(new VehiclePresenter(vehicle, referencePoint));
+        for (Car car : cars) {
+            final VehiclePresenter presenter = new VehiclePresenter(car, referencePoint);
+            car.addObserver(presenter);
+            children.add(presenter);
         }
     }
 }

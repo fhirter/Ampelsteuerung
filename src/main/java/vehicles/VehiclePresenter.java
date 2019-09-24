@@ -1,17 +1,13 @@
 package vehicles;
 
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
-import org.w3c.dom.css.Rect;
 import util.Observer;
 import util.Position;
-
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class VehiclePresenter extends StackPane implements Observer {
     private final Point2D referencePoint;
@@ -25,8 +21,6 @@ public class VehiclePresenter extends StackPane implements Observer {
         this.referencePoint = referencePoint;
 
         initPosition();
-
-        vehicle.addObserver(this);
 
         ImageView image = new ImageView("/images/car.png");
         Rectangle rect = new Rectangle(position.getX(), position.getY(), vehicle.getLength(), vehicle.getWidth());
