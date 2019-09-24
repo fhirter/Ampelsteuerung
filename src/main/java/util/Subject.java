@@ -3,10 +3,9 @@ package util;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Observable {
+public abstract class Subject {
 
     List<Observer> oberservers = new LinkedList<>();
-
 
     public void addObserver(Observer observer) {
         oberservers.add(observer);
@@ -17,5 +16,4 @@ public abstract class Observable {
             i.update();
         }
     }
-
 }

@@ -1,15 +1,19 @@
 package traffic_lights;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import util.Observer;
 import util.Position;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,17 +24,17 @@ import java.util.Map;
  * @author Schweizer Patrick
  */
 
-public class TrafficLightController extends AnchorPane implements Observer {
+public class TrafficLightPresenter extends AnchorPane implements Observer {
     @FXML private Circle redTrafficLight;
     @FXML private Circle yellowTrafficLight;
     @FXML private Circle greenTrafficLight;
     @FXML private Group symbolPedestrian;
     @FXML private Group groupScaleFactor;
 
-    private final TrafficLight trafficLight;
+    private final TrafficLightInterface trafficLight;
     private final Map<TrafficLightState, Paint[]> stateColorMap  = new HashMap<>();
 
-    public TrafficLightController(TrafficLight trafficLight, Point2D refTrafficLights, Position position) throws IOException {
+    public TrafficLightPresenter(TrafficLightInterface trafficLight, Point2D refTrafficLights, Position position) throws IOException {
         this.trafficLight = trafficLight;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/trafficLightView.fxml"));
@@ -49,6 +53,7 @@ public class TrafficLightController extends AnchorPane implements Observer {
         initStateColorMap();
 
         changeColor(trafficLight.getState());
+
     }
 
     @Override

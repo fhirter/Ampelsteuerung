@@ -5,7 +5,7 @@ import traffic_lights.TrafficLight;
 import traffic_lights.TrafficLightState;
 import util.Area;
 import util.Direction;
-import util.Observable;
+import util.Subject;
 import util.Position;
 
 /**
@@ -15,7 +15,7 @@ import util.Position;
  * @autor Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  * @since  14.11.2018
  */
-public class Road extends Observable {
+public class Road extends Subject {
     private final TrafficLight trafficLight;
     private final Area stopArea;
 

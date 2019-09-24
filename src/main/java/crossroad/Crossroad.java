@@ -4,19 +4,19 @@ import javafx.geometry.Point2D;
 import traffic_lights.TrafficLightState;
 import util.Area;
 import util.Direction;
-import util.Observable;
+import util.Subject;
 import util.Position;
-import vehicles.Vehicle;
+import vehicles.Car;
 
 import java.util.*;
 
 /**
- * Crossroad Class. Holds 4 roads and any number of vehicles. Provides information if vehicles may change direction or should stop.
+ * Crossroad Class. Holds 4 roads and any number of cars. Provides information if cars may change direction or should stop.
  *
  *
  * @author Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  */
-public class Crossroad extends Observable {
+public class Crossroad extends Subject {
 
 
     private final int roadWidth = 250;
@@ -26,22 +26,22 @@ public class Crossroad extends Observable {
     private final Map<Direction, Position> roadDirectionPositionMap = new HashMap<>();
 
     private Map<Direction, Road> roads = new HashMap<>();
-    private List<Vehicle> vehicles = new LinkedList<>();
+    private List<Car> cars = new LinkedList<>();
 
     public Crossroad() {
         initializeDirectionPositionMap();
         generateRoads();
     }
 
-    public void addVehicle(Vehicle vehicle) {
-        vehicles.add(vehicle);
-        vehicle.setCrossroad(this);
+    public void addVehicle(Car car) {
+        cars.add(car);
+        car.setCrossroad(this);
         notifyObservers();
     }
 
-    public List<Vehicle> getVehicles() {
-        LinkedList<Vehicle> vehicles = new LinkedList<>(this.vehicles);
-        return vehicles;
+    public List<Car> getCars() {
+        LinkedList<Car> cars = new LinkedList<>(this.cars);
+        return cars;
     }
 
     public Road getRoad(Direction direction) {
@@ -84,8 +84,8 @@ public class Crossroad extends Observable {
     
 
     public void calculatePositions(Double secondsElapsedCapped) {
-        for (int i = 0; i < vehicles.size(); i++) {
-            vehicles.get(i).drive(secondsElapsedCapped);
+        for (int i = 0; i < cars.size(); i++) {
+            cars.get(i).drive(secondsElapsedCapped);
         }
     }
 

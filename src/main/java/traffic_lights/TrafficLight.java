@@ -1,7 +1,7 @@
 package traffic_lights;
 
 import javafx.application.Platform;
-import util.Observable;
+import util.Subject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.TimerTask;
  * @autor Schweizer Patrick, Hirter Fabian
  */
 
-public class TrafficLight extends Observable implements TrafficLightInterface {
+public class TrafficLight extends Subject implements TrafficLightInterface {
     private TrafficLightState currentState, nextState, endState;
     private Timer stateChangeTimer;
     private Map<TrafficLightState, TrafficLightState> nextStateMap = new HashMap<>();
