@@ -1,9 +1,17 @@
 package vehicles;
 
-import util.Direction;
-import util.Position;
+import crossroad.Context;
+import util.*;
 
-public interface Vehicle {
+/**
+ *
+ *
+ *  @autor  Hirter Fabian
+ *
+ */
+public interface Vehicle extends Observable {
+    void setSpeed(int speed);
+
     Position getPosition();
 
     void setStart(Direction start);
@@ -15,5 +23,6 @@ public interface Vehicle {
     void drive(Double secondsElapsedCapped);
     void driveStraight();
 
-    Position getStartPosition();
+    void setContext(Context context);
+
 }

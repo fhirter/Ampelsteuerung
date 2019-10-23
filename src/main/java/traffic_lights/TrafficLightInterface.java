@@ -1,6 +1,8 @@
 package traffic_lights;
 
-public interface TrafficLightInterface {
+import util.Observable;
+
+public interface TrafficLightInterface extends Observable {
     TrafficLightState getState();
     void setState(TrafficLightState state);
 }

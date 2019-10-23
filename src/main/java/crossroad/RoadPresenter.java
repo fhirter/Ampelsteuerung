@@ -24,11 +24,8 @@ import java.io.IOException;
  */
 
 public class RoadPresenter extends Group implements Observer {
-    private final Point2D refTrafficLights = new Point2D(0, 0);
     private final Point2D referencePoint;
-    @FXML private Group bicycleLane;
-    @FXML private Line pedestrianStripes;
-    @FXML private Group drivewayRoute;
+
     @FXML private Rectangle stopLine;
 
     private final Road road;
@@ -58,7 +55,7 @@ public class RoadPresenter extends Group implements Observer {
 
         // Traffic Light
         TrafficLight trafficLight = road.getTrafficLight();
-        trafficLightPresenter = new TrafficLightPresenter(trafficLight, refTrafficLights, new Position(130, 145, 90));
+        trafficLightPresenter = new TrafficLightPresenter(trafficLight, new Position(0, 0, 270));
 
         trafficLightPresenter.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
@@ -78,10 +75,9 @@ public class RoadPresenter extends Group implements Observer {
 
         final int height = stopArea.getHeight();
         final int width = stopArea.getWidth();
-        final Point2D offset = new Point2D(425,125);
 
-        stopLine.setLayoutX(stopArea.getCenter().getX()-width/2 + offset.getX());
-        stopLine.setLayoutY(stopArea.getCenter().getY()-height/2 + offset.getY());
+        stopLine.setLayoutX(stopArea.getCenter().getX()-width/2);
+        stopLine.setLayoutY(stopArea.getCenter().getY()-height/2);
 
         stopLine.setHeight(height);
         stopLine.setWidth(width);
@@ -90,10 +86,6 @@ public class RoadPresenter extends Group implements Observer {
 
     @Override
     public void update() {
-        if (road.isVisible() == true) {
-            drivewayRoute.setVisible(true);
-        } else {
-            drivewayRoute.setVisible(false);
-        }
+
     }
 }

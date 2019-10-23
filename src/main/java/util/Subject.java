@@ -3,16 +3,18 @@ package util;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Subject {
+public abstract class Subject implements Observable {
 
-    List<Observer> oberservers = new LinkedList<>();
+    private List<Observer> observers = new LinkedList<>();
 
+    @Override
     public void addObserver(Observer observer) {
-        oberservers.add(observer);
+        observers.add(observer);
     }
 
-    protected void notifyObservers() {
-        for (Observer i : oberservers) {
+    @Override
+    public void notifyObservers() {
+        for (Observer i : observers) {
             i.update();
         }
     }

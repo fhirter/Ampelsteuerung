@@ -22,11 +22,11 @@
         <Rectangle fx:id="stopLine" styleClass="stopLine" />
     </Group>
 
-    <Line fx:id="hasPedestrianStripes" styleClass="crosswalk" endY="150.0" layoutX="230.0" layoutY="50" />
+    <Line styleClass="crosswalk" endY="150.0" layoutX="60.0" layoutY="50" />
 
     <Group  fx:id="hasBicycleLane">
-        <Line styleClass="bicycleLane" endX="160.0" layoutY="70" />
-        <Line  styleClass="bicycleLane" endX="160.0" layoutY="180" />
+        <Line styleClass="bicycleLane" layoutY="70" endX="300.0"  />
+        <Line  styleClass="bicycleLane" layoutY="180" endX="300.0"  />
     </Group>
 
 </fx:root>
