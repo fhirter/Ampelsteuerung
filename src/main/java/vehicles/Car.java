@@ -24,8 +24,7 @@ public class Car extends Subject implements Vehicle {
     private Position position;
     private Road currentRoad;
     private int speed = 100;  // pixels/second
-    private int steeringAngle = 0;  // degree
-    private Double step;
+
     private Point2D pivot;
     private Map<Direction, Map<Direction, TurningDirection>> signMap;
 
@@ -90,55 +89,46 @@ public class Car extends Subject implements Vehicle {
 
     @Override
     public void drive(Double secondsElapsedCapped) {
-
-        if(context.canIDrive(position, currentRoad)) {
-            step = secondsElapsedCapped * speed;  // [s*px/s] = [px]
-        } else {
-            step = 0.0;
-            return;
-        }
-
         if (currentDirection == destination) {
-            driveStraight();
+            driveStraight(secondsElapsedCapped);
         } else if (context.canITurn(position)) {
-            turn();
+            turn(secondsElapsedCapped);
         } else {
-            driveStraight();
+            driveStraight(secondsElapsedCapped);
         }
 
         notifyObservers();
     }
 
-    public void driveStraight() {
-        double forward = step;
+    private double getStep(Double secondsElapsedCapped) {
+        if(context.canIDrive(position, currentRoad)) {
+            return secondsElapsedCapped * speed;  // [s*px/s] = [px]
+        } else {
+            return 0.0;
+        }
+    }
 
+    public void driveStraight(Double secondsElapsedCapped) {
+        double step = getStep(secondsElapsedCapped);
         double angle = currentDirection.getAngle();
-
         int sin = getSin(angle);
         int cos = getCos(angle);
 
-        position = position.add(cos*forward,sin*forward,0);
+        position = position.add(cos* step,sin* step,0);
     }
 
     /**
-     *
      * http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
-     *
      *
      * @autor Hirter Fabian
      */
-    public void turn() {
+    public void turn(Double secondsElapsedCapped) {
         TurningDirection turningDirection = getTurningDirection();
+        int steeringAngle = getSteeringAngle(turningDirection);
+        double step = getStep(secondsElapsedCapped);
 
-        if(turningDirection == TurningDirection.LEFT) {
-            steeringAngle = 55;  // degree
-        }
-        if(turningDirection == TurningDirection.RIGHT) {
-            steeringAngle = 90;
-        }
-
-        double radius = wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
-        double dphi = Math.toDegrees(turningDirection.getSign() * step / radius); // [px/px]
+        double radius = getRadius(steeringAngle);
+        double dphi = getDeltaPhi(turningDirection, radius, step);
 
         if (pivot == null) {
             pivot = calculatePivot(radius, turningDirection);
@@ -147,17 +137,40 @@ public class Car extends Subject implements Vehicle {
         position = position.rotate(dphi, pivot);
 
         double destinationAngle = destination.getAngle();
-        double eta = 1.0;
 
         // turn completed
-        if (destinationAngle + eta > position.getAngle() && destinationAngle - eta < position.getAngle()) {
+        double eta = 1.0;
+        if (isTurnCompleted(destinationAngle, eta)) {
             currentDirection = destination;
             currentRoad = context.getRoad(destination);
             pivot = null;
         }
     }
 
+    private boolean isTurnCompleted(double destinationAngle, double eta) {
+        return destinationAngle + eta > position.getAngle() && destinationAngle - eta < position.getAngle();
+    }
+
+    private double getDeltaPhi(TurningDirection turningDirection, double radius, double step) {
+        return Math.toDegrees(turningDirection.getSign() * step / radius);
+    }
+
+    private double getRadius(int steeringAngle) {
+        return wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
+    }
+
+    private int getSteeringAngle(TurningDirection turningDirection) {
+        if(turningDirection == TurningDirection.LEFT) {
+            return 55;  // degree
+        }
+        if(turningDirection == TurningDirection.RIGHT) {
+            return 90;
+        }
+        return 0;
+    }
+
     private Position getStartPosition(double angle) {
+        // todo: remove magic numbers
         int sideOffset = width/2+7;
         int lengthOffset = 400;
 
@@ -186,28 +199,20 @@ public class Car extends Subject implements Vehicle {
 
         switch (currentDirection) {
             case EAST:
-                return new Point2D(position.getX()-wheelbase/2, position.getY() - sign*radius);
+                return new Point2D(position.getX()-wheelbase/2.0, position.getY() - sign*radius);
             case NORTH:
-                return new Point2D(position.getX() - sign*radius, position.getY()+wheelbase/2);
+                return new Point2D(position.getX() - sign*radius, position.getY()+wheelbase/2.0);
             case WEST:
-                return new Point2D(position.getX()+wheelbase/2, position.getY() + sign*radius);
+                return new Point2D(position.getX()+wheelbase/2.0, position.getY() + sign*radius);
             case SOUTH:
-                return new Point2D(position.getX() + sign*radius, position.getY()-wheelbase/2);
+                return new Point2D(position.getX() + sign*radius, position.getY()-wheelbase/2.0);
         }
         return null;
     }
 
 
     private TurningDirection getTurningDirection() {
-        double currentAngle = currentDirection.getAngle();
-        double destinationAngle = destination.getAngle();
-
         return   signMap.get(currentDirection).get(destination);
-
-//        if(currentAngle > destinationAngle) {
-//           // return 1;
-//        }
-
     }
 
     private void initSignMap() {

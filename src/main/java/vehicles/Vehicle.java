@@ -21,7 +21,7 @@ public interface Vehicle extends Observable {
     int getWidth();
 
     void drive(Double secondsElapsedCapped);
-    void driveStraight();
+    void driveStraight(Double secondsElapsedCapped);
 
     void setContext(Context context);
 

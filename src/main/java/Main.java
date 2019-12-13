@@ -26,7 +26,7 @@ public class Main extends Application {
         final CrossroadPresenter crossroadPresenter = new CrossroadPresenter(crossroad);
 
 //        crossroad.addVehicle(new Car(Direction.EAST, Direction.NORTH));
- //       crossroad.addVehicle(new Car(Direction.WEST, Direction.SOUTH));
+//        crossroad.addVehicle(new Car(Direction.WEST, Direction.SOUTH));
 //        crossroad.addVehicle(new Car(Direction.WEST, Direction.NORTH));
 //        crossroad.addVehicle(new Car(Direction.WEST, Direction.SOUTH));
 

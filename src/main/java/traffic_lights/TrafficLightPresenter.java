@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  *
  *
- * @author Schweizer Patrick
+ * @author Schweizer Patrick, Fabian Hirter
  */
 
 public class TrafficLightPresenter extends AnchorPane implements Observer {
