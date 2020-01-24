@@ -46,7 +46,12 @@ public class VehiclePresenter extends StackPane implements Observer {
         setLayoutX(position.getX());
         setLayoutY(position.getY());
 
-        rotate.setAngle(position.getAngle());
+        if(rotate == null) {
+            rotate = new Rotate(position.getAngle());
+            getTransforms().add(rotate);
+        } else {
+            rotate.setAngle(position.getAngle()+180);       //
+        }
 
     }
 

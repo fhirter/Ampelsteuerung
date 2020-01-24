@@ -1,6 +1,6 @@
 package vehicles;
 
-import crossroad.Crossroad;
+import crossroad.Context;
 import crossroad.Road;
 import javafx.geometry.Point2D;
 import util.Direction;
@@ -14,25 +14,19 @@ import static util.Direction.*;
 
 public class Car extends Subject implements Vehicle {
     private final Map<Direction, Position> startPoints = new HashMap<>();
-    private Crossroad crossroad;
-
+    private final int wheelbase = 70;
+    private final int length = 80;
+    private final int width = 40;
+    private Context context;
     private Direction start;
     private Direction destination;
     private Direction currentDirection;
-
     private Position position;
     private Road currentRoad;
-
-    private Double lateral = 0.0;
-    private Double forward = 0.0;
     private int speed = 100;  // pixels/second
-    private int wheelbase = 70;
-    private int steeringAngle = 0;  // degree
-    private Double step;
-    private int length = 80;
-    private int width = 40;
+
     private Point2D pivot;
-    private Map<Direction, Map<Direction, Integer>> signMap;
+    private Map<Direction, Map<Direction, TurningDirection>> signMap;
 
     public Car(Direction start, Direction destination) {
         initSignMap();
@@ -43,25 +37,19 @@ public class Car extends Subject implements Vehicle {
         System.out.println("start:" + start + ", destination: " + destination);
     }
 
-    private void initPosition() {
-        currentRoad = crossroad.getRoad(start);
 
-        startPoints.put(WEST, new Position(-400, 10, 0));
-        startPoints.put(NORTH, new Position(-10, -400, 90));
-        startPoints.put(EAST, new Position(400, -10, 180));
-        startPoints.put(SOUTH, new Position(10, 400, 270));
+    @Override
+    public void setContext(Context context) {
+        this.context = context;
+        currentRoad = context.getRoad(start);
 
         currentDirection = start.getOpposite();
 
-        position = new Position(startPoints.get(start));
+        position = getStartPosition(currentDirection.getAngle());
+
     }
 
-    public void setCrossroad(Crossroad crossroad) {
-        this.crossroad = crossroad;
-
-        initPosition();
-    }
-
+    @Override
     public void setSpeed(int speed) {
         if(speed > 0) {
             this.speed = speed;
@@ -101,100 +89,104 @@ public class Car extends Subject implements Vehicle {
 
     @Override
     public void drive(Double secondsElapsedCapped) {
-
-        if(crossroad.canIDrive(position, currentRoad)) {
-            step = secondsElapsedCapped * speed;  // [s*px/s] = [px]
-        } else {
-            step = 0.0;
-            return;
-        }
-
         if (currentDirection == destination) {
-            driveStraight();
-        } else if (crossroad.canITurn(position)) {
-            turn();
+            driveStraight(secondsElapsedCapped);
+        } else if (context.canITurn(position)) {
+            turn(secondsElapsedCapped);
         } else {
-            driveStraight();
+            driveStraight(secondsElapsedCapped);
         }
 
         notifyObservers();
     }
 
-    @Override
-    public void driveStraight() {
-        forward = step;
-        lateral = 0.0;
-        mapDirection();
-    }
-
-//    public Direction getRandomDirection() {
-//        int rndNumber = 0;
-//        Random random = new Random();
-//        rndNumber = random.nextInt(values().length);
-//        return values()[rndNumber];
-//    }
-
-
-    public Position getStartPosition() {
-        return startPoints.get(start);
-    }
-
-
-    private void mapDirection() {
-        switch (currentDirection) {
-            case SOUTH:
-                position = position.add(-lateral, forward, 0);
-                break;
-            case NORTH:
-                position = position.add(lateral, -forward, 0);
-                break;
-            case EAST:
-                position = position.add(forward, lateral, 0);
-                break;
-            case WEST:
-                position = position.add(-forward, -lateral, 0);
-                break;
+    private double getStep(Double secondsElapsedCapped) {
+        if(context.canIDrive(position, currentRoad)) {
+            return secondsElapsedCapped * speed;  // [s*px/s] = [px]
+        } else {
+            return 0.0;
         }
+    }
+
+    public void driveStraight(Double secondsElapsedCapped) {
+        double step = getStep(secondsElapsedCapped);
+        double angle = currentDirection.getAngle();
+        int sin = getSin(angle);
+        int cos = getCos(angle);
+
+        position = position.add(cos* step,sin* step,0);
     }
 
     /**
-     *
      * http://www.asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html
-     *
      *
      * @autor Hirter Fabian
      */
-    public void turn() {
-        int sign = getSign();
+    public void turn(Double secondsElapsedCapped) {
+        TurningDirection turningDirection = getTurningDirection();
+        int steeringAngle = getSteeringAngle(turningDirection);
+        double step = getStep(secondsElapsedCapped);
 
-        if(sign == -1) {
-            steeringAngle = 45;  // degree
-        }
-        if(sign == 1) {
-            steeringAngle = 60;
-        }
-
-        double radius = wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
-        double dphi = Math.toDegrees(sign * step / radius); // [px/px]
+        double radius = getRadius(steeringAngle);
+        double dphi = getDeltaPhi(turningDirection, radius, step);
 
         if (pivot == null) {
-            pivot = calculatePivot(radius, sign);
+            pivot = calculatePivot(radius, turningDirection);
         }
 
         position = position.rotate(dphi, pivot);
 
         double destinationAngle = destination.getAngle();
-        double eta = 1.0;
 
         // turn completed
-        if (destinationAngle + eta > position.getAngle() && destinationAngle - eta < position.getAngle()) {
+        double eta = 1.0;
+        if (isTurnCompleted(destinationAngle, eta)) {
             currentDirection = destination;
-            currentRoad = crossroad.getRoad(destination);
+            currentRoad = context.getRoad(destination);
             pivot = null;
         }
     }
 
+    private boolean isTurnCompleted(double destinationAngle, double eta) {
+        return destinationAngle + eta > position.getAngle() && destinationAngle - eta < position.getAngle();
+    }
 
+    private double getDeltaPhi(TurningDirection turningDirection, double radius, double step) {
+        return Math.toDegrees(turningDirection.getSign() * step / radius);
+    }
+
+    private double getRadius(int steeringAngle) {
+        return wheelbase / (Math.sin(Math.toRadians(steeringAngle)));
+    }
+
+    private int getSteeringAngle(TurningDirection turningDirection) {
+        if(turningDirection == TurningDirection.LEFT) {
+            return 55;  // degree
+        }
+        if(turningDirection == TurningDirection.RIGHT) {
+            return 90;
+        }
+        return 0;
+    }
+
+    private Position getStartPosition(double angle) {
+        // todo: remove magic numbers
+        int sideOffset = width/2+7;
+        int lengthOffset = 400;
+
+        int sin = getSin(angle);
+        int cos = getCos(angle);
+
+        return new Position(-cos*lengthOffset + -sin*sideOffset,-sin*lengthOffset + cos*sideOffset, angle);
+    }
+
+    private int getCos(double angle) {
+        return (int) Math.cos(2 * Math.PI * angle / 360);
+    }
+
+    private int getSin(double angle) {
+        return (int) Math.sin(2 * Math.PI * angle / 360);
+    }
 
     /**
      *
@@ -202,34 +194,51 @@ public class Car extends Subject implements Vehicle {
      *
      * @param radius radius of rotation
      */
-    private Point2D calculatePivot(double radius, int sign) {
+    private Point2D calculatePivot(double radius, TurningDirection turningDirection) {
+        int sign = turningDirection.getSign();
+
         switch (currentDirection) {
-            case SOUTH:
-                return new Point2D(position.getX() - sign*radius, position.getY());
             case EAST:
-                return new Point2D(position.getX(), position.getY() + sign*radius);
-            case WEST:
-                return new Point2D(position.getX(), position.getY() - sign*radius);
+                return new Point2D(position.getX()-wheelbase/2.0, position.getY() - sign*radius);
             case NORTH:
-                return new Point2D(position.getX() + sign*radius, position.getY());
+                return new Point2D(position.getX() - sign*radius, position.getY()+wheelbase/2.0);
+            case WEST:
+                return new Point2D(position.getX()+wheelbase/2.0, position.getY() + sign*radius);
+            case SOUTH:
+                return new Point2D(position.getX() + sign*radius, position.getY()-wheelbase/2.0);
         }
         return null;
     }
 
 
-    private int getSign() {
-        Integer integer = signMap.get(currentDirection).get(destination);
-        return integer;
+    private TurningDirection getTurningDirection() {
+        return   signMap.get(currentDirection).get(destination);
     }
 
     private void initSignMap() {
         signMap = new HashMap<>();
 
-        signMap.put(SOUTH,new HashMap<>() {{put(WEST,1);put(EAST,-1);}});
-        signMap.put(EAST,new HashMap<>() {{put(SOUTH,1);put(NORTH,-1);}});
-        signMap.put(WEST,new HashMap<>() {{put(NORTH,1);put(SOUTH,-1);}});
-        signMap.put(NORTH,new HashMap<>() {{put(EAST,1);put(WEST,-1);}});
+        signMap.put(SOUTH,new HashMap<>() {{put(WEST, TurningDirection.LEFT);put(EAST,TurningDirection.RIGHT);}});
+        signMap.put(EAST,new HashMap<>() {{put(SOUTH,TurningDirection.LEFT);put(NORTH,TurningDirection.RIGHT);}});
+        signMap.put(WEST,new HashMap<>() {{put(NORTH,TurningDirection.LEFT);put(SOUTH,TurningDirection.RIGHT);}});
+        signMap.put(NORTH,new HashMap<>() {{put(EAST,TurningDirection.LEFT);put(WEST,TurningDirection.RIGHT);}});
     }
 
+    public enum TurningDirection {
+        LEFT, RIGHT;
+
+        public int getSign() {
+            return sign;
+        }
+
+        private int sign;
+
+        static {
+            RIGHT.sign = 1;
+            LEFT.sign = -1;
+        }
+
+
+    }
 
 }

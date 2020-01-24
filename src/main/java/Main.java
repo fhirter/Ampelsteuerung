@@ -25,13 +25,21 @@ public class Main extends Application {
         final Crossroad crossroad = new Crossroad();
         final CrossroadPresenter crossroadPresenter = new CrossroadPresenter(crossroad);
 
-        Car car1 = new Car(Direction.EAST, Direction.WEST);
-        Car car2 = new Car(Direction.NORTH, Direction.WEST);
-        Car car3 = new Car(Direction.SOUTH, Direction.WEST);
+//        crossroad.addVehicle(new Car(Direction.EAST, Direction.NORTH));
+//        crossroad.addVehicle(new Car(Direction.WEST, Direction.SOUTH));
+//        crossroad.addVehicle(new Car(Direction.WEST, Direction.NORTH));
+//        crossroad.addVehicle(new Car(Direction.WEST, Direction.SOUTH));
 
+
+        Car car1 = new Car(Direction.EAST, Direction.WEST);
+        Car car2 = new Car(Direction.WEST, Direction.EAST);
+        Car car3 = new Car(Direction.SOUTH, Direction.NORTH);
+        Car car4 = new Car(Direction.NORTH, Direction.SOUTH);
+//
         crossroad.addVehicle(car1);
         crossroad.addVehicle(car2);
         crossroad.addVehicle(car3);
+        crossroad.addVehicle(car4);
 
         final Scene scene = new Scene(crossroadPresenter, 1100, 900);
         scene.getStylesheets().add("style.css");

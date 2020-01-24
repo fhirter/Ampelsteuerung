@@ -23,8 +23,6 @@ import util.Area;
 import util.Direction;
 import util.Observer;
 
-import util.Subject;
-import vehicles.Car;
 import vehicles.Vehicle;
 import vehicles.VehiclePresenter;
 
@@ -70,7 +68,7 @@ public class CrossroadPresenter extends BorderPane implements Observer {
         this.crossroad = crossroad;
         crossroad.addObserver(this);
 
-        initializeRoadControllers();
+        initializeRoadPresenters();
 
         loadPrimaryStage();
         loadCenter();
@@ -136,15 +134,11 @@ public class CrossroadPresenter extends BorderPane implements Observer {
         center.setLayoutY(referencePoint.getY() + offset.getY());
     }
 
-    private void initializeRoadControllers() throws IOException {
-        Direction[] directions = Direction.values();
-        Direction direction;
-        for (int i = 0; i < directions.length; i++) {
-            direction = directions[i];
-            Road road = crossroad.getRoad(direction);
+    private void initializeRoadPresenters() throws IOException {
+        Map<Direction,Road> roads = crossroad.getRoads();
 
+        for(Road road : roads.values()) {
             RoadPresenter roadPresenter = new RoadPresenter(road, referencePoint);
-
             roadPresenters.add(roadPresenter);
             getChildren().add(roadPresenter);      // add to GUI
         }
@@ -192,6 +186,7 @@ public class CrossroadPresenter extends BorderPane implements Observer {
             }
         };
 
+        // todo: add handler to traffic light
         north_red.setOnAction(handler);
         north_green.setOnAction(handler);
         west_red.setOnAction(handler);
@@ -214,7 +209,7 @@ public class CrossroadPresenter extends BorderPane implements Observer {
     @Override
     public void update() {
         // called when new vehicle is added
-        List<Car> cars = crossroad.getCars();
+        List<Vehicle> vehicles = crossroad.getVehicles();
         ObservableList<Node> children = getChildren();
 
         // in case of perfomance issues, this could help:
@@ -225,13 +220,13 @@ public class CrossroadPresenter extends BorderPane implements Observer {
         for(Node node : children) {
             if(node instanceof VehiclePresenter) {
                 VehiclePresenter vehiclePresenter = (VehiclePresenter) node;
-                cars.remove(vehiclePresenter.getVehicle());        // remove controllers from cars which are already in the list
+                vehicles.remove(vehiclePresenter.getVehicle());        // remove controllers from cars which are already in the list
             }
         }
 
-        for (Car car : cars) {
-            final VehiclePresenter presenter = new VehiclePresenter(car, referencePoint);
-            car.addObserver(presenter);
+        for (Vehicle vehicle : vehicles) {
+            final VehiclePresenter presenter = new VehiclePresenter(vehicle, referencePoint);
+            vehicle.addObserver(presenter);
             children.add(presenter);
         }
     }

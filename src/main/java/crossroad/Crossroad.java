@@ -6,7 +6,7 @@ import util.Area;
 import util.Direction;
 import util.Subject;
 import util.Position;
-import vehicles.Car;
+import vehicles.Vehicle;
 
 import java.util.*;
 
@@ -16,76 +16,99 @@ import java.util.*;
  *
  * @author Schweizer Patrick, Grimm Raphael, Vogt Andreas, Reiter Daniel, Hirter Fabian
  */
-public class Crossroad extends Subject {
+public class Crossroad extends Subject implements Context {
 
-
-    private final int roadWidth = 250;
-    private final int roadLength = 300;
     private final Area turningArea = new Area(180, new Point2D(0,0));
 
     private final Map<Direction, Position> roadDirectionPositionMap = new HashMap<>();
 
     private Map<Direction, Road> roads = new HashMap<>();
-    private List<Car> cars = new LinkedList<>();
+    private List<Vehicle> vehicles = new LinkedList<>();
 
     public Crossroad() {
-        initializeDirectionPositionMap();
         generateRoads();
     }
 
-    public void addVehicle(Car car) {
-        cars.add(car);
-        car.setCrossroad(this);
+    @Override
+    public void addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle);
+        vehicle.setContext(this);
         notifyObservers();
     }
 
-    public List<Car> getCars() {
-        LinkedList<Car> cars = new LinkedList<>(this.cars);
-        return cars;
+    @Override
+    public List<Vehicle> getVehicles() {
+        return new LinkedList<>(this.vehicles);
     }
 
     public Road getRoad(Direction direction) {
         return roads.get(direction);
     }
 
+    public Map<Direction,Road> getRoads() {
+        return new HashMap<>(roads);
+    }
+
     void setTrafficLightState(Direction direction, TrafficLightState state) {
         roads.get(direction).getTrafficLight().setState(state);
     }
 
-    private void initializeDirectionPositionMap() {
-        roadDirectionPositionMap.put(Direction.WEST, new Position(-roadLength - roadWidth/2, -roadWidth/2, 0));
-        roadDirectionPositionMap.put(Direction.NORTH, new Position(roadWidth/2, -roadLength - roadWidth/2, 90));
-        roadDirectionPositionMap.put(Direction.EAST, new Position(roadLength + roadWidth/2, roadWidth/2, 180));
-        roadDirectionPositionMap.put(Direction.SOUTH, new Position(-roadWidth/2, roadLength + roadWidth/2, 270));
-    }
-
+    @Override
     public boolean canITurn(Position position) {
         return turningArea.isInside(position);
     }
 
+    @Override
     public boolean canIDrive(Position position, Road currentRoad) {
-        double angle = currentRoad.getPosition().getAngle();
-        Position relativePosition = position.rotate(-1*angle, new Point2D(0,0));
+        double roadOrientation = currentRoad.getPosition().getAngle();
+
+        Position relativePosition = new Position(position.subtract(currentRoad.getPosition()),0);
+
+        relativePosition = relativePosition.rotate(-1*roadOrientation, new Point2D(0,0));
         return currentRoad.canIDrive(relativePosition);
     }
 
-
+    @Override
     public Area getTurningArea() {
         return turningArea;
     }
 
-    private void generateRoads() {
-        Direction[] directions = Direction.values();
-        for (int i = 0; i < directions.length; i++) {
-            Road road = new Road(directions[i], roadDirectionPositionMap.get(directions[i]));
-            roads.put(directions[i], road);
+    @Override
+    public void calculatePositions(Double secondsElapsedCapped) {
+        for (int i = 0; i < vehicles.size(); i++) {
+            vehicles.get(i).drive(secondsElapsedCapped);
         }
     }
-    
 
-    public void calculatePositions(Double secondsElapsedCapped) {
-        for (int i = 0; i < cars.size(); i++) {
-            cars.get(i).drive(secondsElapsedCapped);
+    private Position getRoadPosition(Direction direction, int width, int length) {
+        //direction
+        // East 0
+        // South 90
+        // West 180
+        // North 270
+
+        int angle = (int) direction.getAngle();
+
+        int signY = (int) Math.round(-1*(Math.cos(2*Math.PI*(angle+90)/360) + Math.sin(2*Math.PI*(angle+90)/360)));      // -1,+1,+1,-1
+        int signX = (int) (-Math.round(-1*(Math.cos(2*Math.PI*(angle)/360) + Math.sin(2*Math.PI*(angle)/360))));      // -1,-1,+1,+1
+
+        return new Position(signX*width/2, signY*width/2, angle);
+    }
+
+    private void generateRoads() {
+        //todo get effective road size
+        int roadWidth = 250;
+        int roadLength = 300;
+
+        Direction[] directions = Direction.values();
+        for (int i = 0; i < directions.length; i++) {
+            Direction direction = directions[i];
+            if(direction == direction) {
+                Position position = getRoadPosition(direction, roadWidth, roadLength);
+                Road road = new Road(directions[i], position);
+
+                roads.put(directions[i], road);
+            }
         }
     }
 

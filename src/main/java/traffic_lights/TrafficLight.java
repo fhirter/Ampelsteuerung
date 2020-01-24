@@ -61,22 +61,21 @@ public class TrafficLight extends Subject implements TrafficLightInterface {
             nextState = nextStateMap.get(currentState);
 
             stateChangeTimer.schedule(new TimerTask() {
-                                          @Override
-                                          public void run() {
-                                              Platform.runLater(new Runnable() {
-                                                  @Override
-                                                  public void run() {
-                                                      currentState = nextState;
-                                                      notifyObservers();
+                @Override
+                public void run() {
+                  Platform.runLater(new Runnable() {
+                      @Override
+                      public void run() {
+                          currentState = nextState;
+                          notifyObservers();
 
-                                                      if (nextState != endState) {                // final state not yet reached so schedule again
-                                                          scheduleStateChangeTimer();
-                                                      }
-                                                  }
-                                              });
-                                          }
-                                      },
-                    delay
+                          if (nextState != endState) {                // final state not yet reached so schedule again
+                              scheduleStateChangeTimer();
+                          }
+                      }
+                  });
+                }
+                }, delay
             );
         }
     }

@@ -21,20 +21,19 @@ import java.util.Map;
 /**
  *
  *
- * @author Schweizer Patrick
+ * @author Schweizer Patrick, Fabian Hirter
  */
 
 public class TrafficLightPresenter extends AnchorPane implements Observer {
     @FXML private Circle redTrafficLight;
     @FXML private Circle yellowTrafficLight;
     @FXML private Circle greenTrafficLight;
-    @FXML private Group symbolPedestrian;
-    @FXML private Group groupScaleFactor;
+
 
     private final TrafficLightInterface trafficLight;
     private final Map<TrafficLightState, Paint[]> stateColorMap  = new HashMap<>();
 
-    public TrafficLightPresenter(TrafficLightInterface trafficLight, Point2D refTrafficLights, Position position) throws IOException {
+    public TrafficLightPresenter(TrafficLightInterface trafficLight, Position position) throws IOException {
         this.trafficLight = trafficLight;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/trafficLightView.fxml"));
@@ -42,8 +41,10 @@ public class TrafficLightPresenter extends AnchorPane implements Observer {
         loader.setRoot(this);
         loader.load();
 
-        setLayoutX(refTrafficLights.getX() + position.getX());
-        setLayoutY(refTrafficLights.getY() + position.getY());
+        // todo: fix traffic light position
+
+        setLayoutX(position.getX());
+        setLayoutY(position.getY());
         setRotate(position.getAngle());
 
         double scaleFactor = 0.8;

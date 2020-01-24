@@ -22,21 +22,28 @@ public class Road extends Subject {
     private final Position position;
     private final Direction direction;
 
+    private final int width = 250;
+    private final int length = 300;
+
     private boolean isVisible = true;
 
     Road(Direction direction, Position position) {
         this.position = position;
         this.direction = direction;
         trafficLight = new TrafficLight();
-        stopArea = new Area(10, 45, new Point2D(-270,27)); // relative to crossroad center
+        stopArea = new Area(10, 45, new Point2D(130,97));       // relative to roads 0,0 point (top left on eastern road)
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     Area getStopArea() {
         return stopArea;
-    }
-
-    boolean isVisible() {
-        return this.isVisible;
     }
 
     TrafficLight getTrafficLight() {

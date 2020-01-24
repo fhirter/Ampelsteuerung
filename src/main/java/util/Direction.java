@@ -3,7 +3,7 @@ package util;
 import java.util.Random;
 
 public enum Direction {
-    WEST, EAST, NORTH, SOUTH;
+    EAST, SOUTH, WEST, NORTH;
     private Direction opposite;
     private int angle;
 
@@ -15,10 +15,11 @@ public enum Direction {
     }
 
     static {
-        WEST.angle = 180;
         EAST.angle = 0;
-        NORTH.angle = 270;
-        SOUTH.angle = 90;
+        NORTH.angle = 90;
+        WEST.angle = 180;
+        SOUTH.angle = 270;
+
     }
 
     public Direction getOpposite() {
