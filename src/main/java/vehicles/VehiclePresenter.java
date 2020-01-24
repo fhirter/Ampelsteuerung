@@ -33,7 +33,7 @@ public class VehiclePresenter extends StackPane implements Observer {
 
 
     private void initPosition() {
-        position = vehicle.getStartPosition().add(referencePoint,0);
+        position = vehicle.getPosition().add(referencePoint,0);
         setLayoutX(position.getX());
         setLayoutY(position.getY());
 
