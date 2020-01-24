@@ -28,12 +28,9 @@ public class VehiclePresenter extends StackPane implements Observer {
 
         getChildren().addAll(rect,image);
 
-        setCollisionArea();
-    }
-
-    private void setCollisionArea() {
 
     }
+
 
     private void initPosition() {
         position = vehicle.getStartPosition().add(referencePoint,0);

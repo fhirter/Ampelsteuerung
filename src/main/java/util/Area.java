@@ -43,4 +43,13 @@ public class Area {
         }
         return false;
     }
+
+    public boolean overlap(Area area) {
+        Point2D upperLeft = area.center.add(-width/2, -height/2);
+        Point2D lowerLeft = area.center.add(-width/2, height/2);
+        Point2D upperRight = area.center.add(width/2, -height/2);
+        Point2D lowerRight = area.center.add(width/2, height/2);
+
+        return false;
+    }
 }
